@@ -1,0 +1,42 @@
+.container{
+    font-family: '標楷體';
+    /* font-size: 14px; */
+    /* width: 100%; */
+}
+
+td{
+    text-align: center;
+}
+
+input{
+    margin: 3px;
+    border-color: #A20055;
+}
+
+.small-input-size{
+    width: 40px;
+}
+.median-input-size{
+    width: 80px;
+}
+
+/* .house-type{
+    width: 50px;
+} */
+
+table{
+    /* width: 1420px; */
+    width: 100%;
+}
+
+/* .building-material{
+    text-align: left;
+} */
+
+.align-left{
+    text-align: left;
+}
+
+.select-menu{
+    width: 60%;
+}
