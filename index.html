@@ -34,7 +34,7 @@
                     </tr>
 
                     <tr>
-                        <td>建物所有權人或權利人姓名</td>
+                        <td>建物所有權人<br>或權利人姓名</td>
                         <td>身分證字號</td>
                         <td>房屋門牌</td>
                         <td colspan="3"><input type="text" name="" value=""></td>
@@ -72,7 +72,7 @@
 
                     <tr>
                         <td>起造證明文件</td>
-                        <td colspan="7"><input type="radio" name="build-certificate" value="">房屋稅籍證明書(稅籍編號: 123456)
+                        <td colspan="7"><input type="radio" name="build-certificate" value="">房屋稅籍證明書(稅籍編號:<input type="text">)
                         <input type="radio" name="build-certificate" value="">門牌整編證明
                         <input type="radio" name="build-certificate" value="">用電證明
                         <input type="radio" name="build-certificate" value="">用水證明
@@ -150,7 +150,7 @@
                 </tr>
 
                 <tr>
-                    <td rowspan="3">構造</td>
+                    <td rowspan="3" class="vertical-td">構造</td>
                     <td>閣樓</td>
                     <td colspan="2"><input type="radio" name="attic-1">RC造<input type="radio" name="attic-1">各級木造、鐵造</td>
                     <td colspan="2"><input type="radio" name="attic-2">RC造<input type="radio" name="attic-2">各級木造、鐵造</td>
@@ -187,7 +187,7 @@
                 </tr>
 
                 <tr>
-                    <td rowspan="6">粉裝造作</td>
+                    <td rowspan="11" class="vertical-td">粉裝造作</td>
                     <td>屋外牆粉裝</td>
                     <td colspan="2">
                         <select name="outdoor-wall-decoration-1" class="select-menu">
@@ -380,8 +380,8 @@
                 </tr>
 
                 <tr>
-                    <td rowspan="2">門窗裝置/<br>雙層門(窗)</td>
-                    <td rowspan="2">
+                    <td>門窗裝置/<br>雙層門(窗)</td>
+                    <td>
                         <select name="ceiling-decoration-1" class="select-menu">
                             <option value="">鋁門窗(一般/發色)</option>
                             <option value="">鋁窗鐵捲門</option>
@@ -389,7 +389,7 @@
                     </td>
                     <td><input type="checkbox" name="double-door-window-1">雙層門<br><input type="checkbox" name="double-door-window-1">雙層窗</td>
 
-                    <td rowspan="2">
+                    <td>
                         <select name="ceiling-decoration-2" class="select-menu">
                             <option value="">鋁門窗(一般/發色)</option>
                             <option value="">鋁窗鐵捲門</option>
@@ -397,7 +397,7 @@
                     </td>
                     <td><input type="checkbox" name="double-door-window-2">雙層門<br><input type="checkbox" name="double-door-window-2">雙層窗</td>
 
-                    <td rowspan="2">
+                    <td>
                         <select name="ceiling-decoration-3" class="select-menu">
                             <option value="">鋁門窗(一般/發色)</option>
                             <option value="">鋁窗鐵捲門</option>
@@ -405,7 +405,7 @@
                     </td>
                     <td><input type="checkbox" name="double-door-window-3">雙層門<br><input type="checkbox" name="double-door-window-3">雙層窗</td>
 
-                    <td rowspan="2">
+                    <td>
                         <select name="ceiling-decoration-4" class="select-menu">
                             <option value="">鋁門窗(一般/發色)</option>
                             <option value="">鋁窗鐵捲門</option>
@@ -414,9 +414,118 @@
                     <td><input type="checkbox" name="double-door-window-4">雙層門<br><input type="checkbox" name="double-door-window-4">雙層窗</td>
                 </tr>
 
+                <tr>
+                    <td>浴廁設備<br>含汙水設施</td>
+                    <td colspan="2">
+                        <div class="table-container">
+                            比例:<input type="checkbox" name="toilet-ratio-1">1<input type="checkbox" name="toilet-ratio-1">1/2<br>
+                            型式:<select name="type" class="select-menu">
+                                <option value="">水泥貼馬賽克</option>
+                                <option value="">瓷漆</option>
+                            </select><br>
+                            座數:<input type="radio" name="toilet-number-1">1~3座<input type="radio" name="toilet-number-1">4~6座<input type="radio" name="toilet-number-1">7座以上
+                            <button type="button">+</button>
+                        </div>
+                    </td>
+                    <td colspan="2">
+                        <div class="table-container">
+                            比例:<input type="checkbox" name="toilet-ratio-2">1<input type="checkbox" name="toilet-ratio-2">1/2<br>
+                            型式:<select name="type" class="select-menu">
+                                <option value="">水泥貼馬賽克</option>
+                                <option value="">瓷漆</option>
+                            </select><br>
+                            座數:<input type="radio" name="toilet-number-2">1~3座<input type="radio" name="toilet-number-2">4~6座<input type="radio" name="toilet-number-2">7座以上
+                            <button type="button">+</button>
+                        </div>
+                    </td>
+                    <td colspan="2">
+                        <div class="table-container">
+                            比例:<input type="checkbox" name="toilet-ratio-3">1<input type="checkbox" name="toilet-ratio-3">1/2<br>
+                            型式:<select name="type" class="select-menu">
+                                <option value="">水泥貼馬賽克</option>
+                                <option value="">瓷漆</option>
+                            </select><br>
+                            座數:<input type="radio" name="toilet-number-3">1~3座<input type="radio" name="toilet-number-3">4~6座<input type="radio" name="toilet-number-3">7座以上
+                            <button type="button">+</button>
+                        </div>
+                    </td3>
+                    <td colspan="2">
+                        <div class="table-container">
+                            比例:<input type="checkbox" name="toilet-ratio-4">1<input type="checkbox" name="toilet-ratio-4">1/2<br>
+                            型式:<select name="type" class="select-menu">
+                                <option value="">水泥貼馬賽克</option>
+                                <option value="">瓷漆</option>
+                            </select><br>
+                            座數:<input type="radio" name="toilet-number-4">1~3座<input type="radio" name="toilet-number-4">4~6座<input type="radio" name="toilet-number-4">7座以上
+                            <button type="button">+</button>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>電器設備<br>(含燈具及其<br>220V以下電源)</td>
+                    <td><input type="radio" name="Electric-type-1">露<input type="radio" name="Electric-type-1">隱</td>
+                    <td><input type="radio" name="Electric-level-1">日光<input type="radio" name="Electric-level-1">高級<input type="radio" name="Electric-level-1">豪華</td>
+
+                    <td><input type="radio" name="Electric-type-2">露<input type="radio" name="Electric-type-2">隱</td>
+                    <td><input type="radio" name="Electric-level-2">日光<input type="radio" name="Electric-level-2">高級<input type="radio" name="Electric-level-2">豪華</td>
+
+                    <td><input type="radio" name="Electric-type-3">露<input type="radio" name="Electric-type-3">隱</td>
+                    <td><input type="radio" name="Electric-level-3">日光<input type="radio" name="Electric-level-3">高級<input type="radio" name="Electric-level-3">豪華</td>
+
+                    <td><input type="radio" name="Electric-type-4">露<input type="radio" name="Electric-type-4">隱</td>
+                    <td><input type="radio" name="Electric-level-4">日光<input type="radio" name="Electric-level-4">高級<input type="radio" name="Electric-level-4">豪華</td>
+                </tr>
+
+                <tr>
+                    <td>窗或陽台設鐵柵<br>(鐵窗)</td>
+                    <td colspan="2"><input type="radio" name="window-level-1">普通<input type="radio" name="window-level-1">美術<input type="radio" name="window-level-1">豪華</td>
+                    <td colspan="2"><input type="radio" name="window-level-2">普通<input type="radio" name="window-level-2">美術<input type="radio" name="window-level-2">豪華</td>
+                    <td colspan="2"><input type="radio" name="window-level-3">普通<input type="radio" name="window-level-3">美術<input type="radio" name="window-level-3">豪華</td>
+                    <td colspan="2"><input type="radio" name="window-level-4">普通<input type="radio" name="window-level-4">美術<input type="radio" name="window-level-4">豪華</td>
+                </tr>
+
+                <tr>
+                    <td>女兒牆</td>
+                    <td colspan="2">
+                        <div class="daughter-wall-container">
+                            RC:&nbsp;&nbsp;&nbsp;<input type="checkbox" name="RC-daughter-wall-1">前<input type="checkbox" name="RC-daughter-wall-1">後<input type="checkbox" name="RC-daughter-wall-1">左<input type="checkbox" name="RC-daughter-wall-1">右<br>
+                            1B:&nbsp;&nbsp;&nbsp;<input type="checkbox" name="1B-daughter-wall-1">前<input type="checkbox" name="1B-daughter-wall-1">後<input type="checkbox" name="1B-daughter-wall-1">左<input type="checkbox" name="1B-daughter-wall-1">右<br>
+                            1/2B:&nbsp;<input type="checkbox" name="half_B-daughter-wall-1">前<input type="checkbox" name="half_B-daughter-wall-1">後<input type="checkbox" name="half_B-daughter-wall-1">左<input type="checkbox" name="half_B-daughter-wall-1">右<br>
+                        </div>
+                    </td>
+
+                    <td colspan="2">
+                        RC:&nbsp;&nbsp;&nbsp;<input type="checkbox" name="RC-daughter-wall-2">前<input type="checkbox" name="RC-daughter-wall-2">後<input type="checkbox" name="RC-daughter-wall-2">左<input type="checkbox" name="RC-daughter-wall-2">右<br>
+                        1B:&nbsp;&nbsp;&nbsp;<input type="checkbox" name="1B-daughter-wall-2">前<input type="checkbox" name="1B-daughter-wall-2">後<input type="checkbox" name="1B-daughter-wall-2">左<input type="checkbox" name="1B-daughter-wall-2">右<br>
+                        1/2B:&nbsp;<input type="checkbox" name="half_B-daughter-wall-2">前<input type="checkbox" name="half_B-daughter-wall-2">後<input type="checkbox" name="half_B-daughter-wall-2">左<input type="checkbox" name="half_B-daughter-wall-2">右<br>
+                    </td>
+
+                    <td colspan="2">
+                        RC:&nbsp;&nbsp;&nbsp;<input type="checkbox" name="RC-daughter-wall-3">前<input type="checkbox" name="RC-daughter-wall-3">後<input type="checkbox" name="RC-daughter-wall-3">左<input type="checkbox" name="RC-daughter-wall-3">右<br>
+                        1B:&nbsp;&nbsp;&nbsp;<input type="checkbox" name="1B-daughter-wall-3">前<input type="checkbox" name="1B-daughter-wall-3">後<input type="checkbox" name="1B-daughter-wall-3">左<input type="checkbox" name="1B-daughter-wall-3">右<br>
+                        1/2B:&nbsp;<input type="checkbox" name="half_B-daughter-wall-3">前<input type="checkbox" name="half_B-daughter-wall-3">後<input type="checkbox" name="half_B-daughter-wall-3">左<input type="checkbox" name="half_B-daughter-wall-3">右<br>
+                    </td>
+
+                    <td colspan="2">
+                        RC:&nbsp;&nbsp;&nbsp;<input type="checkbox" name="RC-daughter-wall-4">前<input type="checkbox" name="RC-daughter-wall-4">後<input type="checkbox" name="RC-daughter-wall-4">左<input type="checkbox" name="RC-daughter-wall-4">右<br>
+                        1B:&nbsp;&nbsp;&nbsp;<input type="checkbox" name="1B-daughter-wall-4">前<input type="checkbox" name="1B-daughter-wall-4">後<input type="checkbox" name="1B-daughter-wall-4">左<input type="checkbox" name="1B-daughter-wall-4">右<br>
+                        1/2B:&nbsp;<input type="checkbox" name="half_B-daughter-wall-4">前<input type="checkbox" name="half_B-daughter-wall-4">後<input type="checkbox" name="half_B-daughter-wall-4">左<input type="checkbox" name="half_B-daughter-wall-4">右<br>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>陽台</td>
+                    <td colspan="2"><input type="checkbox" name="balcony-1">前<input type="checkbox" name="balcony-1">後<input type="checkbox" name="balcony-1">左<input type="checkbox" name="balcony-1">右</td>
+                    <td colspan="2"><input type="checkbox" name="balcony-2">前<input type="checkbox" name="balcony-2">後<input type="checkbox" name="balcony-2">左<input type="checkbox" name="balcony-2">右</td>
+                    <td colspan="2"><input type="checkbox" name="balcony-3">前<input type="checkbox" name="balcony-3">後<input type="checkbox" name="balcony-3">左<input type="checkbox" name="balcony-3">右</td>
+                    <td colspan="2"><input type="checkbox" name="balcony-4">前<input type="checkbox" name="balcony-4">後<input type="checkbox" name="balcony-4">左<input type="checkbox" name="balcony-4">右</td>
+                </tr>
+
             </table>
 
-            <input type="submit">
+            <input type="submit" value="儲存">
+            <input type="submit" value="繼續輸入下一頁">
         </form>
     </div>
 </body>

@@ -25,8 +25,8 @@ input{
 } */
 
 table{
-    /* width: 1420px; */
-    width: 100%;
+    width: 1400px;
+    /* width: 100%; */
 }
 
 /* .building-material{
@@ -39,4 +39,22 @@ table{
 
 .select-menu{
     width: 60%;
+}
+
+.table-container,
+.daughter-wall-container{
+    margin: auto;
+    text-align: left;
+}
+
+.table-container{
+    width: 80%;
+}
+
+.daughter-wall-container{
+    width: 63%;
+}
+
+.vertical-td{
+    width: 2%;
 }
