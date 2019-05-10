@@ -16,6 +16,11 @@ input{
 .small-input-size{
     width: 40px;
 }
+
+.tiny-input-size{
+    width: 30px;
+}
+
 .median-input-size{
     width: 80px;
 }
@@ -38,7 +43,11 @@ table{
 }
 
 .select-menu{
-    width: 60%;
+    width: 50%;
+}
+
+.median-select-menu{
+    width: 80%;
 }
 
 .table-container,
