@@ -46,6 +46,10 @@ table{
     width: 50%;
 }
 
+.tiny-select-menu{
+    width: 35%;
+}
+
 .median-select-menu{
     width: 80%;
 }
