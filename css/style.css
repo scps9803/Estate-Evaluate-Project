@@ -13,16 +13,24 @@ input{
     border-color: #A20055;
 }
 
-.small-input-size{
-    width: 40px;
-}
-
 .tiny-input-size{
     width: 30px;
 }
 
+.small-input-size{
+    width: 40px;
+}
+
 .median-input-size{
     width: 80px;
+}
+
+.large-input-size{
+    width: 70%;
+}
+
+.larger-input-size{
+    width: 90%;
 }
 
 /* .house-type{

@@ -44,7 +44,7 @@
                         <td>持分比例</td>
                         <td>身分證字號</td>
                         <td>房屋門牌</td>
-                        <td colspan="3"><input type="text" name="" value=""></td>
+                        <td colspan="3"><input type="text" name="" value="" class="larger-input-size" id="houseAddress"></td>
                         <td>拆除情形</td>
                         <td><input type="radio" name="remove_condition" value="">全拆
                             <input type="radio" name="remove_condition" value="">半拆</td>
@@ -55,8 +55,8 @@
                         <td rowspan="2"><input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)"</td>
                         <td rowspan="2"><input type="text" name="" value=""></td>
                         <td>通訊住址</td>
-                        <td colspan="5"><input type="checkbox" name="" value="" >同房屋門牌
-                        <input type="text" name="" value=""></td>
+                        <td colspan="5"><input type="checkbox" id="sameAddressBox" onclick="checkSameAddressBox()">同房屋門牌
+                        <input type="text" name="" value="" class="large-input-size" id="addressText"></td>
                     </tr>
 
                     <tr>
@@ -231,9 +231,9 @@
                                 <option value="">其他木造</option>
                                 <option value="">竹編牆</option>
                             </select>
-                            <button type="button" onclick="addItemOnclick('minus-wall-','1','1')">+</button>
-                            <button type="button" onclick="removeItemOnclick('minus-wall-','1')">-</button>
                         </div>
+                        <button type="button" onclick="addItemOnclick('minus-wall-','1','1')">+</button>
+                        <button type="button" onclick="removeItemOnclick('minus-wall-','1')">-</button>
 
                         <div id="add-wall-1-1">
                             <span>加牆:</span>
@@ -253,31 +253,77 @@
                                 <option value="">其他木造</option>
                                 <option value="">竹編牆</option>
                             </select>
-                            <button type="button" onclick="addItemOnclick('add-wall-','1','1')">+</button>
-                            <button type="button" onclick="removeItemOnclick('add-wall-','1')">-</button>
                         </div>
-
+                        <button type="button" onclick="addItemOnclick('add-wall-','1','1')">+</button>
+                        <button type="button" onclick="removeItemOnclick('add-wall-','1')">-</button>
                     </td>
-                    <td colspan="2"><input type="radio" name="structure-addition-2">外牆 - +<input type="radio" name="structure-addition-2">屋架 - +</td>
+
+                    <td colspan="2">
+                        <div id="minus-wall-2-1">
+                            <span>減牆:</span>
+                            <select name="minus-wall-num-2-1">
+                                <option value="" style="display:none;">請選擇面數</option>
+                                <option value="">1</option>
+                                <option value="">2</option>
+                                <option value="">3</option>
+                                <option value="">4</option>
+                            </select>
+                            <select name="minus-wall-option-2-1">
+                                <option value="" style="display:none;">請選擇材質</option>
+                                <option value="">RC牆</option>
+                                <option value="">1B</option>
+                                <option value="">1/2B</option>
+                                <option value="">檜木造</option>
+                                <option value="">其他木造</option>
+                                <option value="">竹編牆</option>
+                            </select>
+                        </div>
+                        <button type="button" onclick="addItemOnclick('minus-wall-','2','1')">+</button>
+                        <button type="button" onclick="removeItemOnclick('minus-wall-','2')">-</button>
+
+                        <div id="add-wall-2-1">
+                            <span>加牆:</span>
+                            <select name="add-wall-num-2-1">
+                                <option value="" style="display:none;">請選擇面數</option>
+                                <option value="">1</option>
+                                <option value="">2</option>
+                                <option value="">3</option>
+                                <option value="">4</option>
+                            </select>
+                            <select name="add-wall-option-2-1">
+                                <option value="" style="display:none;">請選擇材質</option>
+                                <option value="">RC牆</option>
+                                <option value="">1B</option>
+                                <option value="">1/2B</option>
+                                <option value="">檜木造</option>
+                                <option value="">其他木造</option>
+                                <option value="">竹編牆</option>
+                            </select>
+                        </div>
+                        <button type="button" onclick="addItemOnclick('add-wall-','2','1')">+</button>
+                        <button type="button" onclick="removeItemOnclick('add-wall-','2')">-</button>
                     <td colspan="2"><input type="radio" name="structure-addition-3">外牆 - +<input type="radio" name="structure-addition-3">屋架 - +</td>
                     <td colspan="2"><input type="radio" name="structure-addition-4">外牆 - +<input type="radio" name="structure-addition-4">屋架 - +</td>
                 </tr>
 
                 <tr>
                     <td>室內隔間<br>構造體</td>
-                    <td colspan="2" id="indoor-divide-1-1">
+                    <td colspan="2">
                         <!-- <input type="checkbox" name="indoor-divide-1">RC牆<input type="checkbox" name="indoor-divide-1">1B<input type="checkbox" name="indoor-divide-1">1/2B
                         <input type="checkbox" name="indoor-divide-1">檜木造<input type="checkbox" name="indoor-divide-1">其他木造<br><input type="checkbox" name="indoor-divide-1">竹編牆 -->
-                        <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
-                        <select class="tiny-select-menu" name="indoor-divide-1-1">
-                            <option value="" style="display:none;">請選擇材質</option>
-                            <option value="">RC牆</option>
-                            <option value="">1B</option>
-                            <option value="">1/2B</option>
-                            <option value="">檜木造</option>
-                            <option value="">其他木造</option>
-                            <option value="">竹編牆</option>
-                        </select>
+                        <div id="indoor-divide-1-1">
+                            <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                            <select class="select-menu" name="indoor-divide-1-1">
+                                <option value="" style="display:none;">請選擇材質</option>
+                                <option value="">RC牆</option>
+                                <option value="">1B</option>
+                                <option value="">1/2B</option>
+                                <option value="">檜木造</option>
+                                <option value="">其他木造</option>
+                                <option value="">竹編牆</option>
+                            </select>
+                        </div>
+
                         <button type="button" onclick="addItemOnclick('indoor-divide-','1','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('indoor-divide-','1')">-</button>
                     </td>
@@ -331,14 +377,17 @@
                 <tr>
                     <td rowspan="11" class="vertical-td">粉裝造作</td>
                     <td>屋外牆粉裝</td>
-                    <td colspan="2" id="outdoor-wall-decoration-1-1">
-                        <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
-                        <select name="outdoor-wall-decoration-1-1" class="tiny-select-menu">
-                            <option value="" style="display:none;">請選擇材質</option>
-                            <option value="">石馬</option>
-                            <option value="">油漆</option>
-                            <option value="">水泥粉刷</option>
-                        </select>
+                    <td colspan="2">
+                        <div id="outdoor-wall-decoration-1-1">
+                            <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                            <select name="outdoor-wall-decoration-1-1" class="select-menu">
+                                <option value="" style="display:none;">請選擇材質</option>
+                                <option value="">石馬</option>
+                                <option value="">油漆</option>
+                                <option value="">水泥粉刷</option>
+                            </select>
+                        </div>
+
                         <button type="button" onclick="addItemOnclick('outdoor-wall-decoration-','1','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('outdoor-wall-decoration-','1')">-</button>
                     </td>
@@ -376,14 +425,17 @@
 
                 <tr>
                     <td>屋內牆粉裝</td>
-                    <td colspan="2" id="indoor-wall-decoration-1-1">
-                        <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
-                        <select name="indoor-wall-decoration-1-1" class="tiny-select-menu">
-                            <option value="" style="display:none;">請選擇材質</option>
-                            <option value="">壁磚</option>
-                            <option value="">水泥粉刷PVC漆</option>
-                            <option value="">水泥粉光</option>
-                        </select>
+                    <td colspan="2">
+                        <div id="indoor-wall-decoration-1-1">
+                            <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                            <select name="indoor-wall-decoration-1-1" class="select-menu">
+                                <option value="" style="display:none;">請選擇材質</option>
+                                <option value="">壁磚</option>
+                                <option value="">水泥粉刷PVC漆</option>
+                                <option value="">水泥粉光</option>
+                            </select>
+                        </div>
+
                         <button type="button" onclick="addItemOnclick('indoor-wall-decoration-','1','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('indoor-wall-decoration-','1')">-</button>
                     </td>
@@ -421,16 +473,19 @@
 
                 <tr>
                     <td>屋頂(面)<br>粉裝</td>
-                    <td colspan="2" id="roof-decoration-1-1">
-                        <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
-                        <select name="roof-decoration-1-1" class="tiny-select-menu">
-                            <option value="" style="display:none;">請選擇材質</option>
-                            <option value="">臺灣瓦</option>
-                            <option value="">石棉瓦</option>
-                            <option value="">蓋鍍鋅亞鋁板</option>
-                            <option value="">平頂防水工程鋪防熱磚</option>
-                            <option value="">平頂防水工程</option>
-                        </select>
+                    <td colspan="2">
+                        <div id="roof-decoration-1-1">
+                            <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                            <select name="roof-decoration-1-1" class="select-menu">
+                                <option value="" style="display:none;">請選擇材質</option>
+                                <option value="">臺灣瓦</option>
+                                <option value="">石棉瓦</option>
+                                <option value="">蓋鍍鋅亞鋁板</option>
+                                <option value="">平頂防水工程鋪防熱磚</option>
+                                <option value="">平頂防水工程</option>
+                            </select>
+                        </div>
+
                         <button type="button" onclick="addItemOnclick('roof-decoration-','1','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('roof-decoration-','1')">-</button>
                     </td>
@@ -474,16 +529,19 @@
 
                 <tr>
                     <td>樓地板粉裝</td>
-                    <td colspan="2" id="floor-decoration-1-1">
-                        <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
-                        <select name="floor-decoration-1-1" class="tiny-select-menu">
-                            <option value="" style="display:none;">請選擇材質</option>
-                            <option value="">大理石</option>
-                            <option value="">磨石子</option>
-                            <option value="">平舖/高架木板</option>
-                            <option value="">石馬</option>
-                            <option value="">水泥粉刷</option>
-                        </select>
+                    <td colspan="2">
+                        <div id="floor-decoration-1-1">
+                            <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                            <select name="floor-decoration-1-1" class="select-menu">
+                                <option value="" style="display:none;">請選擇材質</option>
+                                <option value="">大理石</option>
+                                <option value="">磨石子</option>
+                                <option value="">平舖/高架木板</option>
+                                <option value="">石馬</option>
+                                <option value="">水泥粉刷</option>
+                            </select>
+                        </div>
+
                         <button type="button" onclick="addItemOnclick('floor-decoration-','1','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('floor-decoration-','1')">-</button>
                     </td>
@@ -527,18 +585,21 @@
 
                 <tr>
                     <td>天花板粉裝</td>
-                    <td colspan="2" id="ceiling-decoration-1-1">
-                        <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
-                        <select name="ceiling-decoration-1-1" class="tiny-select-menu">
-                            <option value="" style="display:none;">請選擇材質</option>
-                            <option value="">吸音板</option>
-                            <option value="">防火板</option>
-                            <option value="">石膏板</option>
-                            <option value="">麗光板</option>
-                            <option value="">PVC鋁輕鋼架</option>
-                            <option value="">水泥粉光PVC</option>
-                            <option value="">水泥粉光</option>
-                        </select>
+                    <td colspan="2">
+                        <div id="ceiling-decoration-1-1">
+                            <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                            <select name="ceiling-decoration-1-1" class="select-menu">
+                                <option value="" style="display:none;">請選擇材質</option>
+                                <option value="">吸音板</option>
+                                <option value="">防火板</option>
+                                <option value="">石膏板</option>
+                                <option value="">麗光板</option>
+                                <option value="">PVC鋁輕鋼架</option>
+                                <option value="">水泥粉光PVC</option>
+                                <option value="">水泥粉光</option>
+                            </select>
+                        </div>
+
                         <button type="button" onclick="addItemOnclick('ceiling-decoration-','1','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('ceiling-decoration-','1')">-</button>
                     </td>
@@ -683,15 +744,16 @@
                 <tr>
                     <td>浴廁設備<br>含汙水設施</td>
                     <td colspan="2">
-                        <div class="table-container">
-                            比例:<input type="radio" name="toilet-ratio-1">1<input type="radio" name="toilet-ratio-1">1/2<br>
-                            型式:<select name="type" class="select-menu">
+                        <div class="table-container" id="toilet-equipment-1-1">
+                            比例:<input type="radio" name="toilet-ratio-1-1">1<input type="radio" name="toilet-ratio-1-1">1/2<br>
+                            型式:<select name="toilet-type-1-1" class="select-menu">
                                 <option value="">水泥貼馬賽克</option>
                                 <option value="">瓷漆</option>
                             </select><br>
-                            座數:<input type="radio" name="toilet-number-1">1~3座<input type="radio" name="toilet-number-1">4~6座<input type="radio" name="toilet-number-1">7座以上
-                            <button type="button">+</button>
+                            座數:<input type="radio" name="toilet-number-1-1">1~3座<input type="radio" name="toilet-number-1-1">4~6座<input type="radio" name="toilet-number-1-1">7座以上
                         </div>
+                        <button type="button" onclick="addItemOnclick('toilet-equipment-','1','1')">+</button>
+                        <button type="button" onclick="removeItemOnclick('toilet-equipment-','1')">-</button>
                     </td>
                     <td colspan="2">
                         <div class="table-container">
