@@ -8,6 +8,16 @@ var floor_decoration_count = [1,1,1,1];
 var ceiling_decoration_count = [1,1,1,1];
 var toilet_equipment_count = [1,1,1,1];
 
+var land_section_count = 1;
+var subsection_count = 1;
+var land_number_count = 1;
+var owner_count = 1;
+var hold_ratio_count = 1;
+var pId_count = 1;
+var address_count = 1;
+var telephone_count = 1;
+var cellphone_count = 1;
+
 function addItemOnclick(id,column,num){
     var itemId = "#"+id+column+"-"+num;
 
@@ -297,12 +307,144 @@ function removeSubCompensateForm(id){
     isAppend = false;
 }
 
-function checkSameAddressBox(){
+function checkSameAddressBox(num){
     houseAddress = document.getElementById("houseAddress").value;
-    if(document.getElementById("sameAddressBox").checked){
-        document.getElementById("addressText").value = houseAddress;
+    if(document.getElementById("sameAddressBox-"+num).checked){
+        document.getElementById("addressText-"+num).value = houseAddress;
     }
     else{
-        document.getElementById("addressText").value = "";
+        document.getElementById("addressText-"+num).value = "";
+    }
+}
+
+function addInfoItemOnclick(id){
+    var itemId = "#"+id;
+
+    switch (id) {
+        case 'land-section':
+            land_section_count += 1;
+
+            text =
+            '<div id="land-section-'+land_section_count+'">'+
+            '<input type="text" name="land-section-'+land_section_count+'" value="" required><br>'+
+            '</div>';
+            break;
+
+        case 'subsection':
+            subsection_count += 1;
+
+            text =
+            '<div id="subsection-'+subsection_count+'">'+
+                '<input type="text" name="subsection-'+subsection_count+'" value="" required><br>'+
+            '</div>';
+            break;
+
+        case 'land-number':
+            land_number_count += 1;
+
+            text =
+            '<div id="land-number-'+land_number_count+'">'+
+                '<input type="text" name="land-number-'+land_number_count+'" value="" required><br>'+
+            '</div>';
+            break;
+
+        case 'owner':
+            owner_count += 1;
+
+            addInfoItemOnclick('hold-ratio');
+            addInfoItemOnclick('pId');
+            addInfoItemOnclick('address');
+            addInfoItemOnclick('telephone');
+            addInfoItemOnclick('cellphone');
+            text =
+            '<div id="owner-'+owner_count+'">'+
+                '<input type="text" name="owner-'+owner_count+'" placeholder="所有權人-'+owner_count+'" required><br>'+
+            '</div>';
+            break;
+
+        case 'hold-ratio':
+            hold_ratio_count += 1;
+
+            text =
+            '<div id="hold-ratio-'+hold_ratio_count+'">'+
+                '<input type="text" name="hold-numerator-'+hold_ratio_count+'" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)" required>'+
+                '&nbsp;/&nbsp;<input type="text" name="hold-denominator-'+hold_ratio_count+'" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)" required>'+
+            '</div>';
+            break;
+
+        case 'pId':
+            pId_count += 1;
+
+            text =
+            '<div id="pId-'+pId_count+'">'+
+                '<input type="text" name="pId-'+pId_count+'" value="" placeholder="所有權人-'+pId_count+'" required>'+
+            '</div>';
+            break;
+
+        case 'address':
+            address_count += 1;
+
+            text =
+            '<div id="address-'+address_count+'">'+
+                '<input type="checkbox" id="sameAddressBox-'+address_count+'" onclick="checkSameAddressBox('+address_count+')">同房屋門牌'+
+                '<input type="text" id="addressText-'+address_count+'" name="addressText-'+address_count+'" value="" class="large-input-size" placeholder="所有權人-'+address_count+'">'+
+            '</div>';
+            break;
+
+        case 'telephone':
+            telephone_count += 1;
+
+            text =
+            '<div id="telephone-'+telephone_count+'">'+
+                '<input type="tel" name="telephone-'+telephone_count+'" value="" placeholder="所有權人-'+telephone_count+'">'+
+            '</div>';
+            break;
+
+        case 'cellphone':
+            cellphone_count += 1;
+
+            text =
+            '<div id="cellphone-'+cellphone_count+'">'+
+                '<input type="tel" name="cellphone-'+cellphone_count+'" value="" placeholder="所有權人-'+cellphone_count+'">'+
+            '</div>';
+            break;
+    }
+    $(itemId).append(text);
+}
+
+function removeInfoItemOnclick(id){
+    switch (id) {
+        case 'land-section':
+            land_section_count = removeItem(id, land_section_count);
+            break;
+        case 'subsection':
+            subsection_count = removeItem(id, subsection_count);
+            break;
+        case 'land-number':
+            land_number_count = removeItem(id, land_number_count);
+            break;
+        case 'owner':
+            removeInfoItemOnclick('hold-ratio');
+            removeInfoItemOnclick('pId');
+            removeInfoItemOnclick('address');
+            removeInfoItemOnclick('telephone');
+            removeInfoItemOnclick('cellphone');
+            owner_count = removeItem(id, owner_count);
+            break;
+        case 'hold-ratio':
+            hold_ratio_count = removeItem(id, hold_ratio_count);
+            break;
+        case 'pId':
+            pId_count = removeItem(id, pId_count);
+            break;
+        case 'address':
+            address_count = removeItem(id, address_count);
+            break;
+        case 'telephone':
+            telephone_count = removeItem(id, telephone_count);
+            break;
+        case 'cellphone':
+            cellphone_count = removeItem(id, cellphone_count);
+            break;
     }
 }

@@ -79,3 +79,12 @@ table{
 .vertical-td{
     width: 2%;
 }
+
+.input-align{
+    margin-bottom: 22px;
+}
+
+.required{
+    color: red;
+    font-weight: bold;
+}
