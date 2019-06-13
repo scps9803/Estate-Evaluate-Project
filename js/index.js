@@ -20,6 +20,11 @@ var cellphone_count = 1;
 var other_item_count = 1;
 var calArea_count = 1;
 var auto_remove_count = 1;
+var captain_count = 1;
+var captain_id_count = 1;
+var household_number_count = 1;
+var set_household_date_count = 1;
+var family_num_count = 1;
 
 function addItemOnclick(id,column,num){
     var itemId = "#"+id+column+"-"+num;
@@ -327,6 +332,8 @@ function addInfoItemOnclick(id){
         case 'land-section':
             land_section_count += 1;
 
+            addInfoItemOnclick('subsection');
+            addInfoItemOnclick('land-number');
             text =
             '<div id="land-section-'+land_section_count+'">'+
             '<input type="text" name="land-section-'+land_section_count+'" value="" required><br>'+
@@ -338,7 +345,7 @@ function addInfoItemOnclick(id){
 
             text =
             '<div id="subsection-'+subsection_count+'">'+
-                '<input type="text" name="subsection-'+subsection_count+'" value="" required><br>'+
+                '<input type="text" name="subsection-'+subsection_count+'" value=""><br>'+
             '</div>';
             break;
 
@@ -445,6 +452,70 @@ function addInfoItemOnclick(id){
                 '<input type="radio" name="auto-remove-'+auto_remove_count+'" required>是<input type="radio" name="auto-remove-'+auto_remove_count+'">否'+
             '</div>';
             break;
+
+        case 'captain':
+            captain_count += 1;
+
+            addInfoItemOnclick('captain-id');
+            addInfoItemOnclick('household-number');
+            addInfoItemOnclick('set-household-date');
+            addInfoItemOnclick('family-num');
+            text =
+            '<div id="captain-'+captain_count+'">'+
+                '<input type="text" name="captain-'+captain_count+'" required>'+
+            '</div>';
+            break;
+
+        case 'captain-id':
+            captain_id_count += 1;
+
+            text =
+            '<div id="captain-id-'+captain_id_count+'">'+
+                '<input type="text" name="captain-id-'+captain_id_count+'" required>'+
+            '</div>';
+            break;
+
+        case 'household-number':
+            household_number_count += 1;
+
+            text =
+            '<div id="household-number-'+household_number_count+'">'+
+                '<input type="text" name="household-number-'+household_number_count+'" required>'+
+            '</div>';
+            break;
+
+        case 'set-household-date':
+            set_household_date_count += 1;
+
+            text =
+            '<div id="set-household-date-'+set_household_date_count+'">'+
+                '<input type="date" name="set-household-date-'+set_household_date_count+'" required>'+
+            '</div>';
+            break;
+
+        case 'family-num':
+            family_num_count += 1;
+
+            text =
+            '<div id="family-num-'+family_num_count+'" class="input-select-align-top">'+
+                '<select class="select-menu" name="family-num-'+family_num_count+'">'+
+                    '<option value="1">1</option>'+
+                    '<option value="2">2</option>'+
+                    '<option value="3">3</option>'+
+                    '<option value="4">4</option>'+
+                    '<option value="5">5</option>'+
+                    '<option value="6">6</option>'+
+                    '<option value="7">7</option>'+
+                    '<option value="8">8</option>'+
+                    '<option value="9">9</option>'+
+                    '<option value="10">10</option>'+
+                    '<option value="11">11</option>'+
+                    '<option value="12">12</option>'+
+                    '<option value="13">13</option>'+
+                    '<option value="14">14</option>'+
+                    '<option value="15">15</option>'+
+                '</select>'+
+            '</div>';
     }
     $(itemId).append(text);
 }
@@ -452,6 +523,8 @@ function addInfoItemOnclick(id){
 function removeInfoItemOnclick(id){
     switch (id) {
         case 'land-section':
+            removeInfoItemOnclick('subsection');
+            removeInfoItemOnclick('land-number');
             land_section_count = removeItem(id, land_section_count);
             break;
         case 'subsection':
@@ -495,6 +568,24 @@ function removeInfoItemOnclick(id){
         case 'auto-remove':
             auto_remove_count = removeItem(id, auto_remove_count);
             break;
+        case 'captain':
+            removeInfoItemOnclick('captain-id');
+            removeInfoItemOnclick('household-number');
+            removeInfoItemOnclick('set-household-date');
+            removeInfoItemOnclick('family-num');
+            captain_count = removeItem(id, captain_count);
+            break;
+        case 'captain-id':
+            captain_id_count = removeItem(id, captain_id_count);
+            break;
+        case 'household-number':
+            household_number_count = removeItem(id, household_number_count);
+            break;
+        case 'set-household-date':
+            set_household_date_count = removeItem(id, set_household_date_count);
+            break;
+        case 'family-num':
+            family_num_count = removeItem(id, family_num_count);
     }
 }
 

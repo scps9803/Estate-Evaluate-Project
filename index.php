@@ -20,7 +20,7 @@
                         <td rowspan="2">基地標示</td>
                         <td><span class="required">(*)</span>鄉鎮市</td>
                         <td><span class="required">(*)</span>段</td>
-                        <td><span class="required">(*)</span>小段</td>
+                        <td>小段</td>
                         <td><span class="required">(*)</span>地號</td>
                         <td colspan="2"><span class="required">(*)</span>面積(m<sup>2</sup>)</td>
                         <td rowspan="2"><span class="required">(*)</span><br>查估手稿編號</td>
@@ -44,23 +44,23 @@
                         </td>
 
                         <td>
-                            <div id="subsection">
+                            <div id="subsection" class="input-align">
                                 <div id="subsection-1">
-                                    <input type="text" name="subsection-1" value="" required><br>
+                                    <input type="text" name="subsection-1" value=""><br>
                                 </div>
                             </div>
-                            <button type="button" onclick="addInfoItemOnclick('subsection')">+</button>
-                            <button type="button" onclick="removeInfoItemOnclick('subsection')">-</button>
+                            <!-- <button type="button" onclick="addInfoItemOnclick('subsection')">+</button>
+                            <button type="button" onclick="removeInfoItemOnclick('subsection')">-</button> -->
                         </td>
 
                         <td>
-                            <div id="land-number">
+                            <div id="land-number" class="input-align">
                                 <div id="land-number-1">
                                     <input type="text" name="land-number-1" value="" required><br>
                                 </div>
                             </div>
-                            <button type="button" onclick="addInfoItemOnclick('land-number')">+</button>
-                            <button type="button" onclick="removeInfoItemOnclick('land-number')">-</button>
+                            <!-- <button type="button" onclick="addInfoItemOnclick('land-number')">+</button>
+                            <button type="button" onclick="removeInfoItemOnclick('land-number')">-</button> -->
                         </td>
                         <td colspan="2"><input type="text" name="total-area" value="" required></td>
                     </tr>
@@ -183,28 +183,58 @@
                                 <option value="8">8</option>
                             </select>
                         </td>
-                        <td colspan="2"><input type="text" name="captain"></td>
-                        <td><input type="text" name="captain-id"></td>
-                        <td><input type="text" name="household-number"></td>
-                        <td colspan="3"><input type="date" name="set-household-date" required></td>
+                        <td colspan="2">
+                            <div id="captain">
+                                <div id="captain-1">
+                                    <input type="text" name="captain-1">
+                                </div>
+                            </div>
+                            <button type="button" onclick="addInfoItemOnclick('captain')">+</button>
+                            <button type="button" onclick="removeInfoItemOnclick('captain')">-</button>
+                        </td>
                         <td>
-                            <select class="select-menu" name="family-num">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
-                                <option value="11">11</option>
-                                <option value="12">12</option>
-                                <option value="13">13</option>
-                                <option value="14">14</option>
-                                <option value="15">15</option>
-                            </select>
+                            <div id="captain-id" class="input-align">
+                                <div id="captain-id-1">
+                                    <input type="text" name="captain-id-1">
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div id="household-number" class="input-align">
+                                <div id="household-number-1">
+                                    <input type="text" name="household-number-1">
+                                </div>
+                            </div>
+                        </td>
+                        <td colspan="3">
+                            <div id="set-household-date" class="input-align">
+                                <div id="set-household-date-1">
+                                    <input type="date" name="set-household-date-1">
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div id="family-num" class="input-select-align">
+                                <div id="family-num-1">
+                                    <select class="select-menu" name="family-num-1">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                        <option value="13">13</option>
+                                        <option value="14">14</option>
+                                        <option value="15">15</option>
+                                    </select>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                 </tbody>

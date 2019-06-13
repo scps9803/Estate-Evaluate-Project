@@ -96,3 +96,15 @@ table{
     color: red;
     font-weight: bold;
 }
+
+select{
+    height: 22px;
+}
+
+.input-select-align{
+    margin-bottom: 24px;
+}
+
+.input-select-align-top{
+    margin-top: 6px;
+}
