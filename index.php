@@ -13,7 +13,7 @@
 </head>
 <body>
     <div class="container" align="center">
-        <form class="" action="" method="post">
+        <form class="" action="house_submit_preview.php" method="post">
             <table border="1">
                 <tbody>
                     <tr>
@@ -25,14 +25,14 @@
                         <td colspan="2"><span class="required">(*)</span>面積(m<sup>2</sup>)</td>
                         <td rowspan="2"><span class="required">(*)</span><br>查估手稿編號</td>
                         <td rowspan="2">
-                            <input type="radio" name="legal-status" value="" required>建合
-                            <input type="radio" name="legal-status" value="">建非
-                            <input type="text" name="" value="" placeholder="輸入手稿編號" required>
+                            <input type="radio" name="legal-status" value="建合" required>建合
+                            <input type="radio" name="legal-status" value="建非">建非
+                            <input type="text" name="script-number" value="" placeholder="輸入手稿編號" required>
                         </td>
                     </tr>
 
                     <tr>
-                        <td><input type="text" name="" value="" required></td>
+                        <td><input type="text" name="district" value="" required></td>
                         <td>
                             <div id="land-section">
                                 <div id="land-section-1">
@@ -62,7 +62,7 @@
                             <button type="button" onclick="addInfoItemOnclick('land-number')">+</button>
                             <button type="button" onclick="removeInfoItemOnclick('land-number')">-</button>
                         </td>
-                        <td colspan="2"><input type="text" name="" value="" required></td>
+                        <td colspan="2"><input type="text" name="total-area" value="" required></td>
                     </tr>
 
                     <tr>
@@ -70,10 +70,10 @@
                         <td><span class="required">(*)</span>持分比例</td>
                         <td><span class="required">(*)</span>身分證字號</td>
                         <td><span class="required">(*)</span>房屋門牌</td>
-                        <td colspan="3"><input type="text" name="" value="" class="larger-input-size" id="houseAddress" required></td>
+                        <td colspan="3"><input type="text" name="houseAddress" value="" class="larger-input-size" id="houseAddress" required></td>
                         <td><span class="required">(*)</span><br>拆除情形</td>
-                        <td><input type="radio" name="remove_condition" value="" required>全拆
-                            <input type="radio" name="remove_condition" value="">半拆</td>
+                        <td><input type="radio" name="remove_condition" value="全拆" required>全拆
+                            <input type="radio" name="remove_condition" value="半拆">半拆</td>
                     </tr>
 
                     <tr>
@@ -134,66 +134,76 @@
                     </tr>
 
                     <tr>
-                        <td >合法證明文件</td>
+                        <td><span class="required">(*)</span>合法證明文件</td>
 
-                        <td colspan="4"><input type="radio" name="certificate" value="">建物所有權狀(建號:<input type="text" style="width:80px">)
-                        <input type="radio" name="certificate" value="">建物登記謄本
-                        <input type="radio" name="certificate" value="">使用執照
-                        <input type="radio" name="certificate" value="">無</td>
-                        <td>戶籍謄本</td>
-                        <td colspan="3"><input type="radio" name="household_registration" value="">
-                            共<input type="number" min="0" class="small-input-size">戶 ; 缺<input type="number" min="0" class="small-input-size">戶
-                        <input type="radio" name="household_registration" value="">無</td>
+                        <td colspan="4">
+                            <input type="radio" name="legal_certificate" value="建物所有權狀" required onclick="changeRequired(['build-number'],true)">建物所有權狀(建號:<input type="text" id="build-number" name="build-number" style="width:80px">)
+                            <input type="radio" name="legal_certificate" value="建物登記謄本" onclick="changeRequired(['build-number'],false)">建物登記謄本
+                            <input type="radio" name="legal_certificate" value="使用執照" onclick="changeRequired(['build-number'],false)">使用執照
+                            <input type="radio" name="legal_certificate" value="無" onclick="changeRequired(['build-number'],false)">無
+                        </td>
+                        <td><span class="required">(*)</span>戶籍謄本</td>
+                        <td colspan="3">
+                            <input type="radio" name="household_registration" value="" onclick="changeRequired(['household_count','household_count_lack'],true)">共
+                            <input type="number" id="household_count" name="household_count" min="0" class="small-input-size">戶;缺<input type="number" id="household_count_lack" name="household_count_lack" min="0" class="small-input-size">戶
+                            <input type="radio" name="household_registration" value="" onclick="changeRequired(['household_count','household_count_lack'],false)">無
+                        </td>
                     </tr>
 
                     <tr>
-                        <td>起造證明文件</td>
-                        <td colspan="8"><input type="radio" name="build-certificate" value="">房屋稅籍證明書(稅籍編號:<input type="text">)
-                        <input type="radio" name="build-certificate" value="">門牌整編證明
-                        <input type="radio" name="build-certificate" value="">用電證明
-                        <input type="radio" name="build-certificate" value="">用水證明
-                        <input type="radio" name="build-certificate" value="">無</td>
+                        <td><span class="required">(*)</span>起造證明文件</td>
+                        <td colspan="8">
+                            <input type="radio" name="build-certificate" value="" onclick="changeRequired(['tax_number'],true)" required>房屋稅籍證明書(稅籍編號:<input type="text" id="tax_number" name="tax_number">)
+                            <input type="radio" name="build-certificate" value="" onclick="changeRequired(['tax_number'],false)">門牌整編證明
+                            <input type="radio" name="build-certificate" value="" onclick="changeRequired(['tax_number'],false)">用電證明
+                            <input type="radio" name="build-certificate" value="" onclick="changeRequired(['tax_number'],false)">用水證明
+                            <input type="radio" name="build-certificate" value="" onclick="changeRequired(['tax_number'],false)">無
+                        </td>
                     </tr>
 
                     <tr>
-                        <td>出口數</td>
-                        <td colspan="3">戶長姓名</td>
-                        <td colspan="3">戶長身份證字號</td>
-                        <td colspan="2">該戶人數</td>
+                        <td><span class="required">(*)</span>出口數</td>
+                        <td colspan="2">戶長姓名</td>
+                        <td>戶長身份證字號</td>
+                        <td>戶口名簿號碼</td>
+                        <td colspan="3">設籍日期</td>
+                        <td>該戶人數</td>
                     </tr>
 
                     <tr>
                         <td>
                             <select class="select-menu" name="">
-                                <option value="">1</option>
-                                <option value="">2</option>
-                                <option value="">3</option>
-                                <option value="">4</option>
-                                <option value="">5</option>
-                                <option value="">6</option>
-                                <option value="">7</option>
-                                <option value="">8</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
                             </select>
                         </td>
-                        <td colspan="3"><input type="text"></td>
-                        <td colspan="3"><input type="text"></td>
-                        <td colspan="2">
-                            <select class="select-menu" name="">
-                                <option value="">1</option>
-                                <option value="">2</option>
-                                <option value="">3</option>
-                                <option value="">4</option>
-                                <option value="">5</option>
-                                <option value="">6</option>
-                                <option value="">7</option>
-                                <option value="">8</option>
-                                <option value="">9</option>
-                                <option value="">10</option>
-                                <option value="">11</option>
-                                <option value="">12</option>
-                                <option value="">13</option>
-                                <option value="">14</option>
-                                <option value="">15</option>
+                        <td colspan="2"><input type="text" name="captain"></td>
+                        <td><input type="text" name="captain-id"></td>
+                        <td><input type="text" name="household-number"></td>
+                        <td colspan="3"><input type="date" name="set-household-date" required></td>
+                        <td>
+                            <select class="select-menu" name="family-num">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
                             </select>
                         </td>
                     </tr>
@@ -204,11 +214,11 @@
         <div class="container" align="center">
             <table border="1">
                 <tr>
-                    <td colspan="2">編號</td>
-                    <td colspan="2" class="align-left">編號:<input type="text"><br><input type="radio" name="house-type-1">獨立戶<input type="radio" name="house-type-1">邊戶<input type="radio" name="house-type1">連棟中間戶</td>
-                    <td colspan="2" class="align-left">編號:<input type="text"><br><input type="radio" name="house-type-2">獨立戶<input type="radio" name="house-type-2">邊戶<input type="radio" name="house-type2">連棟中間戶</td>
-                    <td colspan="2" class="align-left">編號:<input type="text"><br><input type="radio" name="house-type-3">獨立戶<input type="radio" name="house-type-3">邊戶<input type="radio" name="house-type3">連棟中間戶</td>
-                    <td colspan="2" class="align-left">編號:<input type="text"><br><input type="radio" name="house-type-4">獨立戶<input type="radio" name="house-type-4">邊戶<input type="radio" name="house-type4">連棟中間戶</td>
+                    <td colspan="2"><span class="required">(*)</span>編號</td>
+                    <td colspan="2">編號:<input type="text" required><br><input type="radio" name="house-type-1" required>獨立戶<input type="radio" name="house-type-1">邊戶<input type="radio" name="house-type-1">連棟中間戶</td>
+                    <td colspan="2">編號:<input type="text"><br><input type="radio" name="house-type-2">獨立戶<input type="radio" name="house-type-2">邊戶<input type="radio" name="house-type-2">連棟中間戶</td>
+                    <td colspan="2">編號:<input type="text"><br><input type="radio" name="house-type-3">獨立戶<input type="radio" name="house-type-3">邊戶<input type="radio" name="house-type-3">連棟中間戶</td>
+                    <td colspan="2">編號:<input type="text"><br><input type="radio" name="house-type-4">獨立戶<input type="radio" name="house-type-4">邊戶<input type="radio" name="house-type-4">連棟中間戶</td>
                 </tr>
 
                 <tr>
@@ -1163,15 +1173,32 @@
 
                 <tr>
                     <td>
-                        <select class="select-menu" name="">
-                            <option value="" style="display:none;">請選擇項目</option>
-                            <option value="">電柱(RC造)遷移費</option>
-                            <option value="">窗型冷氣遷移費</option>
-                        </select>
-                        <button type="button">+</button>
+                        <div id="other-item" class="input-align-top">
+                            <div id="other-item-1">
+                                <select class="select-menu" name="other-item-1">
+                                    <option value="" style="display:none;">請選擇項目</option>
+                                    <option value="">電柱(RC造)遷移費</option>
+                                    <option value="">窗型冷氣遷移費</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="button" onclick="addInfoItemOnclick('other-item')">+</button>
+                        <button type="button" onclick="removeInfoItemOnclick('other-item')">-</button>
                     </td>
-                    <td><input type="text" placeholder="請輸入面積計算式" title="請輸入面積計算式" required></td>
-                    <td><input type="radio" name="auto-remove">是<input type="radio" name="auto-remove">否</td>
+                    <td>
+                        <div id="calArea">
+                            <div id="calArea-1">
+                                <input type="text" name="calArea-1" class="larger-input-size" placeholder="請輸入面積計算式" title="請輸入面積計算式" required>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div id="auto-remove">
+                            <div id="auto-remove-1">
+                                <input type="radio" name="auto-remove-1" required>是<input type="radio" name="auto-remove-1">否
+                            </div>
+                        </div>
+                    </td>
                 </tr>
             </table>
 

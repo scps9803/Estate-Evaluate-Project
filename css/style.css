@@ -46,9 +46,9 @@ table{
     text-align: left;
 } */
 
-.align-left{
+/* .align-left{
     text-align: left;
-}
+} */
 
 .select-menu{
     width: 50%;
@@ -82,6 +82,14 @@ table{
 
 .input-align{
     margin-bottom: 22px;
+}
+
+.input-align-top{
+    margin-top: 22px;
+}
+
+.input-align-top > div{
+    margin-top: 8px;
 }
 
 .required{

@@ -17,6 +17,9 @@ var pId_count = 1;
 var address_count = 1;
 var telephone_count = 1;
 var cellphone_count = 1;
+var other_item_count = 1;
+var calArea_count = 1;
+var auto_remove_count = 1;
 
 function addItemOnclick(id,column,num){
     var itemId = "#"+id+column+"-"+num;
@@ -408,6 +411,40 @@ function addInfoItemOnclick(id){
                 '<input type="tel" name="cellphone-'+cellphone_count+'" value="" placeholder="所有權人-'+cellphone_count+'">'+
             '</div>';
             break;
+
+            // 雜項設施
+        case 'other-item':
+            other_item_count += 1;
+
+            addInfoItemOnclick('calArea');
+            addInfoItemOnclick('auto-remove');
+            text =
+            '<div id="other-item-'+other_item_count+'">'+
+                '<select class="select-menu" name="other-item-'+other_item_count+'">'+
+                    '<option value="" style="display:none;">請選擇項目</option>'+
+                    '<option value="">電柱(RC造)遷移費</option>'+
+                    '<option value="">窗型冷氣遷移費</option>'+
+                '</select>'+
+            '</div>';
+            break;
+
+        case 'calArea':
+            calArea_count += 1;
+
+            text =
+            '<div id="calArea-'+calArea_count+'">'+
+                '<input type="text" name="calArea-'+calArea_count+'" class="larger-input-size" placeholder="請輸入面積計算式" title="請輸入面積計算式" required>'+
+            '</div>';
+            break;
+
+        case 'auto-remove':
+            auto_remove_count += 1;
+
+            text =
+            '<div id="auto-remove-'+auto_remove_count+'">'+
+                '<input type="radio" name="auto-remove-'+auto_remove_count+'" required>是<input type="radio" name="auto-remove-'+auto_remove_count+'">否'+
+            '</div>';
+            break;
     }
     $(itemId).append(text);
 }
@@ -446,5 +483,82 @@ function removeInfoItemOnclick(id){
         case 'cellphone':
             cellphone_count = removeItem(id, cellphone_count);
             break;
+            // 雜項設施
+        case 'other-item':
+            removeInfoItemOnclick('calArea');
+            removeInfoItemOnclick('auto-remove');
+            other_item_count = removeItem(id, other_item_count);
+            break;
+        case 'calArea':
+            calArea_count = removeItem(id, calArea_count);
+            break;
+        case 'auto-remove':
+            auto_remove_count = removeItem(id, auto_remove_count);
+            break;
     }
 }
+
+// function checkHouseholdRegistration(hasHousehold){
+//     if(hasHousehold){
+//         $("#household_count").attr("required","");
+//         $("#household_count_lack").attr("required","");
+//     }
+//     else{
+//         $("#household_count").removeAttr("required");
+//         $("#household_count_lack").removeAttr("required");
+//     }
+// }
+//
+// function checkLegalCertificate(hasCertificate){
+//     if(hasCertificate){
+//         $("#build-number").attr("required","");
+//     }
+//     else{
+//         $("#build-number").removeAttr("required");
+//     }++
+// }
+
+function changeRequired(idArray,changeStatus){
+
+    for(var i in idArray){
+        var item = "#"+idArray[i]
+
+        if(changeStatus){
+            $(item).attr("required","");
+        }
+        else{
+            $(item).removeAttr("required");
+        }
+    }
+}
+
+// function getCount(item){
+//     // var item = id+"_count";
+//     // return this[item];
+//     return this[item];
+// }
+//
+// function house_submit_preview(path){
+//     method = "post"; // Set method to post by default, if not specified.
+//     params = ["land_section","subsection"];
+//
+//     // The rest of this code assumes you are not using a library.
+//     // It can be made less wordy if you use one.
+//     var form = document.createElement("form");
+//     form.setAttribute("method", method);
+//     form.setAttribute("action", path);
+//
+//     for(var key in params) {
+//         var item = params[key]+"_count";
+//         var hiddenField = document.createElement("input");
+//         hiddenField.setAttribute("type", "hidden");
+//         hiddenField.setAttribute("name", item);
+//         window.alert(getCount(item));
+//         hiddenField.setAttribute("value", getCount(params[key]));
+//
+//         form.appendChild(hiddenField);
+//     }
+//
+//     document.body.appendChild(form);    // Not entirely sure if this is necessary
+//     form.submit();
+// }
