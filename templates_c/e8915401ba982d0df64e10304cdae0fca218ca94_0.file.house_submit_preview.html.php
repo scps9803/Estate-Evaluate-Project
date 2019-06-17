@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-06-12 01:46:58
+/* Smarty version 3.1.33, created on 2019-06-17 12:42:39
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\house_submit_preview.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5cffe912ead522_70673568',
+  'unifunc' => 'content_5d071a3f24f863_14291838',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'e8915401ba982d0df64e10304cdae0fca218ca94' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\house_submit_preview.html',
-      1 => 1560275193,
+      1 => 1560746556,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5cffe912ead522_70673568 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d071a3f24f863_14291838 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head>
@@ -70,17 +70,13 @@ function content_5cffe912ead522_70673568 (Smarty_Internal_Template $_smarty_tpl)
 
                 <tr>
                     <td>土地<br>所有人姓名</td>
-                    <td><?php echo $_smarty_tpl->tpl_vars['owner']->value;?>
-</td>
+                    <td></td>
                     <td>身分證字號<br>統一編號</td>
-                    <td><?php echo $_smarty_tpl->tpl_vars['pId']->value;?>
-</td>
+                    <td></td>
                     <td>住址</td>
-                    <td><?php echo $_smarty_tpl->tpl_vars['address']->value;?>
-</td>
+                    <td></td>
                     <td>聯絡<br>電話</td>
-                    <td><?php echo $_smarty_tpl->tpl_vars['phone']->value;?>
-</td>
+                    <td></td>
                     <td>合法文件</td>
                     <td colspan="2"><?php echo $_smarty_tpl->tpl_vars['legal_certificate']->value;?>
 </td>
@@ -94,7 +90,8 @@ function content_5cffe912ead522_70673568 (Smarty_Internal_Template $_smarty_tpl)
                     <td><?php echo $_smarty_tpl->tpl_vars['legal_number']->value;?>
 </td>
                     <td>座落土地<br>使用權屬</td>
-                    <td></td>
+                    <td><?php echo $_smarty_tpl->tpl_vars['land_use']->value;?>
+</td>
                     <td>租賃關係</td>
                     <td colspan="2"></td>
                 </tr>
@@ -201,6 +198,8 @@ function content_5cffe912ead522_70673568 (Smarty_Internal_Template $_smarty_tpl)
 
             <h4>調查日期: 民國108年03月06日</h4>
             <h4>調查單位: 鼎盛不動產估價師事務所</h4>
+            <!-- <h4>女兒牆: <?php echo $_smarty_tpl->tpl_vars['daughter_wall']->value;?>
+</h4> -->
             <button type="button" name="">返回修改</button>
             <button type="button" name="">確定儲存</button>
         </div>

@@ -16,10 +16,16 @@ $location = "桃園市、".$_POST['district']."、".$_POST['land-section-1']."�
 ."標示面積 ".$_POST['total-area']." m<sup>2</sup>";
 
 $remove_condition = $_POST['remove_condition'];
-$captain = $_POST['captain'];
-$family_num = $_POST['family-num'];
-$household_number = $_POST['household-number'];
-$set_household_date = $_POST['set-household-date'];
+$captain = $_POST['captain-1'];
+$family_num = $_POST['family-num-1'];
+$household_number = $_POST['household-number-1'];
+$set_household_date = $_POST['set-household-date-1'];
+$land_use = $_POST['land-use'];
+// $daughter_wall_front = $_POST['daughter-wall-front-1'];
+// echo $daughter_wall_front;
+// for($i=0;$i<count($daughter_wall);$i++){
+//     echo $daughter_wall[$i]."、";
+// }
 
 if($phone==""){
     $phone = $_POST['telephone-1'];
@@ -41,6 +47,8 @@ $smarty->assign("captain",$captain);
 $smarty->assign("family_num",$family_num);
 $smarty->assign("household_number",$household_number);
 $smarty->assign("set_household_date",$set_household_date);
+$smarty->assign("land_use",$land_use);
+// $smarty->assign("daughter_wall",$daughter_wall);
 
 $smarty->display("house_submit_preview.html");
 ?>

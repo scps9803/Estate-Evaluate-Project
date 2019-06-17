@@ -327,6 +327,7 @@ function checkSameAddressBox(num){
 
 function addInfoItemOnclick(id){
     var itemId = "#"+id;
+    var isAppend = false;
 
     switch (id) {
         case 'land-section':
@@ -354,7 +355,7 @@ function addInfoItemOnclick(id){
 
             text =
             '<div id="land-number-'+land_number_count+'">'+
-                '<input type="text" name="land-number-'+land_number_count+'" value="" required><br>'+
+                '<input type="text" name="land-number-'+land_number_count+'" placeholder="多個地號請用\'、\'分隔" value="" required><br>'+
             '</div>';
             break;
 
@@ -412,11 +413,19 @@ function addInfoItemOnclick(id){
 
         case 'cellphone':
             cellphone_count += 1;
+            var current_count = cellphone_count;
 
             text =
             '<div id="cellphone-'+cellphone_count+'">'+
-                '<input type="tel" name="cellphone-'+cellphone_count+'" value="" placeholder="所有權人-'+cellphone_count+'">'+
+                '<input type="tel" name="cellphone-'+cellphone_count+'" value="" placeholder="所有權人-'+cellphone_count+'" maxlength="11">'+
             '</div>';
+            isAppend = true;
+            $(itemId).append(text);
+
+            var item = '#cellphone-'+current_count;
+            $(item).on('input', 'input', function(){
+                cellphoneListen(current_count);
+            });
             break;
 
             // 雜項設施
@@ -517,7 +526,9 @@ function addInfoItemOnclick(id){
                 '</select>'+
             '</div>';
     }
-    $(itemId).append(text);
+    if(!isAppend){
+        $(itemId).append(text);
+    }
 }
 
 function removeInfoItemOnclick(id){
@@ -623,6 +634,78 @@ function changeRequired(idArray,changeStatus){
     }
 }
 
+function setDaughterWall(select_value, num, direction){
+    var select_item = select_value+"-"+num;
+    var front_value = ['RC-front','1B-front','half_B-front'];
+    var behind_value = ['RC-behind','1B-behind','half_B-behind'];
+    var left_value = ['RC-left','1B-left','half_B-left'];
+    var right_value = ['RC-right','1B-right','half_B-right'];
+    var current_direction;
+
+    switch (direction) {
+        case 'front':
+            current_direction = front_value;
+            break;
+        case 'behind':
+            current_direction = behind_value;
+            break;
+        case 'left':
+            current_direction = left_value;
+            break;
+        case 'right':
+            current_direction = right_value;
+            break;
+    }
+
+    for(var i=0;i<3;i++){
+        // var item = "input[value='"+current_direction[i]+"']";
+        var item = document.getElementById(current_direction[i]+"-"+num);
+
+        if(document.getElementById(select_item).checked){
+            if(select_value!=current_direction[i]){
+                $(item).attr("disabled","true");
+            }
+        }
+        else{
+            if(select_value!=current_direction[i]){
+                $(item).removeAttr("disabled");
+            }
+        }
+    }
+}
+
+function cellphoneListen(num){
+    var item = "input[name='cellphone-"+num+"']";
+
+    if($(item).val().length==4){
+        $(item).attr("oninput","cellphoneListen("+num+")");
+        text = $(item).val()+"-";
+        $(item).val(text);
+        $(item).attr("oninput","removeCellphoneListen("+num+")");
+    }
+}
+
+function removeCellphoneListen(num){
+    var item = "input[name='cellphone-"+num+"']";
+
+    if($(item).val().length==4){
+        text = $(item).val().substr(0,3);
+        $(item).val(text);
+        $(item).attr("oninput","cellphoneListen("+num+")");
+    }
+}
+// function clearDaughterWall(num){
+//     // var itemId = "daughter-wall-front-1"+num;
+//     var item = "input[name='daughter-wall-front-1']:checked";
+//     $(item).checked = "";
+//     window.alert($(item).val());
+//     // $(item).removeAttr("checked");
+//     // window.alert($(item).checked));
+//     // $(itemId).attr("checked",false);
+//     // $(item).attr("checked", false);
+//     // $("input[name=daughter-wall-front-1]").attr("checked", false);
+// }
+
 // function getCount(item){
 //     // var item = id+"_count";
 //     // return this[item];
@@ -653,3 +736,6 @@ function changeRequired(idArray,changeStatus){
 //     document.body.appendChild(form);    // Not entirely sure if this is necessary
 //     form.submit();
 // }
+function test(){
+    window.alert("test");
+}
