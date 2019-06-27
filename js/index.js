@@ -28,6 +28,7 @@ var family_num_count = 1;
 
 function addItemOnclick(id,column,num){
     var itemId = "#"+id+column+"-"+num;
+    var result_option = "";
 
     switch (id) {
         case 'minus-wall-':
@@ -97,14 +98,11 @@ function addItemOnclick(id,column,num){
             '<input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">'+
             '&nbsp;<select class="select-menu" name="indoor-divide-'+column+"-"+ indoor_divide_count[column-1] +'">'+
                 '<option value="" style="display:none;">請選擇材質</option>'+
-                '<option value="">RC牆</option>'+
-                '<option value="">1B</option>'+
-                '<option value="">1/2B</option>'+
-                '<option value="">檜木造</option>'+
-                '<option value="">其他木造</option>'+
-                '<option value="">竹編牆</option>'+
             '</select>'+
             '</div>';
+            $(text).insertAfter($(itemId));
+
+            get_building_decoration_option(id, column, indoor_divide_count[column-1], 'indoor_divide');
             break;
 
         case 'outdoor-wall-decoration-':
@@ -118,11 +116,11 @@ function addItemOnclick(id,column,num){
                 '<input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">'+
                 '&nbsp;<select name="outdoor-wall-decoration-'+column+"-"+ outdoor_wall_decoration_count[column-1] +'" class="select-menu">'+
                     '<option value="" style="display:none;">請選擇材質</option>'+
-                    '<option value="">石馬</option>'+
-                    '<option value="">油漆</option>'+
-                    '<option value="">水泥粉刷</option>'+
                 '</select>'+
             '</div>';
+            $(text).insertAfter($(itemId));
+
+            get_building_decoration_option(id, column, outdoor_wall_decoration_count[column-1], 'outdoor_wall_decoration');
             break;
 
         case 'indoor-wall-decoration-':
@@ -136,11 +134,11 @@ function addItemOnclick(id,column,num){
                 '<input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">'+
                 '&nbsp;<select name="indoor-wall-decoration-'+column+"-"+ indoor_wall_decoration_count[column-1] +'" class="select-menu">'+
                     '<option value="" style="display:none;">請選擇材質</option>'+
-                    '<option value="">壁磚</option>'+
-                    '<option value="">水泥粉刷PVC漆</option>'+
-                    '<option value="">水泥粉光</option>'+
                 '</select>'+
             '</div>';
+            $(text).insertAfter($(itemId));
+
+            get_building_decoration_option(id, column, indoor_wall_decoration_count[column-1], 'indoor_wall_decoration');
             break;
 
         case 'roof-decoration-':
@@ -154,13 +152,11 @@ function addItemOnclick(id,column,num){
                 '<input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">'+
                 '&nbsp;<select name="roof-decoration-'+column+"-"+ roof_decoration_count[column-1] +'" class="select-menu">'+
                     '<option value="" style="display:none;">請選擇材質</option>'+
-                    '<option value="">臺灣瓦</option>'+
-                    '<option value="">石棉瓦</option>'+
-                    '<option value="">蓋鍍鋅亞鋁板</option>'+
-                    '<option value="">平頂防水工程鋪防熱磚</option>'+
-                    '<option value="">平頂防水工程</option>'+
                 '</select>'+
             '</div>';
+            $(text).insertAfter($(itemId));
+
+            get_building_decoration_option(id, column, roof_decoration_count[column-1], 'roof_decoration');
             break;
 
         case 'floor-decoration-':
@@ -174,13 +170,11 @@ function addItemOnclick(id,column,num){
                 '<input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">'+
                 '&nbsp;<select name="floor-decoration-'+column+"-"+ floor_decoration_count[column-1] +'" class="select-menu">'+
                     '<option value="" style="display:none;">請選擇材質</option>'+
-                    '<option value="">大理石</option>'+
-                    '<option value="">磨石子</option>'+
-                    '<option value="">平舖/高架木板</option>'+
-                    '<option value="">石馬</option>'+
-                    '<option value="">水泥粉刷</option>'+
                 '</select>'+
             '</div>';
+            $(text).insertAfter($(itemId));
+
+            get_building_decoration_option(id, column, floor_decoration_count[column-1], 'floor_decoration');
             break;
 
         case 'ceiling-decoration-':
@@ -194,15 +188,11 @@ function addItemOnclick(id,column,num){
                 '<input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">'+
                 '&nbsp;<select name="ceiling-decoration-'+column+"-"+ ceiling_decoration_count[column-1] +'" class="select-menu">'+
                     '<option value="" style="display:none;">請選擇材質</option>'+
-                    '<option value="">吸音板</option>'+
-                    '<option value="">防火板</option>'+
-                    '<option value="">石膏板</option>'+
-                    '<option value="">麗光板</option>'+
-                    '<option value="">PVC鋁輕鋼架</option>'+
-                    '<option value="">水泥粉光PVC</option>'+
-                    '<option value="">水泥粉光</option>'+
                 '</select>'+
             '</div>';
+            $(text).insertAfter($(itemId));
+
+            get_building_decoration_option(id, column, ceiling_decoration_count[column-1], 'ceiling_decoration');
             break;
 
         case 'toilet-equipment-':
@@ -216,15 +206,18 @@ function addItemOnclick(id,column,num){
                 '比例:<input type="radio" name="toilet-ratio-'+column+"-"+toilet_equipment_count[column-1]+'">1'+
                 '<input type="radio" name="toilet-ratio-'+column+"-"+toilet_equipment_count[column-1]+'">1/2<br>'+
                 '型式:<select name="toilet-type-'+column+"-"+toilet_equipment_count[column-1]+'" class="select-menu">'+
-                    '<option value="">水泥貼馬賽克</option>'+
-                    '<option value="">瓷漆</option>'+
+                    // '<option value="">水泥貼馬賽克</option>'+
+                    // '<option value="">瓷漆</option>'+
                 '</select><br>'+
                 '座數:<input type="radio" name="toilet-number-'+column+"-"+toilet_equipment_count[column-1]+'">1~3座<input type="radio" name="toilet-number-'+column+"-"+toilet_equipment_count[column-1]+'">4~6座<input type="radio" name="toilet-number-'+column+"-"+toilet_equipment_count[column-1]+'">7座以上'+
             '</div>';
+            $(text).insertAfter($(itemId));
+
+            get_building_decoration_option('toilet-type-', column, toilet_equipment_count[column-1], 'toilet_equipment');
             break;
     }
     // $(itemId).append(text);
-    $(text).insertAfter($(itemId));
+    // $(text).insertAfter($(itemId));
 }
 
 function removeItemOnclick(id,column){
@@ -285,7 +278,7 @@ function compensateFormClick(id){
     var num = id.substr(-1,1);
 
     text =
-    '<div id="sub-compensate-form-1">'+
+    '<div id="sub-compensate-form-'+num+'">'+
     '<input type="radio" name="sub-compensate-form-1" onclick="removeAttic(' + num + ')">一般'+
     '<input type="radio" name="sub-compensate-form-1" onclick="attic(' + num + ')">閣樓板(夾層板)'+
     '</div>';
@@ -339,6 +332,7 @@ function addInfoItemOnclick(id){
             '<div id="land-section-'+land_section_count+'">'+
             '<input type="text" name="land-section-'+land_section_count+'" value="" required><br>'+
             '</div>';
+            getLandSectionCount();
             break;
 
         case 'subsection':
@@ -371,6 +365,7 @@ function addInfoItemOnclick(id){
             '<div id="owner-'+owner_count+'">'+
                 '<input type="text" name="owner-'+owner_count+'" placeholder="所有權人-'+owner_count+'" required><br>'+
             '</div>';
+            getOwnerCount();
             break;
 
         case 'hold-ratio':
@@ -449,7 +444,7 @@ function addInfoItemOnclick(id){
 
             text =
             '<div id="calArea-'+calArea_count+'">'+
-                '<input type="text" name="calArea-'+calArea_count+'" class="larger-input-size" placeholder="請輸入面積計算式" title="請輸入面積計算式" required>'+
+                '<input type="text" name="calArea-'+calArea_count+'" class="larger-input-size" placeholder="請輸入面積計算式" title="請輸入面積計算式">'+
             '</div>';
             break;
 
@@ -458,7 +453,7 @@ function addInfoItemOnclick(id){
 
             text =
             '<div id="auto-remove-'+auto_remove_count+'">'+
-                '<input type="radio" name="auto-remove-'+auto_remove_count+'" required>是<input type="radio" name="auto-remove-'+auto_remove_count+'">否'+
+                '<input type="radio" name="auto-remove-'+auto_remove_count+'">是<input type="radio" name="auto-remove-'+auto_remove_count+'">否'+
             '</div>';
             break;
 
@@ -473,6 +468,7 @@ function addInfoItemOnclick(id){
             '<div id="captain-'+captain_count+'">'+
                 '<input type="text" name="captain-'+captain_count+'" required>'+
             '</div>';
+            getCaptainCount();
             break;
 
         case 'captain-id':
@@ -537,6 +533,7 @@ function removeInfoItemOnclick(id){
             removeInfoItemOnclick('subsection');
             removeInfoItemOnclick('land-number');
             land_section_count = removeItem(id, land_section_count);
+            getLandSectionCount();
             break;
         case 'subsection':
             subsection_count = removeItem(id, subsection_count);
@@ -551,6 +548,7 @@ function removeInfoItemOnclick(id){
             removeInfoItemOnclick('telephone');
             removeInfoItemOnclick('cellphone');
             owner_count = removeItem(id, owner_count);
+            getOwnerCount();
             break;
         case 'hold-ratio':
             hold_ratio_count = removeItem(id, hold_ratio_count);
@@ -585,6 +583,7 @@ function removeInfoItemOnclick(id){
             removeInfoItemOnclick('set-household-date');
             removeInfoItemOnclick('family-num');
             captain_count = removeItem(id, captain_count);
+            getCaptainCount();
             break;
         case 'captain-id':
             captain_id_count = removeItem(id, captain_id_count);
@@ -736,6 +735,114 @@ function removeCellphoneListen(num){
 //     document.body.appendChild(form);    // Not entirely sure if this is necessary
 //     form.submit();
 // }
-function test(){
-    window.alert("test");
+function load_electric_data(num){
+    var item = "#electric-usage-"+num;
+    var item_type = $(item).val();
+
+    $.ajax({
+         url: "get_building_decoration_option.php",
+         type: "POST",
+         data:{
+            category: 'electric_type',
+            item_type: item_type
+         },
+         cache:false,
+         dataType: "json",
+         // contentType: 'application/json; charset=utf-8',
+         success: function(data){
+             // window.alert("success");
+             // window.alert(data.item_name);
+             // $("#electric_type_option").html(1)
+             $("#electric-type-"+num).html(data.item_name);
+         },
+         error:function(err){
+             window.alert(err.statusText);
+         }
+    });
 }
+
+function get_building_decoration_option(id,column,count,category){
+    $.ajax({
+         url: "get_building_decoration_option.php",
+         type: "POST",
+         data:{
+            category: category
+         },
+         cache:false,
+         dataType: "json",
+         // contentType: 'application/json; charset=utf-8',
+         success: function(data){
+             result_option = '<option value="" style="display:none;">請選擇材質</option>'+data.item_name;
+             var name = id+column+"-"+count;
+             $("select[name='"+name+"']").html(result_option);
+         },
+         error:function(err){
+             window.alert(err.statusText);
+         }
+    });
+}
+
+function saveDialog(){
+    // text =
+    // '<h1>雜項設施</h1>'+
+    // '<table border="1">'+
+    //     '<tr>'+
+    //         '<td>項目</td>'+
+    //         '<td>面積</td>'+
+    //         '<td>是否自拆</td>'+
+    //     '</tr>'+
+    //
+    //     '<tr>'+
+    //         '<td>'+
+    //             '<div id="other-item" class="input-align-top">'+
+    //                 '<div id="other-item-1">'+
+    //                     '<select class="select-menu" name="other-item-1">'+
+    //                         '<option value="" style="display:none;">請選擇項目</option>'+
+    //                         '<option value="">電柱(RC造)遷移費</option>'+
+    //                         '<option value="">窗型冷氣遷移費</option>'+
+    //                     '</select>'+
+    //                 '</div>'+
+    //             '</div>'+
+    //             '<button type="button" onclick="addInfoItemOnclick("other-item")">+</button>'+
+    //             '<button type="button" onclick="removeInfoItemOnclick("other-item")">-</button>'+
+    //         '</td>'+
+    //         '<td>'+
+    //             '<div id="calArea">'+
+    //                 '<div id="calArea-1">'+
+    //                     '<input type="text" name="calArea-1" class="larger-input-size" placeholder="請輸入面積計算式" title="請輸入面積計算式">'+
+    //                 '</div>'+
+    //             '</div>'+
+    //         '</td>'+
+    //         '<td>'+
+    //             '<div id="auto-remove">'+
+    //                 '<div id="auto-remove-1">'+
+    //                     '<input type="radio" name="auto-remove-1">是<input type="radio" name="auto-remove-1">否'+
+    //                 '</div>'+
+    //             '</div>'+
+    //         '</td>'+
+    //     '</tr>'+
+    // '</table>';
+
+    var isContinue = window.confirm("是否繼續輸入雜項設施?");
+    if(isContinue==true){
+        $("#house_form").attr("action","sub_building.php");
+    }
+}
+
+function getOwnerCount(){
+    $("#owner_count").val(owner_count);
+}
+
+function getCaptainCount(){
+    $("#captain_count").val(captain_count);
+}
+
+function getLandSectionCount(){
+    $("#land_section_count").val(land_section_count);
+}
+
+$(document).ready(function(){
+    getOwnerCount();
+    getCaptainCount();
+    getLandSectionCount();
+});

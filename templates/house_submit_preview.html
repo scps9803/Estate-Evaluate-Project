@@ -72,12 +72,13 @@
                 </tr>
 
                 <tr>
-                    <td rowspan="2">現住戶</td>
+                    <td rowspan="{$captain_count-1}">現住戶</td>
                     <td>戶長姓名</td>
                     <td>家屬人數</td>
                     <td>戶口名簿號碼</td>
                     <td>設籍日期</td>
                     <td>人口遷移費總計(元)</td>
+
                     <td>戶長姓名</td>
                     <td>家屬人數</td>
                     <td>戶口名簿號碼</td>
@@ -85,16 +86,32 @@
                     <td>人口遷移費總計(元)</td>
                 </tr>
 
+                <!-- {for $i=0 to {$captain|@count}/2-1}
                 <tr>
-                    <td>{$captain}</td>
-                    <td>{$family_num}</td>
-                    <td>{$household_number}</td>
-                    <td>{$set_household_date}</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    {for $j=$i to $i+1}
+                        {if $j%2==0}
+                            <td>{$captain.$j.name}</td>
+                            <td>{$captain.$j.family_num}</td>
+                            <td>{$captain.$j.household_number}</td>
+                            <td>{$captain.$j.set_household_date}</td>
+                            <td></td>
+                        {/if}
+
+                        {if $j%2==1}
+                            <td>{$captain.$j.name}</td>
+                            <td>{$captain.$j.family_num}</td>
+                            <td>{$captain.$j.household_number}</td>
+                            <td>{$captain.$j.set_household_date}</td>
+                            <td></td>
+                        {/if}
+                    {/for}
+                </tr>
+                {/for} -->
+
+                <tr>
+                    <td>總人口數</td>
+                    <td>{$total_people}</td>
+                    <td>人口遷移費總計(元)</td>
                     <td></td>
                 </tr>
             </table>
@@ -122,11 +139,12 @@
                     <td>元/點</td>
                 </tr>
 
+                {foreach from=$main_building key=i item=result}
                 <tr>
-                    <td>1</td>
-                    <td>輕重量鋼骨造平房</td>
-                    <td>1/1</td>
-                    <td>住宅</td>
+                    <td>{$i+1}</td>
+                    <td>{$result.material}</td>
+                    <td>{$i+1}/{$main_building|@count}</td>
+                    <td>{$result.usage}</td>
                     <td>1,279.00</td>
                     <td></td>
                     <td>1279.00</td>
@@ -138,6 +156,7 @@
                     <td></td>
                     <td></td>
                 </tr>
+                {/foreach}
 
                 <tr>
                     <td>小計</td>
@@ -157,7 +176,7 @@
                 </tr>
             </table>
 
-            <h4>調查日期: 民國108年03月06日</h4>
+            <h4>調查日期: {$date}</h4>
             <h4>調查單位: 鼎盛不動產估價師事務所</h4>
             <!-- <h4>女兒牆: {$daughter_wall}</h4> -->
             <button type="button" name="">返回修改</button>
