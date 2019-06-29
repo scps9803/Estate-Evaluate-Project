@@ -57,6 +57,8 @@ function addItemOnclick(id,column,num){
                     '<option value="">竹編牆</option>'+
                 '</select>'+
             '</div>';
+            $(text).insertAfter($(itemId));
+            getMinusWallCount(column-1);
             break;
 
         case 'add-wall-':
@@ -85,6 +87,8 @@ function addItemOnclick(id,column,num){
                     '<option value="">竹編牆</option>'+
                 '</select>'+
             '</div>';
+            $(text).insertAfter($(itemId));
+            getAddWallCount(column-1);
             break;
 
         case 'indoor-divide-':
@@ -103,6 +107,7 @@ function addItemOnclick(id,column,num){
             $(text).insertAfter($(itemId));
 
             get_building_decoration_option(id, column, indoor_divide_count[column-1], 'indoor_divide');
+            getIndoorDivideCount(column-1);
             break;
 
         case 'outdoor-wall-decoration-':
@@ -121,6 +126,7 @@ function addItemOnclick(id,column,num){
             $(text).insertAfter($(itemId));
 
             get_building_decoration_option(id, column, outdoor_wall_decoration_count[column-1], 'outdoor_wall_decoration');
+            getOutdoorWallDecorationCount(column-1);
             break;
 
         case 'indoor-wall-decoration-':
@@ -139,6 +145,7 @@ function addItemOnclick(id,column,num){
             $(text).insertAfter($(itemId));
 
             get_building_decoration_option(id, column, indoor_wall_decoration_count[column-1], 'indoor_wall_decoration');
+            getIndoorWallDecorationCount(column-1);
             break;
 
         case 'roof-decoration-':
@@ -157,6 +164,7 @@ function addItemOnclick(id,column,num){
             $(text).insertAfter($(itemId));
 
             get_building_decoration_option(id, column, roof_decoration_count[column-1], 'roof_decoration');
+            getRoofDecorationCount(column-1);
             break;
 
         case 'floor-decoration-':
@@ -175,6 +183,7 @@ function addItemOnclick(id,column,num){
             $(text).insertAfter($(itemId));
 
             get_building_decoration_option(id, column, floor_decoration_count[column-1], 'floor_decoration');
+            getFloorDecorationCount(column-1);
             break;
 
         case 'ceiling-decoration-':
@@ -193,6 +202,7 @@ function addItemOnclick(id,column,num){
             $(text).insertAfter($(itemId));
 
             get_building_decoration_option(id, column, ceiling_decoration_count[column-1], 'ceiling_decoration');
+            getCeilingDecorationCount(column-1);
             break;
 
         case 'toilet-equipment-':
@@ -225,34 +235,42 @@ function removeItemOnclick(id,column){
     switch (id) {
         case 'minus-wall-':
             minus_wall_count[column-1] = removeItem(id+column , minus_wall_count[column-1]);
+            getMinusWallCount(column-1);
             break;
 
         case 'add-wall-':
             add_wall_count[column-1] = removeItem(id+column , add_wall_count[column-1]);
+            getAddWallCount(column-1);
             break;
 
         case 'indoor-divide-':
             indoor_divide_count[column-1] = removeItem(id+column , indoor_divide_count[column-1]);
+            getIndoorDivideCount(column-1);
             break;
 
         case 'outdoor-wall-decoration-':
             outdoor_wall_decoration_count[column-1] = removeItem(id+column , outdoor_wall_decoration_count[column-1]);
+            getOutdoorWallDecorationCount(column-1);
             break;
 
         case 'indoor-wall-decoration-':
             indoor_wall_decoration_count[column-1] = removeItem(id+column , indoor_wall_decoration_count[column-1]);
+            getIndoorWallDecorationCount(column-1);
             break;
 
         case 'roof-decoration-':
             roof_decoration_count[column-1] = removeItem(id+column , roof_decoration_count[column-1]);
+            getRoofDecorationCount(column-1);
             break;
 
         case 'floor-decoration-':
             floor_decoration_count[column-1] = removeItem(id+column , floor_decoration_count[column-1]);
+            getFloorDecorationCount(column-1);
             break;
 
         case 'ceiling-decoration-':
             ceiling_decoration_count[column-1] = removeItem(id+column , ceiling_decoration_count[column-1]);
+            getCeilingDecorationCount(column-1);
             break;
         case 'toilet-equipment-':
             toilet_equipment_count[column-1] = removeItem(id+column , toilet_equipment_count[column-1]);
@@ -279,8 +297,8 @@ function compensateFormClick(id){
 
     text =
     '<div id="sub-compensate-form-'+num+'">'+
-    '<input type="radio" name="sub-compensate-form-1" onclick="removeAttic(' + num + ')">一般'+
-    '<input type="radio" name="sub-compensate-form-1" onclick="attic(' + num + ')">閣樓板(夾層板)'+
+    '<input type="radio" name="sub-compensate-form-'+num+'" value="一般" onclick="removeAttic(' + num + ')" required>一般'+
+    '<input type="radio" name="sub-compensate-form-'+num+'" value="閣樓板(夾層板)" onclick="attic(' + num + ')">閣樓板(夾層板)'+
     '</div>';
 
     if(!isAppend){
@@ -841,8 +859,50 @@ function getLandSectionCount(){
     $("#land_section_count").val(land_section_count);
 }
 
+function getMinusWallCount(num){
+    $("#minus-wall-count-"+(num+1)).val(minus_wall_count[num]);
+}
+
+function getAddWallCount(num){
+    $("#add-wall-count-"+(num+1)).val(add_wall_count[num]);
+}
+
+function getIndoorDivideCount(num){
+    $("#indoor-divide-count-"+(num+1)).val(indoor_divide_count[num]);
+}
+
+function getOutdoorWallDecorationCount(num){
+    $("#outdoor-wall-decoration-count-"+(num+1)).val(outdoor_wall_decoration_count[num]);
+}
+
+function getIndoorWallDecorationCount(num){
+    $("#indoor-wall-decoration-count-"+(num+1)).val(indoor_wall_decoration_count[num]);
+}
+
+function getRoofDecorationCount(num){
+    $("#roof-decoration-count-"+(num+1)).val(roof_decoration_count[num]);
+}
+
+function getFloorDecorationCount(num){
+    $("#floor-decoration-count-"+(num+1)).val(floor_decoration_count[num]);
+}
+
+function getCeilingDecorationCount(num){
+    $("#ceiling-decoration-count-"+(num+1)).val(ceiling_decoration_count[num]);
+}
+
 $(document).ready(function(){
     getOwnerCount();
     getCaptainCount();
     getLandSectionCount();
+    for(var i=0;i<4;i++){
+        getMinusWallCount(i);
+        getAddWallCount(i);
+        getIndoorDivideCount(i);
+        getOutdoorWallDecorationCount(i);
+        getIndoorWallDecorationCount(i);
+        getRoofDecorationCount(i);
+        getFloorDecorationCount(i);
+        getCeilingDecorationCount(i);
+    }
 });

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-06-28 01:28:42
+/* Smarty version 3.1.33, created on 2019-06-28 20:32:39
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\index.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d14fcca3752f7_40205456',
+  'unifunc' => 'content_5d1608e7911799_25979857',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8c5734ee732081c4a28e016fd1e3245b00b0a0f9' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\index.html',
-      1 => 1561656410,
+      1 => 1561725156,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d14fcca3752f7_40205456 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d1608e7911799_25979857 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -94,7 +94,7 @@ function content_5d14fcca3752f7_40205456 (Smarty_Internal_Template $_smarty_tpl)
                             <!-- <button type="button" onclick="addInfoItemOnclick('land-number')">+</button>
                             <button type="button" onclick="removeInfoItemOnclick('land-number')">-</button> -->
                         </td>
-                        <td colspan="2"><input type="text" name="total-area" value="" required></td>
+                        <td colspan="2"><input type="text" name="land-total-area" value="" required></td>
                     </tr>
 
                     <tr>
@@ -285,18 +285,18 @@ function content_5d14fcca3752f7_40205456 (Smarty_Internal_Template $_smarty_tpl)
             <table border="1">
                 <tr>
                     <td colspan="2"><span class="required">(*)</span>編號</td>
-                    <td colspan="2">編號:<input type="text" required><br><input type="radio" name="house-type-1" required>獨立戶<input type="radio" name="house-type-1">邊戶<input type="radio" name="house-type-1">連棟中間戶</td>
-                    <td colspan="2">編號:<input type="text"><br><input type="radio" name="house-type-2">獨立戶<input type="radio" name="house-type-2">邊戶<input type="radio" name="house-type-2">連棟中間戶</td>
-                    <td colspan="2">編號:<input type="text"><br><input type="radio" name="house-type-3">獨立戶<input type="radio" name="house-type-3">邊戶<input type="radio" name="house-type-3">連棟中間戶</td>
-                    <td colspan="2">編號:<input type="text"><br><input type="radio" name="house-type-4">獨立戶<input type="radio" name="house-type-4">邊戶<input type="radio" name="house-type-4">連棟中間戶</td>
+                    <td colspan="2">編號:<input type="text" name="floor-id-1" required><br><input type="radio" name="house-type-1" value="獨立戶" required>獨立戶<input type="radio" name="house-type-1" value="邊戶">邊戶<input type="radio" name="house-type-1" value="連棟中間戶">連棟中間戶</td>
+                    <td colspan="2">編號:<input type="text" name="floor-id-2"><br><input type="radio" name="house-type-2" value="獨立戶">獨立戶<input type="radio" name="house-type-2" value="邊戶">邊戶<input type="radio" name="house-type-2" value="連棟中間戶">連棟中間戶</td>
+                    <td colspan="2">編號:<input type="text" name="floor-id-3"><br><input type="radio" name="house-type-3" value="獨立戶">獨立戶<input type="radio" name="house-type-3" value="邊戶">邊戶<input type="radio" name="house-type-3" value="連棟中間戶">連棟中間戶</td>
+                    <td colspan="2">編號:<input type="text" name="floor-id-4"><br><input type="radio" name="house-type-4" value="獨立戶">獨立戶<input type="radio" name="house-type-4" value="邊戶">邊戶<input type="radio" name="house-type-4" value="連棟中間戶">連棟中間戶</td>
                 </tr>
 
                 <tr>
                     <td colspan="2">補償形式</td>
-                    <td colspan="2" id="compensate-form-1"><input type="radio" name="compensate-form-1" onclick="compensateFormClick('compensate-form-1')" required>主建物<input type="radio" name="compensate-form-1" onclick="removeSubCompensateForm('sub-compensate-form-1')">立面修復<br></td>
-                    <td colspan="2" id="compensate-form-2"><input type="radio" name="compensate-form-2" onclick="compensateFormClick('compensate-form-2')">主建物<input type="radio" name="compensate-form-2" onclick="removeSubCompensateForm('sub-compensate-form-2')">立面修復<br></td>
-                    <td colspan="2" id="compensate-form-3"><input type="radio" name="compensate-form-3" onclick="compensateFormClick('compensate-form-3')">主建物<input type="radio" name="compensate-form-3" onclick="removeSubCompensateForm('sub-compensate-form-3')">立面修復<br></td>
-                    <td colspan="2" id="compensate-form-4"><input type="radio" name="compensate-form-4" onclick="compensateFormClick('compensate-form-4')">主建物<input type="radio" name="compensate-form-4" onclick="removeSubCompensateForm('sub-compensate-form-4')">立面修復<br></td>
+                    <td colspan="2" id="compensate-form-1"><input type="radio" name="compensate-form-1" value="主建物" onclick="compensateFormClick('compensate-form-1')" required>主建物<input type="radio" name="compensate-form-1" value="立面修復" onclick="removeSubCompensateForm('sub-compensate-form-1')">立面修復<br></td>
+                    <td colspan="2" id="compensate-form-2"><input type="radio" name="compensate-form-2" value="主建物" onclick="compensateFormClick('compensate-form-2')">主建物<input type="radio" name="compensate-form-2" value="立面修復" onclick="removeSubCompensateForm('sub-compensate-form-2')">立面修復<br></td>
+                    <td colspan="2" id="compensate-form-3"><input type="radio" name="compensate-form-3" value="主建物" onclick="compensateFormClick('compensate-form-3')">主建物<input type="radio" name="compensate-form-3" value="立面修復" onclick="removeSubCompensateForm('sub-compensate-form-3')">立面修復<br></td>
+                    <td colspan="2" id="compensate-form-4"><input type="radio" name="compensate-form-4" value="主建物" onclick="compensateFormClick('compensate-form-4')">主建物<input type="radio" name="compensate-form-4" value="立面修復" onclick="removeSubCompensateForm('sub-compensate-form-4')">立面修復<br></td>
                 </tr>
 
                 <tr>
@@ -316,7 +316,7 @@ function content_5d14fcca3752f7_40205456 (Smarty_Internal_Template $_smarty_tpl)
 
                         </select>
                     </td>
-                    <td>(<input type="number" min="0" class="small-input-size">F/共<input type="number" min="0" class="small-input-size">F)</td>
+                    <td>(<input type="number" min="0" class="small-input-size" name="nth-floor-2">F/共<input type="number" min="0" class="small-input-size" name="total-floor-2">F)</td>
                     <td>
                         <select class="median-select-menu" name="building-material-3">
                             <option value="" style="display:none;">請選擇構造</option>
@@ -324,7 +324,7 @@ function content_5d14fcca3752f7_40205456 (Smarty_Internal_Template $_smarty_tpl)
 
                         </select>
                     </td>
-                    <td>(<input type="number" min="0" class="small-input-size">F/共<input type="number" min="0" class="small-input-size">F)</td>
+                    <td>(<input type="number" min="0" class="small-input-size" name="nth-floor-3">F/共<input type="number" min="0" class="small-input-size" name="total-floor-3">F)</td>
                     <td>
                         <select class="median-select-menu" name="building-material-4">
                             <option value="" style="display:none;">請選擇構造</option>
@@ -332,7 +332,7 @@ function content_5d14fcca3752f7_40205456 (Smarty_Internal_Template $_smarty_tpl)
 
                         </select>
                     </td>
-                    <td>(<input type="number" min="0" class="small-input-size">F/共<input type="number" min="0" class="small-input-size">F)</td>
+                    <td>(<input type="number" min="0" class="small-input-size" name="nth-floor-4">F/共<input type="number" min="0" class="small-input-size" name="total-floor-4">F)</td>
 
                 </tr>
 
@@ -392,10 +392,10 @@ function content_5d14fcca3752f7_40205456 (Smarty_Internal_Template $_smarty_tpl)
                 </tr>
 
                 <tr>
-                    <td colspan="2">層高:<input type="number" value="3.0" min="0" step="0.1" oninput="if(value.length>4)value=value.slice(0,4)" class="median-input-size">(m)</td>
-                    <td colspan="2">層高:<input type="number" value="3.0" min="0" step="0.1" oninput="if(value.length>4)value=value.slice(0,4)" class="median-input-size">(m)</td>
-                    <td colspan="2">層高:<input type="number" value="3.0" min="0" step="0.1" oninput="if(value.length>4)value=value.slice(0,4)" class="median-input-size">(m)</td>
-                    <td colspan="2">層高:<input type="number" value="3.0" min="0" step="0.1" oninput="if(value.length>4)value=value.slice(0,4)" class="median-input-size">(m)</td>
+                    <td colspan="2">層高:<input type="number" name="layer-height-1" value="3.0" min="0" step="0.1" oninput="if(value.length>4)value=value.slice(0,4)" class="median-input-size">(m)</td>
+                    <td colspan="2">層高:<input type="number" name="layer-height-2" value="3.0" min="0" step="0.1" oninput="if(value.length>4)value=value.slice(0,4)" class="median-input-size">(m)</td>
+                    <td colspan="2">層高:<input type="number" name="layer-height-3" value="3.0" min="0" step="0.1" oninput="if(value.length>4)value=value.slice(0,4)" class="median-input-size">(m)</td>
+                    <td colspan="2">層高:<input type="number" name="layer-height-4" value="3.0" min="0" step="0.1" oninput="if(value.length>4)value=value.slice(0,4)" class="median-input-size">(m)</td>
                 </tr>
 
                 <tr>
@@ -414,10 +414,10 @@ function content_5d14fcca3752f7_40205456 (Smarty_Internal_Template $_smarty_tpl)
                             <span>減牆:</span>
                             <select name="minus-wall-num-1-1">
                                 <option value="" style="display:none;">請選擇面數</option>
-                                <option value="">1</option>
-                                <option value="">2</option>
-                                <option value="">3</option>
-                                <option value="">4</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
                             </select>
                             <select name="minus-wall-option-1-1">
                                 <option value="" style="display:none;">請選擇材質</option>
@@ -431,6 +431,7 @@ function content_5d14fcca3752f7_40205456 (Smarty_Internal_Template $_smarty_tpl)
 
                             </select>
                         </div>
+                        <input type="hidden" id="minus-wall-count-1" name="minus-wall-count-1">
                         <button type="button" onclick="addItemOnclick('minus-wall-','1','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('minus-wall-','1')">-</button>
 
@@ -438,10 +439,10 @@ function content_5d14fcca3752f7_40205456 (Smarty_Internal_Template $_smarty_tpl)
                             <span>加牆:</span>
                             <select name="add-wall-num-1-1">
                                 <option value="" style="display:none;">請選擇面數</option>
-                                <option value="">1</option>
-                                <option value="">2</option>
-                                <option value="">3</option>
-                                <option value="">4</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
                             </select>
                             <select name="add-wall-option-1-1">
                                 <option value="" style="display:none;">請選擇材質</option>
@@ -455,6 +456,7 @@ function content_5d14fcca3752f7_40205456 (Smarty_Internal_Template $_smarty_tpl)
 
                             </select>
                         </div>
+                        <input type="hidden" id="add-wall-count-1" name="add-wall-count-1">
                         <button type="button" onclick="addItemOnclick('add-wall-','1','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('add-wall-','1')">-</button>
                     </td>
@@ -464,10 +466,10 @@ function content_5d14fcca3752f7_40205456 (Smarty_Internal_Template $_smarty_tpl)
                             <span>減牆:</span>
                             <select name="minus-wall-num-2-1">
                                 <option value="" style="display:none;">請選擇面數</option>
-                                <option value="">1</option>
-                                <option value="">2</option>
-                                <option value="">3</option>
-                                <option value="">4</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
                             </select>
                             <select name="minus-wall-option-2-1">
                                 <option value="" style="display:none;">請選擇材質</option>
@@ -481,6 +483,7 @@ function content_5d14fcca3752f7_40205456 (Smarty_Internal_Template $_smarty_tpl)
 
                             </select>
                         </div>
+                        <input type="hidden" id="minus-wall-count-2" name="minus-wall-count-2">
                         <button type="button" onclick="addItemOnclick('minus-wall-','2','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('minus-wall-','2')">-</button>
 
@@ -488,10 +491,10 @@ function content_5d14fcca3752f7_40205456 (Smarty_Internal_Template $_smarty_tpl)
                             <span>加牆:</span>
                             <select name="add-wall-num-2-1">
                                 <option value="" style="display:none;">請選擇面數</option>
-                                <option value="">1</option>
-                                <option value="">2</option>
-                                <option value="">3</option>
-                                <option value="">4</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
                             </select>
                             <select name="add-wall-option-2-1">
                                 <option value="" style="display:none;">請選擇材質</option>
@@ -505,6 +508,7 @@ function content_5d14fcca3752f7_40205456 (Smarty_Internal_Template $_smarty_tpl)
 
                             </select>
                         </div>
+                        <input type="hidden" id="add-wall-count-2" name="add-wall-count-2">
                         <button type="button" onclick="addItemOnclick('add-wall-','2','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('add-wall-','2')">-</button>
                     </td>
@@ -514,10 +518,10 @@ function content_5d14fcca3752f7_40205456 (Smarty_Internal_Template $_smarty_tpl)
                             <span>減牆:</span>
                             <select name="minus-wall-num-3-1">
                                 <option value="" style="display:none;">請選擇面數</option>
-                                <option value="">1</option>
-                                <option value="">2</option>
-                                <option value="">3</option>
-                                <option value="">4</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
                             </select>
                             <select name="minus-wall-option-3-1">
                                 <option value="" style="display:none;">請選擇材質</option>
@@ -531,6 +535,7 @@ function content_5d14fcca3752f7_40205456 (Smarty_Internal_Template $_smarty_tpl)
 
                             </select>
                         </div>
+                        <input type="hidden" id="minus-wall-count-3" name="minus-wall-count-3">
                         <button type="button" onclick="addItemOnclick('minus-wall-','3','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('minus-wall-','3')">-</button>
 
@@ -538,10 +543,10 @@ function content_5d14fcca3752f7_40205456 (Smarty_Internal_Template $_smarty_tpl)
                             <span>加牆:</span>
                             <select name="add-wall-num-3-1">
                                 <option value="" style="display:none;">請選擇面數</option>
-                                <option value="">1</option>
-                                <option value="">2</option>
-                                <option value="">3</option>
-                                <option value="">4</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
                             </select>
                             <select name="add-wall-option-3-1">
                                 <option value="" style="display:none;">請選擇材質</option>
@@ -555,6 +560,7 @@ function content_5d14fcca3752f7_40205456 (Smarty_Internal_Template $_smarty_tpl)
 
                             </select>
                         </div>
+                        <input type="hidden" id="add-wall-count-3" name="add-wall-count-3">
                         <button type="button" onclick="addItemOnclick('add-wall-','3','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('add-wall-','3')">-</button>
                     </td>
@@ -564,10 +570,10 @@ function content_5d14fcca3752f7_40205456 (Smarty_Internal_Template $_smarty_tpl)
                             <span>減牆:</span>
                             <select name="minus-wall-num-4-1">
                                 <option value="" style="display:none;">請選擇面數</option>
-                                <option value="">1</option>
-                                <option value="">2</option>
-                                <option value="">3</option>
-                                <option value="">4</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
                             </select>
                             <select name="minus-wall-option-4-1">
                                 <option value="" style="display:none;">請選擇材質</option>
@@ -581,6 +587,7 @@ function content_5d14fcca3752f7_40205456 (Smarty_Internal_Template $_smarty_tpl)
 
                             </select>
                         </div>
+                        <input type="hidden" id="minus-wall-count-4" name="minus-wall-count-4">
                         <button type="button" onclick="addItemOnclick('minus-wall-','4','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('minus-wall-','4')">-</button>
 
@@ -588,10 +595,10 @@ function content_5d14fcca3752f7_40205456 (Smarty_Internal_Template $_smarty_tpl)
                             <span>加牆:</span>
                             <select name="add-wall-num-4-1">
                                 <option value="" style="display:none;">請選擇面數</option>
-                                <option value="">1</option>
-                                <option value="">2</option>
-                                <option value="">3</option>
-                                <option value="">4</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
                             </select>
                             <select name="add-wall-option-4-1">
                                 <option value="" style="display:none;">請選擇材質</option>
@@ -605,6 +612,7 @@ function content_5d14fcca3752f7_40205456 (Smarty_Internal_Template $_smarty_tpl)
 
                             </select>
                         </div>
+                        <input type="hidden" id="add-wall-count-4" name="add-wall-count-4">
                         <button type="button" onclick="addItemOnclick('add-wall-','4','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('add-wall-','4')">-</button>
                     </td>
@@ -624,6 +632,7 @@ function content_5d14fcca3752f7_40205456 (Smarty_Internal_Template $_smarty_tpl)
                             </select>
                         </div>
 
+                        <input type="hidden" id="indoor-divide-count-1" name="indoor-divide-count-1">
                         <button type="button" onclick="addItemOnclick('indoor-divide-','1','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('indoor-divide-','1')">-</button>
                     </td>
@@ -639,6 +648,7 @@ function content_5d14fcca3752f7_40205456 (Smarty_Internal_Template $_smarty_tpl)
                             </select>
                         </div>
 
+                        <input type="hidden" id="indoor-divide-count-2" name="indoor-divide-count-2">
                         <button type="button" onclick="addItemOnclick('indoor-divide-','2','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('indoor-divide-','2')">-</button>
                     </td>
@@ -654,6 +664,7 @@ function content_5d14fcca3752f7_40205456 (Smarty_Internal_Template $_smarty_tpl)
                             </select>
                         </div>
 
+                        <input type="hidden" id="indoor-divide-count-3" name="indoor-divide-count-3">
                         <button type="button" onclick="addItemOnclick('indoor-divide-','3','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('indoor-divide-','3')">-</button>
                     </td>
@@ -669,6 +680,7 @@ function content_5d14fcca3752f7_40205456 (Smarty_Internal_Template $_smarty_tpl)
                             </select>
                         </div>
 
+                        <input type="hidden" id="indoor-divide-count-4" name="indoor-divide-count-4">
                         <button type="button" onclick="addItemOnclick('indoor-divide-','4','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('indoor-divide-','4')">-</button>
                     </td>
@@ -687,6 +699,7 @@ function content_5d14fcca3752f7_40205456 (Smarty_Internal_Template $_smarty_tpl)
                             </select>
                         </div>
 
+                        <input type="hidden" id="outdoor-wall-decoration-count-1" name="outdoor-wall-decoration-count-1">
                         <button type="button" onclick="addItemOnclick('outdoor-wall-decoration-','1','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('outdoor-wall-decoration-','1')">-</button>
                     </td>
@@ -701,6 +714,7 @@ function content_5d14fcca3752f7_40205456 (Smarty_Internal_Template $_smarty_tpl)
                             </select>
                         </div>
 
+                        <input type="hidden" id="outdoor-wall-decoration-count-2" name="outdoor-wall-decoration-count-2">
                         <button type="button" onclick="addItemOnclick('outdoor-wall-decoration-','2','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('outdoor-wall-decoration-','2')">-</button>
                     </td>
@@ -715,6 +729,7 @@ function content_5d14fcca3752f7_40205456 (Smarty_Internal_Template $_smarty_tpl)
                             </select>
                         </div>
 
+                        <input type="hidden" id="outdoor-wall-decoration-count-3" name="outdoor-wall-decoration-count-3">
                         <button type="button" onclick="addItemOnclick('outdoor-wall-decoration-','3','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('outdoor-wall-decoration-','3')">-</button>
                     </td>
@@ -729,6 +744,7 @@ function content_5d14fcca3752f7_40205456 (Smarty_Internal_Template $_smarty_tpl)
                             </select>
                         </div>
 
+                        <input type="hidden" id="outdoor-wall-decoration-count-4" name="outdoor-wall-decoration-count-4">
                         <button type="button" onclick="addItemOnclick('outdoor-wall-decoration-','4','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('outdoor-wall-decoration-','4')">-</button>
                     </td>
@@ -746,6 +762,7 @@ function content_5d14fcca3752f7_40205456 (Smarty_Internal_Template $_smarty_tpl)
                             </select>
                         </div>
 
+                        <input type="hidden" id="indoor-wall-decoration-count-1" name="indoor-wall-decoration-count-1">
                         <button type="button" onclick="addItemOnclick('indoor-wall-decoration-','1','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('indoor-wall-decoration-','1')">-</button>
                     </td>
@@ -760,6 +777,7 @@ function content_5d14fcca3752f7_40205456 (Smarty_Internal_Template $_smarty_tpl)
                             </select>
                         </div>
 
+                        <input type="hidden" id="indoor-wall-decoration-count-2" name="indoor-wall-decoration-count-2">
                         <button type="button" onclick="addItemOnclick('indoor-wall-decoration-','2','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('indoor-wall-decoration-','2')">-</button>
                     </td>
@@ -774,6 +792,7 @@ function content_5d14fcca3752f7_40205456 (Smarty_Internal_Template $_smarty_tpl)
                             </select>
                         </div>
 
+                        <input type="hidden" id="indoor-wall-decoration-count-3" name="indoor-wall-decoration-count-3">
                         <button type="button" onclick="addItemOnclick('indoor-wall-decoration-','3','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('indoor-wall-decoration-','3')">-</button>
                     </td>
@@ -788,6 +807,7 @@ function content_5d14fcca3752f7_40205456 (Smarty_Internal_Template $_smarty_tpl)
                             </select>
                         </div>
 
+                        <input type="hidden" id="indoor-wall-decoration-count-4" name="indoor-wall-decoration-count-4">
                         <button type="button" onclick="addItemOnclick('indoor-wall-decoration-','4','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('indoor-wall-decoration-','4')">-</button>
                     </td>
@@ -805,6 +825,7 @@ function content_5d14fcca3752f7_40205456 (Smarty_Internal_Template $_smarty_tpl)
                             </select>
                         </div>
 
+                        <input type="hidden" id="roof-decoration-count-1" name="roof-decoration-count-1">
                         <button type="button" onclick="addItemOnclick('roof-decoration-','1','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('roof-decoration-','1')">-</button>
                     </td>
@@ -819,6 +840,7 @@ function content_5d14fcca3752f7_40205456 (Smarty_Internal_Template $_smarty_tpl)
                             </select>
                         </div>
 
+                        <input type="hidden" id="roof-decoration-count-2" name="roof-decoration-count-2">
                         <button type="button" onclick="addItemOnclick('roof-decoration-','2','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('roof-decoration-','2')">-</button>
                     </td>
@@ -833,6 +855,7 @@ function content_5d14fcca3752f7_40205456 (Smarty_Internal_Template $_smarty_tpl)
                             </select>
                         </div>
 
+                        <input type="hidden" id="roof-decoration-count-3" name="roof-decoration-count-3">
                         <button type="button" onclick="addItemOnclick('roof-decoration-','3','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('roof-decoration-','3')">-</button>
                     </td>
@@ -847,6 +870,7 @@ function content_5d14fcca3752f7_40205456 (Smarty_Internal_Template $_smarty_tpl)
                             </select>
                         </div>
 
+                        <input type="hidden" id="roof-decoration-count-4" name="roof-decoration-count-4">
                         <button type="button" onclick="addItemOnclick('roof-decoration-','4','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('roof-decoration-','4')">-</button>
                     </td>
@@ -864,6 +888,7 @@ function content_5d14fcca3752f7_40205456 (Smarty_Internal_Template $_smarty_tpl)
                             </select>
                         </div>
 
+                        <input type="hidden" id="floor-decoration-count-1" name="floor-decoration-count-1">
                         <button type="button" onclick="addItemOnclick('floor-decoration-','1','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('floor-decoration-','1')">-</button>
                     </td>
@@ -878,6 +903,7 @@ function content_5d14fcca3752f7_40205456 (Smarty_Internal_Template $_smarty_tpl)
                             </select>
                         </div>
 
+                        <input type="hidden" id="floor-decoration-count-2" name="floor-decoration-count-2">
                         <button type="button" onclick="addItemOnclick('floor-decoration-','2','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('floor-decoration-','2')">-</button>
                     </td>
@@ -892,6 +918,7 @@ function content_5d14fcca3752f7_40205456 (Smarty_Internal_Template $_smarty_tpl)
                             </select>
                         </div>
 
+                        <input type="hidden" id="floor-decoration-count-3" name="floor-decoration-count-3">
                         <button type="button" onclick="addItemOnclick('floor-decoration-','3','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('floor-decoration-','3')">-</button>
                     </td>
@@ -906,6 +933,7 @@ function content_5d14fcca3752f7_40205456 (Smarty_Internal_Template $_smarty_tpl)
                             </select>
                         </div>
 
+                        <input type="hidden" id="floor-decoration-count-4" name="floor-decoration-count-4">
                         <button type="button" onclick="addItemOnclick('floor-decoration-','4','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('floor-decoration-','4')">-</button>
                     </td>
@@ -923,6 +951,7 @@ function content_5d14fcca3752f7_40205456 (Smarty_Internal_Template $_smarty_tpl)
                             </select>
                         </div>
 
+                        <input type="hidden" id="ceiling-decoration-count-1" name="ceiling-decoration-count-1">
                         <button type="button" onclick="addItemOnclick('ceiling-decoration-','1','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('ceiling-decoration-','1')">-</button>
                     </td>
@@ -937,6 +966,7 @@ function content_5d14fcca3752f7_40205456 (Smarty_Internal_Template $_smarty_tpl)
                             </select>
                         </div>
 
+                        <input type="hidden" id="ceiling-decoration-count-2" name="ceiling-decoration-count-2">
                         <button type="button" onclick="addItemOnclick('ceiling-decoration-','2','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('ceiling-decoration-','2')">-</button>
                     </td>
@@ -951,6 +981,7 @@ function content_5d14fcca3752f7_40205456 (Smarty_Internal_Template $_smarty_tpl)
                             </select>
                         </div>
 
+                        <input type="hidden" id="ceiling-decoration-count-3" name="ceiling-decoration-count-3">
                         <button type="button" onclick="addItemOnclick('ceiling-decoration-','3','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('ceiling-decoration-','3')">-</button>
                     </td>
@@ -965,6 +996,7 @@ function content_5d14fcca3752f7_40205456 (Smarty_Internal_Template $_smarty_tpl)
                             </select>
                         </div>
 
+                        <input type="hidden" id="ceiling-decoration-count-4" name="ceiling-decoration-count-4">
                         <button type="button" onclick="addItemOnclick('ceiling-decoration-','4','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('ceiling-decoration-','4')">-</button>
                     </td>

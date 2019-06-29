@@ -3,40 +3,55 @@ session_start();
 require_once "smarty/libs/Smarty.class.php";
 $smarty = new Smarty;
 
+// 行政區
+$district = $_POST['district'];
+
+// 地段、小段、地號
+$land_section_count = $_POST['land_section_count'];
+for($i=0;$i<$land_section_count;$i++){
+    if($_POST['land-section-'.($i+1)]=="") break;
+    $land_section[$i] = $_POST['land-section-'.($i+1)];
+    $subsection[$i] = $_POST['subsection-'.($i+1)];
+    $land_number[$i] = $_POST['land-number-'.($i+1)];
+}
+// 土地總面積
+$land_total_area = $_POST['land-total-area'];
+
+// 合法狀態、手稿編號
+$legal_status = $_POST['legal-status'];
 $script_number = $_POST['legal-status']."-".$_POST['script-number'];
+
+// 建物所有人、持分、身分證字號、住址、電話等個人資料
 $owner_count = $_POST['owner_count'];
 for($i=0;$i<$owner_count;$i++){
     $owner[$i] = $_POST['owner-'.($i+1)];
+    $hold_ratio[$i] = $_POST['hold-numerator-'.($i+1)] / $_POST['hold-denominator-'.($i+1)];
     $pId[$i] = $_POST['pId-'.($i+1)];
     $address[$i] = $_POST['addressText-'.($i+1)];
     $cellphone[$i] = $_POST['cellphone-'.($i+1)];
     $telephone[$i] = $_POST['telephone-'.($i+1)];
 }
 
-$legal_status = $_POST['legal-status'];
-$legal_certificate = $_POST['legal_certificate'];
+// 房屋門牌
 $house_address = $_POST['houseAddress'];
-$legal_number = $_POST['build-number']."<br>".$_POST['tax_number'];
-$location = "桃園市、".$_POST['district']."、".$_POST['land-section-1']."，".$_POST['land-number-1']."，"
-."標示面積 ".$_POST['total-area']." m<sup>2</sup>";
-
+// 拆除情形
 $remove_condition = $_POST['remove_condition'];
+// 合法證明文件
+$legal_certificate = $_POST['legal_certificate'];
+// 建號
+$build_number = $_POST['build-number'];
+// 座落土地使用權屬
 $land_use = $_POST['land-use'];
-
-if($telephone[0]==""){
-    $phone = $cellphone[0];
-}
-else if($cellphone[0]==""){
-    $phone = $telephone[0];
-}
-else{
-    $phone = $cellphone[0]."，".$telephone[0];
-}
-
+// 起造證明文件
+$build_certificate = $_POST['build-certificate'];
+// 稅籍編號
+$tax_number = $_POST['tax_number'];
+// 出口數
 $exit_num = $_POST['exit-num'];
+
+// 現住人資料
 $captain_count = $_POST['captain_count'];
 $total_people = 0;
-
 if($captain_count>=1){
     for($i=0;$i<$captain_count;$i++){
         $captain[$i]['name'] = $_POST['captain-'.($i+1)];
@@ -48,15 +63,62 @@ if($captain_count>=1){
         $smarty->assign("captain",$captain);
     }
 }
+// ------------------------------以上為調查表個資部分----------------------------------
+// ------------------------------以下為建物查估部分----------------------------------
+$legal_number = $_POST['build-number']."<br>".$_POST['tax_number'];
+$location = "桃園市、".$_POST['district']."、".$_POST['land-section-1']."，".$_POST['land-number-1']."，"
+."標示面積 ".$_POST['land-total-area']." m<sup>2</sup>";
 
+
+
+if($telephone[0]==""){
+    $phone = $cellphone[0];
+}
+else if($cellphone[0]==""){
+    $phone = $telephone[0];
+}
+else{
+    $phone = $cellphone[0]."，".$telephone[0];
+}
+
+
+// 每層樓詳細資訊、粉裝評點等細項資料
 $total_floor = $_POST['total-floor-1'];
 for($i=0;$i<$total_floor;$i++){
+    $main_building[$i]["floor_id"] = $_POST['floor-id-'.($i+1)];
+    $main_building[$i]["house_type"] = $_POST['house-type-'.($i+1)];
+    $main_building[$i]["compensate_form"] = $_POST['compensate-form-'.($i+1)];
+
+    // if($main_building[$i]["compensate_form"]=="主建物"){
+    //     $main_building[$i]["sub_compensate_form"] = $_POST['sub-compensate-form-'.($i+1)];
+    // }else{
+    //     $main_building[$i]["sub_compensate_form"] = "";
+    // }
+    // echo $main_building[$i]["compensate_form"].","."\n";
     $main_building[$i]["material"] = $_POST['building-material-'.($i+1)];
+    $main_building[$i]["nth_floor"] = $_POST['nth-floor-'.($i+1)];
+    $main_building[$i]["floor_area"] = $_POST['floor-area-'.($i+1)];
+
     if($_POST['house-usage-'.($i+1)]=="none"){
         $main_building[$i]["usage"] = $_POST['other-house-usage-'.($i+1)];
     }else{
         $main_building[$i]["usage"] = $_POST['house-usage-'.($i+1)];
     }
+
+    $main_building[$i]["layer-height"] = $_POST['layer-height-'.($i+1)];
+
+    // 減牆
+    for($j=0;$j<$_POST['minus-wall-count-'.($i+1)];$j++){
+        // 減牆面數
+        $minus_wall_count[$i][$j] = $_POST['minus-wall-num-'.($i+1).'-'.($j+1)];
+        // $minus_wall_count[$i][$j] = 100;
+        // 減牆材質
+        $minus_wall_option[$i][$j] = $_POST['minus-wall-option-'.($i+1).'-'.($j+1)];
+        // $minus_wall_option[$i][$j] = "RC造";
+
+        echo "第".$i."樓減".$minus_wall_count[$i][$j]."面".$minus_wall_option[$i][$j]."材質 ,";
+    }
+    // echo $_POST['minus-wall-count-'.($i+1)];
 }
 $date = date("Y/m/d");
 
