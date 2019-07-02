@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once "smarty/libs/Smarty.class.php";
+include("library.php");
 $smarty = new Smarty;
 
 // 行政區
@@ -108,18 +109,26 @@ for($i=0;$i<$total_floor;$i++){
     $main_building[$i]["layer-height"] = $_POST['layer-height-'.($i+1)];
 
     // 減牆
-    for($j=0;$j<$_POST['minus-wall-count-'.($i+1)];$j++){
-        // 減牆面數
-        $minus_wall_count[$i][$j] = $_POST['minus-wall-num-'.($i+1).'-'.($j+1)];
-        // $minus_wall_count[$i][$j] = 100;
-        // 減牆材質
-        $minus_wall_option[$i][$j] = $_POST['minus-wall-option-'.($i+1).'-'.($j+1)];
-        // $minus_wall_option[$i][$j] = "RC造";
-
-        echo "第".$i."樓減".$minus_wall_count[$i][$j]."面".$minus_wall_option[$i][$j]."材質 ,";
+    $minus_wall_count = getAppendSelectData('minus-wall-count-',$total_floor);
+    $minus_wall_option = getAppendSelectData('minus-wall-option-',$total_floor);
+    for($i=0;$i<$total_floor;$i++){
+        for($j=0;$j<count($minus_wall_count[$i]);$j++){
+            echo $minus_wall_count[$i][$j]."面".$minus_wall_option[$i][$j].",";
+        }
+        echo "<br>";
     }
-    // echo $_POST['minus-wall-count-'.($i+1)];
 }
+
+
+
+// $test = getAppendSelectData('minus-wall-count-');
+// for($i=0;$i<4;$i++){
+//     for($j=0;$j<count($test[$i]);$j++){
+//         echo $test[$i][$j].",";
+//     }
+//     echo "<br>";
+// }
+
 $date = date("Y/m/d");
 
 $smarty->assign("script_number",$script_number);

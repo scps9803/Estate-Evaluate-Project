@@ -5,6 +5,10 @@ function connect_db()
     $username = "root";
     $password = "860430";
     $dbname = "estate_evaluate_project";
+    // $servername = "localhost";
+    // $username = "dayicom_jimmy7920";
+    // $password = "ji7151618";
+    // $dbname = "dayicom_estate_db";
 
     // Create connection
     $conn = new mysqli($servername, $username, $password, $dbname);
@@ -99,5 +103,14 @@ function get_building_decoration_option($category){
     // $smarty->assign("electric_type_option",$electric_type_option);
     // $smarty->display("index.html");
     return $electric_type_option;
+}
+
+function getAppendSelectData($id,$total_floor){
+    for($i=0;$i<$total_floor;$i++){
+        $count = $_POST[$id.($i+1)];
+
+        $value_array[$i] = explode (",",$count);
+    }
+    return $value_array;
 }
 ?>

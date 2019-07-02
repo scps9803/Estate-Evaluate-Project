@@ -40,24 +40,26 @@ function addItemOnclick(id,column,num){
             text =
             '<div id="minus-wall-'+column+"-"+minus_wall_count[column-1]+'">'+
                 '<span>減牆:&nbsp;</span>'+
-                '<select name="minus-wall-num-'+column+"-"+ minus_wall_count[column-1] +'">'+
+                '<select id="minus-wall-num-'+column+"-"+minus_wall_count[column-1]+'" name="minus-wall-num-'+column+"-"+ minus_wall_count[column-1] +'">'+
                     '<option value="" style="display:none;">請選擇面數</option>'+
-                    '<option value="">1</option>'+
-                    '<option value="">2</option>'+
-                    '<option value="">3</option>'+
-                    '<option value="">4</option>'+
+                    '<option value="1">1</option>'+
+                    '<option value="2">2</option>'+
+                    '<option value="3">3</option>'+
+                    '<option value="4">4</option>'+
                 '</select>&nbsp;'+
-                '<select name="minus-wall-option-'+column+"-"+ minus_wall_count[column-1] +'">'+
+                '<input type="hidden" name="test-num-'+column+'">'+
+                '<select id="minus-wall-option-'+column+"-"+minus_wall_count[column-1]+'" name="minus-wall-option-'+column+"-"+ minus_wall_count[column-1] +'">'+
                     '<option value="" style="display:none;">請選擇材質</option>'+
-                    '<option value="">RC牆</option>'+
-                    '<option value="">1B</option>'+
-                    '<option value="">1/2B</option>'+
-                    '<option value="">檜木造</option>'+
-                    '<option value="">其他木造</option>'+
-                    '<option value="">竹編牆</option>'+
+                    // '<option value="">RC牆</option>'+
+                    // '<option value="">1B</option>'+
+                    // '<option value="">1/2B</option>'+
+                    // '<option value="">檜木造</option>'+
+                    // '<option value="">其他木造</option>'+
+                    // '<option value="">竹編牆</option>'+
                 '</select>'+
             '</div>';
             $(text).insertAfter($(itemId));
+            get_building_decoration_option(id+"option-", column, minus_wall_count[column-1], 'indoor_divide');
             getMinusWallCount(column-1);
             break;
 
@@ -844,6 +846,26 @@ function saveDialog(){
     var isContinue = window.confirm("是否繼續輸入雜項設施?");
     if(isContinue==true){
         $("#house_form").attr("action","sub_building.php");
+    }
+    else{
+        itemId = ["#minus-wall-num-","#minus-wall-option-"];
+        writeToId = ["#minus-wall-count-","#minus-wall-option-"];
+
+        for(var i=0;i<itemId.length;i++){
+            writeDataToOneRow(itemId[i],writeToId[i]);
+        }
+    }
+}
+
+function writeDataToOneRow(itemId,writeToId){
+
+    for(var i=0;i<4;i++){
+        temp_array = [];
+        for(var j=0;j<minus_wall_count[i];j++){
+            var name = itemId+(i+1)+"-"+(j+1);
+            temp_array[j] = $(name).val();
+        }
+        $(writeToId+(i+1)).val(temp_array);
     }
 }
 

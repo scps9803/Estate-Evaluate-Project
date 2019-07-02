@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-06-28 20:32:39
+/* Smarty version 3.1.33, created on 2019-07-02 16:31:05
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\index.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d1608e7911799_25979857',
+  'unifunc' => 'content_5d1b86c956e116_77612810',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8c5734ee732081c4a28e016fd1e3245b00b0a0f9' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\index.html',
-      1 => 1561725156,
+      1 => 1562085057,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d1608e7911799_25979857 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d1b86c956e116_77612810 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -412,14 +412,14 @@ function content_5d1608e7911799_25979857 (Smarty_Internal_Template $_smarty_tpl)
                     <td colspan="2">
                         <div id="minus-wall-1-1">
                             <span>減牆:</span>
-                            <select name="minus-wall-num-1-1">
+                            <select id="minus-wall-num-1-1" name="minus-wall-num-1-1">
                                 <option value="" style="display:none;">請選擇面數</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
                                 <option value="4">4</option>
                             </select>
-                            <select name="minus-wall-option-1-1">
+                            <select id="minus-wall-option-1-1" name="minus-wall-option-1-1">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <!-- <option value="">RC牆</option>
                                 <option value="">1B</option>
@@ -432,6 +432,7 @@ function content_5d1608e7911799_25979857 (Smarty_Internal_Template $_smarty_tpl)
                             </select>
                         </div>
                         <input type="hidden" id="minus-wall-count-1" name="minus-wall-count-1">
+                        <input type="hidden" id="minus-wall-option-1" name="minus-wall-option-1">
                         <button type="button" onclick="addItemOnclick('minus-wall-','1','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('minus-wall-','1')">-</button>
 
@@ -464,14 +465,14 @@ function content_5d1608e7911799_25979857 (Smarty_Internal_Template $_smarty_tpl)
                     <td colspan="2">
                         <div id="minus-wall-2-1">
                             <span>減牆:</span>
-                            <select name="minus-wall-num-2-1">
+                            <select id="minus-wall-num-2-1" name="minus-wall-num-2-1">
                                 <option value="" style="display:none;">請選擇面數</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
                                 <option value="4">4</option>
                             </select>
-                            <select name="minus-wall-option-2-1">
+                            <select id="minus-wall-option-2-1" name="minus-wall-option-2-1">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <!-- <option value="">RC牆</option>
                                 <option value="">1B</option>
@@ -484,6 +485,7 @@ function content_5d1608e7911799_25979857 (Smarty_Internal_Template $_smarty_tpl)
                             </select>
                         </div>
                         <input type="hidden" id="minus-wall-count-2" name="minus-wall-count-2">
+                        <input type="hidden" id="minus-wall-option-2" name="minus-wall-option-2">
                         <button type="button" onclick="addItemOnclick('minus-wall-','2','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('minus-wall-','2')">-</button>
 
@@ -516,14 +518,14 @@ function content_5d1608e7911799_25979857 (Smarty_Internal_Template $_smarty_tpl)
                     <td colspan="2">
                         <div id="minus-wall-3-1">
                             <span>減牆:</span>
-                            <select name="minus-wall-num-3-1">
+                            <select id="minus-wall-num-3-1" name="minus-wall-num-3-1">
                                 <option value="" style="display:none;">請選擇面數</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
                                 <option value="4">4</option>
                             </select>
-                            <select name="minus-wall-option-3-1">
+                            <select id="minus-wall-option-3-1" name="minus-wall-option-3-1">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <!-- <option value="">RC牆</option>
                                 <option value="">1B</option>
@@ -536,6 +538,7 @@ function content_5d1608e7911799_25979857 (Smarty_Internal_Template $_smarty_tpl)
                             </select>
                         </div>
                         <input type="hidden" id="minus-wall-count-3" name="minus-wall-count-3">
+                        <input type="hidden" id="minus-wall-option-3" name="minus-wall-option-3">
                         <button type="button" onclick="addItemOnclick('minus-wall-','3','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('minus-wall-','3')">-</button>
 
@@ -568,14 +571,14 @@ function content_5d1608e7911799_25979857 (Smarty_Internal_Template $_smarty_tpl)
                     <td colspan="2">
                         <div id="minus-wall-4-1">
                             <span>減牆:</span>
-                            <select name="minus-wall-num-4-1">
+                            <select id="minus-wall-num-4-1" name="minus-wall-num-4-1">
                                 <option value="" style="display:none;">請選擇面數</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
                                 <option value="4">4</option>
                             </select>
-                            <select name="minus-wall-option-4-1">
+                            <select id="minus-wall-option-4-1" name="minus-wall-option-4-1">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <!-- <option value="">RC牆</option>
                                 <option value="">1B</option>
@@ -588,6 +591,7 @@ function content_5d1608e7911799_25979857 (Smarty_Internal_Template $_smarty_tpl)
                             </select>
                         </div>
                         <input type="hidden" id="minus-wall-count-4" name="minus-wall-count-4">
+                        <input type="hidden" id="minus-wall-option-4" name="minus-wall-option-4">
                         <button type="button" onclick="addItemOnclick('minus-wall-','4','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('minus-wall-','4')">-</button>
 
