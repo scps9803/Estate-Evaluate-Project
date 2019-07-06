@@ -111,12 +111,78 @@ for($i=0;$i<$total_floor;$i++){
     // 減牆
     $minus_wall_count = getAppendSelectData('minus-wall-count-',$total_floor);
     $minus_wall_option = getAppendSelectData('minus-wall-option-',$total_floor);
+    // 加牆
+    $add_wall_count = getAppendSelectData('add-wall-count-',$total_floor);
+    $add_wall_option = getAppendSelectData('add-wall-option-',$total_floor);
+    echo "減牆<br>";
     for($i=0;$i<$total_floor;$i++){
         for($j=0;$j<count($minus_wall_count[$i]);$j++){
             echo $minus_wall_count[$i][$j]."面".$minus_wall_option[$i][$j].",";
         }
         echo "<br>";
     }
+
+    // print_r($minus_wall_count);
+    echo "<br>---------------------------<br>";
+    // print_r($minus_wall_option);
+
+    echo "加牆<br>";
+    // print_r($add_wall_count);
+    // print_r($add_wall_option);
+    for($i=0;$i<$total_floor;$i++){
+        for($j=0;$j<count($add_wall_count[$i]);$j++){
+            echo $add_wall_count[$i][$j]."面".$add_wall_option[$i][$j].",";
+        }
+        echo "<br>";
+    }
+    echo "<br>---------------------------<br>";
+
+    // 室內隔間
+    $indoor_divide_numerator = getAppendSelectData('indoor-divide-numerator-',$total_floor);
+    $indoor_divide_denominator = getAppendSelectData('indoor-divide-denominator-',$total_floor);
+    $indoor_divide_option = getAppendSelectData('indoor-divide-option-',$total_floor);
+
+    echo "室內隔間<br>";
+    // print_r($indoor_divide_option);
+    echo "<br>";
+
+    // print_r($indoor_divide_numerator);
+    // echo " ***** ";
+    // print_r($indoor_divide_denominator);
+    for($i=0;$i<$total_floor;$i++){
+        for($j=0;$j<count($indoor_divide_numerator[$i]);$j++){
+            echo $indoor_divide_numerator[$i][$j]."/".$indoor_divide_denominator[$i][$j]."--".$indoor_divide_option[$i][$j].",";
+            // echo $indoor_divide_denominator[$i][$j];
+        }
+        echo "<br>";
+    }
+    echo "<br>---------------------------<br>";
+
+    echo "屋外牆<br>";
+    $outdoor_wall_decoration_numerator = getAppendSelectData('outdoor-wall-decoration-numerator-',$total_floor);
+    $outdoor_wall_decoration_denominator = getAppendSelectData('outdoor-wall-decoration-denominator-',$total_floor);
+    $outdoor_wall_decoration_option = getAppendSelectData('outdoor-wall-decoration-option-',$total_floor);
+
+    for($i=0;$i<$total_floor;$i++){
+        for($j=0;$j<count($outdoor_wall_decoration_numerator[$i]);$j++){
+            echo $outdoor_wall_decoration_numerator[$i][$j]."/".$outdoor_wall_decoration_denominator[$i][$j]."--".$outdoor_wall_decoration_option[$i][$j].",";
+        }
+        echo "<br>";
+    }
+    echo "<br>---------------------------<br>";
+
+    echo "屋內牆<br>";
+    $indoor_wall_decoration_numerator = getAppendSelectData('indoor-wall-decoration-numerator-',$total_floor);
+    $indoor_wall_decoration_denominator = getAppendSelectData('indoor-wall-decoration-denominator-',$total_floor);
+    $indoor_wall_decoration_option = getAppendSelectData('indoor-wall-decoration-option-',$total_floor);
+
+    for($i=0;$i<$total_floor;$i++){
+        for($j=0;$j<count($indoor_wall_decoration_numerator[$i]);$j++){
+            echo $indoor_wall_decoration_numerator[$i][$j]."/".$indoor_wall_decoration_denominator[$i][$j]."--".$indoor_wall_decoration_option[$i][$j].",";
+        }
+        echo "<br>";
+    }
+    echo "<br>---------------------------<br>";
 }
 
 

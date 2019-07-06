@@ -72,24 +72,25 @@ function addItemOnclick(id,column,num){
             text =
             '<div id="add-wall-'+column+"-"+ add_wall_count[column-1]+'">'+
                 '<span>加牆:&nbsp;</span>'+
-                '<select name="add-wall-num-'+column+"-"+ add_wall_count[column-1] +'">'+
+                '<select id="add-wall-num-'+column+"-"+add_wall_count[column-1]+'" name="add-wall-num-'+column+"-"+ add_wall_count[column-1] +'">'+
                     '<option value="" style="display:none;">請選擇面數</option>'+
-                    '<option value="">1</option>'+
-                    '<option value="">2</option>'+
-                    '<option value="">3</option>'+
-                    '<option value="">4</option>'+
+                    '<option value="1">1</option>'+
+                    '<option value="2">2</option>'+
+                    '<option value="3">3</option>'+
+                    '<option value="4">4</option>'+
                 '</select>&nbsp;'+
-                '<select name="add-wall-option-'+column+"-"+ add_wall_count[column-1] +'">'+
+                '<select id="add-wall-option-'+column+"-"+add_wall_count[column-1]+'" name="add-wall-option-'+column+"-"+ add_wall_count[column-1] +'">'+
                     '<option value="" style="display:none;">請選擇材質</option>'+
-                    '<option value="">RC牆</option>'+
-                    '<option value="">1B</option>'+
-                    '<option value="">1/2B</option>'+
-                    '<option value="">檜木造</option>'+
-                    '<option value="">其他木造</option>'+
-                    '<option value="">竹編牆</option>'+
+                    // '<option value="">RC牆</option>'+
+                    // '<option value="">1B</option>'+
+                    // '<option value="">1/2B</option>'+
+                    // '<option value="">檜木造</option>'+
+                    // '<option value="">其他木造</option>'+
+                    // '<option value="">竹編牆</option>'+
                 '</select>'+
             '</div>';
             $(text).insertAfter($(itemId));
+            get_building_decoration_option(id+"option-", column, add_wall_count[column-1], 'indoor_divide');
             getAddWallCount(column-1);
             break;
 
@@ -101,14 +102,14 @@ function addItemOnclick(id,column,num){
 
             text =
             '<div id="indoor-divide-'+column+"-"+ indoor_divide_count[column-1]+'">'+
-            '<input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">'+
-            '&nbsp;<select class="select-menu" name="indoor-divide-'+column+"-"+ indoor_divide_count[column-1] +'">'+
+            '<input type="text" id="indoor-divide-numerator-'+column+"-"+indoor_divide_count[column-1]+'" name="indoor-divide-numerator-'+column+"-"+indoor_divide_count[column-1]+'" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="indoor-divide-denominator-'+column+"-"+indoor_divide_count[column-1]+'" name="indoor-divide-denominator-'+column+"-"+indoor_divide_count[column-1]+'" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">'+
+            '&nbsp;<select class="select-menu" id="indoor-divide-option-'+column+"-"+ indoor_divide_count[column-1] +'" name="indoor-divide-option-'+column+"-"+ indoor_divide_count[column-1] +'">'+
                 '<option value="" style="display:none;">請選擇材質</option>'+
             '</select>'+
             '</div>';
             $(text).insertAfter($(itemId));
 
-            get_building_decoration_option(id, column, indoor_divide_count[column-1], 'indoor_divide');
+            get_building_decoration_option('indoor-divide-option-', column, indoor_divide_count[column-1], 'indoor_divide');
             getIndoorDivideCount(column-1);
             break;
 
@@ -120,14 +121,15 @@ function addItemOnclick(id,column,num){
 
             text =
             '<div id="outdoor-wall-decoration-'+column+"-"+ outdoor_wall_decoration_count[column-1]+'">'+
-                '<input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">'+
-                '&nbsp;<select name="outdoor-wall-decoration-'+column+"-"+ outdoor_wall_decoration_count[column-1] +'" class="select-menu">'+
+                '<input type="text" id="outdoor-wall-decoration-numerator-'+column+"-"+outdoor_wall_decoration_count[column-1]+'" name="outdoor-wall-decoration-numerator-'+column+"-"+outdoor_wall_decoration_count[column-1]+'" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/'+
+                '<input type="text" id="outdoor-wall-decoration-denominator-'+column+"-"+outdoor_wall_decoration_count[column-1]+'" name="outdoor-wall-decoration-denominator-'+column+"-"+outdoor_wall_decoration_count[column-1]+'" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">'+
+                '&nbsp;<select id="outdoor-wall-decoration-option-'+column+"-"+ outdoor_wall_decoration_count[column-1] +'" name="outdoor-wall-decoration-option-'+column+"-"+ outdoor_wall_decoration_count[column-1] +'" class="select-menu">'+
                     '<option value="" style="display:none;">請選擇材質</option>'+
                 '</select>'+
             '</div>';
             $(text).insertAfter($(itemId));
 
-            get_building_decoration_option(id, column, outdoor_wall_decoration_count[column-1], 'outdoor_wall_decoration');
+            get_building_decoration_option('outdoor-wall-decoration-option-', column, outdoor_wall_decoration_count[column-1], 'outdoor_wall_decoration');
             getOutdoorWallDecorationCount(column-1);
             break;
 
@@ -139,14 +141,15 @@ function addItemOnclick(id,column,num){
 
             text =
             '<div id="indoor-wall-decoration-'+column+"-"+ indoor_wall_decoration_count[column-1]+'">'+
-                '<input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">'+
-                '&nbsp;<select name="indoor-wall-decoration-'+column+"-"+ indoor_wall_decoration_count[column-1] +'" class="select-menu">'+
+                '<input type="text" id="indoor-wall-decoration-numerator-'+column+"-"+indoor_wall_decoration_count[column-1]+'" name="indoor-wall-decoration-numerator-'+column+"-"+indoor_wall_decoration_count[column-1]+'" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/'+
+                '<input type="text" id="indoor-wall-decoration-denominator-'+column+"-"+indoor_wall_decoration_count[column-1]+'" name="indoor-wall-decoration-denominator-'+column+"-"+indoor_wall_decoration_count[column-1]+'" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">'+
+                '&nbsp;<select id="indoor-wall-decoration-option-'+column+"-"+ indoor_wall_decoration_count[column-1] +'" name="indoor-wall-decoration-option-'+column+"-"+ indoor_wall_decoration_count[column-1] +'" class="select-menu">'+
                     '<option value="" style="display:none;">請選擇材質</option>'+
                 '</select>'+
             '</div>';
             $(text).insertAfter($(itemId));
 
-            get_building_decoration_option(id, column, indoor_wall_decoration_count[column-1], 'indoor_wall_decoration');
+            get_building_decoration_option('indoor-wall-decoration-option-', column, indoor_wall_decoration_count[column-1], 'indoor_wall_decoration');
             getIndoorWallDecorationCount(column-1);
             break;
 
@@ -848,24 +851,37 @@ function saveDialog(){
         $("#house_form").attr("action","sub_building.php");
     }
     else{
-        itemId = ["#minus-wall-num-","#minus-wall-option-"];
-        writeToId = ["#minus-wall-count-","#minus-wall-option-"];
+        itemId = ["#minus-wall-num-","#minus-wall-option-","#add-wall-num-","#add-wall-option-"];
+        writeToId = ["#minus-wall-count-","#minus-wall-option-","#add-wall-count-","#add-wall-option-"];
+        countId = [this.minus_wall_count,this.add_wall_count];
+
+        decoration_itemId = ["#indoor-divide-numerator-","#indoor-divide-denominator-","#indoor-divide-option-","#outdoor-wall-decoration-numerator-","#outdoor-wall-decoration-denominator-","#outdoor-wall-decoration-option-","#indoor-wall-decoration-numerator-","#indoor-wall-decoration-denominator-","#indoor-wall-decoration-option-"];
+        decoration_writeToId = ["#indoor-divide-numerator-","#indoor-divide-denominator-","#indoor-divide-option-","#outdoor-wall-decoration-numerator-","#outdoor-wall-decoration-denominator-","#outdoor-wall-decoration-option-","#indoor-wall-decoration-numerator-","#indoor-wall-decoration-denominator-","#indoor-wall-decoration-option-"];
+        decoration_countId = [this.indoor_divide_count,this.outdoor_wall_decoration_count,this.indoor_wall_decoration_count];
 
         for(var i=0;i<itemId.length;i++){
-            writeDataToOneRow(itemId[i],writeToId[i]);
+            writeDataToOneRow(itemId[i],writeToId[i],countId[Math.floor(i/2)]);
+        }
+
+        //粉裝造作
+        for(var i=0;i<decoration_itemId.length;i++){
+            writeDataToOneRow(decoration_itemId[i],decoration_writeToId[i],decoration_countId[Math.floor(i/3)]);
         }
     }
 }
 
-function writeDataToOneRow(itemId,writeToId){
-
+function writeDataToOneRow(itemId,writeToId,countId){
     for(var i=0;i<4;i++){
         temp_array = [];
-        for(var j=0;j<minus_wall_count[i];j++){
+        for(var j=0;j<countId[i];j++){
             var name = itemId+(i+1)+"-"+(j+1);
             temp_array[j] = $(name).val();
         }
         $(writeToId+(i+1)).val(temp_array);
+        if(itemId=="#indoor-wall-decoration-option-"){
+            window.alert(temp_array);
+            // window.alert(writeToId+(i+1).val());
+        }
     }
 }
 

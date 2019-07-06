@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-07-02 16:31:05
+/* Smarty version 3.1.33, created on 2019-07-06 13:35:31
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\index.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d1b86c956e116_77612810',
+  'unifunc' => 'content_5d20a3a3b5aed1_75678234',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8c5734ee732081c4a28e016fd1e3245b00b0a0f9' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\index.html',
-      1 => 1562085057,
+      1 => 1562420120,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d1b86c956e116_77612810 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d20a3a3b5aed1_75678234 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -438,14 +438,14 @@ function content_5d1b86c956e116_77612810 (Smarty_Internal_Template $_smarty_tpl)
 
                         <div id="add-wall-1-1">
                             <span>加牆:</span>
-                            <select name="add-wall-num-1-1">
+                            <select id="add-wall-num-1-1" name="add-wall-num-1-1">
                                 <option value="" style="display:none;">請選擇面數</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
                                 <option value="4">4</option>
                             </select>
-                            <select name="add-wall-option-1-1">
+                            <select id="add-wall-option-1-1" name="add-wall-option-1-1">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <!-- <option value="">RC牆</option>
                                 <option value="">1B</option>
@@ -458,6 +458,7 @@ function content_5d1b86c956e116_77612810 (Smarty_Internal_Template $_smarty_tpl)
                             </select>
                         </div>
                         <input type="hidden" id="add-wall-count-1" name="add-wall-count-1">
+                        <input type="hidden" id="add-wall-option-1" name="add-wall-option-1">
                         <button type="button" onclick="addItemOnclick('add-wall-','1','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('add-wall-','1')">-</button>
                     </td>
@@ -491,14 +492,14 @@ function content_5d1b86c956e116_77612810 (Smarty_Internal_Template $_smarty_tpl)
 
                         <div id="add-wall-2-1">
                             <span>加牆:</span>
-                            <select name="add-wall-num-2-1">
+                            <select id="add-wall-num-2-1" name="add-wall-num-2-1">
                                 <option value="" style="display:none;">請選擇面數</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
                                 <option value="4">4</option>
                             </select>
-                            <select name="add-wall-option-2-1">
+                            <select id="add-wall-option-2-1" name="add-wall-option-2-1">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <!-- <option value="">RC牆</option>
                                 <option value="">1B</option>
@@ -511,6 +512,7 @@ function content_5d1b86c956e116_77612810 (Smarty_Internal_Template $_smarty_tpl)
                             </select>
                         </div>
                         <input type="hidden" id="add-wall-count-2" name="add-wall-count-2">
+                        <input type="hidden" id="add-wall-option-2" name="add-wall-option-2">
                         <button type="button" onclick="addItemOnclick('add-wall-','2','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('add-wall-','2')">-</button>
                     </td>
@@ -544,14 +546,14 @@ function content_5d1b86c956e116_77612810 (Smarty_Internal_Template $_smarty_tpl)
 
                         <div id="add-wall-3-1">
                             <span>加牆:</span>
-                            <select name="add-wall-num-3-1">
+                            <select id="add-wall-num-3-1" name="add-wall-num-3-1">
                                 <option value="" style="display:none;">請選擇面數</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
                                 <option value="4">4</option>
                             </select>
-                            <select name="add-wall-option-3-1">
+                            <select id="add-wall-option-3-1" name="add-wall-option-3-1">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <!-- <option value="">RC牆</option>
                                 <option value="">1B</option>
@@ -564,6 +566,7 @@ function content_5d1b86c956e116_77612810 (Smarty_Internal_Template $_smarty_tpl)
                             </select>
                         </div>
                         <input type="hidden" id="add-wall-count-3" name="add-wall-count-3">
+                        <input type="hidden" id="add-wall-option-3" name="add-wall-option-3">
                         <button type="button" onclick="addItemOnclick('add-wall-','3','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('add-wall-','3')">-</button>
                     </td>
@@ -597,14 +600,14 @@ function content_5d1b86c956e116_77612810 (Smarty_Internal_Template $_smarty_tpl)
 
                         <div id="add-wall-4-1">
                             <span>加牆:</span>
-                            <select name="add-wall-num-4-1">
+                            <select id="add-wall-num-4-1" name="add-wall-num-4-1">
                                 <option value="" style="display:none;">請選擇面數</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
                                 <option value="4">4</option>
                             </select>
-                            <select name="add-wall-option-4-1">
+                            <select id="add-wall-option-4-1" name="add-wall-option-4-1">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <!-- <option value="">RC牆</option>
                                 <option value="">1B</option>
@@ -617,6 +620,7 @@ function content_5d1b86c956e116_77612810 (Smarty_Internal_Template $_smarty_tpl)
                             </select>
                         </div>
                         <input type="hidden" id="add-wall-count-4" name="add-wall-count-4">
+                        <input type="hidden" id="add-wall-option-4" name="add-wall-option-4">
                         <button type="button" onclick="addItemOnclick('add-wall-','4','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('add-wall-','4')">-</button>
                     </td>
@@ -628,15 +632,17 @@ function content_5d1b86c956e116_77612810 (Smarty_Internal_Template $_smarty_tpl)
                         <!-- <input type="checkbox" name="indoor-divide-1">RC牆<input type="checkbox" name="indoor-divide-1">1B<input type="checkbox" name="indoor-divide-1">1/2B
                         <input type="checkbox" name="indoor-divide-1">檜木造<input type="checkbox" name="indoor-divide-1">其他木造<br><input type="checkbox" name="indoor-divide-1">竹編牆 -->
                         <div id="indoor-divide-1-1">
-                            <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
-                            <select class="select-menu" name="indoor-divide-1-1">
+                            <input type="text" id="indoor-divide-numerator-1-1" name="indoor-divide-numerator-1-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="indoor-divide-denominator-1-1" name="indoor-divide-denominator-1-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                            <select class="select-menu" id="indoor-divide-option-1-1" name="indoor-divide-option-1-1">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['indoor_divide_option']->value;?>
 
                             </select>
                         </div>
 
-                        <input type="hidden" id="indoor-divide-count-1" name="indoor-divide-count-1">
+                        <input type="hidden" id="indoor-divide-numerator-1" name="indoor-divide-numerator-1">
+                        <input type="hidden" id="indoor-divide-denominator-1" name="indoor-divide-denominator-1">
+                        <input type="hidden" id="indoor-divide-option-1" name="indoor-divide-option-1">
                         <button type="button" onclick="addItemOnclick('indoor-divide-','1','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('indoor-divide-','1')">-</button>
                     </td>
@@ -644,15 +650,17 @@ function content_5d1b86c956e116_77612810 (Smarty_Internal_Template $_smarty_tpl)
                         <!-- <input type="checkbox" name="indoor-divide-2">RC牆<input type="checkbox" name="indoor-divide-2">1B<input type="checkbox" name="indoor-divide-2">1/2B
                         <input type="checkbox" name="indoor-divide-2">檜木造<input type="checkbox" name="indoor-divide-2">其他木造<br><input type="checkbox" name="indoor-divide-2">竹編牆 -->
                         <div id="indoor-divide-2-1">
-                            <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
-                            <select class="select-menu" name="indoor-divide-2-1">
+                            <input type="text" id="indoor-divide-numerator-2-1" name="indoor-divide-numerator-2-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="indoor-divide-denominator-2-1" name="indoor-divide-denominator-2-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                            <select class="select-menu" id="indoor-divide-option-2-1" name="indoor-divide-option-2-1">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['indoor_divide_option']->value;?>
 
                             </select>
                         </div>
 
-                        <input type="hidden" id="indoor-divide-count-2" name="indoor-divide-count-2">
+                        <input type="hidden" id="indoor-divide-numerator-2" name="indoor-divide-numerator-2">
+                        <input type="hidden" id="indoor-divide-denominator-2" name="indoor-divide-denominator-2">
+                        <input type="hidden" id="indoor-divide-option-2" name="indoor-divide-option-2">
                         <button type="button" onclick="addItemOnclick('indoor-divide-','2','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('indoor-divide-','2')">-</button>
                     </td>
@@ -660,15 +668,17 @@ function content_5d1b86c956e116_77612810 (Smarty_Internal_Template $_smarty_tpl)
                         <!-- <input type="checkbox" name="indoor-divide-3">RC牆<input type="checkbox" name="indoor-divide-3">1B<input type="checkbox" name="indoor-divide-3">1/2B
                         <input type="checkbox" name="indoor-divide-3">檜木造<input type="checkbox" name="indoor-divide-3">其他木造<br><input type="checkbox" name="indoor-divide-3">竹編牆 -->
                         <div id="indoor-divide-3-1">
-                            <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
-                            <select class="select-menu" name="indoor-divide-3-1">
+                            <input type="text" id="indoor-divide-numerator-3-1" name="indoor-divide-numerator-3-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="indoor-divide-denominator-3-1" name="indoor-divide-denominator-3-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                            <select class="select-menu" id="indoor-divide-option-3-1" name="indoor-divide-option-3-1">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['indoor_divide_option']->value;?>
 
                             </select>
                         </div>
 
-                        <input type="hidden" id="indoor-divide-count-3" name="indoor-divide-count-3">
+                        <input type="hidden" id="indoor-divide-numerator-3" name="indoor-divide-numerator-3">
+                        <input type="hidden" id="indoor-divide-denominator-3" name="indoor-divide-denominator-3">
+                        <input type="hidden" id="indoor-divide-option-3" name="indoor-divide-option-3">
                         <button type="button" onclick="addItemOnclick('indoor-divide-','3','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('indoor-divide-','3')">-</button>
                     </td>
@@ -676,15 +686,17 @@ function content_5d1b86c956e116_77612810 (Smarty_Internal_Template $_smarty_tpl)
                         <!-- <input type="checkbox" name="indoor-divide-4">RC牆<input type="checkbox" name="indoor-divide-4">1B<input type="checkbox" name="indoor-divide-4">1/2B
                         <input type="checkbox" name="indoor-divide-4">檜木造<input type="checkbox" name="indoor-divide-4">其他木造<br><input type="checkbox" name="indoor-divide-4">竹編牆 -->
                         <div id="indoor-divide-4-1">
-                            <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
-                            <select class="select-menu" name="indoor-divide-4-1">
+                            <input type="text" id="indoor-divide-numerator-4-1" name="indoor-divide-numerator-4-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="indoor-divide-denominator-4-1" name="indoor-divide-denominator-4-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                            <select class="select-menu" id="indoor-divide-option-4-1" name="indoor-divide-option-4-1">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['indoor_divide_option']->value;?>
 
                             </select>
                         </div>
 
-                        <input type="hidden" id="indoor-divide-count-4" name="indoor-divide-count-4">
+                        <input type="hidden" id="indoor-divide-numerator-4" name="indoor-divide-numerator-4">
+                        <input type="hidden" id="indoor-divide-denominator-4" name="indoor-divide-denominator-4">
+                        <input type="hidden" id="indoor-divide-option-4" name="indoor-divide-option-4">
                         <button type="button" onclick="addItemOnclick('indoor-divide-','4','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('indoor-divide-','4')">-</button>
                     </td>
@@ -695,60 +707,68 @@ function content_5d1b86c956e116_77612810 (Smarty_Internal_Template $_smarty_tpl)
                     <td>屋外牆粉裝</td>
                     <td colspan="2">
                         <div id="outdoor-wall-decoration-1-1">
-                            <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
-                            <select name="outdoor-wall-decoration-1-1" class="select-menu">
+                            <input type="text" id="outdoor-wall-decoration-numerator-1-1" name="outdoor-wall-decoration-numerator-1-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="outdoor-wall-decoration-denominator-1-1" name="outdoor-wall-decoration-denominator-1-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                            <select id="outdoor-wall-decoration-option-1-1" name="outdoor-wall-decoration-option-1-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['outdoor_wall_decoration_option']->value;?>
 
                             </select>
                         </div>
 
-                        <input type="hidden" id="outdoor-wall-decoration-count-1" name="outdoor-wall-decoration-count-1">
+                        <input type="hidden" id="outdoor-wall-decoration-numerator-1" name="outdoor-wall-decoration-numerator-1">
+                        <input type="hidden" id="outdoor-wall-decoration-denominator-1" name="outdoor-wall-decoration-denominator-1">
+                        <input type="hidden" id="outdoor-wall-decoration-option-1" name="outdoor-wall-decoration-option-1">
                         <button type="button" onclick="addItemOnclick('outdoor-wall-decoration-','1','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('outdoor-wall-decoration-','1')">-</button>
                     </td>
 
                     <td colspan="2">
                         <div id="outdoor-wall-decoration-2-1">
-                            <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
-                            <select name="outdoor-wall-decoration-2-1" class="select-menu">
+                            <input type="text" id="outdoor-wall-decoration-numerator-2-1" name="outdoor-wall-decoration-numerator-2-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="outdoor-wall-decoration-denominator-2-1" name="outdoor-wall-decoration-denominator-2-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                            <select id="outdoor-wall-decoration-option-2-1" name="outdoor-wall-decoration-option-2-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['outdoor_wall_decoration_option']->value;?>
 
                             </select>
                         </div>
 
-                        <input type="hidden" id="outdoor-wall-decoration-count-2" name="outdoor-wall-decoration-count-2">
+                        <input type="hidden" id="outdoor-wall-decoration-numerator-2" name="outdoor-wall-decoration-numerator-2">
+                        <input type="hidden" id="outdoor-wall-decoration-denominator-2" name="outdoor-wall-decoration-denominator-2">
+                        <input type="hidden" id="outdoor-wall-decoration-option-2" name="outdoor-wall-decoration-option-2">
                         <button type="button" onclick="addItemOnclick('outdoor-wall-decoration-','2','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('outdoor-wall-decoration-','2')">-</button>
                     </td>
 
                     <td colspan="2">
                         <div id="outdoor-wall-decoration-3-1">
-                            <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
-                            <select name="outdoor-wall-decoration-3-1" class="select-menu">
+                            <input type="text" id="outdoor-wall-decoration-numerator-3-1" name="outdoor-wall-decoration-numerator-3-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="outdoor-wall-decoration-denominator-3-1" name="outdoor-wall-decoration-denominator-3-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                            <select id="outdoor-wall-decoration-option-3-1" name="outdoor-wall-decoration-option-3-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['outdoor_wall_decoration_option']->value;?>
 
                             </select>
                         </div>
 
-                        <input type="hidden" id="outdoor-wall-decoration-count-3" name="outdoor-wall-decoration-count-3">
+                        <input type="hidden" id="outdoor-wall-decoration-numerator-3" name="outdoor-wall-decoration-numerator-3">
+                        <input type="hidden" id="outdoor-wall-decoration-denominator-3" name="outdoor-wall-decoration-denominator-3">
+                        <input type="hidden" id="outdoor-wall-decoration-option-3" name="outdoor-wall-decoration-option-3">
                         <button type="button" onclick="addItemOnclick('outdoor-wall-decoration-','3','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('outdoor-wall-decoration-','3')">-</button>
                     </td>
 
                     <td colspan="2">
                         <div id="outdoor-wall-decoration-4-1">
-                            <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
-                            <select name="outdoor-wall-decoration-4-1" class="select-menu">
+                            <input type="text" id="outdoor-wall-decoration-numerator-4-1" name="outdoor-wall-decoration-numerator-4-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="outdoor-wall-decoration-denominator-4-1" name="outdoor-wall-decoration-denominator-4-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                            <select id="outdoor-wall-decoration-option-4-1" name="outdoor-wall-decoration-option-4-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['outdoor_wall_decoration_option']->value;?>
 
                             </select>
                         </div>
 
-                        <input type="hidden" id="outdoor-wall-decoration-count-4" name="outdoor-wall-decoration-count-4">
+                        <input type="hidden" id="outdoor-wall-decoration-numerator-4" name="outdoor-wall-decoration-numerator-4">
+                        <input type="hidden" id="outdoor-wall-decoration-denominator-4" name="outdoor-wall-decoration-denominator-4">
+                        <input type="hidden" id="outdoor-wall-decoration-option-4" name="outdoor-wall-decoration-option-4">
                         <button type="button" onclick="addItemOnclick('outdoor-wall-decoration-','4','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('outdoor-wall-decoration-','4')">-</button>
                     </td>
@@ -758,60 +778,68 @@ function content_5d1b86c956e116_77612810 (Smarty_Internal_Template $_smarty_tpl)
                     <td>屋內牆粉裝</td>
                     <td colspan="2">
                         <div id="indoor-wall-decoration-1-1">
-                            <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
-                            <select name="indoor-wall-decoration-1-1" class="select-menu">
+                            <input type="text" id="indoor-wall-decoration-numerator-1-1" name="indoor-wall-decoration-numerator-1-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="indoor-wall-decoration-denominator-1-1" name="indoor-wall-decoration-denominator-1-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                            <select id="indoor-wall-decoration-option-1-1" name="indoor-wall-decoration-option-1-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['indoor_wall_decoration_option']->value;?>
 
                             </select>
                         </div>
 
-                        <input type="hidden" id="indoor-wall-decoration-count-1" name="indoor-wall-decoration-count-1">
+                        <input type="hidden" id="indoor-wall-decoration-numerator-1" name="indoor-wall-decoration-numerator-1">
+                        <input type="hidden" id="indoor-wall-decoration-denominator-1" name="indoor-wall-decoration-denominator-1">
+                        <input type="hidden" id="indoor-wall-decoration-option-1" name="indoor-wall-decoration-option-1">
                         <button type="button" onclick="addItemOnclick('indoor-wall-decoration-','1','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('indoor-wall-decoration-','1')">-</button>
                     </td>
 
                     <td colspan="2">
                         <div id="indoor-wall-decoration-2-1">
-                            <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
-                            <select name="indoor-wall-decoration-2-1" class="select-menu">
+                            <input type="text" id="indoor-wall-decoration-numerator-2-1" name="indoor-wall-decoration-numerator-2-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="indoor-wall-decoration-denominator-2-1" name="indoor-wall-decoration-denominator-2-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                            <select id="indoor-wall-decoration-option-2-1" name="indoor-wall-decoration-option-2-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['indoor_wall_decoration_option']->value;?>
 
                             </select>
                         </div>
 
-                        <input type="hidden" id="indoor-wall-decoration-count-2" name="indoor-wall-decoration-count-2">
+                        <input type="hidden" id="indoor-wall-decoration-numerator-2" name="indoor-wall-decoration-numerator-2">
+                        <input type="hidden" id="indoor-wall-decoration-denominator-2" name="indoor-wall-decoration-denominator-2">
+                        <input type="hidden" id="indoor-wall-decoration-option-2" name="indoor-wall-decoration-option-2">
                         <button type="button" onclick="addItemOnclick('indoor-wall-decoration-','2','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('indoor-wall-decoration-','2')">-</button>
                     </td>
 
                     <td colspan="2">
                         <div id="indoor-wall-decoration-3-1">
-                            <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
-                            <select name="indoor-wall-decoration-3-1" class="select-menu">
+                            <input type="text" id="indoor-wall-decoration-numerator-3-1" name="indoor-wall-decoration-numerator-3-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="indoor-wall-decoration-denominator-3-1" name="indoor-wall-decoration-denominator-3-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                            <select id="indoor-wall-decoration-option-3-1" name="indoor-wall-decoration-option-3-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['indoor_wall_decoration_option']->value;?>
 
                             </select>
                         </div>
 
-                        <input type="hidden" id="indoor-wall-decoration-count-3" name="indoor-wall-decoration-count-3">
+                        <input type="hidden" id="indoor-wall-decoration-numerator-3" name="indoor-wall-decoration-numerator-3">
+                        <input type="hidden" id="indoor-wall-decoration-denominator-3" name="indoor-wall-decoration-denominator-3">
+                        <input type="hidden" id="indoor-wall-decoration-option-3" name="indoor-wall-decoration-option-3">
                         <button type="button" onclick="addItemOnclick('indoor-wall-decoration-','3','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('indoor-wall-decoration-','3')">-</button>
                     </td>
 
                     <td colspan="2">
                         <div id="indoor-wall-decoration-4-1">
-                            <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
-                            <select name="indoor-wall-decoration-4-1" class="select-menu">
+                            <input type="text" id="indoor-wall-decoration-numerator-4-1" name="indoor-wall-decoration-numerator-4-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="indoor-wall-decoration-denominator-4-1" name="indoor-wall-decoration-denominator-4-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                            <select id="indoor-wall-decoration-option-4-1" name="indoor-wall-decoration-option-4-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['indoor_wall_decoration_option']->value;?>
 
                             </select>
                         </div>
 
-                        <input type="hidden" id="indoor-wall-decoration-count-4" name="indoor-wall-decoration-count-4">
+                        <input type="hidden" id="indoor-wall-decoration-numerator-4" name="indoor-wall-decoration-numerator-4">
+                        <input type="hidden" id="indoor-wall-decoration-denominator-4" name="indoor-wall-decoration-denominator-4">
+                        <input type="hidden" id="indoor-wall-decoration-option-4" name="indoor-wall-decoration-option-4">
                         <button type="button" onclick="addItemOnclick('indoor-wall-decoration-','4','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('indoor-wall-decoration-','4')">-</button>
                     </td>
