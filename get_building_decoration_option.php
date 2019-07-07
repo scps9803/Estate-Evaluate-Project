@@ -10,6 +10,12 @@ switch ($category) {
         $result_option = get_electric_type_option('電氣設備(包括燈具)',$item_type);
         break;
 
+    case 'floor_type':
+        $material = $_POST['material'];
+        $building_type = $_POST['building_type'];
+        $result_option = get_floor_type_option($material,$building_type);
+        break;
+
     case 'indoor_divide':
         $result_option = get_building_decoration_option('室內隔牆構造');
         break;

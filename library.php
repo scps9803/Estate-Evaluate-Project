@@ -114,4 +114,46 @@ function getAppendSelectData($id,$total_floor){
     }
     return $value_array;
 }
+
+function getMainBuildingPoint($material,$nth_floor,$house_type){
+    $conn = connect_db();
+    $sql = "SELECT bdId,item_type,points FROM building_decoration WHERE category='房屋構造體(別)' AND item_name='{$material}' AND building_type='{$house_type}'";
+    $res = $conn->query($sql);
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $main_building_points[$i] = $row;
+        print_r($row)."<br>";
+        $i++;
+    }
+
+    $conn->close();
+    // return $main_building_points;
+}
+
+function get_floor_type_option($material,$building_type){
+    require_once "smarty/libs/Smarty.class.php";
+    $smarty = new Smarty;
+
+    $conn = connect_db();
+    $sql = "SELECT item_type FROM building_decoration WHERE category='房屋構造體(別)' AND item_name='$material' AND building_type='{$building_type}'";
+    $res = $conn->query($sql);
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $floor_type[$i] = $row;
+        $i++;
+    }
+
+    $conn->close();
+
+    $floor_type_option = "";
+
+    for($i=0;$i<count($floor_type);$i++){
+        $floor_type_option = $floor_type_option
+        ."<option value='".$floor_type[$i]["item_type"]."'>".$floor_type[$i]["item_type"]."</option>";
+    }
+
+    return $floor_type_option;
+}
 ?>

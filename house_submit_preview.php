@@ -64,6 +64,14 @@ if($captain_count>=1){
         $smarty->assign("captain",$captain);
     }
 }
+
+// 租賃關係
+if($land_use=="承租"){
+    $rent_relation = "有";
+}
+else{
+    $rent_relation = "無";
+}
 // ------------------------------以上為調查表個資部分----------------------------------
 // ------------------------------以下為建物查估部分----------------------------------
 $legal_number = $_POST['build-number']."<br>".$_POST['tax_number'];
@@ -85,28 +93,36 @@ else{
 
 // 每層樓詳細資訊、粉裝評點等細項資料
 $total_floor = $_POST['total-floor-1'];
-for($i=0;$i<$total_floor;$i++){
-    $main_building[$i]["floor_id"] = $_POST['floor-id-'.($i+1)];
-    $main_building[$i]["house_type"] = $_POST['house-type-'.($i+1)];
-    $main_building[$i]["compensate_form"] = $_POST['compensate-form-'.($i+1)];
+// for($i=0;$i<$total_floor;$i++){
+    for($i=0;$i<$total_floor;$i++){
+        // echo "hi<br>";
+        $main_building[$i]["floor_id"] = $_POST['floor-id-'.($i+1)];
+        $main_building[$i]["house_type"] = $_POST['house-type-'.($i+1)];
+        $main_building[$i]["compensate_form"] = $_POST['compensate-form-'.($i+1)];
 
-    // if($main_building[$i]["compensate_form"]=="主建物"){
-    //     $main_building[$i]["sub_compensate_form"] = $_POST['sub-compensate-form-'.($i+1)];
-    // }else{
-    //     $main_building[$i]["sub_compensate_form"] = "";
-    // }
-    // echo $main_building[$i]["compensate_form"].","."\n";
-    $main_building[$i]["material"] = $_POST['building-material-'.($i+1)];
-    $main_building[$i]["nth_floor"] = $_POST['nth-floor-'.($i+1)];
-    $main_building[$i]["floor_area"] = $_POST['floor-area-'.($i+1)];
+        // if($main_building[$i]["compensate_form"]=="主建物"){
+        //     $main_building[$i]["sub_compensate_form"] = $_POST['sub-compensate-form-'.($i+1)];
+        // }else{
+        //     $main_building[$i]["sub_compensate_form"] = "";
+        // }
+        // echo $main_building[$i]["compensate_form"].","."\n";
+        $main_building[$i]["material"] = $_POST['building-material-'.($i+1)];
+        $main_building[$i]["nth_floor"] = $_POST['nth-floor-'.($i+1)];
+        $main_building[$i]["floor_area"] = $_POST['floor-area-'.($i+1)];
 
-    if($_POST['house-usage-'.($i+1)]=="none"){
-        $main_building[$i]["usage"] = $_POST['other-house-usage-'.($i+1)];
-    }else{
-        $main_building[$i]["usage"] = $_POST['house-usage-'.($i+1)];
+        if($_POST['house-usage-'.($i+1)]=="none"){
+            $main_building[$i]["usage"] = $_POST['other-house-usage-'.($i+1)];
+        }else{
+            $main_building[$i]["usage"] = $_POST['house-usage-'.($i+1)];
+        }
+
+        $main_building[$i]["layer-height"] = $_POST['layer-height-'.($i+1)];
+        // print_r($main_building)."<br>";
+        // $points = getMainBuildingPoint($main_building[$i]["material"],$main_building[$i]["nth_floor"],$main_building[$i]["house_type"]);
+        // for($j=0;$j<count($points);$j++){
+        //     print_r($points)."<br>";
+        // }
     }
-
-    $main_building[$i]["layer-height"] = $_POST['layer-height-'.($i+1)];
 
     // 減牆
     $minus_wall_count = getAppendSelectData('minus-wall-count-',$total_floor);
@@ -236,28 +252,66 @@ for($i=0;$i<$total_floor;$i++){
     echo "<br>---------------------------<br>";
 
     echo "浴廁設備<br>";
-    if(isset($_POST['toilet-ratio-2-2'])){
-        echo "yes<br>";
-    }
-    else{
-        echo "no<br>";
-    }
+    $toilet_ratio = getAppendSelectData('toilet-ratio-',$total_floor);
+    $toilet_type = getAppendSelectData('toilet-type-',$total_floor);
+    $toilet_number = getAppendSelectData('toilet-number-',$total_floor);
 
-    // echo isset($_POST['toilet-ratio-1-2'])."<br>";
-    // echo isset($_POST['toilet-ratio-2-1'])."<br>";
-    // echo isset($_POST['toilet-ratio-2-2'])."<br>";
+    for($i=0;$i<$total_floor;$i++){
+        for($j=0;$j<count($toilet_ratio[$i]);$j++){
+            echo $toilet_ratio[$i][$j]."--".$toilet_type[$i][$j]."--".$toilet_number[$i][$j].",";
+        }
+        echo "<br>";
+    }
+    echo "<br>---------------------------<br>";
 
-    // echo count($_POST['toilet-equipment-count-'.($i+1)])."<br>";
-    // for($i=0;$i<$total_floor;$i++){
-    //     for($j=0;$j<count($_POST['toilet-equipment-count-'.($i+1)]);$j++){
-    //         $toilet_ratio[$i][$j] = $_POST['toilet-ratio-'.($i+1).'-'.($j+1)];
-    //         $toilet_type[$i][$j] = $_POST['toilet-type-'.($i+1).'-'.($j+1)];
-    //         $toilet_number[$i][$j] = $_POST['toilet-number-'.($i+1).'-'.($j+1)];
-    //         echo $toilet_ratio[$i][$j]."-".$toilet_type[$i][$j]."-".$toilet_number[$i][$j]."座<br>";
-    //     }
-    //
-    // }
-}
+    echo"電器設備<br>";
+    for($i=0;$i<$total_floor;$i++){
+        $electric_usage[$i] = $_POST['electric-usage-'.($i+1)];
+        $electric_type[$i] = $_POST['electric-type-'.($i+1)];
+        echo $electric_usage[$i]."--".$electric_type[$i].",<br>";
+    }
+    echo "<br>---------------------------<br>";
+
+    echo "窗或陽台<br>";
+    for($i=0;$i<$total_floor;$i++){
+        if(isset($_POST['window-level-'.($i+1)])){
+            $window_level[$i] = $_POST['window-level-'.($i+1)];
+        }
+        else{
+            $window_level[$i] = NULL;
+        }
+        echo $window_level[$i].",<br>";
+    }
+    echo "<br>---------------------------<br>";
+
+    echo"女兒牆<br>";
+    for($i=0;$i<$total_floor;$i++){
+        if(isset($_POST['daughter-wall-'.($i+1)])){
+            $daughter_wall = $_POST['daughter-wall-'.($i+1)];
+        }
+        else{
+            $daughter_wall[$i] = NULL;
+        }
+        // echo $daughter_wall[$i].",<br>";
+        print_r($daughter_wall);
+        echo "<br>";
+    }
+    echo "<br>---------------------------<br>";
+
+    echo"陽台<br>";
+    for($i=0;$i<$total_floor;$i++){
+        if(isset($_POST['balcony-'.($i+1)])){
+            $balcony = $_POST['balcony-'.($i+1)];
+        }
+        else{
+            $balcony[$i] = NULL;
+        }
+        // echo $balcony[$i].",<br>";
+        print_r($balcony);
+        echo "<br>";
+    }
+    echo "<br>---------------------------<br>";
+// }
 
 $date = date("Y/m/d");
 
@@ -281,6 +335,7 @@ $smarty->assign("remove_condition",$remove_condition);
 // $smarty->assign("captain",$captain);
 $smarty->assign("captain_count",$captain_count);
 $smarty->assign("total_people",$total_people);
+$smarty->assign("rent_relation",$rent_relation);
 $smarty->assign("land_use",$land_use);
 $smarty->assign("main_building",$main_building);
 $smarty->assign("date",$date);

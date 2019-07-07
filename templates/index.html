@@ -151,6 +151,7 @@
                             <input type="radio" name="household_registration" value="" onclick="changeRequired(['household_count','household_count_lack'],false)">無 -->
                             <select class="select-menu" name="land-use" required>
                                 <option value="" style="display:none;">請選擇項目</option>
+                                <option value="自用">自用</option>
                                 <option value="承租">承租</option>
                             </select>
                         </td>
@@ -254,14 +255,14 @@
             <table border="1">
                 <tr>
                     <td colspan="2"><span class="required">(*)</span>編號</td>
-                    <td colspan="2">編號:<input type="text" name="floor-id-1" required><br><input type="radio" name="house-type-1" value="獨立戶" required>獨立戶<input type="radio" name="house-type-1" value="邊戶">邊戶<input type="radio" name="house-type-1" value="連棟中間戶">連棟中間戶</td>
-                    <td colspan="2">編號:<input type="text" name="floor-id-2"><br><input type="radio" name="house-type-2" value="獨立戶">獨立戶<input type="radio" name="house-type-2" value="邊戶">邊戶<input type="radio" name="house-type-2" value="連棟中間戶">連棟中間戶</td>
-                    <td colspan="2">編號:<input type="text" name="floor-id-3"><br><input type="radio" name="house-type-3" value="獨立戶">獨立戶<input type="radio" name="house-type-3" value="邊戶">邊戶<input type="radio" name="house-type-3" value="連棟中間戶">連棟中間戶</td>
-                    <td colspan="2">編號:<input type="text" name="floor-id-4"><br><input type="radio" name="house-type-4" value="獨立戶">獨立戶<input type="radio" name="house-type-4" value="邊戶">邊戶<input type="radio" name="house-type-4" value="連棟中間戶">連棟中間戶</td>
+                    <td colspan="2">編號:<input type="text" id="floor-id-1" name="floor-id-1" required><br><input type="radio" name="house-type-1" value="獨立戶" required>獨立戶<input type="radio" name="house-type-1" value="連棟式邊戶">連棟式邊戶<input type="radio" name="house-type-1" value="連棟式中間戶">連棟式中間戶</td>
+                    <td colspan="2">編號:<input type="text" id="floor-id-2" name="floor-id-2" oninput="changeColumnStatus(1)"><br><input type="radio" name="house-type-2" value="獨立戶">獨立戶<input type="radio" name="house-type-2" value="連棟式邊戶">連棟式邊戶<input type="radio" name="house-type-2" value="連棟式中間戶">連棟式中間戶</td>
+                    <td colspan="2">編號:<input type="text" id="floor-id-3" name="floor-id-3"><br><input type="radio" name="house-type-3" value="獨立戶">獨立戶<input type="radio" name="house-type-3" value="連棟式邊戶">連棟式邊戶<input type="radio" name="house-type-3" value="連棟式中間戶">連棟式中間戶</td>
+                    <td colspan="2">編號:<input type="text" id="floor-id-4" name="floor-id-4"><br><input type="radio" name="house-type-4" value="獨立戶">獨立戶<input type="radio" name="house-type-4" value="連棟式邊戶">連棟式邊戶<input type="radio" name="house-type-4" value="連棟式中間戶">連棟式中間戶</td>
                 </tr>
 
                 <tr>
-                    <td colspan="2">補償形式</td>
+                    <td colspan="2"><span class="required">(*)</span>補償形式</td>
                     <td colspan="2" id="compensate-form-1"><input type="radio" name="compensate-form-1" value="主建物" onclick="compensateFormClick('compensate-form-1')" required>主建物<input type="radio" name="compensate-form-1" value="立面修復" onclick="removeSubCompensateForm('sub-compensate-form-1')">立面修復<br></td>
                     <td colspan="2" id="compensate-form-2"><input type="radio" name="compensate-form-2" value="主建物" onclick="compensateFormClick('compensate-form-2')">主建物<input type="radio" name="compensate-form-2" value="立面修復" onclick="removeSubCompensateForm('sub-compensate-form-2')">立面修復<br></td>
                     <td colspan="2" id="compensate-form-3"><input type="radio" name="compensate-form-3" value="主建物" onclick="compensateFormClick('compensate-form-3')">主建物<input type="radio" name="compensate-form-3" value="立面修復" onclick="removeSubCompensateForm('sub-compensate-form-3')">立面修復<br></td>
@@ -269,11 +270,14 @@
                 </tr>
 
                 <tr>
-                    <td rowspan="" colspan="2">房屋構造及層別</td>
+                    <td rowspan="" colspan="2"><span class="required">(*)</span><br>房屋構造<br>及層別</td>
                     <td>
-                        <select class="median-select-menu" name="building-material-1" required>
+                        <select class="median-select-menu" id="building-material-1" name="building-material-1" onchange="load_floor_type_data(1)" required>
                             <option value="" style="display:none;">請選擇構造</option>
                             {$house_construct_option}
+                        </select><br>
+                        <select class="median-select-menu" id="floor-type-1" name="floor-type-1" style="margin-top:10px;" required>
+                            <option value="" style="display:none;">請選擇層別</option>
                         </select>
                     </td>
                     <td>(<input type="number" min="0" class="small-input-size" name="nth-floor-1" required>F/共<input type="number" min="0" class="small-input-size" name="total-floor-1" required>F)</td>
@@ -318,7 +322,7 @@
                 </tr>
 
                 <tr>
-                    <td rowspan="2" colspan="2">用途</td>
+                    <td rowspan="2" colspan="2"><span class="required">(*)</span>用途</td>
                     <td colspan="2">
                         <input type="radio" name="house-usage-1" value="住宅" onclick="changeRequired(['other-house-usage-1'],false)" required>住宅
                         <input type="radio" name="house-usage-1" value="店鋪" onclick="changeRequired(['other-house-usage-1'],false)">店鋪
@@ -1099,7 +1103,9 @@
                                 <option value="7">7座以上</option>
                             </select>
                         </div>
-                        <input type="hidden" id="toilet-equipment-count-1" name="toilet-equipment-count-1">
+                        <input type="hidden" id="toilet-ratio-1" name="toilet-ratio-1">
+                        <input type="hidden" id="toilet-type-1" name="toilet-type-1">
+                        <input type="hidden" id="toilet-number-1" name="toilet-number-1">
                         <button type="button" onclick="addItemOnclick('toilet-equipment-','1','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('toilet-equipment-','1')">-</button>
                     </td>
@@ -1123,7 +1129,9 @@
                                 <option value="7">7座以上</option>
                             </select>
                         </div>
-                        <input type="hidden" id="toilet-equipment-count-2" name="toilet-equipment-count-2">
+                        <input type="hidden" id="toilet-ratio-2" name="toilet-ratio-2">
+                        <input type="hidden" id="toilet-type-2" name="toilet-type-2">
+                        <input type="hidden" id="toilet-number-2" name="toilet-number-2">
                         <button type="button" onclick="addItemOnclick('toilet-equipment-','2','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('toilet-equipment-','2')">-</button>
                     </td>
@@ -1147,7 +1155,9 @@
                                 <option value="7">7座以上</option>
                             </select>
                         </div>
-                        <input type="hidden" id="toilet-equipment-count-3" name="toilet-equipment-count-3">
+                        <input type="hidden" id="toilet-ratio-3" name="toilet-ratio-3">
+                        <input type="hidden" id="toilet-type-3" name="toilet-type-3">
+                        <input type="hidden" id="toilet-number-3" name="toilet-number-3">
                         <button type="button" onclick="addItemOnclick('toilet-equipment-','3','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('toilet-equipment-','3')">-</button>
                     </td>
@@ -1171,7 +1181,9 @@
                                 <option value="7">7座以上</option>
                             </select>
                         </div>
-                        <input type="hidden" id="toilet-equipment-count-4" name="toilet-equipment-count-4">
+                        <input type="hidden" id="toilet-ratio-4" name="toilet-ratio-4">
+                        <input type="hidden" id="toilet-type-4" name="toilet-type-4">
+                        <input type="hidden" id="toilet-number-4" name="toilet-number-4">
                         <button type="button" onclick="addItemOnclick('toilet-equipment-','4','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('toilet-equipment-','4')">-</button>
                     </td>
@@ -1234,53 +1246,53 @@
 
                 <tr>
                     <td>窗或陽台設鐵柵<br>(鐵窗)</td>
-                    <td colspan="2"><input type="radio" name="window-level-1">普通<input type="radio" name="window-level-1">美術<input type="radio" name="window-level-1">豪華</td>
-                    <td colspan="2"><input type="radio" name="window-level-2">普通<input type="radio" name="window-level-2">美術<input type="radio" name="window-level-2">豪華</td>
-                    <td colspan="2"><input type="radio" name="window-level-3">普通<input type="radio" name="window-level-3">美術<input type="radio" name="window-level-3">豪華</td>
-                    <td colspan="2"><input type="radio" name="window-level-4">普通<input type="radio" name="window-level-4">美術<input type="radio" name="window-level-4">豪華</td>
+                    <td colspan="2"><input type="radio" name="window-level-1" value="普通">普通<input type="radio" name="window-level-1" value="美術">美術<input type="radio" name="window-level-1" value="豪華">豪華</td>
+                    <td colspan="2"><input type="radio" name="window-level-2" value="普通">普通<input type="radio" name="window-level-2" value="美術">美術<input type="radio" name="window-level-2" value="豪華">豪華</td>
+                    <td colspan="2"><input type="radio" name="window-level-3" value="普通">普通<input type="radio" name="window-level-3" value="美術">美術<input type="radio" name="window-level-3" value="豪華">豪華</td>
+                    <td colspan="2"><input type="radio" name="window-level-4" value="普通">普通<input type="radio" name="window-level-4" value="美術">美術<input type="radio" name="window-level-4" value="豪華">豪華</td>
                 </tr>
 
                 <tr>
                     <td>女兒牆</td>
                     <td colspan="2">
                         <div class="daughter-wall-container">
-                            RC:&nbsp;&nbsp;&nbsp;<input type="checkbox" id="RC-front-1" name="daughter-wall-1" value="RC-front" onclick="setDaughterWall('RC-front','1','front')">前<input type="checkbox" id="RC-behind-1" name="daughter-wall-1" value="RC-behind" onclick="setDaughterWall('RC-behind','1','behind')">後<input type="checkbox" id="RC-left-1" name="daughter-wall-1" value="RC-left" onclick="setDaughterWall('RC-left','1','left')">左<input type="checkbox" id="RC-right-1" name="daughter-wall-1" value="RC-right" onclick="setDaughterWall('RC-right','1','right')">右<br>
-                            1B:&nbsp;&nbsp;&nbsp;<input type="checkbox" id="1B-front-1" name="daughter-wall-1" value="1B-front" onclick="setDaughterWall('1B-front','1','front')">前<input type="checkbox" id="1B-behind-1" name="daughter-wall-1" value="1B-behind" onclick="setDaughterWall('1B-behind','1','behind')">後<input type="checkbox" id="1B-left-1" name="daughter-wall-1" value="1B-left" onclick="setDaughterWall('1B-left','1','left')">左<input type="checkbox" id="1B-right-1" name="daughter-wall-1" value="1B-right" onclick="setDaughterWall('1B-right','1','right')">右<br>
-                            1/2B:&nbsp;<input type="checkbox" id="half_B-front-1" name="daughter-wall-1" value="half_B-front" onclick="setDaughterWall('half_B-front','1','front')">前<input type="checkbox" id="half_B-behind-1" name="daughter-wall-1" value="half_B-behind" onclick="setDaughterWall('half_B-behind','1','behind')">後<input type="checkbox" id="half_B-left-1" name="daughter-wall-1" value="half_B-left" onclick="setDaughterWall('half_B-left','1','left')">左<input type="checkbox" id="half_B-right-1" name="daughter-wall-1" value="half_B-right" onclick="setDaughterWall('half_B-right','1','right')">右<br>
+                            RC:&nbsp;&nbsp;&nbsp;<input type="checkbox" id="RC-front-1" name="daughter-wall-1[]" value="RC-front" onclick="setDaughterWall('RC-front','1','front')">前<input type="checkbox" id="RC-behind-1" name="daughter-wall-1[]" value="RC-behind" onclick="setDaughterWall('RC-behind','1','behind')">後<input type="checkbox" id="RC-left-1" name="daughter-wall-1[]" value="RC-left" onclick="setDaughterWall('RC-left','1','left')">左<input type="checkbox" id="RC-right-1" name="daughter-wall-1[]" value="RC-right" onclick="setDaughterWall('RC-right','1','right')">右<br>
+                            1B:&nbsp;&nbsp;&nbsp;<input type="checkbox" id="1B-front-1" name="daughter-wall-1[]" value="1B-front" onclick="setDaughterWall('1B-front','1','front')">前<input type="checkbox" id="1B-behind-1" name="daughter-wall-1[]" value="1B-behind" onclick="setDaughterWall('1B-behind','1','behind')">後<input type="checkbox" id="1B-left-1" name="daughter-wall-1[]" value="1B-left" onclick="setDaughterWall('1B-left','1','left')">左<input type="checkbox" id="1B-right-1" name="daughter-wall-1[]" value="1B-right" onclick="setDaughterWall('1B-right','1','right')">右<br>
+                            1/2B:&nbsp;<input type="checkbox" id="half_B-front-1" name="daughter-wall-1[]" value="half_B-front" onclick="setDaughterWall('half_B-front','1','front')">前<input type="checkbox" id="half_B-behind-1" name="daughter-wall-1[]" value="half_B-behind" onclick="setDaughterWall('half_B-behind','1','behind')">後<input type="checkbox" id="half_B-left-1" name="daughter-wall-1[]" value="half_B-left" onclick="setDaughterWall('half_B-left','1','left')">左<input type="checkbox" id="half_B-right-1" name="daughter-wall-1[]" value="half_B-right" onclick="setDaughterWall('half_B-right','1','right')">右<br>
                         </div>
                     </td>
 
                     <td colspan="2">
                         <div class="daughter-wall-container">
-                            RC:&nbsp;&nbsp;&nbsp;<input type="checkbox" id="RC-front-2" name="daughter-wall-2" value="RC-front" onclick="setDaughterWall('RC-front','2','front')">前<input type="checkbox" id="RC-behind-2" name="daughter-wall-2" value="RC-behind" onclick="setDaughterWall('RC-behind','2','behind')">後<input type="checkbox" id="RC-left-2" name="daughter-wall-2" value="RC-left" onclick="setDaughterWall('RC-left','2','left')">左<input type="checkbox" id="RC-right-2" name="daughter-wall-2" value="RC-right" onclick="setDaughterWall('RC-right','2','right')">右<br>
-                            1B:&nbsp;&nbsp;&nbsp;<input type="checkbox" id="1B-front-2" name="daughter-wall-2" value="1B-front" onclick="setDaughterWall('1B-front','2','front')">前<input type="checkbox" id="1B-behind-2" name="daughter-wall-2" value="1B-behind" onclick="setDaughterWall('1B-behind','2','behind')">後<input type="checkbox" id="1B-left-2" name="daughter-wall-2" value="1B-left" onclick="setDaughterWall('1B-left','2','left')">左<input type="checkbox" id="1B-right-2" name="daughter-wall-2" value="1B-right" onclick="setDaughterWall('1B-right','2','right')">右<br>
-                            1/2B:&nbsp;<input type="checkbox" id="half_B-front-2" name="daughter-wall-2" value="half_B-front" onclick="setDaughterWall('half_B-front','2','front')">前<input type="checkbox" id="half_B-behind-2" name="daughter-wall-2" value="half_B-behind" onclick="setDaughterWall('half_B-behind','2','behind')">後<input type="checkbox" id="half_B-left-2" name="daughter-wall-2" value="half_B-left" onclick="setDaughterWall('half_B-left','2','left')">左<input type="checkbox" id="half_B-right-2" name="daughter-wall-2" value="half_B-right" onclick="setDaughterWall('half_B-right','2','right')">右<br>
+                            RC:&nbsp;&nbsp;&nbsp;<input type="checkbox" id="RC-front-2" name="daughter-wall-2[]" value="RC-front" onclick="setDaughterWall('RC-front','2','front')">前<input type="checkbox" id="RC-behind-2" name="daughter-wall-2[]" value="RC-behind" onclick="setDaughterWall('RC-behind','2','behind')">後<input type="checkbox" id="RC-left-2" name="daughter-wall-2[]" value="RC-left" onclick="setDaughterWall('RC-left','2','left')">左<input type="checkbox" id="RC-right-2" name="daughter-wall-2[]" value="RC-right" onclick="setDaughterWall('RC-right','2','right')">右<br>
+                            1B:&nbsp;&nbsp;&nbsp;<input type="checkbox" id="1B-front-2" name="daughter-wall-2[]" value="1B-front" onclick="setDaughterWall('1B-front','2','front')">前<input type="checkbox" id="1B-behind-2" name="daughter-wall-2[]" value="1B-behind" onclick="setDaughterWall('1B-behind','2','behind')">後<input type="checkbox" id="1B-left-2" name="daughter-wall-2[]" value="1B-left" onclick="setDaughterWall('1B-left','2','left')">左<input type="checkbox" id="1B-right-2" name="daughter-wall-2[]" value="1B-right" onclick="setDaughterWall('1B-right','2','right')">右<br>
+                            1/2B:&nbsp;<input type="checkbox" id="half_B-front-2" name="daughter-wall-2[]" value="half_B-front" onclick="setDaughterWall('half_B-front','2','front')">前<input type="checkbox" id="half_B-behind-2" name="daughter-wall-2[]" value="half_B-behind" onclick="setDaughterWall('half_B-behind','2','behind')">後<input type="checkbox" id="half_B-left-2" name="daughter-wall-2[]" value="half_B-left" onclick="setDaughterWall('half_B-left','2','left')">左<input type="checkbox" id="half_B-right-2" name="daughter-wall-2[]" value="half_B-right" onclick="setDaughterWall('half_B-right','2','right')">右<br>
                         </div>
                     </td>
 
                     <td colspan="2">
                         <div class="daughter-wall-container">
-                            RC:&nbsp;&nbsp;&nbsp;<input type="checkbox" id="RC-front-3" name="daughter-wall-3" value="RC-front" onclick="setDaughterWall('RC-front','3','front')">前<input type="checkbox" id="RC-behind-3" name="daughter-wall-3" value="RC-behind" onclick="setDaughterWall('RC-behind','3','behind')">後<input type="checkbox" id="RC-left-3" name="daughter-wall-3" value="RC-left" onclick="setDaughterWall('RC-left','3','left')">左<input type="checkbox" id="RC-right-3" name="daughter-wall-3" value="RC-right" onclick="setDaughterWall('RC-right','3','right')">右<br>
-                            1B:&nbsp;&nbsp;&nbsp;<input type="checkbox" id="1B-front-3" name="daughter-wall-3" value="1B-front" onclick="setDaughterWall('1B-front','3','front')">前<input type="checkbox" id="1B-behind-3" name="daughter-wall-3" value="1B-behind" onclick="setDaughterWall('1B-behind','3','behind')">後<input type="checkbox" id="1B-left-3" name="daughter-wall-3" value="1B-left" onclick="setDaughterWall('1B-left','3','left')">左<input type="checkbox" id="1B-right-3" name="daughter-wall-3" value="1B-right" onclick="setDaughterWall('1B-right','3','right')">右<br>
-                            1/2B:&nbsp;<input type="checkbox" id="half_B-front-3" name="daughter-wall-3" value="half_B-front" onclick="setDaughterWall('half_B-front','3','front')">前<input type="checkbox" id="half_B-behind-3" name="daughter-wall-3" value="half_B-behind" onclick="setDaughterWall('half_B-behind','3','behind')">後<input type="checkbox" id="half_B-left-3" name="daughter-wall-3" value="half_B-left" onclick="setDaughterWall('half_B-left','3','left')">左<input type="checkbox" id="half_B-right-3" name="daughter-wall-3" value="half_B-right" onclick="setDaughterWall('half_B-right','3','right')">右<br>
+                            RC:&nbsp;&nbsp;&nbsp;<input type="checkbox" id="RC-front-3" name="daughter-wall-3[]" value="RC-front" onclick="setDaughterWall('RC-front','3','front')">前<input type="checkbox" id="RC-behind-3" name="daughter-wall-3[]" value="RC-behind" onclick="setDaughterWall('RC-behind','3','behind')">後<input type="checkbox" id="RC-left-3" name="daughter-wall-3[]" value="RC-left" onclick="setDaughterWall('RC-left','3','left')">左<input type="checkbox" id="RC-right-3" name="daughter-wall-3[]" value="RC-right" onclick="setDaughterWall('RC-right','3','right')">右<br>
+                            1B:&nbsp;&nbsp;&nbsp;<input type="checkbox" id="1B-front-3" name="daughter-wall-3[]" value="1B-front" onclick="setDaughterWall('1B-front','3','front')">前<input type="checkbox" id="1B-behind-3" name="daughter-wall-3[]" value="1B-behind" onclick="setDaughterWall('1B-behind','3','behind')">後<input type="checkbox" id="1B-left-3" name="daughter-wall-3[]" value="1B-left" onclick="setDaughterWall('1B-left','3','left')">左<input type="checkbox" id="1B-right-3" name="daughter-wall-3[]" value="1B-right" onclick="setDaughterWall('1B-right','3','right')">右<br>
+                            1/2B:&nbsp;<input type="checkbox" id="half_B-front-3" name="daughter-wall-3[]" value="half_B-front" onclick="setDaughterWall('half_B-front','3','front')">前<input type="checkbox" id="half_B-behind-3" name="daughter-wall-3[]" value="half_B-behind" onclick="setDaughterWall('half_B-behind','3','behind')">後<input type="checkbox" id="half_B-left-3" name="daughter-wall-3[]" value="half_B-left" onclick="setDaughterWall('half_B-left','3','left')">左<input type="checkbox" id="half_B-right-3" name="daughter-wall-3[]" value="half_B-right" onclick="setDaughterWall('half_B-right','3','right')">右<br>
                         </div>
                     </td>
 
                     <td colspan="2">
                         <div class="daughter-wall-container">
-                            RC:&nbsp;&nbsp;&nbsp;<input type="checkbox" id="RC-front-4" name="daughter-wall-4" value="RC-front" onclick="setDaughterWall('RC-front','4','front')">前<input type="checkbox" id="RC-behind-4" name="daughter-wall-4" value="RC-behind" onclick="setDaughterWall('RC-behind','4','behind')">後<input type="checkbox" id="RC-left-4" name="daughter-wall-4" value="RC-left" onclick="setDaughterWall('RC-left','4','left')">左<input type="checkbox" id="RC-right-4" name="daughter-wall-4" value="RC-right" onclick="setDaughterWall('RC-right','4','right')">右<br>
-                            1B:&nbsp;&nbsp;&nbsp;<input type="checkbox" id="1B-front-4" name="daughter-wall-4" value="1B-front" onclick="setDaughterWall('1B-front','4','front')">前<input type="checkbox" id="1B-behind-4" name="daughter-wall-4" value="1B-behind" onclick="setDaughterWall('1B-behind','4','behind')">後<input type="checkbox" id="1B-left-4" name="daughter-wall-4" value="1B-left" onclick="setDaughterWall('1B-left','4','left')">左<input type="checkbox" id="1B-right-4" name="daughter-wall-4" value="1B-right" onclick="setDaughterWall('1B-right','4','right')">右<br>
-                            1/2B:&nbsp;<input type="checkbox" id="half_B-front-4" name="daughter-wall-4" value="half_B-front" onclick="setDaughterWall('half_B-front','4','front')">前<input type="checkbox" id="half_B-behind-4" name="daughter-wall-4" value="half_B-behind" onclick="setDaughterWall('half_B-behind','4','behind')">後<input type="checkbox" id="half_B-left-4" name="daughter-wall-4" value="half_B-left" onclick="setDaughterWall('half_B-left','4','left')">左<input type="checkbox" id="half_B-right-4" name="daughter-wall-4" value="half_B-right" onclick="setDaughterWall('half_B-right','4','right')">右<br>
+                            RC:&nbsp;&nbsp;&nbsp;<input type="checkbox" id="RC-front-4" name="daughter-wall-4[]" value="RC-front" onclick="setDaughterWall('RC-front','4','front')">前<input type="checkbox" id="RC-behind-4" name="daughter-wall-4[]" value="RC-behind" onclick="setDaughterWall('RC-behind','4','behind')">後<input type="checkbox" id="RC-left-4" name="daughter-wall-4[]" value="RC-left" onclick="setDaughterWall('RC-left','4','left')">左<input type="checkbox" id="RC-right-4" name="daughter-wall-4[]" value="RC-right" onclick="setDaughterWall('RC-right','4','right')">右<br>
+                            1B:&nbsp;&nbsp;&nbsp;<input type="checkbox" id="1B-front-4" name="daughter-wall-4[]" value="1B-front" onclick="setDaughterWall('1B-front','4','front')">前<input type="checkbox" id="1B-behind-4" name="daughter-wall-4[]" value="1B-behind" onclick="setDaughterWall('1B-behind','4','behind')">後<input type="checkbox" id="1B-left-4" name="daughter-wall-4[]" value="1B-left" onclick="setDaughterWall('1B-left','4','left')">左<input type="checkbox" id="1B-right-4" name="daughter-wall-4[]" value="1B-right" onclick="setDaughterWall('1B-right','4','right')">右<br>
+                            1/2B:&nbsp;<input type="checkbox" id="half_B-front-4" name="daughter-wall-4[]" value="half_B-front" onclick="setDaughterWall('half_B-front','4','front')">前<input type="checkbox" id="half_B-behind-4" name="daughter-wall-4[]" value="half_B-behind" onclick="setDaughterWall('half_B-behind','4','behind')">後<input type="checkbox" id="half_B-left-4" name="daughter-wall-4[]" value="half_B-left" onclick="setDaughterWall('half_B-left','4','left')">左<input type="checkbox" id="half_B-right-4" name="daughter-wall-4[]" value="half_B-right" onclick="setDaughterWall('half_B-right','4','right')">右<br>
                         </div>
                     </td>
                 </tr>
 
                 <tr>
                     <td>陽台</td>
-                    <td colspan="2"><input type="checkbox" name="balcony-1">前<input type="checkbox" name="balcony-1">後<input type="checkbox" name="balcony-1">左<input type="checkbox" name="balcony-1">右</td>
-                    <td colspan="2"><input type="checkbox" name="balcony-2">前<input type="checkbox" name="balcony-2">後<input type="checkbox" name="balcony-2">左<input type="checkbox" name="balcony-2">右</td>
-                    <td colspan="2"><input type="checkbox" name="balcony-3">前<input type="checkbox" name="balcony-3">後<input type="checkbox" name="balcony-3">左<input type="checkbox" name="balcony-3">右</td>
-                    <td colspan="2"><input type="checkbox" name="balcony-4">前<input type="checkbox" name="balcony-4">後<input type="checkbox" name="balcony-4">左<input type="checkbox" name="balcony-4">右</td>
+                    <td colspan="2"><input type="checkbox" name="balcony-1[]" value="前">前<input type="checkbox" name="balcony-1[]" value="後">後<input type="checkbox" name="balcony-1[]" value="左">左<input type="checkbox" name="balcony-1[]" value="右">右</td>
+                    <td colspan="2"><input type="checkbox" name="balcony-2[]" value="前">前<input type="checkbox" name="balcony-2[]" value="後">後<input type="checkbox" name="balcony-2[]" value="左">左<input type="checkbox" name="balcony-2[]" value="右">右</td>
+                    <td colspan="2"><input type="checkbox" name="balcony-3[]" value="前">前<input type="checkbox" name="balcony-3[]" value="後">後<input type="checkbox" name="balcony-3[]" value="左">左<input type="checkbox" name="balcony-3[]" value="右">右</td>
+                    <td colspan="2"><input type="checkbox" name="balcony-4[]" value="前">前<input type="checkbox" name="balcony-4[]" value="後">後<input type="checkbox" name="balcony-4[]" value="左">左<input type="checkbox" name="balcony-4[]" value="右">右</td>
                 </tr>
 
             </table>

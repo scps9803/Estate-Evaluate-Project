@@ -40,15 +40,15 @@ function addItemOnclick(id,column,num){
             text =
             '<div id="minus-wall-'+column+"-"+minus_wall_count[column-1]+'">'+
                 '<span>減牆:&nbsp;</span>'+
-                '<select id="minus-wall-num-'+column+"-"+minus_wall_count[column-1]+'" name="minus-wall-num-'+column+"-"+ minus_wall_count[column-1] +'">'+
+                '<select id="minus-wall-num-'+column+"-"+minus_wall_count[column-1]+'" name="minus-wall-num-'+column+"-"+ minus_wall_count[column-1] +'" required="required">'+
                     '<option value="" style="display:none;">請選擇面數</option>'+
                     '<option value="1">1</option>'+
                     '<option value="2">2</option>'+
                     '<option value="3">3</option>'+
                     '<option value="4">4</option>'+
                 '</select>&nbsp;'+
-                '<input type="hidden" name="test-num-'+column+'">'+
-                '<select id="minus-wall-option-'+column+"-"+minus_wall_count[column-1]+'" name="minus-wall-option-'+column+"-"+ minus_wall_count[column-1] +'">'+
+                // '<input type="hidden" name="test-num-'+column+'">'+
+                '<select id="minus-wall-option-'+column+"-"+minus_wall_count[column-1]+'" name="minus-wall-option-'+column+"-"+ minus_wall_count[column-1] +'" required="required">'+
                     '<option value="" style="display:none;">請選擇材質</option>'+
                     // '<option value="">RC牆</option>'+
                     // '<option value="">1B</option>'+
@@ -72,14 +72,14 @@ function addItemOnclick(id,column,num){
             text =
             '<div id="add-wall-'+column+"-"+ add_wall_count[column-1]+'">'+
                 '<span>加牆:&nbsp;</span>'+
-                '<select id="add-wall-num-'+column+"-"+add_wall_count[column-1]+'" name="add-wall-num-'+column+"-"+ add_wall_count[column-1] +'">'+
+                '<select id="add-wall-num-'+column+"-"+add_wall_count[column-1]+'" name="add-wall-num-'+column+"-"+ add_wall_count[column-1] +'" required="required">'+
                     '<option value="" style="display:none;">請選擇面數</option>'+
                     '<option value="1">1</option>'+
                     '<option value="2">2</option>'+
                     '<option value="3">3</option>'+
                     '<option value="4">4</option>'+
                 '</select>&nbsp;'+
-                '<select id="add-wall-option-'+column+"-"+add_wall_count[column-1]+'" name="add-wall-option-'+column+"-"+ add_wall_count[column-1] +'">'+
+                '<select id="add-wall-option-'+column+"-"+add_wall_count[column-1]+'" name="add-wall-option-'+column+"-"+ add_wall_count[column-1] +'" required="required">'+
                     '<option value="" style="display:none;">請選擇材質</option>'+
                     // '<option value="">RC牆</option>'+
                     // '<option value="">1B</option>'+
@@ -103,7 +103,7 @@ function addItemOnclick(id,column,num){
             text =
             '<div id="indoor-divide-'+column+"-"+ indoor_divide_count[column-1]+'">'+
             '<input type="text" id="indoor-divide-numerator-'+column+"-"+indoor_divide_count[column-1]+'" name="indoor-divide-numerator-'+column+"-"+indoor_divide_count[column-1]+'" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="indoor-divide-denominator-'+column+"-"+indoor_divide_count[column-1]+'" name="indoor-divide-denominator-'+column+"-"+indoor_divide_count[column-1]+'" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">'+
-            '&nbsp;<select class="select-menu" id="indoor-divide-option-'+column+"-"+ indoor_divide_count[column-1] +'" name="indoor-divide-option-'+column+"-"+ indoor_divide_count[column-1] +'">'+
+            '&nbsp;<select class="select-menu" id="indoor-divide-option-'+column+"-"+ indoor_divide_count[column-1] +'" name="indoor-divide-option-'+column+"-"+ indoor_divide_count[column-1] +'" required>'+
                 '<option value="" style="display:none;">請選擇材質</option>'+
             '</select>'+
             '</div>';
@@ -123,7 +123,7 @@ function addItemOnclick(id,column,num){
             '<div id="outdoor-wall-decoration-'+column+"-"+ outdoor_wall_decoration_count[column-1]+'">'+
                 '<input type="text" id="outdoor-wall-decoration-numerator-'+column+"-"+outdoor_wall_decoration_count[column-1]+'" name="outdoor-wall-decoration-numerator-'+column+"-"+outdoor_wall_decoration_count[column-1]+'" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/'+
                 '<input type="text" id="outdoor-wall-decoration-denominator-'+column+"-"+outdoor_wall_decoration_count[column-1]+'" name="outdoor-wall-decoration-denominator-'+column+"-"+outdoor_wall_decoration_count[column-1]+'" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">'+
-                '&nbsp;<select id="outdoor-wall-decoration-option-'+column+"-"+ outdoor_wall_decoration_count[column-1] +'" name="outdoor-wall-decoration-option-'+column+"-"+ outdoor_wall_decoration_count[column-1] +'" class="select-menu">'+
+                '&nbsp;<select id="outdoor-wall-decoration-option-'+column+"-"+ outdoor_wall_decoration_count[column-1] +'" name="outdoor-wall-decoration-option-'+column+"-"+ outdoor_wall_decoration_count[column-1] +'" class="select-menu" required>'+
                     '<option value="" style="display:none;">請選擇材質</option>'+
                 '</select>'+
             '</div>';
@@ -143,7 +143,7 @@ function addItemOnclick(id,column,num){
             '<div id="indoor-wall-decoration-'+column+"-"+ indoor_wall_decoration_count[column-1]+'">'+
                 '<input type="text" id="indoor-wall-decoration-numerator-'+column+"-"+indoor_wall_decoration_count[column-1]+'" name="indoor-wall-decoration-numerator-'+column+"-"+indoor_wall_decoration_count[column-1]+'" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/'+
                 '<input type="text" id="indoor-wall-decoration-denominator-'+column+"-"+indoor_wall_decoration_count[column-1]+'" name="indoor-wall-decoration-denominator-'+column+"-"+indoor_wall_decoration_count[column-1]+'" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">'+
-                '&nbsp;<select id="indoor-wall-decoration-option-'+column+"-"+ indoor_wall_decoration_count[column-1] +'" name="indoor-wall-decoration-option-'+column+"-"+ indoor_wall_decoration_count[column-1] +'" class="select-menu">'+
+                '&nbsp;<select id="indoor-wall-decoration-option-'+column+"-"+ indoor_wall_decoration_count[column-1] +'" name="indoor-wall-decoration-option-'+column+"-"+ indoor_wall_decoration_count[column-1] +'" class="select-menu" required>'+
                     '<option value="" style="display:none;">請選擇材質</option>'+
                 '</select>'+
             '</div>';
@@ -163,7 +163,7 @@ function addItemOnclick(id,column,num){
             '<div id="roof-decoration-'+column+"-"+ roof_decoration_count[column-1]+'">'+
                 '<input type="text" id="roof-decoration-numerator-'+column+"-"+ roof_decoration_count[column-1]+'" name="roof-decoration-numerator-'+column+"-"+ roof_decoration_count[column-1]+'" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/'+
                 '<input type="text" id="roof-decoration-denominator-'+column+"-"+ roof_decoration_count[column-1]+'" name="roof-decoration-denominator-'+column+"-"+ roof_decoration_count[column-1]+'" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">'+
-                '&nbsp;<select id="roof-decoration-option-'+column+"-"+ roof_decoration_count[column-1] +'" name="roof-decoration-option-'+column+"-"+ roof_decoration_count[column-1] +'" class="select-menu">'+
+                '&nbsp;<select id="roof-decoration-option-'+column+"-"+ roof_decoration_count[column-1] +'" name="roof-decoration-option-'+column+"-"+ roof_decoration_count[column-1] +'" class="select-menu" required>'+
                     '<option value="" style="display:none;">請選擇材質</option>'+
                 '</select>'+
             '</div>';
@@ -183,7 +183,7 @@ function addItemOnclick(id,column,num){
             '<div id="floor-decoration-'+column+"-"+ floor_decoration_count[column-1]+'">'+
                 '<input type="text" id="floor-decoration-numerator-'+column+"-"+ floor_decoration_count[column-1]+'" name="floor-decoration-numerator-'+column+"-"+ floor_decoration_count[column-1]+'" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/'+
                 '<input type="text" id="floor-decoration-denominator-'+column+"-"+ floor_decoration_count[column-1]+'" name="floor-decoration-denominator-'+column+"-"+ floor_decoration_count[column-1]+'" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">'+
-                '&nbsp;<select id="floor-decoration-option-'+column+"-"+ floor_decoration_count[column-1] +'" name="floor-decoration-option-'+column+"-"+ floor_decoration_count[column-1] +'" class="select-menu">'+
+                '&nbsp;<select id="floor-decoration-option-'+column+"-"+ floor_decoration_count[column-1] +'" name="floor-decoration-option-'+column+"-"+ floor_decoration_count[column-1] +'" class="select-menu" required>'+
                     '<option value="" style="display:none;">請選擇材質</option>'+
                 '</select>'+
             '</div>';
@@ -203,7 +203,7 @@ function addItemOnclick(id,column,num){
             '<div id="ceiling-decoration-'+column+"-"+ ceiling_decoration_count[column-1] +'">'+
                 '<input type="text" id="ceiling-decoration-numerator-'+column+"-"+ ceiling_decoration_count[column-1] +'" name="ceiling-decoration-numerator-'+column+"-"+ ceiling_decoration_count[column-1] +'" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/'+
                 '<input type="text" id="ceiling-decoration-denominator-'+column+"-"+ ceiling_decoration_count[column-1] +'" name="ceiling-decoration-denominator-'+column+"-"+ ceiling_decoration_count[column-1] +'" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">'+
-                '&nbsp;<select id="ceiling-decoration-option-'+column+"-"+ ceiling_decoration_count[column-1] +'" name="ceiling-decoration-option-'+column+"-"+ ceiling_decoration_count[column-1] +'" class="select-menu">'+
+                '&nbsp;<select id="ceiling-decoration-option-'+column+"-"+ ceiling_decoration_count[column-1] +'" name="ceiling-decoration-option-'+column+"-"+ ceiling_decoration_count[column-1] +'" class="select-menu" required>'+
                     '<option value="" style="display:none;">請選擇材質</option>'+
                 '</select>'+
             '</div>';
@@ -223,17 +223,17 @@ function addItemOnclick(id,column,num){
             '<div class="table-container" id="toilet-equipment-'+column+"-"+toilet_equipment_count[column-1]+'" style="margin-top:15px;">'+
                 // '比例:<input type="radio" name="toilet-ratio-'+column+"-"+toilet_equipment_count[column-1]+'" value="1">1'+
                 // '<input type="radio" name="toilet-ratio-'+column+"-"+toilet_equipment_count[column-1]+'" value="0.5">1/2<br>'+
-                '比例:<select id="toilet-ratio-'+column+"-"+toilet_equipment_count[column-1]+'" name="toilet-ratio-'+column+"-"+toilet_equipment_count[column-1]+'">'+
+                '比例:<select id="toilet-ratio-'+column+"-"+toilet_equipment_count[column-1]+'" name="toilet-ratio-'+column+"-"+toilet_equipment_count[column-1]+'" required>'+
                     '<option value="" style="display:none;">請選擇比例</option>'+
                     '<option value="1">1</option>'+
                     '<option value="0.5">1/2</option>'+
                 '</select><br>'+
-                '型式:<select id="toilet-type-'+column+"-"+toilet_equipment_count[column-1]+'" name="toilet-type-'+column+"-"+toilet_equipment_count[column-1]+'" class="select-menu">'+
+                '型式:<select id="toilet-type-'+column+"-"+toilet_equipment_count[column-1]+'" name="toilet-type-'+column+"-"+toilet_equipment_count[column-1]+'" class="select-menu" required>'+
                     // '<option value="">水泥貼馬賽克</option>'+
                     // '<option value="">瓷漆</option>'+
                 '</select><br>'+
                 // '座數:<input type="radio" name="toilet-number-'+column+"-"+toilet_equipment_count[column-1]+'" value="3">1~3座<input type="radio" name="toilet-number-'+column+"-"+toilet_equipment_count[column-1]+'" value="6">4~6座<input type="radio" name="toilet-number-'+column+"-"+toilet_equipment_count[column-1]+'" value="7">7座以上'+
-                '座數:<select id="toilet-number-'+column+"-"+toilet_equipment_count[column-1]+'" name="toilet-number-'+column+"-"+toilet_equipment_count[column-1]+'">'+
+                '座數:<select id="toilet-number-'+column+"-"+toilet_equipment_count[column-1]+'" name="toilet-number-'+column+"-"+toilet_equipment_count[column-1]+'" required>'+
                     '<option value="" style="display:none;">請選擇座數</option>'+
                     '<option value="3">1~3座</option>'+
                     '<option value="6">4~6座</option>'+
@@ -542,7 +542,8 @@ function addInfoItemOnclick(id){
 
             text =
             '<div id="family-num-'+family_num_count+'" class="input-select-align-top">'+
-                '<select class="select-menu" name="family-num-'+family_num_count+'">'+
+                '<select class="select-menu" name="family-num-'+family_num_count+'" required>'+
+                    '<option value="" style="display:none;">請選擇項目</option>'+
                     '<option value="1">1</option>'+
                     '<option value="2">2</option>'+
                     '<option value="3">3</option>'+
@@ -800,6 +801,38 @@ function load_electric_data(num){
     });
 }
 
+function load_floor_type_data(num){
+    var item = "#floor-type-"+num;
+    var material = $("#building-material-"+num).val();
+    var building_type_radio = $("input[name='house-type-"+num+"']");
+
+    for(var i=0;i<building_type_radio.length;i++){
+        if(building_type_radio[i].checked) {building_type = building_type_radio[i].value;}
+    }
+
+    $.ajax({
+         url: "get_building_decoration_option.php",
+         type: "POST",
+         data:{
+            category: 'floor_type',
+            material: material,
+            building_type: building_type
+         },
+         cache:false,
+         dataType: "json",
+         // contentType: 'application/json; charset=utf-8',
+         success: function(data){
+             $(item).html(data.item_name);
+         },
+         error:function(err){
+             // window.alert(err.statusText);
+             window.alert("戶別選擇錯誤!請重新選擇!");
+             $(item).html('<option value="" style="display:none;">請選擇層別</option>');
+             document.getElementById("building-material-"+num).selectedIndex = "0";
+         }
+    });
+}
+
 function get_building_decoration_option(id,column,count,category){
     $.ajax({
          url: "get_building_decoration_option.php",
@@ -872,10 +905,10 @@ function saveDialog(){
         countId = [this.minus_wall_count,this.add_wall_count];
 
         decoration_itemId = ["#indoor-divide-numerator-","#indoor-divide-denominator-","#indoor-divide-option-","#outdoor-wall-decoration-numerator-","#outdoor-wall-decoration-denominator-","#outdoor-wall-decoration-option-","#indoor-wall-decoration-numerator-","#indoor-wall-decoration-denominator-","#indoor-wall-decoration-option-","#roof-decoration-numerator-","#roof-decoration-denominator-","#roof-decoration-option-","#floor-decoration-numerator-","#floor-decoration-denominator-",
-        "#floor-decoration-option-","#ceiling-decoration-numerator-","#ceiling-decoration-denominator-","#ceiling-decoration-option-"];
+        "#floor-decoration-option-","#ceiling-decoration-numerator-","#ceiling-decoration-denominator-","#ceiling-decoration-option-","#toilet-ratio-","#toilet-type-","#toilet-number-"];
         decoration_writeToId = ["#indoor-divide-numerator-","#indoor-divide-denominator-","#indoor-divide-option-","#outdoor-wall-decoration-numerator-","#outdoor-wall-decoration-denominator-","#outdoor-wall-decoration-option-","#indoor-wall-decoration-numerator-","#indoor-wall-decoration-denominator-","#indoor-wall-decoration-option-","#roof-decoration-numerator-","#roof-decoration-denominator-","#roof-decoration-option-","#floor-decoration-numerator-","#floor-decoration-denominator-",
-        "#floor-decoration-option-","#ceiling-decoration-numerator-","#ceiling-decoration-denominator-","#ceiling-decoration-option-"];
-        decoration_countId = [this.indoor_divide_count,this.outdoor_wall_decoration_count,this.indoor_wall_decoration_count,this.roof_decoration_count,this.floor_decoration_count,this.ceiling_decoration_count];
+        "#floor-decoration-option-","#ceiling-decoration-numerator-","#ceiling-decoration-denominator-","#ceiling-decoration-option-","#toilet-ratio-","#toilet-type-","#toilet-number-"];
+        decoration_countId = [this.indoor_divide_count,this.outdoor_wall_decoration_count,this.indoor_wall_decoration_count,this.roof_decoration_count,this.floor_decoration_count,this.ceiling_decoration_count,this.toilet_equipment_count];
 
         for(var i=0;i<itemId.length;i++){
             writeDataToOneRow(itemId[i],writeToId[i],countId[Math.floor(i/2)]);
@@ -897,11 +930,21 @@ function writeDataToOneRow(itemId,writeToId,countId){
             temp_array[j] = $(name).val();
         }
         $(writeToId+(i+1)).val(temp_array);
-        if(itemId=="#ceiling-decoration-option-"){
-            window.alert(temp_array);
+        if(itemId=="#toilet-number-"){
+            // window.alert(temp_array);
             // window.alert(writeToId+(i+1).val());
         }
     }
+}
+
+function changeColumnStatus(column){
+    var itemId = ["#house-type-","#building-material-"]
+    if($("#floor-id-"+column).length>0){
+        for(var i=0;i<itemId.length;i++){
+            $(itemId[i]+column).attr("required","");
+        }
+    }
+    // window.alert($("#floor-id-"+column).length);
 }
 
 function getOwnerCount(){
@@ -951,6 +994,19 @@ function getCeilingDecorationCount(num){
 function getToiletEquipmentCount(num){
     $("#toilet-equipment-count-"+(num+1)).val(toilet_equipment_count[num]);
 }
+
+// function setRequired(id){
+//     var item = id+"1-2";
+//     window.alert(item);
+//     // window.alert(id+"1-2");
+//     // window.alert($(id+"1-2").val());
+//     if($(item).val()==""){
+//         $(item)[0].focus(function(){
+//             $(item).css("background-color","#FFFFCC");
+//         });
+//         window.alert("fuck");
+//     }
+// }
 
 $(document).ready(function(){
     getOwnerCount();
