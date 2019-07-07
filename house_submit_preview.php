@@ -183,17 +183,81 @@ for($i=0;$i<$total_floor;$i++){
         echo "<br>";
     }
     echo "<br>---------------------------<br>";
+
+    echo "屋頂粉裝<br>";
+    $roof_decoration_numerator = getAppendSelectData('roof-decoration-numerator-',$total_floor);
+    $roof_wall_decoration_denominator = getAppendSelectData('roof-decoration-denominator-',$total_floor);
+    $roof_wall_decoration_option = getAppendSelectData('roof-decoration-option-',$total_floor);
+
+    for($i=0;$i<$total_floor;$i++){
+        for($j=0;$j<count($roof_decoration_numerator[$i]);$j++){
+            echo $roof_decoration_numerator[$i][$j]."/".$roof_wall_decoration_denominator[$i][$j]."--".$roof_wall_decoration_option[$i][$j].",";
+        }
+        echo "<br>";
+    }
+    echo "<br>---------------------------<br>";
+
+    echo "樓地板粉裝<br>";
+    $floor_decoration_numerator = getAppendSelectData('floor-decoration-numerator-',$total_floor);
+    $floor_wall_decoration_denominator = getAppendSelectData('floor-decoration-denominator-',$total_floor);
+    $floor_wall_decoration_option = getAppendSelectData('floor-decoration-option-',$total_floor);
+
+    for($i=0;$i<$total_floor;$i++){
+        for($j=0;$j<count($floor_decoration_numerator[$i]);$j++){
+            echo $floor_decoration_numerator[$i][$j]."/".$floor_wall_decoration_denominator[$i][$j]."--".$floor_wall_decoration_option[$i][$j].",";
+        }
+        echo "<br>";
+    }
+    echo "<br>---------------------------<br>";
+
+    echo "天花板粉裝<br>";
+    $ceiling_decoration_numerator = getAppendSelectData('ceiling-decoration-numerator-',$total_floor);
+    $ceiling_wall_decoration_denominator = getAppendSelectData('ceiling-decoration-denominator-',$total_floor);
+    $ceiling_wall_decoration_option = getAppendSelectData('ceiling-decoration-option-',$total_floor);
+
+    for($i=0;$i<$total_floor;$i++){
+        for($j=0;$j<count($ceiling_decoration_numerator[$i]);$j++){
+            echo $ceiling_decoration_numerator[$i][$j]."/".$ceiling_wall_decoration_denominator[$i][$j]."--".$ceiling_wall_decoration_option[$i][$j].",";
+        }
+        echo "<br>";
+    }
+    echo "<br>---------------------------<br>";
+
+    echo "門窗裝置<br>";
+    for($i=0;$i<$total_floor;$i++){
+        $door_window_numerator[$i] = $_POST['door-window-numerator-'.($i+1)];
+        $door_window_denominator[$i] = $_POST['door-window-denominator-'.($i+1)];
+        $door_window[$i] = $_POST['door-window-'.($i+1)];
+        $double_door[$i] = $_POST['double-door-'.($i+1)];
+        $double_window[$i] = $_POST['double-window-'.($i+1)];
+        echo $door_window_numerator[$i]."/".$door_window_denominator[$i]."--".$door_window[$i].",".$double_door[$i].",".$double_window[$i]."<br>";
+
+    }
+    echo "<br>---------------------------<br>";
+
+    echo "浴廁設備<br>";
+    if(isset($_POST['toilet-ratio-2-2'])){
+        echo "yes<br>";
+    }
+    else{
+        echo "no<br>";
+    }
+
+    // echo isset($_POST['toilet-ratio-1-2'])."<br>";
+    // echo isset($_POST['toilet-ratio-2-1'])."<br>";
+    // echo isset($_POST['toilet-ratio-2-2'])."<br>";
+
+    // echo count($_POST['toilet-equipment-count-'.($i+1)])."<br>";
+    // for($i=0;$i<$total_floor;$i++){
+    //     for($j=0;$j<count($_POST['toilet-equipment-count-'.($i+1)]);$j++){
+    //         $toilet_ratio[$i][$j] = $_POST['toilet-ratio-'.($i+1).'-'.($j+1)];
+    //         $toilet_type[$i][$j] = $_POST['toilet-type-'.($i+1).'-'.($j+1)];
+    //         $toilet_number[$i][$j] = $_POST['toilet-number-'.($i+1).'-'.($j+1)];
+    //         echo $toilet_ratio[$i][$j]."-".$toilet_type[$i][$j]."-".$toilet_number[$i][$j]."座<br>";
+    //     }
+    //
+    // }
 }
-
-
-
-// $test = getAppendSelectData('minus-wall-count-');
-// for($i=0;$i<4;$i++){
-//     for($j=0;$j<count($test[$i]);$j++){
-//         echo $test[$i][$j].",";
-//     }
-//     echo "<br>";
-// }
 
 $date = date("Y/m/d");
 

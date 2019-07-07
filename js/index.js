@@ -161,14 +161,15 @@ function addItemOnclick(id,column,num){
 
             text =
             '<div id="roof-decoration-'+column+"-"+ roof_decoration_count[column-1]+'">'+
-                '<input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">'+
-                '&nbsp;<select name="roof-decoration-'+column+"-"+ roof_decoration_count[column-1] +'" class="select-menu">'+
+                '<input type="text" id="roof-decoration-numerator-'+column+"-"+ roof_decoration_count[column-1]+'" name="roof-decoration-numerator-'+column+"-"+ roof_decoration_count[column-1]+'" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/'+
+                '<input type="text" id="roof-decoration-denominator-'+column+"-"+ roof_decoration_count[column-1]+'" name="roof-decoration-denominator-'+column+"-"+ roof_decoration_count[column-1]+'" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">'+
+                '&nbsp;<select id="roof-decoration-option-'+column+"-"+ roof_decoration_count[column-1] +'" name="roof-decoration-option-'+column+"-"+ roof_decoration_count[column-1] +'" class="select-menu">'+
                     '<option value="" style="display:none;">請選擇材質</option>'+
                 '</select>'+
             '</div>';
             $(text).insertAfter($(itemId));
 
-            get_building_decoration_option(id, column, roof_decoration_count[column-1], 'roof_decoration');
+            get_building_decoration_option('roof-decoration-option-', column, roof_decoration_count[column-1], 'roof_decoration');
             getRoofDecorationCount(column-1);
             break;
 
@@ -180,14 +181,15 @@ function addItemOnclick(id,column,num){
 
             text =
             '<div id="floor-decoration-'+column+"-"+ floor_decoration_count[column-1]+'">'+
-                '<input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">'+
-                '&nbsp;<select name="floor-decoration-'+column+"-"+ floor_decoration_count[column-1] +'" class="select-menu">'+
+                '<input type="text" id="floor-decoration-numerator-'+column+"-"+ floor_decoration_count[column-1]+'" name="floor-decoration-numerator-'+column+"-"+ floor_decoration_count[column-1]+'" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/'+
+                '<input type="text" id="floor-decoration-denominator-'+column+"-"+ floor_decoration_count[column-1]+'" name="floor-decoration-denominator-'+column+"-"+ floor_decoration_count[column-1]+'" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">'+
+                '&nbsp;<select id="floor-decoration-option-'+column+"-"+ floor_decoration_count[column-1] +'" name="floor-decoration-option-'+column+"-"+ floor_decoration_count[column-1] +'" class="select-menu">'+
                     '<option value="" style="display:none;">請選擇材質</option>'+
                 '</select>'+
             '</div>';
             $(text).insertAfter($(itemId));
 
-            get_building_decoration_option(id, column, floor_decoration_count[column-1], 'floor_decoration');
+            get_building_decoration_option('floor-decoration-option-', column, floor_decoration_count[column-1], 'floor_decoration');
             getFloorDecorationCount(column-1);
             break;
 
@@ -199,14 +201,15 @@ function addItemOnclick(id,column,num){
 
             text=
             '<div id="ceiling-decoration-'+column+"-"+ ceiling_decoration_count[column-1] +'">'+
-                '<input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">'+
-                '&nbsp;<select name="ceiling-decoration-'+column+"-"+ ceiling_decoration_count[column-1] +'" class="select-menu">'+
+                '<input type="text" id="ceiling-decoration-numerator-'+column+"-"+ ceiling_decoration_count[column-1] +'" name="ceiling-decoration-numerator-'+column+"-"+ ceiling_decoration_count[column-1] +'" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/'+
+                '<input type="text" id="ceiling-decoration-denominator-'+column+"-"+ ceiling_decoration_count[column-1] +'" name="ceiling-decoration-denominator-'+column+"-"+ ceiling_decoration_count[column-1] +'" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">'+
+                '&nbsp;<select id="ceiling-decoration-option-'+column+"-"+ ceiling_decoration_count[column-1] +'" name="ceiling-decoration-option-'+column+"-"+ ceiling_decoration_count[column-1] +'" class="select-menu">'+
                     '<option value="" style="display:none;">請選擇材質</option>'+
                 '</select>'+
             '</div>';
             $(text).insertAfter($(itemId));
 
-            get_building_decoration_option(id, column, ceiling_decoration_count[column-1], 'ceiling_decoration');
+            get_building_decoration_option('ceiling-decoration-option-', column, ceiling_decoration_count[column-1], 'ceiling_decoration');
             getCeilingDecorationCount(column-1);
             break;
 
@@ -217,18 +220,30 @@ function addItemOnclick(id,column,num){
             toilet_equipment_count[column-1] += 1;
 
             text =
-            '<div class="table-container" id="toilet-equipment-'+column+"-"+toilet_equipment_count[column-1]+'">'+
-                '比例:<input type="radio" name="toilet-ratio-'+column+"-"+toilet_equipment_count[column-1]+'">1'+
-                '<input type="radio" name="toilet-ratio-'+column+"-"+toilet_equipment_count[column-1]+'">1/2<br>'+
-                '型式:<select name="toilet-type-'+column+"-"+toilet_equipment_count[column-1]+'" class="select-menu">'+
+            '<div class="table-container" id="toilet-equipment-'+column+"-"+toilet_equipment_count[column-1]+'" style="margin-top:15px;">'+
+                // '比例:<input type="radio" name="toilet-ratio-'+column+"-"+toilet_equipment_count[column-1]+'" value="1">1'+
+                // '<input type="radio" name="toilet-ratio-'+column+"-"+toilet_equipment_count[column-1]+'" value="0.5">1/2<br>'+
+                '比例:<select id="toilet-ratio-'+column+"-"+toilet_equipment_count[column-1]+'" name="toilet-ratio-'+column+"-"+toilet_equipment_count[column-1]+'">'+
+                    '<option value="" style="display:none;">請選擇比例</option>'+
+                    '<option value="1">1</option>'+
+                    '<option value="0.5">1/2</option>'+
+                '</select><br>'+
+                '型式:<select id="toilet-type-'+column+"-"+toilet_equipment_count[column-1]+'" name="toilet-type-'+column+"-"+toilet_equipment_count[column-1]+'" class="select-menu">'+
                     // '<option value="">水泥貼馬賽克</option>'+
                     // '<option value="">瓷漆</option>'+
                 '</select><br>'+
-                '座數:<input type="radio" name="toilet-number-'+column+"-"+toilet_equipment_count[column-1]+'">1~3座<input type="radio" name="toilet-number-'+column+"-"+toilet_equipment_count[column-1]+'">4~6座<input type="radio" name="toilet-number-'+column+"-"+toilet_equipment_count[column-1]+'">7座以上'+
+                // '座數:<input type="radio" name="toilet-number-'+column+"-"+toilet_equipment_count[column-1]+'" value="3">1~3座<input type="radio" name="toilet-number-'+column+"-"+toilet_equipment_count[column-1]+'" value="6">4~6座<input type="radio" name="toilet-number-'+column+"-"+toilet_equipment_count[column-1]+'" value="7">7座以上'+
+                '座數:<select id="toilet-number-'+column+"-"+toilet_equipment_count[column-1]+'" name="toilet-number-'+column+"-"+toilet_equipment_count[column-1]+'">'+
+                    '<option value="" style="display:none;">請選擇座數</option>'+
+                    '<option value="3">1~3座</option>'+
+                    '<option value="6">4~6座</option>'+
+                    '<option value="7">7座以上</option>'+
+                '</select>';
             '</div>';
             $(text).insertAfter($(itemId));
 
             get_building_decoration_option('toilet-type-', column, toilet_equipment_count[column-1], 'toilet_equipment');
+            getToiletEquipmentCount(column-1);
             break;
     }
     // $(itemId).append(text);
@@ -279,6 +294,7 @@ function removeItemOnclick(id,column){
             break;
         case 'toilet-equipment-':
             toilet_equipment_count[column-1] = removeItem(id+column , toilet_equipment_count[column-1]);
+            getToiletEquipmentCount(column-1);
             break;
     }
 }
@@ -855,9 +871,11 @@ function saveDialog(){
         writeToId = ["#minus-wall-count-","#minus-wall-option-","#add-wall-count-","#add-wall-option-"];
         countId = [this.minus_wall_count,this.add_wall_count];
 
-        decoration_itemId = ["#indoor-divide-numerator-","#indoor-divide-denominator-","#indoor-divide-option-","#outdoor-wall-decoration-numerator-","#outdoor-wall-decoration-denominator-","#outdoor-wall-decoration-option-","#indoor-wall-decoration-numerator-","#indoor-wall-decoration-denominator-","#indoor-wall-decoration-option-"];
-        decoration_writeToId = ["#indoor-divide-numerator-","#indoor-divide-denominator-","#indoor-divide-option-","#outdoor-wall-decoration-numerator-","#outdoor-wall-decoration-denominator-","#outdoor-wall-decoration-option-","#indoor-wall-decoration-numerator-","#indoor-wall-decoration-denominator-","#indoor-wall-decoration-option-"];
-        decoration_countId = [this.indoor_divide_count,this.outdoor_wall_decoration_count,this.indoor_wall_decoration_count];
+        decoration_itemId = ["#indoor-divide-numerator-","#indoor-divide-denominator-","#indoor-divide-option-","#outdoor-wall-decoration-numerator-","#outdoor-wall-decoration-denominator-","#outdoor-wall-decoration-option-","#indoor-wall-decoration-numerator-","#indoor-wall-decoration-denominator-","#indoor-wall-decoration-option-","#roof-decoration-numerator-","#roof-decoration-denominator-","#roof-decoration-option-","#floor-decoration-numerator-","#floor-decoration-denominator-",
+        "#floor-decoration-option-","#ceiling-decoration-numerator-","#ceiling-decoration-denominator-","#ceiling-decoration-option-"];
+        decoration_writeToId = ["#indoor-divide-numerator-","#indoor-divide-denominator-","#indoor-divide-option-","#outdoor-wall-decoration-numerator-","#outdoor-wall-decoration-denominator-","#outdoor-wall-decoration-option-","#indoor-wall-decoration-numerator-","#indoor-wall-decoration-denominator-","#indoor-wall-decoration-option-","#roof-decoration-numerator-","#roof-decoration-denominator-","#roof-decoration-option-","#floor-decoration-numerator-","#floor-decoration-denominator-",
+        "#floor-decoration-option-","#ceiling-decoration-numerator-","#ceiling-decoration-denominator-","#ceiling-decoration-option-"];
+        decoration_countId = [this.indoor_divide_count,this.outdoor_wall_decoration_count,this.indoor_wall_decoration_count,this.roof_decoration_count,this.floor_decoration_count,this.ceiling_decoration_count];
 
         for(var i=0;i<itemId.length;i++){
             writeDataToOneRow(itemId[i],writeToId[i],countId[Math.floor(i/2)]);
@@ -875,10 +893,11 @@ function writeDataToOneRow(itemId,writeToId,countId){
         temp_array = [];
         for(var j=0;j<countId[i];j++){
             var name = itemId+(i+1)+"-"+(j+1);
+            // window.alert(name);
             temp_array[j] = $(name).val();
         }
         $(writeToId+(i+1)).val(temp_array);
-        if(itemId=="#indoor-wall-decoration-option-"){
+        if(itemId=="#ceiling-decoration-option-"){
             window.alert(temp_array);
             // window.alert(writeToId+(i+1).val());
         }
@@ -929,6 +948,10 @@ function getCeilingDecorationCount(num){
     $("#ceiling-decoration-count-"+(num+1)).val(ceiling_decoration_count[num]);
 }
 
+function getToiletEquipmentCount(num){
+    $("#toilet-equipment-count-"+(num+1)).val(toilet_equipment_count[num]);
+}
+
 $(document).ready(function(){
     getOwnerCount();
     getCaptainCount();
@@ -942,5 +965,6 @@ $(document).ready(function(){
         getRoofDecorationCount(i);
         getFloorDecorationCount(i);
         getCeilingDecorationCount(i);
+        getToiletEquipmentCount(i);
     }
 });

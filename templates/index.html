@@ -794,56 +794,64 @@
                     <td>屋頂(面)<br>粉裝</td>
                     <td colspan="2">
                         <div id="roof-decoration-1-1">
-                            <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">
-                            <select name="roof-decoration-1-1" class="select-menu">
+                            <input type="text" id="roof-decoration-numerator-1-1" name="roof-decoration-numerator-1-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">/<input type="text" id="roof-decoration-denominator-1-1" name="roof-decoration-denominator-1-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">
+                            <select id="roof-decoration-option-1-1" name="roof-decoration-option-1-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 {$roof_decoration_option}
                             </select>
                         </div>
 
-                        <input type="hidden" id="roof-decoration-count-1" name="roof-decoration-count-1">
+                        <input type="hidden" id="roof-decoration-numerator-1" name="roof-decoration-numerator-1">
+                        <input type="hidden" id="roof-decoration-denominator-1" name="roof-decoration-denominator-1">
+                        <input type="hidden" id="roof-decoration-option-1" name="roof-decoration-option-1">
                         <button type="button" onclick="addItemOnclick('roof-decoration-','1','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('roof-decoration-','1')">-</button>
                     </td>
 
                     <td colspan="2">
                         <div id="roof-decoration-2-1">
-                            <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">
-                            <select name="roof-decoration-2-1" class="select-menu">
+                            <input type="text" id="roof-decoration-numerator-2-1" name="roof-decoration-numerator-2-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">/<input type="text" id="roof-decoration-denominator-2-1" name="roof-decoration-denominator-2-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">
+                            <select id="roof-decoration-option-2-1" name="roof-decoration-option-2-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 {$roof_decoration_option}
                             </select>
                         </div>
 
-                        <input type="hidden" id="roof-decoration-count-2" name="roof-decoration-count-2">
+                        <input type="hidden" id="roof-decoration-numerator-2" name="roof-decoration-numerator-2">
+                        <input type="hidden" id="roof-decoration-denominator-2" name="roof-decoration-denominator-2">
+                        <input type="hidden" id="roof-decoration-option-2" name="roof-decoration-option-2">
                         <button type="button" onclick="addItemOnclick('roof-decoration-','2','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('roof-decoration-','2')">-</button>
                     </td>
 
                     <td colspan="2">
                         <div id="roof-decoration-3-1">
-                            <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">
-                            <select name="roof-decoration-3-1" class="select-menu">
+                            <input type="text" id="roof-decoration-numerator-3-1" name="roof-decoration-numerator-3-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">/<input type="text" id="roof-decoration-denominator-3-1" name="roof-decoration-denominator-3-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">
+                            <select id="roof-decoration-option-3-1" name="roof-decoration-option-3-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 {$roof_decoration_option}
                             </select>
                         </div>
 
-                        <input type="hidden" id="roof-decoration-count-3" name="roof-decoration-count-3">
+                        <input type="hidden" id="roof-decoration-numerator-3" name="roof-decoration-numerator-3">
+                        <input type="hidden" id="roof-decoration-denominator-3" name="roof-decoration-denominator-3">
+                        <input type="hidden" id="roof-decoration-option-3" name="roof-decoration-option-3">
                         <button type="button" onclick="addItemOnclick('roof-decoration-','3','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('roof-decoration-','3')">-</button>
                     </td>
 
                     <td colspan="2">
                         <div id="roof-decoration-4-1">
-                            <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">
-                            <select name="roof-decoration-4-1" class="select-menu">
+                            <input type="text" id="roof-decoration-numerator-4-1" name="roof-decoration-numerator-4-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">/<input type="text" id="roof-decoration-denominator-4-1" name="roof-decoration-denominator-4-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">
+                            <select id="roof-decoration-option-4-1" name="roof-decoration-option-4-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 {$roof_decoration_option}
                             </select>
                         </div>
 
-                        <input type="hidden" id="roof-decoration-count-4" name="roof-decoration-count-4">
+                        <input type="hidden" id="roof-decoration-numerator-4" name="roof-decoration-numerator-4">
+                        <input type="hidden" id="roof-decoration-denominator-4" name="roof-decoration-denominator-4">
+                        <input type="hidden" id="roof-decoration-option-4" name="roof-decoration-option-4">
                         <button type="button" onclick="addItemOnclick('roof-decoration-','4','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('roof-decoration-','4')">-</button>
                     </td>
@@ -853,56 +861,64 @@
                     <td>樓地板粉裝</td>
                     <td colspan="2">
                         <div id="floor-decoration-1-1">
-                            <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">
-                            <select name="floor-decoration-1-1" class="select-menu">
+                            <input type="text" id="floor-decoration-numerator-1-1" name="floor-decoration-numerator-1-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">/<input type="text" id="floor-decoration-denominator-1-1" name="floor-decoration-denominator-1-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">
+                            <select id="floor-decoration-option-1-1" name="floor-decoration-option-1-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 {$floor_decoration_option}
                             </select>
                         </div>
 
-                        <input type="hidden" id="floor-decoration-count-1" name="floor-decoration-count-1">
+                        <input type="hidden" id="floor-decoration-numerator-1" name="floor-decoration-numerator-1">
+                        <input type="hidden" id="floor-decoration-denominator-1" name="floor-decoration-denominator-1">
+                        <input type="hidden" id="floor-decoration-option-1" name="floor-decoration-option-1">
                         <button type="button" onclick="addItemOnclick('floor-decoration-','1','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('floor-decoration-','1')">-</button>
                     </td>
 
                     <td colspan="2">
                         <div id="floor-decoration-2-1">
-                            <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">
-                            <select name="floor-decoration-2-1" class="select-menu">
+                            <input type="text" id="floor-decoration-numerator-2-1" name="floor-decoration-numerator-2-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">/<input type="text" id="floor-decoration-denominator-2-1" name="floor-decoration-denominator-2-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">
+                            <select id="floor-decoration-option-2-1" name="floor-decoration-option-2-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 {$floor_decoration_option}
                             </select>
                         </div>
 
-                        <input type="hidden" id="floor-decoration-count-2" name="floor-decoration-count-2">
+                        <input type="hidden" id="floor-decoration-numerator-2" name="floor-decoration-numerator-2">
+                        <input type="hidden" id="floor-decoration-denominator-2" name="floor-decoration-denominator-2">
+                        <input type="hidden" id="floor-decoration-option-2" name="floor-decoration-option-2">
                         <button type="button" onclick="addItemOnclick('floor-decoration-','2','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('floor-decoration-','2')">-</button>
                     </td>
 
                     <td colspan="2">
                         <div id="floor-decoration-3-1">
-                            <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">
-                            <select name="floor-decoration-3-1" class="select-menu">
+                            <input type="text" id="floor-decoration-numerator-3-1" name="floor-decoration-numerator-3-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">/<input type="text" id="floor-decoration-denominator-3-1" name="floor-decoration-denominator-3-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">
+                            <select id="floor-decoration-option-3-1" name="floor-decoration-option-3-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 {$floor_decoration_option}
                             </select>
                         </div>
 
-                        <input type="hidden" id="floor-decoration-count-3" name="floor-decoration-count-3">
+                        <input type="hidden" id="floor-decoration-numerator-3" name="floor-decoration-numerator-3">
+                        <input type="hidden" id="floor-decoration-denominator-3" name="floor-decoration-denominator-3">
+                        <input type="hidden" id="floor-decoration-option-3" name="floor-decoration-option-3">
                         <button type="button" onclick="addItemOnclick('floor-decoration-','3','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('floor-decoration-','3')">-</button>
                     </td>
 
                     <td colspan="2">
                         <div id="floor-decoration-4-1">
-                            <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">
+                            <input type="text" id="floor-decoration-numerator-4-1" name="floor-decoration-numerator-4-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">/<input type="text" id="floor-decoration-denominator-4-1" name="floor-decoration-denominator-4-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">
                             <select name="floor-decoration-4-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 {$floor_decoration_option}
                             </select>
                         </div>
 
-                        <input type="hidden" id="floor-decoration-count-4" name="floor-decoration-count-4">
+                        <input type="hidden" id="floor-decoration-numerator-4" name="floor-decoration-numerator-4">
+                        <input type="hidden" id="floor-decoration-denominator-4" name="floor-decoration-denominator-4">
+                        <input type="hidden" id="floor-decoration-option-4" name="floor-decoration-option-4">
                         <button type="button" onclick="addItemOnclick('floor-decoration-','4','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('floor-decoration-','4')">-</button>
                     </td>
@@ -912,56 +928,64 @@
                     <td>天花板粉裝</td>
                     <td colspan="2">
                         <div id="ceiling-decoration-1-1">
-                            <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">
-                            <select name="ceiling-decoration-1-1" class="select-menu">
+                            <input type="text" id="ceiling-decoration-numerator-1-1" name="ceiling-decoration-numerator-1-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">/<input type="text" id="ceiling-decoration-denominator-1-1" name="ceiling-decoration-denominator-1-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">
+                            <select id="ceiling-decoration-option-1-1" name="ceiling-decoration-option-1-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 {$ceiling_decoration_option}
                             </select>
                         </div>
 
-                        <input type="hidden" id="ceiling-decoration-count-1" name="ceiling-decoration-count-1">
+                        <input type="hidden" id="ceiling-decoration-numerator-1" name="ceiling-decoration-numerator-1">
+                        <input type="hidden" id="ceiling-decoration-denominator-1" name="ceiling-decoration-denominator-1">
+                        <input type="hidden" id="ceiling-decoration-option-1" name="ceiling-decoration-option-1">
                         <button type="button" onclick="addItemOnclick('ceiling-decoration-','1','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('ceiling-decoration-','1')">-</button>
                     </td>
 
                     <td colspan="2">
                         <div id="ceiling-decoration-2-1">
-                            <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">
-                            <select name="ceiling-decoration-2-1" class="select-menu">
+                            <input type="text" id="ceiling-decoration-numerator-2-1" name="ceiling-decoration-numerator-2-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">/<input type="text" id="ceiling-decoration-denominator-2-1" name="ceiling-decoration-denominator-2-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">
+                            <select id="ceiling-decoration-option-2-1" name="ceiling-decoration-option-2-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 {$ceiling_decoration_option}
                             </select>
                         </div>
 
-                        <input type="hidden" id="ceiling-decoration-count-2" name="ceiling-decoration-count-2">
+                        <input type="hidden" id="ceiling-decoration-numerator-2" name="ceiling-decoration-numerator-2">
+                        <input type="hidden" id="ceiling-decoration-denominator-2" name="ceiling-decoration-denominator-2">
+                        <input type="hidden" id="ceiling-decoration-option-2" name="ceiling-decoration-option-2">
                         <button type="button" onclick="addItemOnclick('ceiling-decoration-','2','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('ceiling-decoration-','2')">-</button>
                     </td>
 
                     <td colspan="2">
                         <div id="ceiling-decoration-3-1">
-                            <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">
-                            <select name="ceiling-decoration-1-1" class="select-menu">
+                            <input type="text" id="ceiling-decoration-numerator-3-1" name="ceiling-decoration-numerator-3-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">/<input type="text" id="ceiling-decoration-denominator-3-1" name="ceiling-decoration-denominator-3-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">
+                            <select id="ceiling-decoration-option-1-1" name="ceiling-decoration-option-1-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 {$ceiling_decoration_option}
                             </select>
                         </div>
 
-                        <input type="hidden" id="ceiling-decoration-count-3" name="ceiling-decoration-count-3">
+                        <input type="hidden" id="ceiling-decoration-numerator-3" name="ceiling-decoration-numerator-3">
+                        <input type="hidden" id="ceiling-decoration-denominator-3" name="ceiling-decoration-denominator-3">
+                        <input type="hidden" id="ceiling-decoration-option-3" name="ceiling-decoration-option-3">
                         <button type="button" onclick="addItemOnclick('ceiling-decoration-','3','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('ceiling-decoration-','3')">-</button>
                     </td>
 
                     <td colspan="2">
                         <div id="ceiling-decoration-4-1">
-                            <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">
-                            <select name="ceiling-decoration-4-1" class="select-menu">
+                            <input type="text" id="ceiling-decoration-numerator-4-1" name="ceiling-decoration-numerator-4-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">/<input type="text" id="ceiling-decoration-denominator-4-1" name="ceiling-decoration-denominator-4-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">
+                            <select name="ceiling-decoration-option-4-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 {$ceiling_decoration_option}
                             </select>
                         </div>
 
-                        <input type="hidden" id="ceiling-decoration-count-4" name="ceiling-decoration-count-4">
+                        <input type="hidden" id="ceiling-decoration-numerator-4" name="ceiling-decoration-numerator-4">
+                        <input type="hidden" id="ceiling-decoration-denominator-4" name="ceiling-decoration-denominator-4">
+                        <input type="hidden" id="ceiling-decoration-option-4" name="ceiling-decoration-option-4">
                         <button type="button" onclick="addItemOnclick('ceiling-decoration-','4','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('ceiling-decoration-','4')">-</button>
                     </td>
@@ -970,27 +994,27 @@
                 <tr>
                     <td>門窗裝置/<br>雙層門(窗)</td>
                     <td>
-                        <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">
+                        <input type="text" name="door-window-numerator-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">/<input type="text" name="door-window-denominator-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">
                         <select name="door-window-1" class="median-select-menu">
                             <option value="" style="display:none;">請選擇材質</option>
                             {$door_window_option}
                         </select>
                     </td>
                     <td>
-                        <input type="checkbox" name="double-door-window-1">雙層門
-                        <select class="median-select-menu" name="">
+                        <!-- <input type="checkbox" name="double-door-window-1">雙層門 -->
+                        雙層門<select class="median-select-menu" name="double-door-1">
                             <option value="" style="display:none;">請選擇材質</option>
                             {$door_window_option}
                         </select><br>
-                        <input type="checkbox" name="double-door-window-1">雙層窗
-                        <select class="median-select-menu" name="">
+                        <!-- <input type="checkbox" name="double-door-window-1">雙層窗 -->
+                        雙層窗<select class="median-select-menu" name="double-window-1">
                             <option value="" style="display:none;">請選擇材質</option>
                             {$door_window_option}
                         </select><br>
                     </td>
 
                     <td>
-                        <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">
+                        <input type="text" name="door-window-numerator-2" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">/<input type="text" name="door-window-denominator-2" class="tiny-input-size" placeholder="比例" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">
                         <select name="door-window-2" class="median-select-menu">
                             <option value="" style="display:none;">請選擇材質</option>
                             {$door_window_option}
@@ -998,20 +1022,20 @@
                     </td>
                     <!-- <td><input type="checkbox" name="double-door-window-2">雙層門<br><input type="checkbox" name="double-door-window-2">雙層窗</td> -->
                     <td>
-                        <input type="checkbox" name="double-door-window-2">雙層門
-                        <select class="median-select-menu" name="">
+                        <!-- <input type="checkbox" name="double-door-window-2">雙層門 -->
+                        雙層門<select class="median-select-menu" name="double-door-2">
                             <option value="" style="display:none;">請選擇材質</option>
                             {$door_window_option}
                         </select><br>
-                        <input type="checkbox" name="double-door-window-2">雙層窗
-                        <select class="median-select-menu" name="">
+                        <!-- <input type="checkbox" name="double-door-window-2">雙層窗 -->
+                        雙層窗<select class="median-select-menu" name="double-window-2">
                             <option value="" style="display:none;">請選擇材質</option>
                             {$door_window_option}
                         </select><br>
                     </td>
 
                     <td>
-                        <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">
+                        <input type="text" name="door-window-numerator-3" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">/<input type="text" name="door-window-denominator-3" class="tiny-input-size" placeholder="比例" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">
                         <select name="door-window-3" class="median-select-menu">
                             <option value="" style="display:none;">請選擇材質</option>
                             {$door_window_option}
@@ -1019,20 +1043,20 @@
                     </td>
                     <!-- <td><input type="checkbox" name="double-door-window-3">雙層門<br><input type="checkbox" name="double-door-window-3">雙層窗</td> -->
                     <td>
-                        <input type="checkbox" name="double-door-window-3">雙層門
-                        <select class="median-select-menu" name="">
+                        <!-- <input type="checkbox" name="double-door-window-3">雙層門 -->
+                        雙層門<select class="median-select-menu" name="double-door-3">
                             <option value="" style="display:none;">請選擇材質</option>
                             {$door_window_option}
                         </select><br>
-                        <input type="checkbox" name="double-door-window-3">雙層窗
-                        <select class="median-select-menu" name="">
+                        <!-- <input type="checkbox" name="double-door-window-3">雙層窗 -->
+                        >雙層窗<select class="median-select-menu" name="double-window-3">
                             <option value="" style="display:none;">請選擇材質</option>
                             {$door_window_option}
                         </select><br>
                     </td>
 
                     <td>
-                        <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">
+                        <input type="text" name="door-window-numerator-4" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">/<input type="text" name="door-window-denominator-4" class="tiny-input-size" placeholder="比例" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)">
                         <select name="door-window-4" class="median-select-menu">
                             <option value="" style="display:none;">請選擇材質</option>
                             {$door_window_option}
@@ -1040,13 +1064,13 @@
                     </td>
                     <!-- <td><input type="checkbox" name="double-door-window-4">雙層門<br><input type="checkbox" name="double-door-window-4">雙層窗</td> -->
                     <td>
-                        <input type="checkbox" name="double-door-window-4">雙層門
-                        <select class="median-select-menu" name="">
+                        <!-- <input type="checkbox" name="double-door-window-4">雙層門 -->
+                        雙層門<select class="median-select-menu" name="double-door-4">
                             <option value="" style="display:none;">請選擇材質</option>
                             {$door_window_option}
                         </select><br>
-                        <input type="checkbox" name="double-door-window-4">雙層窗
-                        <select class="median-select-menu" name="">
+                        <!-- <input type="checkbox" name="double-door-window-4">雙層窗 -->
+                        雙層窗<select class="median-select-menu" name="double-window-4">
                             <option value="" style="display:none;">請選擇材質</option>
                             {$door_window_option}
                         </select><br>
@@ -1056,50 +1080,98 @@
                 <tr>
                     <td>浴廁設備<br>含汙水設施</td>
                     <td colspan="2">
-                        <div class="table-container" id="toilet-equipment-1-1">
-                            比例:<input type="radio" name="toilet-ratio-1-1">1<input type="radio" name="toilet-ratio-1-1">1/2<br>
-                            型式:<select name="toilet-type-1-1" class="select-menu">
+                        <div class="table-container" id="toilet-equipment-1-1" style="margin-top:15px;">
+                            <!-- 比例:<input type="radio" name="toilet-ratio-1-1" value="1">1<input type="radio" name="toilet-ratio-1-1" value="0.5">1/2<br> -->
+                            比例:<select id="toilet-ratio-1-1" name="toilet-ratio-1-1">
+                                <option value="" style="display:none;">請選擇比例</option>
+                                <option value="1">1</option>
+                                <option value="0.5">1/2</option>
+                            </select><br>
+                            型式:<select id="toilet-type-1-1" name="toilet-type-1-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 {$toilet_equipment_option}
                             </select><br>
-                            座數:<input type="radio" name="toilet-number-1-1">1~3座<input type="radio" name="toilet-number-1-1">4~6座<input type="radio" name="toilet-number-1-1">7座以上
+                            <!-- 座數:<input type="radio" name="toilet-number-1-1" value="3">1~3座<input type="radio" name="toilet-number-1-1" value="6">4~6座<input type="radio" name="toilet-number-1-1" value="7">7座以上 -->
+                            座數:<select id="toilet-number-1-1" name="toilet-number-1-1">
+                                <option value="" style="display:none;">請選擇座數</option>
+                                <option value="3">1~3座</option>
+                                <option value="6">4~6座</option>
+                                <option value="7">7座以上</option>
+                            </select>
                         </div>
+                        <input type="hidden" id="toilet-equipment-count-1" name="toilet-equipment-count-1">
                         <button type="button" onclick="addItemOnclick('toilet-equipment-','1','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('toilet-equipment-','1')">-</button>
                     </td>
                     <td colspan="2">
-                        <div class="table-container" id="toilet-equipment-2-1">
-                            比例:<input type="radio" name="toilet-ratio-1-1">1<input type="radio" name="toilet-ratio-2-1">1/2<br>
-                            型式:<select name="toilet-type-2-1" class="select-menu">
+                        <div class="table-container" id="toilet-equipment-2-1" style="margin-top:15px;">
+                            <!-- 比例:<input type="radio" name="toilet-ratio-2-1" value="1">1<input type="radio" name="toilet-ratio-2-1" value="0.5">1/2<br> -->
+                            比例:<select id="toilet-ratio-2-1" name="toilet-ratio-2-1">
+                                <option value="" style="display:none;">請選擇比例</option>
+                                <option value="1">1</option>
+                                <option value="0.5">1/2</option>
+                            </select><br>
+                            型式:<select id="toilet-type-2-1" name="toilet-type-2-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 {$toilet_equipment_option}
                             </select><br>
-                            座數:<input type="radio" name="toilet-number-2-1">1~3座<input type="radio" name="toilet-number-2-1">4~6座<input type="radio" name="toilet-number-2-1">7座以上
+                            <!-- 座數:<input type="radio" name="toilet-number-2-1" value="3">1~3座<input type="radio" name="toilet-number-2-1" value="6">4~6座<input type="radio" name="toilet-number-2-1" value="7">7座以上 -->
+                            座數:<select id="toilet-number-2-1" name="toilet-number-2-1">
+                                <option value="" style="display:none;">請選擇座數</option>
+                                <option value="3">1~3座</option>
+                                <option value="6">4~6座</option>
+                                <option value="7">7座以上</option>
+                            </select>
                         </div>
+                        <input type="hidden" id="toilet-equipment-count-2" name="toilet-equipment-count-2">
                         <button type="button" onclick="addItemOnclick('toilet-equipment-','2','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('toilet-equipment-','2')">-</button>
                     </td>
                     <td colspan="2">
-                        <div class="table-container" id="toilet-equipment-3-1">
-                            比例:<input type="radio" name="toilet-ratio-3-1">1<input type="radio" name="toilet-ratio-3-1">1/2<br>
-                            型式:<select name="toilet-type-3-1" class="select-menu">
+                        <div class="table-container" id="toilet-equipment-3-1" style="margin-top:15px;">
+                            <!-- 比例:<input type="radio" name="toilet-ratio-3-1" value="1">1<input type="radio" name="toilet-ratio-3-1" value="0.5">1/2<br> -->
+                            比例:<select id="toilet-ratio-3-1" name="toilet-ratio-3-1">
+                                <option value="" style="display:none;">請選擇比例</option>
+                                <option value="1">1</option>
+                                <option value="0.5">1/2</option>
+                            </select><br>
+                            型式:<select id="toilet-type-3-1" name="toilet-type-3-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 {$toilet_equipment_option}
                             </select><br>
-                            座數:<input type="radio" name="toilet-number-3-1">1~3座<input type="radio" name="toilet-number-3-1">4~6座<input type="radio" name="toilet-number-3-1">7座以上
+                            <!-- 座數:<input type="radio" name="toilet-number-3-1" value="3">1~3座<input type="radio" name="toilet-number-3-1" value="6">4~6座<input type="radio" name="toilet-number-3-1" value="7">7座以上 -->
+                            座數:<select id="toilet-number-3-1" name="toilet-number-3-1">
+                                <option value="" style="display:none;">請選擇座數</option>
+                                <option value="3">1~3座</option>
+                                <option value="6">4~6座</option>
+                                <option value="7">7座以上</option>
+                            </select>
                         </div>
+                        <input type="hidden" id="toilet-equipment-count-3" name="toilet-equipment-count-3">
                         <button type="button" onclick="addItemOnclick('toilet-equipment-','3','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('toilet-equipment-','3')">-</button>
                     </td>
                     <td colspan="2">
-                        <div class="table-container" id="toilet-equipment-4-1">
-                            比例:<input type="radio" name="toilet-ratio-4-1">1<input type="radio" name="toilet-ratio-4-1">1/2<br>
-                            型式:<select name="toilet-type-4-1" class="select-menu">
+                        <div class="table-container" id="toilet-equipment-4-1" style="margin-top:15px;">
+                            <!-- 比例:<input type="radio" name="toilet-ratio-4-1" value="1">1<input type="radio" name="toilet-ratio-4-1" value="0.5">1/2<br> -->
+                            比例:<select id="toilet-ratio-4-1" name="toilet-ratio-4-1">
+                                <option value="" style="display:none;">請選擇比例</option>
+                                <option value="1">1</option>
+                                <option value="0.5">1/2</option>
+                            </select><br>
+                            型式:<select id="toilet-type-4-1" name="toilet-type-4-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 {$toilet_equipment_option}
                             </select><br>
-                            座數:<input type="radio" name="toilet-number-4-1">1~3座<input type="radio" name="toilet-number-4-1">4~6座<input type="radio" name="toilet-number-4-1">7座以上
+                            <!-- 座數:<input type="radio" name="toilet-number-4-1" value="3">1~3座<input type="radio" name="toilet-number-4-1" value="6">4~6座<input type="radio" name="toilet-number-4-1" value="7">7座以上 -->
+                            座數:<select id="toilet-number-4-1" name="toilet-number-4-1">
+                                <option value="" style="display:none;">請選擇座數</option>
+                                <option value="3">1~3座</option>
+                                <option value="6">4~6座</option>
+                                <option value="7">7座以上</option>
+                            </select>
                         </div>
+                        <input type="hidden" id="toilet-equipment-count-4" name="toilet-equipment-count-4">
                         <button type="button" onclick="addItemOnclick('toilet-equipment-','4','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('toilet-equipment-','4')">-</button>
                     </td>

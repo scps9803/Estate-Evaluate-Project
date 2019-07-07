@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-07-06 13:35:31
+/* Smarty version 3.1.33, created on 2019-07-07 04:59:04
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\index.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d20a3a3b5aed1_75678234',
+  'unifunc' => 'content_5d217c18461ce0_64896139',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8c5734ee732081c4a28e016fd1e3245b00b0a0f9' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\index.html',
-      1 => 1562420120,
+      1 => 1562475541,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d20a3a3b5aed1_75678234 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d217c18461ce0_64896139 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -849,60 +849,68 @@ function content_5d20a3a3b5aed1_75678234 (Smarty_Internal_Template $_smarty_tpl)
                     <td>屋頂(面)<br>粉裝</td>
                     <td colspan="2">
                         <div id="roof-decoration-1-1">
-                            <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
-                            <select name="roof-decoration-1-1" class="select-menu">
+                            <input type="text" id="roof-decoration-numerator-1-1" name="roof-decoration-numerator-1-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="roof-decoration-denominator-1-1" name="roof-decoration-denominator-1-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                            <select id="roof-decoration-option-1-1" name="roof-decoration-option-1-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['roof_decoration_option']->value;?>
 
                             </select>
                         </div>
 
-                        <input type="hidden" id="roof-decoration-count-1" name="roof-decoration-count-1">
+                        <input type="hidden" id="roof-decoration-numerator-1" name="roof-decoration-numerator-1">
+                        <input type="hidden" id="roof-decoration-denominator-1" name="roof-decoration-denominator-1">
+                        <input type="hidden" id="roof-decoration-option-1" name="roof-decoration-option-1">
                         <button type="button" onclick="addItemOnclick('roof-decoration-','1','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('roof-decoration-','1')">-</button>
                     </td>
 
                     <td colspan="2">
                         <div id="roof-decoration-2-1">
-                            <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
-                            <select name="roof-decoration-2-1" class="select-menu">
+                            <input type="text" id="roof-decoration-numerator-2-1" name="roof-decoration-numerator-2-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="roof-decoration-denominator-2-1" name="roof-decoration-denominator-2-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                            <select id="roof-decoration-option-2-1" name="roof-decoration-option-2-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['roof_decoration_option']->value;?>
 
                             </select>
                         </div>
 
-                        <input type="hidden" id="roof-decoration-count-2" name="roof-decoration-count-2">
+                        <input type="hidden" id="roof-decoration-numerator-2" name="roof-decoration-numerator-2">
+                        <input type="hidden" id="roof-decoration-denominator-2" name="roof-decoration-denominator-2">
+                        <input type="hidden" id="roof-decoration-option-2" name="roof-decoration-option-2">
                         <button type="button" onclick="addItemOnclick('roof-decoration-','2','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('roof-decoration-','2')">-</button>
                     </td>
 
                     <td colspan="2">
                         <div id="roof-decoration-3-1">
-                            <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
-                            <select name="roof-decoration-3-1" class="select-menu">
+                            <input type="text" id="roof-decoration-numerator-3-1" name="roof-decoration-numerator-3-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="roof-decoration-denominator-3-1" name="roof-decoration-denominator-3-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                            <select id="roof-decoration-option-3-1" name="roof-decoration-option-3-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['roof_decoration_option']->value;?>
 
                             </select>
                         </div>
 
-                        <input type="hidden" id="roof-decoration-count-3" name="roof-decoration-count-3">
+                        <input type="hidden" id="roof-decoration-numerator-3" name="roof-decoration-numerator-3">
+                        <input type="hidden" id="roof-decoration-denominator-3" name="roof-decoration-denominator-3">
+                        <input type="hidden" id="roof-decoration-option-3" name="roof-decoration-option-3">
                         <button type="button" onclick="addItemOnclick('roof-decoration-','3','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('roof-decoration-','3')">-</button>
                     </td>
 
                     <td colspan="2">
                         <div id="roof-decoration-4-1">
-                            <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
-                            <select name="roof-decoration-4-1" class="select-menu">
+                            <input type="text" id="roof-decoration-numerator-4-1" name="roof-decoration-numerator-4-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="roof-decoration-denominator-4-1" name="roof-decoration-denominator-4-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                            <select id="roof-decoration-option-4-1" name="roof-decoration-option-4-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['roof_decoration_option']->value;?>
 
                             </select>
                         </div>
 
-                        <input type="hidden" id="roof-decoration-count-4" name="roof-decoration-count-4">
+                        <input type="hidden" id="roof-decoration-numerator-4" name="roof-decoration-numerator-4">
+                        <input type="hidden" id="roof-decoration-denominator-4" name="roof-decoration-denominator-4">
+                        <input type="hidden" id="roof-decoration-option-4" name="roof-decoration-option-4">
                         <button type="button" onclick="addItemOnclick('roof-decoration-','4','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('roof-decoration-','4')">-</button>
                     </td>
@@ -912,52 +920,58 @@ function content_5d20a3a3b5aed1_75678234 (Smarty_Internal_Template $_smarty_tpl)
                     <td>樓地板粉裝</td>
                     <td colspan="2">
                         <div id="floor-decoration-1-1">
-                            <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
-                            <select name="floor-decoration-1-1" class="select-menu">
+                            <input type="text" id="floor-decoration-numerator-1-1" name="floor-decoration-numerator-1-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="floor-decoration-denominator-1-1" name="floor-decoration-denominator-1-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                            <select id="floor-decoration-option-1-1" name="floor-decoration-option-1-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['floor_decoration_option']->value;?>
 
                             </select>
                         </div>
 
-                        <input type="hidden" id="floor-decoration-count-1" name="floor-decoration-count-1">
+                        <input type="hidden" id="floor-decoration-numerator-1" name="floor-decoration-numerator-1">
+                        <input type="hidden" id="floor-decoration-denominator-1" name="floor-decoration-denominator-1">
+                        <input type="hidden" id="floor-decoration-option-1" name="floor-decoration-option-1">
                         <button type="button" onclick="addItemOnclick('floor-decoration-','1','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('floor-decoration-','1')">-</button>
                     </td>
 
                     <td colspan="2">
                         <div id="floor-decoration-2-1">
-                            <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
-                            <select name="floor-decoration-2-1" class="select-menu">
+                            <input type="text" id="floor-decoration-numerator-2-1" name="floor-decoration-numerator-2-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="floor-decoration-denominator-2-1" name="floor-decoration-denominator-2-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                            <select id="floor-decoration-option-2-1" name="floor-decoration-option-2-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['floor_decoration_option']->value;?>
 
                             </select>
                         </div>
 
-                        <input type="hidden" id="floor-decoration-count-2" name="floor-decoration-count-2">
+                        <input type="hidden" id="floor-decoration-numerator-2" name="floor-decoration-numerator-2">
+                        <input type="hidden" id="floor-decoration-denominator-2" name="floor-decoration-denominator-2">
+                        <input type="hidden" id="floor-decoration-option-2" name="floor-decoration-option-2">
                         <button type="button" onclick="addItemOnclick('floor-decoration-','2','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('floor-decoration-','2')">-</button>
                     </td>
 
                     <td colspan="2">
                         <div id="floor-decoration-3-1">
-                            <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
-                            <select name="floor-decoration-3-1" class="select-menu">
+                            <input type="text" id="floor-decoration-numerator-3-1" name="floor-decoration-numerator-3-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="floor-decoration-denominator-3-1" name="floor-decoration-denominator-3-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                            <select id="floor-decoration-option-3-1" name="floor-decoration-option-3-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['floor_decoration_option']->value;?>
 
                             </select>
                         </div>
 
-                        <input type="hidden" id="floor-decoration-count-3" name="floor-decoration-count-3">
+                        <input type="hidden" id="floor-decoration-numerator-3" name="floor-decoration-numerator-3">
+                        <input type="hidden" id="floor-decoration-denominator-3" name="floor-decoration-denominator-3">
+                        <input type="hidden" id="floor-decoration-option-3" name="floor-decoration-option-3">
                         <button type="button" onclick="addItemOnclick('floor-decoration-','3','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('floor-decoration-','3')">-</button>
                     </td>
 
                     <td colspan="2">
                         <div id="floor-decoration-4-1">
-                            <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                            <input type="text" id="floor-decoration-numerator-4-1" name="floor-decoration-numerator-4-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="floor-decoration-denominator-4-1" name="floor-decoration-denominator-4-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
                             <select name="floor-decoration-4-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['floor_decoration_option']->value;?>
@@ -965,7 +979,9 @@ function content_5d20a3a3b5aed1_75678234 (Smarty_Internal_Template $_smarty_tpl)
                             </select>
                         </div>
 
-                        <input type="hidden" id="floor-decoration-count-4" name="floor-decoration-count-4">
+                        <input type="hidden" id="floor-decoration-numerator-4" name="floor-decoration-numerator-4">
+                        <input type="hidden" id="floor-decoration-denominator-4" name="floor-decoration-denominator-4">
+                        <input type="hidden" id="floor-decoration-option-4" name="floor-decoration-option-4">
                         <button type="button" onclick="addItemOnclick('floor-decoration-','4','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('floor-decoration-','4')">-</button>
                     </td>
@@ -975,60 +991,68 @@ function content_5d20a3a3b5aed1_75678234 (Smarty_Internal_Template $_smarty_tpl)
                     <td>天花板粉裝</td>
                     <td colspan="2">
                         <div id="ceiling-decoration-1-1">
-                            <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
-                            <select name="ceiling-decoration-1-1" class="select-menu">
+                            <input type="text" id="ceiling-decoration-numerator-1-1" name="ceiling-decoration-numerator-1-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="ceiling-decoration-denominator-1-1" name="ceiling-decoration-denominator-1-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                            <select id="ceiling-decoration-option-1-1" name="ceiling-decoration-option-1-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['ceiling_decoration_option']->value;?>
 
                             </select>
                         </div>
 
-                        <input type="hidden" id="ceiling-decoration-count-1" name="ceiling-decoration-count-1">
+                        <input type="hidden" id="ceiling-decoration-numerator-1" name="ceiling-decoration-numerator-1">
+                        <input type="hidden" id="ceiling-decoration-denominator-1" name="ceiling-decoration-denominator-1">
+                        <input type="hidden" id="ceiling-decoration-option-1" name="ceiling-decoration-option-1">
                         <button type="button" onclick="addItemOnclick('ceiling-decoration-','1','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('ceiling-decoration-','1')">-</button>
                     </td>
 
                     <td colspan="2">
                         <div id="ceiling-decoration-2-1">
-                            <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
-                            <select name="ceiling-decoration-2-1" class="select-menu">
+                            <input type="text" id="ceiling-decoration-numerator-2-1" name="ceiling-decoration-numerator-2-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="ceiling-decoration-denominator-2-1" name="ceiling-decoration-denominator-2-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                            <select id="ceiling-decoration-option-2-1" name="ceiling-decoration-option-2-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['ceiling_decoration_option']->value;?>
 
                             </select>
                         </div>
 
-                        <input type="hidden" id="ceiling-decoration-count-2" name="ceiling-decoration-count-2">
+                        <input type="hidden" id="ceiling-decoration-numerator-2" name="ceiling-decoration-numerator-2">
+                        <input type="hidden" id="ceiling-decoration-denominator-2" name="ceiling-decoration-denominator-2">
+                        <input type="hidden" id="ceiling-decoration-option-2" name="ceiling-decoration-option-2">
                         <button type="button" onclick="addItemOnclick('ceiling-decoration-','2','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('ceiling-decoration-','2')">-</button>
                     </td>
 
                     <td colspan="2">
                         <div id="ceiling-decoration-3-1">
-                            <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
-                            <select name="ceiling-decoration-1-1" class="select-menu">
+                            <input type="text" id="ceiling-decoration-numerator-3-1" name="ceiling-decoration-numerator-3-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="ceiling-decoration-denominator-3-1" name="ceiling-decoration-denominator-3-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                            <select id="ceiling-decoration-option-1-1" name="ceiling-decoration-option-1-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['ceiling_decoration_option']->value;?>
 
                             </select>
                         </div>
 
-                        <input type="hidden" id="ceiling-decoration-count-3" name="ceiling-decoration-count-3">
+                        <input type="hidden" id="ceiling-decoration-numerator-3" name="ceiling-decoration-numerator-3">
+                        <input type="hidden" id="ceiling-decoration-denominator-3" name="ceiling-decoration-denominator-3">
+                        <input type="hidden" id="ceiling-decoration-option-3" name="ceiling-decoration-option-3">
                         <button type="button" onclick="addItemOnclick('ceiling-decoration-','3','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('ceiling-decoration-','3')">-</button>
                     </td>
 
                     <td colspan="2">
                         <div id="ceiling-decoration-4-1">
-                            <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
-                            <select name="ceiling-decoration-4-1" class="select-menu">
+                            <input type="text" id="ceiling-decoration-numerator-4-1" name="ceiling-decoration-numerator-4-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="ceiling-decoration-denominator-4-1" name="ceiling-decoration-denominator-4-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                            <select name="ceiling-decoration-option-4-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['ceiling_decoration_option']->value;?>
 
                             </select>
                         </div>
 
-                        <input type="hidden" id="ceiling-decoration-count-4" name="ceiling-decoration-count-4">
+                        <input type="hidden" id="ceiling-decoration-numerator-4" name="ceiling-decoration-numerator-4">
+                        <input type="hidden" id="ceiling-decoration-denominator-4" name="ceiling-decoration-denominator-4">
+                        <input type="hidden" id="ceiling-decoration-option-4" name="ceiling-decoration-option-4">
                         <button type="button" onclick="addItemOnclick('ceiling-decoration-','4','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('ceiling-decoration-','4')">-</button>
                     </td>
@@ -1037,7 +1061,7 @@ function content_5d20a3a3b5aed1_75678234 (Smarty_Internal_Template $_smarty_tpl)
                 <tr>
                     <td>門窗裝置/<br>雙層門(窗)</td>
                     <td>
-                        <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                        <input type="text" name="door-window-numerator-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" name="door-window-denominator-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
                         <select name="door-window-1" class="median-select-menu">
                             <option value="" style="display:none;">請選擇材質</option>
                             <?php echo $_smarty_tpl->tpl_vars['door_window_option']->value;?>
@@ -1045,14 +1069,14 @@ function content_5d20a3a3b5aed1_75678234 (Smarty_Internal_Template $_smarty_tpl)
                         </select>
                     </td>
                     <td>
-                        <input type="checkbox" name="double-door-window-1">雙層門
-                        <select class="median-select-menu" name="">
+                        <!-- <input type="checkbox" name="double-door-window-1">雙層門 -->
+                        雙層門<select class="median-select-menu" name="double-door-1">
                             <option value="" style="display:none;">請選擇材質</option>
                             <?php echo $_smarty_tpl->tpl_vars['door_window_option']->value;?>
 
                         </select><br>
-                        <input type="checkbox" name="double-door-window-1">雙層窗
-                        <select class="median-select-menu" name="">
+                        <!-- <input type="checkbox" name="double-door-window-1">雙層窗 -->
+                        雙層窗<select class="median-select-menu" name="double-window-1">
                             <option value="" style="display:none;">請選擇材質</option>
                             <?php echo $_smarty_tpl->tpl_vars['door_window_option']->value;?>
 
@@ -1060,7 +1084,7 @@ function content_5d20a3a3b5aed1_75678234 (Smarty_Internal_Template $_smarty_tpl)
                     </td>
 
                     <td>
-                        <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                        <input type="text" name="door-window-numerator-2" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" name="door-window-denominator-2" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
                         <select name="door-window-2" class="median-select-menu">
                             <option value="" style="display:none;">請選擇材質</option>
                             <?php echo $_smarty_tpl->tpl_vars['door_window_option']->value;?>
@@ -1069,14 +1093,14 @@ function content_5d20a3a3b5aed1_75678234 (Smarty_Internal_Template $_smarty_tpl)
                     </td>
                     <!-- <td><input type="checkbox" name="double-door-window-2">雙層門<br><input type="checkbox" name="double-door-window-2">雙層窗</td> -->
                     <td>
-                        <input type="checkbox" name="double-door-window-2">雙層門
-                        <select class="median-select-menu" name="">
+                        <!-- <input type="checkbox" name="double-door-window-2">雙層門 -->
+                        雙層門<select class="median-select-menu" name="double-door-2">
                             <option value="" style="display:none;">請選擇材質</option>
                             <?php echo $_smarty_tpl->tpl_vars['door_window_option']->value;?>
 
                         </select><br>
-                        <input type="checkbox" name="double-door-window-2">雙層窗
-                        <select class="median-select-menu" name="">
+                        <!-- <input type="checkbox" name="double-door-window-2">雙層窗 -->
+                        雙層窗<select class="median-select-menu" name="double-window-2">
                             <option value="" style="display:none;">請選擇材質</option>
                             <?php echo $_smarty_tpl->tpl_vars['door_window_option']->value;?>
 
@@ -1084,7 +1108,7 @@ function content_5d20a3a3b5aed1_75678234 (Smarty_Internal_Template $_smarty_tpl)
                     </td>
 
                     <td>
-                        <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                        <input type="text" name="door-window-numerator-3" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" name="door-window-denominator-3" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
                         <select name="door-window-3" class="median-select-menu">
                             <option value="" style="display:none;">請選擇材質</option>
                             <?php echo $_smarty_tpl->tpl_vars['door_window_option']->value;?>
@@ -1093,14 +1117,14 @@ function content_5d20a3a3b5aed1_75678234 (Smarty_Internal_Template $_smarty_tpl)
                     </td>
                     <!-- <td><input type="checkbox" name="double-door-window-3">雙層門<br><input type="checkbox" name="double-door-window-3">雙層窗</td> -->
                     <td>
-                        <input type="checkbox" name="double-door-window-3">雙層門
-                        <select class="median-select-menu" name="">
+                        <!-- <input type="checkbox" name="double-door-window-3">雙層門 -->
+                        雙層門<select class="median-select-menu" name="double-door-3">
                             <option value="" style="display:none;">請選擇材質</option>
                             <?php echo $_smarty_tpl->tpl_vars['door_window_option']->value;?>
 
                         </select><br>
-                        <input type="checkbox" name="double-door-window-3">雙層窗
-                        <select class="median-select-menu" name="">
+                        <!-- <input type="checkbox" name="double-door-window-3">雙層窗 -->
+                        >雙層窗<select class="median-select-menu" name="double-window-3">
                             <option value="" style="display:none;">請選擇材質</option>
                             <?php echo $_smarty_tpl->tpl_vars['door_window_option']->value;?>
 
@@ -1108,7 +1132,7 @@ function content_5d20a3a3b5aed1_75678234 (Smarty_Internal_Template $_smarty_tpl)
                     </td>
 
                     <td>
-                        <input type="text" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                        <input type="text" name="door-window-numerator-4" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" name="door-window-denominator-4" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
                         <select name="door-window-4" class="median-select-menu">
                             <option value="" style="display:none;">請選擇材質</option>
                             <?php echo $_smarty_tpl->tpl_vars['door_window_option']->value;?>
@@ -1117,14 +1141,14 @@ function content_5d20a3a3b5aed1_75678234 (Smarty_Internal_Template $_smarty_tpl)
                     </td>
                     <!-- <td><input type="checkbox" name="double-door-window-4">雙層門<br><input type="checkbox" name="double-door-window-4">雙層窗</td> -->
                     <td>
-                        <input type="checkbox" name="double-door-window-4">雙層門
-                        <select class="median-select-menu" name="">
+                        <!-- <input type="checkbox" name="double-door-window-4">雙層門 -->
+                        雙層門<select class="median-select-menu" name="double-door-4">
                             <option value="" style="display:none;">請選擇材質</option>
                             <?php echo $_smarty_tpl->tpl_vars['door_window_option']->value;?>
 
                         </select><br>
-                        <input type="checkbox" name="double-door-window-4">雙層窗
-                        <select class="median-select-menu" name="">
+                        <!-- <input type="checkbox" name="double-door-window-4">雙層窗 -->
+                        雙層窗<select class="median-select-menu" name="double-window-4">
                             <option value="" style="display:none;">請選擇材質</option>
                             <?php echo $_smarty_tpl->tpl_vars['door_window_option']->value;?>
 
@@ -1135,54 +1159,102 @@ function content_5d20a3a3b5aed1_75678234 (Smarty_Internal_Template $_smarty_tpl)
                 <tr>
                     <td>浴廁設備<br>含汙水設施</td>
                     <td colspan="2">
-                        <div class="table-container" id="toilet-equipment-1-1">
-                            比例:<input type="radio" name="toilet-ratio-1-1">1<input type="radio" name="toilet-ratio-1-1">1/2<br>
-                            型式:<select name="toilet-type-1-1" class="select-menu">
+                        <div class="table-container" id="toilet-equipment-1-1" style="margin-top:15px;">
+                            <!-- 比例:<input type="radio" name="toilet-ratio-1-1" value="1">1<input type="radio" name="toilet-ratio-1-1" value="0.5">1/2<br> -->
+                            比例:<select id="toilet-ratio-1-1" name="toilet-ratio-1-1">
+                                <option value="" style="display:none;">請選擇比例</option>
+                                <option value="1">1</option>
+                                <option value="0.5">1/2</option>
+                            </select><br>
+                            型式:<select id="toilet-type-1-1" name="toilet-type-1-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['toilet_equipment_option']->value;?>
 
                             </select><br>
-                            座數:<input type="radio" name="toilet-number-1-1">1~3座<input type="radio" name="toilet-number-1-1">4~6座<input type="radio" name="toilet-number-1-1">7座以上
+                            <!-- 座數:<input type="radio" name="toilet-number-1-1" value="3">1~3座<input type="radio" name="toilet-number-1-1" value="6">4~6座<input type="radio" name="toilet-number-1-1" value="7">7座以上 -->
+                            座數:<select id="toilet-number-1-1" name="toilet-number-1-1">
+                                <option value="" style="display:none;">請選擇座數</option>
+                                <option value="3">1~3座</option>
+                                <option value="6">4~6座</option>
+                                <option value="7">7座以上</option>
+                            </select>
                         </div>
+                        <input type="hidden" id="toilet-equipment-count-1" name="toilet-equipment-count-1">
                         <button type="button" onclick="addItemOnclick('toilet-equipment-','1','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('toilet-equipment-','1')">-</button>
                     </td>
                     <td colspan="2">
-                        <div class="table-container" id="toilet-equipment-2-1">
-                            比例:<input type="radio" name="toilet-ratio-1-1">1<input type="radio" name="toilet-ratio-2-1">1/2<br>
-                            型式:<select name="toilet-type-2-1" class="select-menu">
+                        <div class="table-container" id="toilet-equipment-2-1" style="margin-top:15px;">
+                            <!-- 比例:<input type="radio" name="toilet-ratio-2-1" value="1">1<input type="radio" name="toilet-ratio-2-1" value="0.5">1/2<br> -->
+                            比例:<select id="toilet-ratio-2-1" name="toilet-ratio-2-1">
+                                <option value="" style="display:none;">請選擇比例</option>
+                                <option value="1">1</option>
+                                <option value="0.5">1/2</option>
+                            </select><br>
+                            型式:<select id="toilet-type-2-1" name="toilet-type-2-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['toilet_equipment_option']->value;?>
 
                             </select><br>
-                            座數:<input type="radio" name="toilet-number-2-1">1~3座<input type="radio" name="toilet-number-2-1">4~6座<input type="radio" name="toilet-number-2-1">7座以上
+                            <!-- 座數:<input type="radio" name="toilet-number-2-1" value="3">1~3座<input type="radio" name="toilet-number-2-1" value="6">4~6座<input type="radio" name="toilet-number-2-1" value="7">7座以上 -->
+                            座數:<select id="toilet-number-2-1" name="toilet-number-2-1">
+                                <option value="" style="display:none;">請選擇座數</option>
+                                <option value="3">1~3座</option>
+                                <option value="6">4~6座</option>
+                                <option value="7">7座以上</option>
+                            </select>
                         </div>
+                        <input type="hidden" id="toilet-equipment-count-2" name="toilet-equipment-count-2">
                         <button type="button" onclick="addItemOnclick('toilet-equipment-','2','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('toilet-equipment-','2')">-</button>
                     </td>
                     <td colspan="2">
-                        <div class="table-container" id="toilet-equipment-3-1">
-                            比例:<input type="radio" name="toilet-ratio-3-1">1<input type="radio" name="toilet-ratio-3-1">1/2<br>
-                            型式:<select name="toilet-type-3-1" class="select-menu">
+                        <div class="table-container" id="toilet-equipment-3-1" style="margin-top:15px;">
+                            <!-- 比例:<input type="radio" name="toilet-ratio-3-1" value="1">1<input type="radio" name="toilet-ratio-3-1" value="0.5">1/2<br> -->
+                            比例:<select id="toilet-ratio-3-1" name="toilet-ratio-3-1">
+                                <option value="" style="display:none;">請選擇比例</option>
+                                <option value="1">1</option>
+                                <option value="0.5">1/2</option>
+                            </select><br>
+                            型式:<select id="toilet-type-3-1" name="toilet-type-3-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['toilet_equipment_option']->value;?>
 
                             </select><br>
-                            座數:<input type="radio" name="toilet-number-3-1">1~3座<input type="radio" name="toilet-number-3-1">4~6座<input type="radio" name="toilet-number-3-1">7座以上
+                            <!-- 座數:<input type="radio" name="toilet-number-3-1" value="3">1~3座<input type="radio" name="toilet-number-3-1" value="6">4~6座<input type="radio" name="toilet-number-3-1" value="7">7座以上 -->
+                            座數:<select id="toilet-number-3-1" name="toilet-number-3-1">
+                                <option value="" style="display:none;">請選擇座數</option>
+                                <option value="3">1~3座</option>
+                                <option value="6">4~6座</option>
+                                <option value="7">7座以上</option>
+                            </select>
                         </div>
+                        <input type="hidden" id="toilet-equipment-count-3" name="toilet-equipment-count-3">
                         <button type="button" onclick="addItemOnclick('toilet-equipment-','3','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('toilet-equipment-','3')">-</button>
                     </td>
                     <td colspan="2">
-                        <div class="table-container" id="toilet-equipment-4-1">
-                            比例:<input type="radio" name="toilet-ratio-4-1">1<input type="radio" name="toilet-ratio-4-1">1/2<br>
-                            型式:<select name="toilet-type-4-1" class="select-menu">
+                        <div class="table-container" id="toilet-equipment-4-1" style="margin-top:15px;">
+                            <!-- 比例:<input type="radio" name="toilet-ratio-4-1" value="1">1<input type="radio" name="toilet-ratio-4-1" value="0.5">1/2<br> -->
+                            比例:<select id="toilet-ratio-4-1" name="toilet-ratio-4-1">
+                                <option value="" style="display:none;">請選擇比例</option>
+                                <option value="1">1</option>
+                                <option value="0.5">1/2</option>
+                            </select><br>
+                            型式:<select id="toilet-type-4-1" name="toilet-type-4-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['toilet_equipment_option']->value;?>
 
                             </select><br>
-                            座數:<input type="radio" name="toilet-number-4-1">1~3座<input type="radio" name="toilet-number-4-1">4~6座<input type="radio" name="toilet-number-4-1">7座以上
+                            <!-- 座數:<input type="radio" name="toilet-number-4-1" value="3">1~3座<input type="radio" name="toilet-number-4-1" value="6">4~6座<input type="radio" name="toilet-number-4-1" value="7">7座以上 -->
+                            座數:<select id="toilet-number-4-1" name="toilet-number-4-1">
+                                <option value="" style="display:none;">請選擇座數</option>
+                                <option value="3">1~3座</option>
+                                <option value="6">4~6座</option>
+                                <option value="7">7座以上</option>
+                            </select>
                         </div>
+                        <input type="hidden" id="toilet-equipment-count-4" name="toilet-equipment-count-4">
                         <button type="button" onclick="addItemOnclick('toilet-equipment-','4','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('toilet-equipment-','4')">-</button>
                     </td>
