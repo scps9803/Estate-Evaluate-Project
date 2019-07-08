@@ -937,14 +937,23 @@ function writeDataToOneRow(itemId,writeToId,countId){
     }
 }
 
-function changeColumnStatus(column){
-    var itemId = ["#house-type-","#building-material-"]
-    if($("#floor-id-"+column).length>0){
-        for(var i=0;i<itemId.length;i++){
-            $(itemId[i]+column).attr("required","");
-        }
+function changeColumnStatus(column,status){
+    var itemId = ["#house-type-","#pay-form-","#building-material-","#floor-type-","#nth-floor-","#total-floor-","#floor-area-","#house-usage-"]
+
+    switch (status) {
+        case 'focus':
+            if($("#floor-id-"+column).val()!=""){
+                for(var i=0;i<itemId.length;i++){
+                    $(itemId[i]+column).attr("required","");
+                }
+            }
+            else if($("#floor-id-"+column).val()==""){
+                for(var i=0;i<itemId.length;i++){
+                    $(itemId[i]+column).removeAttr("required");
+                }
+            }
+            break;
     }
-    // window.alert($("#floor-id-"+column).length);
 }
 
 function getOwnerCount(){

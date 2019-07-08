@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-07-07 16:37:27
+/* Smarty version 3.1.33, created on 2019-07-08 12:56:56
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\index.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d221fc739ffb6_70117525',
+  'unifunc' => 'content_5d233d98d48c30_01617775',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8c5734ee732081c4a28e016fd1e3245b00b0a0f9' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\index.html',
-      1 => 1562517415,
+      1 => 1562590615,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d221fc739ffb6_70117525 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d233d98d48c30_01617775 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -287,17 +287,17 @@ function content_5d221fc739ffb6_70117525 (Smarty_Internal_Template $_smarty_tpl)
                 <tr>
                     <td colspan="2"><span class="required">(*)</span>編號</td>
                     <td colspan="2">編號:<input type="text" id="floor-id-1" name="floor-id-1" required><br><input type="radio" name="house-type-1" value="獨立戶" required>獨立戶<input type="radio" name="house-type-1" value="連棟式邊戶">連棟式邊戶<input type="radio" name="house-type-1" value="連棟式中間戶">連棟式中間戶</td>
-                    <td colspan="2">編號:<input type="text" id="floor-id-2" name="floor-id-2" oninput="changeColumnStatus(1)"><br><input type="radio" name="house-type-2" value="獨立戶">獨立戶<input type="radio" name="house-type-2" value="連棟式邊戶">連棟式邊戶<input type="radio" name="house-type-2" value="連棟式中間戶">連棟式中間戶</td>
-                    <td colspan="2">編號:<input type="text" id="floor-id-3" name="floor-id-3"><br><input type="radio" name="house-type-3" value="獨立戶">獨立戶<input type="radio" name="house-type-3" value="連棟式邊戶">連棟式邊戶<input type="radio" name="house-type-3" value="連棟式中間戶">連棟式中間戶</td>
-                    <td colspan="2">編號:<input type="text" id="floor-id-4" name="floor-id-4"><br><input type="radio" name="house-type-4" value="獨立戶">獨立戶<input type="radio" name="house-type-4" value="連棟式邊戶">連棟式邊戶<input type="radio" name="house-type-4" value="連棟式中間戶">連棟式中間戶</td>
+                    <td colspan="2">編號:<input type="text" id="floor-id-2" name="floor-id-2" oninput="changeColumnStatus(2,'focus')"><br><input type="radio" id="house-type-2" name="house-type-2" value="獨立戶">獨立戶<input type="radio" name="house-type-2" value="連棟式邊戶">連棟式邊戶<input type="radio" name="house-type-2" value="連棟式中間戶">連棟式中間戶</td>
+                    <td colspan="2">編號:<input type="text" id="floor-id-3" name="floor-id-3" oninput="changeColumnStatus(3,'focus')"><br><input type="radio" id="house-type-3" name="house-type-3" value="獨立戶">獨立戶<input type="radio" name="house-type-3" value="連棟式邊戶">連棟式邊戶<input type="radio" name="house-type-3" value="連棟式中間戶">連棟式中間戶</td>
+                    <td colspan="2">編號:<input type="text" id="floor-id-4" name="floor-id-4" oninput="changeColumnStatus(4,'focus')"><br><input type="radio" id="house-type-4" name="house-type-4" value="獨立戶">獨立戶<input type="radio" name="house-type-4" value="連棟式邊戶">連棟式邊戶<input type="radio" name="house-type-4" value="連棟式中間戶">連棟式中間戶</td>
                 </tr>
 
                 <tr>
                     <td colspan="2"><span class="required">(*)</span>補償形式</td>
-                    <td colspan="2" id="compensate-form-1"><input type="radio" name="compensate-form-1" value="主建物" onclick="compensateFormClick('compensate-form-1')" required>主建物<input type="radio" name="compensate-form-1" value="立面修復" onclick="removeSubCompensateForm('sub-compensate-form-1')">立面修復<br></td>
-                    <td colspan="2" id="compensate-form-2"><input type="radio" name="compensate-form-2" value="主建物" onclick="compensateFormClick('compensate-form-2')">主建物<input type="radio" name="compensate-form-2" value="立面修復" onclick="removeSubCompensateForm('sub-compensate-form-2')">立面修復<br></td>
-                    <td colspan="2" id="compensate-form-3"><input type="radio" name="compensate-form-3" value="主建物" onclick="compensateFormClick('compensate-form-3')">主建物<input type="radio" name="compensate-form-3" value="立面修復" onclick="removeSubCompensateForm('sub-compensate-form-3')">立面修復<br></td>
-                    <td colspan="2" id="compensate-form-4"><input type="radio" name="compensate-form-4" value="主建物" onclick="compensateFormClick('compensate-form-4')">主建物<input type="radio" name="compensate-form-4" value="立面修復" onclick="removeSubCompensateForm('sub-compensate-form-4')">立面修復<br></td>
+                    <td colspan="2" id="compensate-form-1"><input type="radio" id="pay-form-1" name="compensate-form-1" value="主建物" onclick="compensateFormClick('compensate-form-1')" required>主建物<input type="radio" name="compensate-form-1" value="立面修復" onclick="removeSubCompensateForm('sub-compensate-form-1')">立面修復<br></td>
+                    <td colspan="2" id="compensate-form-2"><input type="radio" id="pay-form-2" name="compensate-form-2" value="主建物" onclick="compensateFormClick('compensate-form-2')">主建物<input type="radio" name="compensate-form-2" value="立面修復" onclick="removeSubCompensateForm('sub-compensate-form-2')">立面修復<br></td>
+                    <td colspan="2" id="compensate-form-3"><input type="radio" id="pay-form-3" name="compensate-form-3" value="主建物" onclick="compensateFormClick('compensate-form-3')">主建物<input type="radio" name="compensate-form-3" value="立面修復" onclick="removeSubCompensateForm('sub-compensate-form-3')">立面修復<br></td>
+                    <td colspan="2" id="compensate-form-4"><input type="radio" id="pay-form-4" name="compensate-form-4" value="主建物" onclick="compensateFormClick('compensate-form-4')">主建物<input type="radio" name="compensate-form-4" value="立面修復" onclick="removeSubCompensateForm('sub-compensate-form-4')">立面修復<br></td>
                 </tr>
 
                 <tr>
@@ -312,40 +312,49 @@ function content_5d221fc739ffb6_70117525 (Smarty_Internal_Template $_smarty_tpl)
                             <option value="" style="display:none;">請選擇層別</option>
                         </select>
                     </td>
-                    <td>(<input type="number" min="0" class="small-input-size" name="nth-floor-1" required>F/共<input type="number" min="0" class="small-input-size" name="total-floor-1" required>F)</td>
+                    <td>(<input type="number" min="0" class="small-input-size" id="nth-floor-1" name="nth-floor-1" required>F/共<input type="number" min="0" class="small-input-size" id="total-floor-1" name="total-floor-1" required>F)</td>
                     <td>
-                        <select class="median-select-menu" name="building-material-2">
+                        <select class="median-select-menu" id="building-material-2" name="building-material-2" onchange="load_floor_type_data(2)">
                             <option value="" style="display:none;">請選擇構造</option>
                             <?php echo $_smarty_tpl->tpl_vars['house_construct_option']->value;?>
 
+                        </select><br>
+                        <select class="median-select-menu" id="floor-type-2" name="floor-type-2" style="margin-top:10px;">
+                            <option value="" style="display:none;">請選擇層別</option>
                         </select>
                     </td>
-                    <td>(<input type="number" min="0" class="small-input-size" name="nth-floor-2">F/共<input type="number" min="0" class="small-input-size" name="total-floor-2">F)</td>
+                    <td>(<input type="number" min="0" class="small-input-size" id="nth-floor-2" name="nth-floor-2">F/共<input type="number" min="0" class="small-input-size" id="total-floor-2" name="total-floor-2">F)</td>
                     <td>
-                        <select class="median-select-menu" name="building-material-3">
+                        <select class="median-select-menu" id="building-material-3" name="building-material-3">
                             <option value="" style="display:none;">請選擇構造</option>
                             <?php echo $_smarty_tpl->tpl_vars['house_construct_option']->value;?>
 
+                        </select><br>
+                        <select class="median-select-menu" id="floor-type-3" name="floor-type-3" style="margin-top:10px;">
+                            <option value="" style="display:none;">請選擇層別</option>
                         </select>
                     </td>
-                    <td>(<input type="number" min="0" class="small-input-size" name="nth-floor-3">F/共<input type="number" min="0" class="small-input-size" name="total-floor-3">F)</td>
+                    <td>(<input type="number" min="0" class="small-input-size" id="nth-floor-3" name="nth-floor-3">F/共<input type="number" min="0" class="small-input-size" id="total-floor-3" name="total-floor-3">F)</td>
                     <td>
-                        <select class="median-select-menu" name="building-material-4">
+                        <select class="median-select-menu" id="building-material-4" name="building-material-4">
                             <option value="" style="display:none;">請選擇構造</option>
                             <?php echo $_smarty_tpl->tpl_vars['house_construct_option']->value;?>
 
+                        </select><br>
+                        <select class="median-select-menu" id="floor-type-4" name="floor-type-4" style="margin-top:10px;">
+                            <option value="" style="display:none;">請選擇層別</option>
                         </select>
                     </td>
-                    <td>(<input type="number" min="0" class="small-input-size" name="nth-floor-4">F/共<input type="number" min="0" class="small-input-size" name="total-floor-4">F)</td>
+                    <td>(<input type="number" min="0" class="small-input-size" id="nth-floor-4" name="nth-floor-4">F/共<input type="number" min="0" class="small-input-size" id="total-floor-4" name="total-floor-4">F)</td>
 
                 </tr>
 
                 <tr>
                     <td colspan="2"><span class="required">(*)</span><br>樓層面積<br>計算式</td>
-                    <td colspan="2"><input type="text" class="larger-input-size" name="floor-area-1" required></td>
-                    <td colspan="2"><input type="text" class="larger-input-size" name="floor-area-2"></td>
-                    <td colspan="2"><input type="text" class="larger-input-size" name="floor-area-3"></td>
-                    <td colspan="2"><input type="text" class="larger-input-size" name="floor-area-4"></td>
+                    <td colspan="2"><input type="text" class="larger-input-size" id="floor-area-1" name="floor-area-1" required></td>
+                    <td colspan="2"><input type="text" class="larger-input-size" id="floor-area-2" name="floor-area-2"></td>
+                    <td colspan="2"><input type="text" class="larger-input-size" id="floor-area-3" name="floor-area-3"></td>
+                    <td colspan="2"><input type="text" class="larger-input-size" id="floor-area-4" name="floor-area-4"></td>
                 </tr>
 
                 <tr>
@@ -359,7 +368,7 @@ function content_5d221fc739ffb6_70117525 (Smarty_Internal_Template $_smarty_tpl)
                 <tr>
                     <td rowspan="2" colspan="2"><span class="required">(*)</span>用途</td>
                     <td colspan="2">
-                        <input type="radio" name="house-usage-1" value="住宅" onclick="changeRequired(['other-house-usage-1'],false)" required>住宅
+                        <input type="radio" id="house-usage-1" name="house-usage-1" value="住宅" onclick="changeRequired(['other-house-usage-1'],false)" required>住宅
                         <input type="radio" name="house-usage-1" value="店鋪" onclick="changeRequired(['other-house-usage-1'],false)">店鋪
                         <input type="radio" name="house-usage-1" value="工廠" onclick="changeRequired(['other-house-usage-1'],false)">工廠
                         <input type="radio" name="house-usage-1" value="庫房" onclick="changeRequired(['other-house-usage-1'],false)">庫房<br>
@@ -368,7 +377,7 @@ function content_5d221fc739ffb6_70117525 (Smarty_Internal_Template $_smarty_tpl)
                     </td>
 
                     <td colspan="2">
-                        <input type="radio" name="house-usage-2" value="住宅" onclick="changeRequired(['other-house-usage-2'],false)">住宅
+                        <input type="radio" id="house-usage-2" name="house-usage-2" value="住宅" onclick="changeRequired(['other-house-usage-2'],false)">住宅
                         <input type="radio" name="house-usage-2" value="店鋪" onclick="changeRequired(['other-house-usage-2'],false)">店鋪
                         <input type="radio" name="house-usage-2" value="工廠" onclick="changeRequired(['other-house-usage-2'],false)">工廠
                         <input type="radio" name="house-usage-2" value="庫房" onclick="changeRequired(['other-house-usage-2'],false)">庫房<br>
@@ -377,7 +386,7 @@ function content_5d221fc739ffb6_70117525 (Smarty_Internal_Template $_smarty_tpl)
                     </td>
 
                     <td colspan="2">
-                        <input type="radio" name="house-usage-3" value="住宅" onclick="changeRequired(['other-house-usage-3'],false)">住宅
+                        <input type="radio" id="house-usage-3" name="house-usage-3" value="住宅" onclick="changeRequired(['other-house-usage-3'],false)">住宅
                         <input type="radio" name="house-usage-3" value="店鋪" onclick="changeRequired(['other-house-usage-3'],false)">店鋪
                         <input type="radio" name="house-usage-3" value="工廠" onclick="changeRequired(['other-house-usage-3'],false)">工廠
                         <input type="radio" name="house-usage-3" value="庫房" onclick="changeRequired(['other-house-usage-3'],false)">庫房<br>
@@ -386,7 +395,7 @@ function content_5d221fc739ffb6_70117525 (Smarty_Internal_Template $_smarty_tpl)
                     </td>
 
                     <td colspan="2">
-                        <input type="radio" name="house-usage-4" value="住宅" onclick="changeRequired(['other-house-usage-4'],false)">住宅
+                        <input type="radio" id="house-usage-4" name="house-usage-4" value="住宅" onclick="changeRequired(['other-house-usage-4'],false)">住宅
                         <input type="radio" name="house-usage-4" value="店鋪" onclick="changeRequired(['other-house-usage-4'],false)">店鋪
                         <input type="radio" name="house-usage-4" value="工廠" onclick="changeRequired(['other-house-usage-4'],false)">工廠
                         <input type="radio" name="house-usage-4" value="庫房" onclick="changeRequired(['other-house-usage-4'],false)">庫房<br>

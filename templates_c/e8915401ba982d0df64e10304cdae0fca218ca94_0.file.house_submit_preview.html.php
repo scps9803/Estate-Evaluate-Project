@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-07-07 14:24:51
+/* Smarty version 3.1.33, created on 2019-07-08 14:09:52
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\house_submit_preview.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d2200b3c8bc56_65511497',
+  'unifunc' => 'content_5d234eb0170104_72769270',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'e8915401ba982d0df64e10304cdae0fca218ca94' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\house_submit_preview.html',
-      1 => 1562509489,
+      1 => 1562594967,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d2200b3c8bc56_65511497 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d234eb0170104_72769270 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head>
@@ -214,11 +214,13 @@ foreach ($_from as $_smarty_tpl->tpl_vars['i']->value => $_smarty_tpl->tpl_vars[
 </td>
                     <td><?php echo $_smarty_tpl->tpl_vars['result']->value['usage'];?>
 </td>
+                    <td><?php echo $_smarty_tpl->tpl_vars['result']->value['points'];?>
+</td>
                     <td></td>
                     <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>123</td>
+                    <td><?php echo $_smarty_tpl->tpl_vars['result']->value['floor_area'];?>
+</td>
                     <td></td>
                     <td></td>
                     <td></td>

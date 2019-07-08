@@ -107,8 +107,14 @@ $total_floor = $_POST['total-floor-1'];
         // }
         // echo $main_building[$i]["compensate_form"].","."\n";
         $main_building[$i]["material"] = $_POST['building-material-'.($i+1)];
+        $main_building[$i]["floor_type"] = $_POST['floor-type-'.($i+1)];
         $main_building[$i]["nth_floor"] = $_POST['nth-floor-'.($i+1)];
+        $main_building[$i]["points"] = getMainBuildingPoint($main_building[$i]["material"],$main_building[$i]["floor_type"],$main_building[$i]["house_type"]);
         $main_building[$i]["floor_area"] = $_POST['floor-area-'.($i+1)];
+        // print_r($main_building[$i]["points"]);
+        // echo "<br>";
+        // print_r($main_building[$i]["floor_area"]);
+        // echo "<br>";
 
         if($_POST['house-usage-'.($i+1)]=="none"){
             $main_building[$i]["usage"] = $_POST['other-house-usage-'.($i+1)];

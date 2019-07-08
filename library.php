@@ -115,20 +115,24 @@ function getAppendSelectData($id,$total_floor){
     return $value_array;
 }
 
-function getMainBuildingPoint($material,$nth_floor,$house_type){
+function getMainBuildingPoint($material,$floor_type,$house_type){
     $conn = connect_db();
-    $sql = "SELECT bdId,item_type,points FROM building_decoration WHERE category='房屋構造體(別)' AND item_name='{$material}' AND building_type='{$house_type}'";
+    $sql = "SELECT bdId,item_type,points FROM building_decoration WHERE category='房屋構造體(別)' AND item_name='{$material}' AND item_type='{$floor_type}' AND building_type='{$house_type}'";
     $res = $conn->query($sql);
 
     $i = 0;
     while($row = $res->fetch_assoc()) {
-        $main_building_points[$i] = $row;
-        print_r($row)."<br>";
+        // $main_building_points[$i] = $row;
+        // $points = number_format((float)$row["points"],2);
+        $points = number_format($row["points"],2);
+        // $main_building_points = $row["points"];
+        $main_building_points = $points;
+        // print_r($row)."<br>";
         $i++;
     }
 
     $conn->close();
-    // return $main_building_points;
+    return $main_building_points;
 }
 
 function get_floor_type_option($material,$building_type){
