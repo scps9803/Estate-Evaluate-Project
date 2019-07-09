@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-07-08 14:09:52
+/* Smarty version 3.1.33, created on 2019-07-09 12:46:08
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\house_submit_preview.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d234eb0170104_72769270',
+  'unifunc' => 'content_5d248c90d26388_85290209',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'e8915401ba982d0df64e10304cdae0fca218ca94' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\house_submit_preview.html',
-      1 => 1562594967,
+      1 => 1562676367,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d234eb0170104_72769270 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d248c90d26388_85290209 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head>
@@ -116,14 +116,14 @@ function content_5d234eb0170104_72769270 (Smarty_Internal_Template $_smarty_tpl)
                     <td>設籍日期</td>
                     <td>人口遷移費總計(元)</td>
 
-                    <td>戶長姓名</td>
+                    <!-- <td>戶長姓名</td>
                     <td>家屬人數</td>
                     <td>戶口名簿號碼</td>
                     <td>設籍日期</td>
-                    <td>人口遷移費總計(元)</td>
+                    <td>人口遷移費總計(元)</td> -->
                 </tr>
 
-                <!-- <?php ob_start();
+                <?php ob_start();
 echo count($_smarty_tpl->tpl_vars['captain']->value);
 $_prefixVariable1 = ob_get_clean();
 $_smarty_tpl->tpl_vars['i'] = new Smarty_Variable(null, $_smarty_tpl->isRenderingCache);$_smarty_tpl->tpl_vars['i']->step = 1;$_smarty_tpl->tpl_vars['i']->total = (int) ceil(($_smarty_tpl->tpl_vars['i']->step > 0 ? $_prefixVariable1/2-1+1 - (0) : 0-($_prefixVariable1/2-1)+1)/abs($_smarty_tpl->tpl_vars['i']->step));
@@ -136,7 +136,7 @@ $_smarty_tpl->tpl_vars['j'] = new Smarty_Variable(null, $_smarty_tpl->isRenderin
 if ($_smarty_tpl->tpl_vars['j']->total > 0) {
 for ($_smarty_tpl->tpl_vars['j']->value = $_smarty_tpl->tpl_vars['i']->value, $_smarty_tpl->tpl_vars['j']->iteration = 1;$_smarty_tpl->tpl_vars['j']->iteration <= $_smarty_tpl->tpl_vars['j']->total;$_smarty_tpl->tpl_vars['j']->value += $_smarty_tpl->tpl_vars['j']->step, $_smarty_tpl->tpl_vars['j']->iteration++) {
 $_smarty_tpl->tpl_vars['j']->first = $_smarty_tpl->tpl_vars['j']->iteration === 1;$_smarty_tpl->tpl_vars['j']->last = $_smarty_tpl->tpl_vars['j']->iteration === $_smarty_tpl->tpl_vars['j']->total;?>
-                        <?php if ($_smarty_tpl->tpl_vars['j']->value%2 == 0) {?>
+                        <!-- <?php if ($_smarty_tpl->tpl_vars['j']->value%2 == 0) {?> -->
                             <td><?php echo $_smarty_tpl->tpl_vars['captain']->value[$_smarty_tpl->tpl_vars['j']->value]['name'];?>
 </td>
                             <td><?php echo $_smarty_tpl->tpl_vars['captain']->value[$_smarty_tpl->tpl_vars['j']->value]['family_num'];?>
@@ -146,10 +146,10 @@ $_smarty_tpl->tpl_vars['j']->first = $_smarty_tpl->tpl_vars['j']->iteration === 
                             <td><?php echo $_smarty_tpl->tpl_vars['captain']->value[$_smarty_tpl->tpl_vars['j']->value]['set_household_date'];?>
 </td>
                             <td></td>
-                        <?php }?>
+                        <!-- <?php }?> -->
 
-                        <?php if ($_smarty_tpl->tpl_vars['j']->value%2 == 1) {?>
-                            <td><?php echo $_smarty_tpl->tpl_vars['captain']->value[$_smarty_tpl->tpl_vars['j']->value]['name'];?>
+                        <!-- <?php if ($_smarty_tpl->tpl_vars['j']->value%2 == 1) {?> -->
+                            <!-- <td><?php echo $_smarty_tpl->tpl_vars['captain']->value[$_smarty_tpl->tpl_vars['j']->value]['name'];?>
 </td>
                             <td><?php echo $_smarty_tpl->tpl_vars['captain']->value[$_smarty_tpl->tpl_vars['j']->value]['family_num'];?>
 </td>
@@ -157,15 +157,15 @@ $_smarty_tpl->tpl_vars['j']->first = $_smarty_tpl->tpl_vars['j']->iteration === 
 </td>
                             <td><?php echo $_smarty_tpl->tpl_vars['captain']->value[$_smarty_tpl->tpl_vars['j']->value]['set_household_date'];?>
 </td>
-                            <td></td>
-                        <?php }?>
+                            <td></td> -->
+                        <!-- <?php }?> -->
                     <?php }
 }
 ?>
                 </tr>
                 <?php }
 }
-?> -->
+?>
 
                 <tr>
                     <td>總人口數</td>
@@ -218,7 +218,7 @@ foreach ($_from as $_smarty_tpl->tpl_vars['i']->value => $_smarty_tpl->tpl_vars[
 </td>
                     <td></td>
                     <td></td>
-                    <td>123</td>
+                    <td>12.6</td>
                     <td><?php echo $_smarty_tpl->tpl_vars['result']->value['floor_area'];?>
 </td>
                     <td></td>

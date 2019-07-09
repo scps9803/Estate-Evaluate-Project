@@ -4,6 +4,10 @@ require_once "smarty/libs/Smarty.class.php";
 include("library.php");
 $smarty = new Smarty;
 
+$KEYIN_ID = "DEMO1234";
+date_default_timezone_set('Asia/Taipei');
+$KEYIN_DATETIME = date("Y-m-d/H:i:s");
+
 // 行政區
 $district = $_POST['district'];
 
@@ -18,9 +22,11 @@ for($i=0;$i<$land_section_count;$i++){
 // 土地總面積
 $land_total_area = $_POST['land-total-area'];
 
-// 合法狀態、手稿編號
+// 合法狀態、手稿編號、廢棄狀態
 $legal_status = $_POST['legal-status'];
 $script_number = $_POST['legal-status']."-".$_POST['script-number'];
+$discard_status = $_POST['discard-status'];
+echo "廢棄: ".$discard_status;
 
 // 建物所有人、持分、身分證字號、住址、電話等個人資料
 $owner_count = $_POST['owner_count'];
@@ -347,4 +353,12 @@ $smarty->assign("main_building",$main_building);
 $smarty->assign("date",$date);
 
 $smarty->display("house_submit_preview.html");
+
+insertLandData($land_section,$land_number,$house_address,$land_use);
+insertRecordData($script_number,$house_address,$KEYIN_ID,$KEYIN_DATETIME);
+insertOwnerData($owner,$hold_ratio,$pId,$house_address,$address,$telephone,$cellphone);
+insertBuildingData($house_address,$legal_status,$build_number,$tax_number,
+    $legal_certificate,$build_certificate,$captain_count,$exit_num,
+    $total_floor,$remove_condition);
+insertResidentData($captain,$total_people,$house_address);
 ?>

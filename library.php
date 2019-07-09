@@ -160,4 +160,92 @@ function get_floor_type_option($material,$building_type){
 
     return $floor_type_option;
 }
+
+function insertLandData($land_section,$land_number,$house_address,$land_use){
+    $conn = connect_db();
+
+    for($i=0;$i<count($land_section);$i++){
+        $land_id = $land_section[$i].$land_number[$i];
+        $sql = "INSERT INTO building_locate VALUES('{$land_id}','{$house_address}','{$land_use}')";
+
+        if ($conn->query($sql) === TRUE){
+            // echo "New record created successfully";
+            // return true;
+        }else{
+            echo "Error: " . $sql . "<br>" . $conn->error;
+            // return false;
+        }
+    }
+    $conn->close();
+}
+
+function insertRecordData($script_number,$house_address,$KEYIN_ID,$KEYIN_DATETIME){
+    $conn = connect_db();
+    $sql = "INSERT INTO record VALUES('{$script_number}','{$house_address}','{$KEYIN_ID}','{$KEYIN_DATETIME}')";
+
+    if ($conn->query($sql) === TRUE){
+        // echo "New record created successfully";
+        // return true;
+    }else{
+        echo "Error: " . $sql . "<br>" . $conn->error;
+        // return false;
+    }
+    $conn->close();
+}
+
+function insertOwnerData($owner,$hold_ratio,$pId,$house_address,$address,$telephone,$cellphone){
+    $conn = connect_db();
+
+    for($i=0;$i<count($owner);$i++){
+        // $land_id = $land_section[$i].$land_number[$i];
+        $sql = "INSERT INTO owner VALUES('{$pId[$i]}','{$owner[$i]}','{$pId[$i]}','{$house_address}','{$address[$i]}','{$telephone[$i]}','{$cellphone[$i]}')";
+
+        if ($conn->query($sql) === TRUE){
+            // echo "New record created successfully";
+            // return true;
+        }else{
+            echo "Error: " . $sql . "<br>" . $conn->error;
+            // return false;
+        }
+    }
+    $conn->close();
+}
+
+function insertBuildingData($house_address,$legal_status,$build_number,$tax_number,
+    $legal_certificate,$build_certificate,$captain_count,$exit_num,
+    $total_floor,$remove_condition){
+        $conn = connect_db();
+        $sql = "INSERT INTO building VALUES('{$house_address}','{$legal_status}','{$build_number}',
+            '{$tax_number}','{$legal_certificate}','{$build_certificate}','{$captain_count}',
+            '{$exit_num}','{$total_floor}','{$remove_condition}')";
+
+        if ($conn->query($sql) === TRUE){
+            // echo "New record created successfully";
+            // return true;
+        }else{
+            echo "Error: " . $sql . "<br>" . $conn->error;
+            // return false;
+        }
+        $conn->close();
+    }
+
+function insertResidentData($captain,$total_people,$house_address){
+    $conn = connect_db();
+
+    for($i=0;$i<count($captain);$i++){
+        // $land_id = $land_section[$i].$land_number[$i];
+        $sql = "INSERT INTO resident VALUES('{$captain[$i]["id"]}','{$captain[$i]["name"]}',
+            '{$captain[$i]["household_number"]}','{$captain[$i]["set_household_date"]}',
+            '{$captain[$i]["family_num"]}','{$house_address}')";
+
+        if ($conn->query($sql) === TRUE){
+            // echo "New record created successfully";
+            // return true;
+        }else{
+            echo "Error: " . $sql . "<br>" . $conn->error;
+            // return false;
+        }
+    }
+    $conn->close();
+}
 ?>

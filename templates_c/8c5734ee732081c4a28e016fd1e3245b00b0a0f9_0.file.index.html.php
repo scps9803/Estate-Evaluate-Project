@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-07-08 12:56:56
+/* Smarty version 3.1.33, created on 2019-07-09 16:19:43
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\index.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d233d98d48c30_01617775',
+  'unifunc' => 'content_5d24be9fa30f02_82199608',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8c5734ee732081c4a28e016fd1e3245b00b0a0f9' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\index.html',
-      1 => 1562590615,
+      1 => 1562689169,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d233d98d48c30_01617775 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d24be9fa30f02_82199608 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -58,7 +58,10 @@ function content_5d233d98d48c30_01617775 (Smarty_Internal_Template $_smarty_tpl)
                         <td rowspan="2">
                             <input type="radio" name="legal-status" value="建合" required>建合
                             <input type="radio" name="legal-status" value="建非">建非
-                            <input type="text" name="script-number" value="" placeholder="輸入手稿編號" required>
+                            <input type="text" name="script-number" value="" placeholder="輸入手稿編號" required><br>
+                            是否廢棄
+                            <input type="radio" name="discard-status" value="yes" required>是
+                            <input type="radio" name="discard-status" value="no">否
                         </td>
                     </tr>
 
@@ -191,11 +194,11 @@ function content_5d233d98d48c30_01617775 (Smarty_Internal_Template $_smarty_tpl)
                     <tr>
                         <td><span class="required">(*)</span>起造證明文件</td>
                         <td colspan="8">
-                            <input type="radio" name="build-certificate" value="" onclick="changeRequired(['tax_number'],true)" required>房屋稅籍證明書(稅籍編號:<input type="text" id="tax_number" name="tax_number">)
-                            <input type="radio" name="build-certificate" value="" onclick="changeRequired(['tax_number'],false)">門牌整編證明
-                            <input type="radio" name="build-certificate" value="" onclick="changeRequired(['tax_number'],false)">用電證明
-                            <input type="radio" name="build-certificate" value="" onclick="changeRequired(['tax_number'],false)">用水證明
-                            <input type="radio" name="build-certificate" value="" onclick="changeRequired(['tax_number'],false)">無
+                            <input type="radio" name="build-certificate" value="房屋稅籍證明書" onclick="changeRequired(['tax_number'],true)" required>房屋稅籍證明書(稅籍編號:<input type="text" id="tax_number" name="tax_number">)
+                            <input type="radio" name="build-certificate" value="門牌整編證明" onclick="changeRequired(['tax_number'],false)">門牌整編證明
+                            <input type="radio" name="build-certificate" value="用電證明" onclick="changeRequired(['tax_number'],false)">用電證明
+                            <input type="radio" name="build-certificate" value="用水證明" onclick="changeRequired(['tax_number'],false)">用水證明
+                            <input type="radio" name="build-certificate" value="無" onclick="changeRequired(['tax_number'],false)">無
                         </td>
                     </tr>
 
@@ -325,7 +328,7 @@ function content_5d233d98d48c30_01617775 (Smarty_Internal_Template $_smarty_tpl)
                     </td>
                     <td>(<input type="number" min="0" class="small-input-size" id="nth-floor-2" name="nth-floor-2">F/共<input type="number" min="0" class="small-input-size" id="total-floor-2" name="total-floor-2">F)</td>
                     <td>
-                        <select class="median-select-menu" id="building-material-3" name="building-material-3">
+                        <select class="median-select-menu" id="building-material-3" name="building-material-3" onchange="load_floor_type_data(3)">
                             <option value="" style="display:none;">請選擇構造</option>
                             <?php echo $_smarty_tpl->tpl_vars['house_construct_option']->value;?>
 
@@ -336,7 +339,7 @@ function content_5d233d98d48c30_01617775 (Smarty_Internal_Template $_smarty_tpl)
                     </td>
                     <td>(<input type="number" min="0" class="small-input-size" id="nth-floor-3" name="nth-floor-3">F/共<input type="number" min="0" class="small-input-size" id="total-floor-3" name="total-floor-3">F)</td>
                     <td>
-                        <select class="median-select-menu" id="building-material-4" name="building-material-4">
+                        <select class="median-select-menu" id="building-material-4" name="building-material-4" onchange="load_floor_type_data(4)">
                             <option value="" style="display:none;">請選擇構造</option>
                             <?php echo $_smarty_tpl->tpl_vars['house_construct_option']->value;?>
 

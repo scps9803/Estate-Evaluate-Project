@@ -79,34 +79,34 @@
                     <td>設籍日期</td>
                     <td>人口遷移費總計(元)</td>
 
-                    <td>戶長姓名</td>
+                    <!-- <td>戶長姓名</td>
                     <td>家屬人數</td>
                     <td>戶口名簿號碼</td>
                     <td>設籍日期</td>
-                    <td>人口遷移費總計(元)</td>
+                    <td>人口遷移費總計(元)</td> -->
                 </tr>
 
-                <!-- {for $i=0 to {$captain|@count}/2-1}
+                {for $i=0 to {$captain|@count}/2-1}
                 <tr>
                     {for $j=$i to $i+1}
-                        {if $j%2==0}
+                        <!-- {if $j%2==0} -->
                             <td>{$captain.$j.name}</td>
                             <td>{$captain.$j.family_num}</td>
                             <td>{$captain.$j.household_number}</td>
                             <td>{$captain.$j.set_household_date}</td>
                             <td></td>
-                        {/if}
+                        <!-- {/if} -->
 
-                        {if $j%2==1}
-                            <td>{$captain.$j.name}</td>
+                        <!-- {if $j%2==1} -->
+                            <!-- <td>{$captain.$j.name}</td>
                             <td>{$captain.$j.family_num}</td>
                             <td>{$captain.$j.household_number}</td>
                             <td>{$captain.$j.set_household_date}</td>
-                            <td></td>
-                        {/if}
+                            <td></td> -->
+                        <!-- {/if} -->
                     {/for}
                 </tr>
-                {/for} -->
+                {/for}
 
                 <tr>
                     <td>總人口數</td>
@@ -148,7 +148,7 @@
                     <td>{$result.points}</td>
                     <td></td>
                     <td></td>
-                    <td>123</td>
+                    <td>12.6</td>
                     <td>{$result.floor_area}</td>
                     <td></td>
                     <td></td>
