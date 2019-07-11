@@ -73,8 +73,6 @@ function get_electric_type_option($category,$item_type){
         ."<option value='".$electric_type[$i]["item_name"]."'>".$electric_type[$i]["item_name"]."</option>";
     }
 
-    // $smarty->assign("electric_type_option",$electric_type_option);
-    // $smarty->display("index.html");
     return $electric_type_option;
 }
 
@@ -101,8 +99,6 @@ function get_building_decoration_option($category){
         ."<option value='".$electric_type[$i]["item_name"]."'>".$electric_type[$i]["item_name"]."</option>";
     }
 
-    // $smarty->assign("electric_type_option",$electric_type_option);
-    // $smarty->display("index.html");
     return $electric_type_option;
 }
 
@@ -170,10 +166,8 @@ function insertLandData($land_section,$land_number,$house_address,$land_use){
 
         if ($conn->query($sql) === TRUE){
             // echo "New record created successfully";
-            // return true;
         }else{
             echo "Error: " . $sql . "<br>" . $conn->error;
-            // return false;
         }
     }
     $conn->close();
@@ -185,10 +179,8 @@ function insertRecordData($script_number,$house_address,$KEYIN_ID,$KEYIN_DATETIM
 
     if ($conn->query($sql) === TRUE){
         // echo "New record created successfully";
-        // return true;
     }else{
         echo "Error: " . $sql . "<br>" . $conn->error;
-        // return false;
     }
     $conn->close();
 }
@@ -197,15 +189,12 @@ function insertOwnerData($owner,$hold_ratio,$pId,$house_address,$address,$teleph
     $conn = connect_db();
 
     for($i=0;$i<count($owner);$i++){
-        // $land_id = $land_section[$i].$land_number[$i];
         $sql = "INSERT INTO owner VALUES('{$pId[$i]}','{$owner[$i]}','{$pId[$i]}','{$house_address}','{$address[$i]}','{$telephone[$i]}','{$cellphone[$i]}')";
 
         if ($conn->query($sql) === TRUE){
             // echo "New record created successfully";
-            // return true;
         }else{
             echo "Error: " . $sql . "<br>" . $conn->error;
-            // return false;
         }
     }
     $conn->close();
@@ -214,6 +203,7 @@ function insertOwnerData($owner,$hold_ratio,$pId,$house_address,$address,$teleph
 function insertBuildingData($house_address,$legal_status,$build_number,$tax_number,
     $legal_certificate,$build_certificate,$captain_count,$exit_num,
     $total_floor,$remove_condition){
+
         $conn = connect_db();
         $sql = "INSERT INTO building VALUES('{$house_address}','{$legal_status}','{$build_number}',
             '{$tax_number}','{$legal_certificate}','{$build_certificate}','{$captain_count}',
@@ -221,31 +211,98 @@ function insertBuildingData($house_address,$legal_status,$build_number,$tax_numb
 
         if ($conn->query($sql) === TRUE){
             // echo "New record created successfully";
-            // return true;
         }else{
             echo "Error: " . $sql . "<br>" . $conn->error;
-            // return false;
         }
         $conn->close();
     }
+
+function insertOwnBuildingData($pId,$house_address,$hold_ratio){
+    $conn = connect_db();
+
+    for($i=0;$i<count($pId);$i++){
+        $sql = "INSERT INTO own_building VALUES('{$pId[$i]}','{$house_address}','{$hold_ratio[$i]}')";
+
+        if ($conn->query($sql) === TRUE){
+            // echo "New record created successfully";
+        }else{
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+    }
+    $conn->close();
+}
 
 function insertResidentData($captain,$total_people,$house_address){
     $conn = connect_db();
 
     for($i=0;$i<count($captain);$i++){
-        // $land_id = $land_section[$i].$land_number[$i];
         $sql = "INSERT INTO resident VALUES('{$captain[$i]["id"]}','{$captain[$i]["name"]}',
             '{$captain[$i]["household_number"]}','{$captain[$i]["set_household_date"]}',
             '{$captain[$i]["family_num"]}','{$house_address}')";
 
         if ($conn->query($sql) === TRUE){
             // echo "New record created successfully";
-            // return true;
         }else{
             echo "Error: " . $sql . "<br>" . $conn->error;
-            // return false;
         }
     }
     $conn->close();
+}
+
+function insertFloorData($script_number,$main_building,$house_address){
+    $conn = connect_db();
+
+    for($i=0;$i<count($main_building);$i++){
+        $fId = $script_number."-".$main_building[$i]["floor_id"];
+        $sql = "INSERT INTO floor_info VALUES('{$fId}','{$main_building[$i]["house_type"]}',
+            '{$main_building[$i]["compensate_form"]}','{$main_building[$i]["material"]}',
+            '{$main_building[$i]["floor_type"]}','{$main_building[$i]["nth_floor"]}',
+            '{$main_building[$i]["floor_area"]}','{$main_building[$i]["floor_area"]}',
+            '{$main_building[$i]["usage"]}','{$main_building[$i]["layer-height"]}',
+            '{$house_address}')";
+
+        if ($conn->query($sql) === TRUE){
+            // echo "New record created successfully";
+        }else{
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+    }
+    $conn->close();
+}
+
+// function insertMinusWallData(){
+//
+// }
+//
+// function insertAddWallData(){
+//
+// }
+
+function insertIndoorDivideData($fId,$indoor_divide_numerator,$indoor_divide_denominator,$indoor_divide_option){
+    $conn = connect_db();
+
+    for($i=0;$i<count($fId);$i++){
+
+        for($j=0;$j<count($indoor_divide_numerator[$i]);$j++){
+
+            $sql = "SELECT bdId FROM building_decoration WHERE category='室內隔牆構造' AND item_name='{$indoor_divide_option[$i][$j]}'";
+            $res = $conn->query($sql);
+
+            while($row = $res->fetch_assoc()) {
+                $bdId[$i][$j] = $row["bdId"];
+            }
+
+            $ratio = (float)$indoor_divide_numerator[$i][$j]/$indoor_divide_denominator[$i][$j];
+            $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId[$i][$j]}',NULL,'{$ratio}')";
+
+            if ($conn->query($sql) === TRUE){
+                // echo "New record created successfully";
+            }else{
+                echo "Error: " . $sql . "<br>" . $conn->error;
+            }
+        }
+    }
+    $conn->close();
+    return $bdId;
 }
 ?>

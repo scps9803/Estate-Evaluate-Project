@@ -103,6 +103,7 @@ $total_floor = $_POST['total-floor-1'];
     for($i=0;$i<$total_floor;$i++){
         // echo "hi<br>";
         $main_building[$i]["floor_id"] = $_POST['floor-id-'.($i+1)];
+        $fId[$i] = $script_number."-".$main_building[$i]["floor_id"];
         $main_building[$i]["house_type"] = $_POST['house-type-'.($i+1)];
         $main_building[$i]["compensate_form"] = $_POST['compensate-form-'.($i+1)];
 
@@ -323,6 +324,13 @@ $total_floor = $_POST['total-floor-1'];
         echo "<br>";
     }
     echo "<br>---------------------------<br>";
+    // $bdId = insertIndoorDivideData($fId,$indoor_divide_numerator,$indoor_divide_denominator,$indoor_divide_option);
+    echo "BDID: <br>";
+    print_r($indoor_divide_option);
+    // echo "<br>";
+    // print_r($bdId);
+    echo "<br>";
+    print_r($fId);
 // }
 
 $date = date("Y/m/d");
@@ -360,5 +368,11 @@ insertOwnerData($owner,$hold_ratio,$pId,$house_address,$address,$telephone,$cell
 insertBuildingData($house_address,$legal_status,$build_number,$tax_number,
     $legal_certificate,$build_certificate,$captain_count,$exit_num,
     $total_floor,$remove_condition);
+insertOwnBuildingData($pId,$house_address,$hold_ratio);
 insertResidentData($captain,$total_people,$house_address);
+insertFloorData($script_number,$main_building,$house_address);
+// insertMinusWallData();
+// insertAddWallData();
+insertIndoorDivideData($fId,$indoor_divide_numerator,$indoor_divide_denominator,$indoor_divide_option);
+
 ?>
