@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-07-09 12:46:08
+/* Smarty version 3.1.33, created on 2019-07-14 17:10:23
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\house_submit_preview.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d248c90d26388_85290209',
+  'unifunc' => 'content_5d2af17f99e2b9_22273135',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'e8915401ba982d0df64e10304cdae0fca218ca94' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\house_submit_preview.html',
-      1 => 1562676367,
+      1 => 1563095420,
       2 => 'file',
     ),
   ),
@@ -20,12 +20,19 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d248c90d26388_85290209 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d2af17f99e2b9_22273135 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8">
         <title></title>
+        <?php echo '<script'; ?>
+ type="text/javascript" src="js/jquery-3.4.1.min.js"><?php echo '</script'; ?>
+>
+        <?php echo '<script'; ?>
+ type="text/javascript" src="js/index.js"><?php echo '</script'; ?>
+>
+
         <style media="screen">
             body{
                 font-family: "標楷體";
@@ -256,7 +263,9 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
             <!-- <h4>女兒牆: <?php echo $_smarty_tpl->tpl_vars['daughter_wall']->value;?>
 </h4> -->
             <button type="button" name="">返回修改</button>
-            <button type="button" name="">確定儲存</button>
+            <button type="button" name="" onclick="exportExcel('<?php echo $_smarty_tpl->tpl_vars['script_number']->value;?>
+','<?php echo $_smarty_tpl->tpl_vars['house_address']->value;?>
+')">確定儲存</button>
         </div>
     </body>
 </html>

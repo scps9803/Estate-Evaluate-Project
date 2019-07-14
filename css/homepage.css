@@ -1,0 +1,39 @@
+.align_center {
+    text-align: center;
+}
+
+body{
+    font-family: 微軟正黑體;
+    font-weight: bolder
+}
+thead{
+    background-color: #dff0d8
+}
+td{
+    font-weight: normal
+}
+.btn_chechout{
+    float: right;
+    width: 100px;
+}
+.item_image{
+    width: 40%;
+}
+.image_area{
+    border-color: red;
+    border-style: dotted;
+    background-color:aliceblue
+}
+.detail_area{
+    border-color: red;
+    border-style: dotted;
+    background-color:aliceblue
+}
+.a{
+    border-color: red;
+    border-style: dotted;
+    background-color:aliceblue
+}
+.sideInfo >h1{
+    text-align: center;
+}

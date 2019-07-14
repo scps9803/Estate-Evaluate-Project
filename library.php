@@ -293,13 +293,59 @@ function insertFloorData($script_number,$main_building,$house_address,$discard_s
     $conn->close();
 }
 
-// function insertMinusWallData(){
-//
-// }
-//
-// function insertAddWallData(){
-//
-// }
+function insertMinusWallData($fId,$minus_wall_count,$minus_wall_option){
+    $conn = connect_db();
+
+    for($i=0;$i<count($fId);$i++){
+
+        for($j=0;$j<count($minus_wall_count[$i]);$j++){
+
+            $sql = "SELECT bdId FROM building_decoration WHERE category='加減牆' AND item_name='{$minus_wall_option[$i][$j]}' AND item_type='減牆'";
+            $res = $conn->query($sql);
+
+            while($row = $res->fetch_assoc()) {
+                $bdId[$i][$j] = $row["bdId"];
+            }
+
+            $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId[$i][$j]}',NULL,'{$minus_wall_count[$i][$j]}')";
+
+            if ($conn->query($sql) === TRUE){
+                // echo "New record created successfully";
+            }else{
+                echo "Error: " . $sql . "<br>" . $conn->error;
+            }
+        }
+    }
+    $conn->close();
+    return $bdId;
+}
+
+function insertAddWallData($fId,$add_wall_count,$add_wall_option){
+    $conn = connect_db();
+
+    for($i=0;$i<count($fId);$i++){
+
+        for($j=0;$j<count($add_wall_count[$i]);$j++){
+
+            $sql = "SELECT bdId FROM building_decoration WHERE category='加減牆' AND item_name='{$add_wall_option[$i][$j]}' AND item_type='加牆'";
+            $res = $conn->query($sql);
+
+            while($row = $res->fetch_assoc()) {
+                $bdId[$i][$j] = $row["bdId"];
+            }
+
+            $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId[$i][$j]}',NULL,'{$add_wall_count[$i][$j]}')";
+
+            if ($conn->query($sql) === TRUE){
+                // echo "New record created successfully";
+            }else{
+                echo "Error: " . $sql . "<br>" . $conn->error;
+            }
+        }
+    }
+    $conn->close();
+    return $bdId;
+}
 
 function insertIndoorDivideData($fId,$indoor_divide_numerator,$indoor_divide_denominator,$indoor_divide_option){
     $conn = connect_db();
@@ -682,5 +728,69 @@ function insertBalconyData($fId,$balcony){
     }
     $conn->close();
     return $bdId;
+}
+
+function getOwnerData($house_address){
+    $conn = connect_db();
+
+    $sql = "SELECT * FROM owner WHERE address='{$house_address}'";
+    $res = $conn->query($sql);
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $result[$i] = $row;
+        $i++;
+    }
+
+    $conn->close();
+    return $result;
+}
+
+function getBuildingData($house_address){
+    $conn = connect_db();
+
+    $sql = "SELECT * FROM building WHERE address='{$house_address}'";
+    $res = $conn->query($sql);
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $result[$i] = $row;
+        $i++;
+    }
+
+    $conn->close();
+    return $result;
+}
+
+function getLandData($house_address){
+    $conn = connect_db();
+
+    $sql = "SELECT * FROM building_locate NATURAL JOIN land WHERE address='{$house_address}'";
+    $res = $conn->query($sql);
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $result[$i] = $row;
+        $i++;
+    }
+
+    $conn->close();
+    return $result;
+}
+
+function getResidentData($house_address){
+    $conn = connect_db();
+
+    $sql = "SELECT * FROM resident WHERE address='{$house_address}'";
+    $res = $conn->query($sql);
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $result[$i] = $row;
+        $i++;
+    }
+
+    $conn->close();
+    return $result;
 }
 ?>

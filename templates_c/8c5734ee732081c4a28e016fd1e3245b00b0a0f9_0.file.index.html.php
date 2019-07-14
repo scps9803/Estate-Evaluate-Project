@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-07-13 16:23:12
+/* Smarty version 3.1.33, created on 2019-07-14 01:36:17
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\index.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d2a057092c3e0_52620073',
+  'unifunc' => 'content_5d2a8711ce9083_08578623',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8c5734ee732081c4a28e016fd1e3245b00b0a0f9' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\index.html',
-      1 => 1563034990,
+      1 => 1563068127,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d2a057092c3e0_52620073 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d2a8711ce9083_08578623 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -298,20 +298,20 @@ function content_5d2a057092c3e0_52620073 (Smarty_Internal_Template $_smarty_tpl)
                 <tr>
                     <td colspan="2">是否廢棄</td>
                     <td colspan="2">
-                        <input type="radio" name="discard-status-1" value="yes" required>是
-                        <input type="radio" name="discard-status-1" value="no">否
+                        <input type="radio" id="discard-status-1" name="discard-status-1" value="yes" required>是
+                        <input type="radio" id="discard-status-1" name="discard-status-1" value="no">否
                     </td>
                     <td colspan="2">
-                        <input type="radio" name="discard-status-2" value="yes">是
-                        <input type="radio" name="discard-status-2" value="no">否
+                        <input type="radio" id="discard-status-2" name="discard-status-2" value="yes">是
+                        <input type="radio" id="discard-status-2" name="discard-status-2" value="no">否
                     </td>
                     <td colspan="2">
-                        <input type="radio" name="discard-status-3" value="yes">是
-                        <input type="radio" name="discard-status-3" value="no">否
+                        <input type="radio" id="discard-status-3" name="discard-status-3" value="yes">是
+                        <input type="radio" id="discard-status-3" name="discard-status-3" value="no">否
                     </td>
                     <td colspan="2">
-                        <input type="radio" name="discard-status-4" value="yes">是
-                        <input type="radio" name="discard-status-4" value="no">否
+                        <input type="radio" id="discard-status-4" name="discard-status-4" value="yes">是
+                        <input type="radio" id="discard-status-4" name="discard-status-4" value="no">否
                     </td>
                 </tr>
 

@@ -365,7 +365,7 @@ $smarty->assign("date",$date);
 
 $smarty->display("house_submit_preview.html");
 
-// 儲存粉裝資料
+// 儲存基本資料
 insertLandData($land_section,$subsection,$land_number,$house_address,$land_use);
 insertRecordData($script_number,$house_address,$KEYIN_ID,$KEYIN_DATETIME);
 insertOwnerData($owner,$hold_ratio,$pId,$house_address,$address,$telephone,$cellphone);
@@ -375,8 +375,29 @@ insertBuildingData($house_address,$legal_status,$build_number,$tax_number,
 insertOwnBuildingData($pId,$house_address,$hold_ratio);
 insertResidentData($captain,$total_people,$house_address);
 insertFloorData($script_number,$main_building,$house_address,$discard_status);
-// insertMinusWallData();
-// insertAddWallData();
+
+// 儲存粉裝資料
+if($minus_wall_count[0][0] != ""){
+    $bdId = insertMinusWallData($fId,$minus_wall_count,$minus_wall_option);
+    echo "減牆 BDID: <br>";
+    print_r($minus_wall_count);
+    print_r($minus_wall_option);
+    echo "<br>";
+    print_r($bdId);
+    echo "<br>";
+    print_r($fId);
+}
+
+if($add_wall_count[0][0] != ""){
+    $bdId = insertAddWallData($fId,$add_wall_count,$add_wall_option);
+    echo "加牆 BDID: <br>";
+    print_r($add_wall_count);
+    print_r($add_wall_option);
+    echo "<br>";
+    print_r($bdId);
+    echo "<br>";
+    print_r($fId);
+}
 
 if($indoor_divide_numerator[0][0] != ""){
     $bdId = insertIndoorDivideData($fId,$indoor_divide_numerator,$indoor_divide_denominator,$indoor_divide_option);
@@ -509,4 +530,5 @@ if($balcony[0] != ""){
     echo "<br>";
     print_r($fId);
 }
+
 ?>

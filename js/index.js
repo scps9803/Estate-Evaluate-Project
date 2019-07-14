@@ -980,7 +980,7 @@ function writeDataToOneRow(itemId,writeToId,countId){
 }
 
 function changeColumnStatus(column,status){
-    var itemId = ["#house-type-","#pay-form-","#building-material-","#floor-type-","#nth-floor-","#total-floor-","#floor-area-","#house-usage-"]
+    var itemId = ["#house-type-","#discard-status-","#pay-form-","#building-material-","#floor-type-","#nth-floor-","#total-floor-","#floor-area-","#house-usage-"]
 
     switch (status) {
         case 'focus':
@@ -1059,6 +1059,25 @@ function getToiletEquipmentCount(num){
 //     }
 // }
 
+function exportExcel(script_number,house_address){
+    $.ajax({
+         url: "export_excel.php",
+         type: "POST",
+         data:{
+            script_number: script_number,
+            house_address: house_address
+         },
+         cache:false,
+         dataType: "json",
+         // contentType: 'application/json; charset=utf-8',
+         success: function(data){
+             window.alert("Excel匯出成功!");
+         },
+         error:function(err){
+             window.alert(err.statusText);
+         }
+    });
+}
 $(document).ready(function(){
     getOwnerCount();
     getCaptainCount();

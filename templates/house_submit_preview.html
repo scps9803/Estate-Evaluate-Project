@@ -3,6 +3,9 @@
     <head>
         <meta charset="utf-8">
         <title></title>
+        <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+
         <style media="screen">
             body{
                 font-family: "標楷體";
@@ -180,7 +183,7 @@
             <h4>調查單位: 鼎盛不動產估價師事務所</h4>
             <!-- <h4>女兒牆: {$daughter_wall}</h4> -->
             <button type="button" name="">返回修改</button>
-            <button type="button" name="">確定儲存</button>
+            <button type="button" name="" onclick="exportExcel('{$script_number}','{$house_address}')">確定儲存</button>
         </div>
     </body>
 </html>
