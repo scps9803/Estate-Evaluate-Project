@@ -12,6 +12,14 @@ for($i=0;$i<count($house_construct);$i++){
     ."<option value='".$house_construct[$i]["item_name"]."'>".$house_construct[$i]["item_name"]."</option>";
 }
 
+$add_minus_wall = load_building_decoration_Data('加減牆');
+$add_minus_wall_option = "";
+
+for($i=0;$i<count($add_minus_wall);$i++){
+    $add_minus_wall_option = $add_minus_wall_option
+    ."<option value='".$add_minus_wall[$i]["item_name"]."'>".$add_minus_wall[$i]["item_name"]."</option>";
+}
+
 $indoor_divide = load_building_decoration_Data('室內隔牆構造');
 $indoor_divide_option = "";
 
@@ -86,6 +94,7 @@ for($i=0;$i<count($electric_usage);$i++){
 
 
 $smarty->assign("house_construct_option",$house_construct_option);
+$smarty->assign("add_minus_wall_option",$add_minus_wall_option);
 $smarty->assign("indoor_divide_option",$indoor_divide_option);
 $smarty->assign("outdoor_wall_decoration_option",$outdoor_wall_decoration_option);
 $smarty->assign("indoor_wall_decoration_option",$indoor_wall_decoration_option);

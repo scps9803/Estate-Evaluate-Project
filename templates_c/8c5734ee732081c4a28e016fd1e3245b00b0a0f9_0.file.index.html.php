@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-07-10 17:16:45
+/* Smarty version 3.1.33, created on 2019-07-13 16:23:12
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\index.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d261d7dd605a9_33175828',
+  'unifunc' => 'content_5d2a057092c3e0_52620073',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8c5734ee732081c4a28e016fd1e3245b00b0a0f9' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\index.html',
-      1 => 1562779001,
+      1 => 1563034990,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d261d7dd605a9_33175828 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d2a057092c3e0_52620073 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,9 +59,9 @@ function content_5d261d7dd605a9_33175828 (Smarty_Internal_Template $_smarty_tpl)
                             <input type="radio" name="legal-status" value="建合" required>建合
                             <input type="radio" name="legal-status" value="建非">建非
                             <input type="text" name="script-number" value="" placeholder="輸入手稿編號" required><br>
-                            是否廢棄
+                            <!-- 是否廢棄
                             <input type="radio" name="discard-status" value="yes" required>是
-                            <input type="radio" name="discard-status" value="no">否
+                            <input type="radio" name="discard-status" value="no">否 -->
                         </td>
                     </tr>
 
@@ -296,6 +296,26 @@ function content_5d261d7dd605a9_33175828 (Smarty_Internal_Template $_smarty_tpl)
                 </tr>
 
                 <tr>
+                    <td colspan="2">是否廢棄</td>
+                    <td colspan="2">
+                        <input type="radio" name="discard-status-1" value="yes" required>是
+                        <input type="radio" name="discard-status-1" value="no">否
+                    </td>
+                    <td colspan="2">
+                        <input type="radio" name="discard-status-2" value="yes">是
+                        <input type="radio" name="discard-status-2" value="no">否
+                    </td>
+                    <td colspan="2">
+                        <input type="radio" name="discard-status-3" value="yes">是
+                        <input type="radio" name="discard-status-3" value="no">否
+                    </td>
+                    <td colspan="2">
+                        <input type="radio" name="discard-status-4" value="yes">是
+                        <input type="radio" name="discard-status-4" value="no">否
+                    </td>
+                </tr>
+
+                <tr>
                     <td colspan="2"><span class="required">(*)</span>補償形式</td>
                     <td colspan="2" id="compensate-form-1"><input type="radio" id="pay-form-1" name="compensate-form-1" value="主建物" onclick="compensateFormClick('compensate-form-1')" required>主建物<input type="radio" name="compensate-form-1" value="立面修復" onclick="removeSubCompensateForm('sub-compensate-form-1')">立面修復<br></td>
                     <td colspan="2" id="compensate-form-2"><input type="radio" id="pay-form-2" name="compensate-form-2" value="主建物" onclick="compensateFormClick('compensate-form-2')">主建物<input type="radio" name="compensate-form-2" value="立面修復" onclick="removeSubCompensateForm('sub-compensate-form-2')">立面修復<br></td>
@@ -435,7 +455,7 @@ function content_5d261d7dd605a9_33175828 (Smarty_Internal_Template $_smarty_tpl)
                                 <option value="3">3</option>
                                 <option value="4">4</option>
                             </select>
-                            <select id="minus-wall-option-1-1" name="minus-wall-option-1-1">
+                            <select id="minus-wall-option-1-1" name="minus-wall-option-1-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <!-- <option value="">RC牆</option>
                                 <option value="">1B</option>
@@ -443,7 +463,7 @@ function content_5d261d7dd605a9_33175828 (Smarty_Internal_Template $_smarty_tpl)
                                 <option value="">檜木造</option>
                                 <option value="">其他木造</option>
                                 <option value="">竹編牆</option> -->
-                                <?php echo $_smarty_tpl->tpl_vars['indoor_divide_option']->value;?>
+                                <?php echo $_smarty_tpl->tpl_vars['add_minus_wall_option']->value;?>
 
                             </select>
                         </div>
@@ -461,7 +481,7 @@ function content_5d261d7dd605a9_33175828 (Smarty_Internal_Template $_smarty_tpl)
                                 <option value="3">3</option>
                                 <option value="4">4</option>
                             </select>
-                            <select id="add-wall-option-1-1" name="add-wall-option-1-1">
+                            <select id="add-wall-option-1-1" name="add-wall-option-1-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <!-- <option value="">RC牆</option>
                                 <option value="">1B</option>
@@ -469,7 +489,7 @@ function content_5d261d7dd605a9_33175828 (Smarty_Internal_Template $_smarty_tpl)
                                 <option value="">檜木造</option>
                                 <option value="">其他木造</option>
                                 <option value="">竹編牆</option> -->
-                                <?php echo $_smarty_tpl->tpl_vars['indoor_divide_option']->value;?>
+                                <?php echo $_smarty_tpl->tpl_vars['add_minus_wall_option']->value;?>
 
                             </select>
                         </div>
@@ -489,7 +509,7 @@ function content_5d261d7dd605a9_33175828 (Smarty_Internal_Template $_smarty_tpl)
                                 <option value="3">3</option>
                                 <option value="4">4</option>
                             </select>
-                            <select id="minus-wall-option-2-1" name="minus-wall-option-2-1">
+                            <select id="minus-wall-option-2-1" name="minus-wall-option-2-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <!-- <option value="">RC牆</option>
                                 <option value="">1B</option>
@@ -497,7 +517,7 @@ function content_5d261d7dd605a9_33175828 (Smarty_Internal_Template $_smarty_tpl)
                                 <option value="">檜木造</option>
                                 <option value="">其他木造</option>
                                 <option value="">竹編牆</option> -->
-                                <?php echo $_smarty_tpl->tpl_vars['indoor_divide_option']->value;?>
+                                <?php echo $_smarty_tpl->tpl_vars['add_minus_wall_option']->value;?>
 
                             </select>
                         </div>
@@ -515,7 +535,7 @@ function content_5d261d7dd605a9_33175828 (Smarty_Internal_Template $_smarty_tpl)
                                 <option value="3">3</option>
                                 <option value="4">4</option>
                             </select>
-                            <select id="add-wall-option-2-1" name="add-wall-option-2-1">
+                            <select id="add-wall-option-2-1" name="add-wall-option-2-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <!-- <option value="">RC牆</option>
                                 <option value="">1B</option>
@@ -523,7 +543,7 @@ function content_5d261d7dd605a9_33175828 (Smarty_Internal_Template $_smarty_tpl)
                                 <option value="">檜木造</option>
                                 <option value="">其他木造</option>
                                 <option value="">竹編牆</option> -->
-                                <?php echo $_smarty_tpl->tpl_vars['indoor_divide_option']->value;?>
+                                <?php echo $_smarty_tpl->tpl_vars['add_minus_wall_option']->value;?>
 
                             </select>
                         </div>
@@ -543,7 +563,7 @@ function content_5d261d7dd605a9_33175828 (Smarty_Internal_Template $_smarty_tpl)
                                 <option value="3">3</option>
                                 <option value="4">4</option>
                             </select>
-                            <select id="minus-wall-option-3-1" name="minus-wall-option-3-1">
+                            <select id="minus-wall-option-3-1" name="minus-wall-option-3-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <!-- <option value="">RC牆</option>
                                 <option value="">1B</option>
@@ -551,7 +571,7 @@ function content_5d261d7dd605a9_33175828 (Smarty_Internal_Template $_smarty_tpl)
                                 <option value="">檜木造</option>
                                 <option value="">其他木造</option>
                                 <option value="">竹編牆</option> -->
-                                <?php echo $_smarty_tpl->tpl_vars['indoor_divide_option']->value;?>
+                                <?php echo $_smarty_tpl->tpl_vars['add_minus_wall_option']->value;?>
 
                             </select>
                         </div>
@@ -569,7 +589,7 @@ function content_5d261d7dd605a9_33175828 (Smarty_Internal_Template $_smarty_tpl)
                                 <option value="3">3</option>
                                 <option value="4">4</option>
                             </select>
-                            <select id="add-wall-option-3-1" name="add-wall-option-3-1">
+                            <select id="add-wall-option-3-1" name="add-wall-option-3-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <!-- <option value="">RC牆</option>
                                 <option value="">1B</option>
@@ -577,7 +597,7 @@ function content_5d261d7dd605a9_33175828 (Smarty_Internal_Template $_smarty_tpl)
                                 <option value="">檜木造</option>
                                 <option value="">其他木造</option>
                                 <option value="">竹編牆</option> -->
-                                <?php echo $_smarty_tpl->tpl_vars['indoor_divide_option']->value;?>
+                                <?php echo $_smarty_tpl->tpl_vars['add_minus_wall_option']->value;?>
 
                             </select>
                         </div>
@@ -597,7 +617,7 @@ function content_5d261d7dd605a9_33175828 (Smarty_Internal_Template $_smarty_tpl)
                                 <option value="3">3</option>
                                 <option value="4">4</option>
                             </select>
-                            <select id="minus-wall-option-4-1" name="minus-wall-option-4-1">
+                            <select id="minus-wall-option-4-1" name="minus-wall-option-4-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <!-- <option value="">RC牆</option>
                                 <option value="">1B</option>
@@ -605,7 +625,7 @@ function content_5d261d7dd605a9_33175828 (Smarty_Internal_Template $_smarty_tpl)
                                 <option value="">檜木造</option>
                                 <option value="">其他木造</option>
                                 <option value="">竹編牆</option> -->
-                                <?php echo $_smarty_tpl->tpl_vars['indoor_divide_option']->value;?>
+                                <?php echo $_smarty_tpl->tpl_vars['add_minus_wall_option']->value;?>
 
                             </select>
                         </div>
@@ -623,7 +643,7 @@ function content_5d261d7dd605a9_33175828 (Smarty_Internal_Template $_smarty_tpl)
                                 <option value="3">3</option>
                                 <option value="4">4</option>
                             </select>
-                            <select id="add-wall-option-4-1" name="add-wall-option-4-1">
+                            <select id="add-wall-option-4-1" name="add-wall-option-4-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <!-- <option value="">RC牆</option>
                                 <option value="">1B</option>
@@ -631,7 +651,7 @@ function content_5d261d7dd605a9_33175828 (Smarty_Internal_Template $_smarty_tpl)
                                 <option value="">檜木造</option>
                                 <option value="">其他木造</option>
                                 <option value="">竹編牆</option> -->
-                                <?php echo $_smarty_tpl->tpl_vars['indoor_divide_option']->value;?>
+                                <?php echo $_smarty_tpl->tpl_vars['add_minus_wall_option']->value;?>
 
                             </select>
                         </div>
@@ -795,16 +815,23 @@ function content_5d261d7dd605a9_33175828 (Smarty_Internal_Template $_smarty_tpl)
                     <td colspan="2">
                         <div id="indoor-wall-decoration-1-1">
                             <input type="text" id="indoor-wall-decoration-numerator-1-1" name="indoor-wall-decoration-numerator-1-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="indoor-wall-decoration-denominator-1-1" name="indoor-wall-decoration-denominator-1-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
-                            <select id="indoor-wall-decoration-option-1-1" name="indoor-wall-decoration-option-1-1" class="select-menu">
+                            <select id="indoor-wall-decoration-option-1-1" name="indoor-wall-decoration-option-1-1" class="tiny-select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['indoor_wall_decoration_option']->value;?>
 
+                            </select>
+
+                            <select id="indoor-wall-type-1-1" name="indoor-wall-type-1-1">
+                                <option value="" style="display:none;">種類</option>
+                                <option value="無隔">無隔</option>
+                                <option value="有隔">有隔</option>
                             </select>
                         </div>
 
                         <input type="hidden" id="indoor-wall-decoration-numerator-1" name="indoor-wall-decoration-numerator-1">
                         <input type="hidden" id="indoor-wall-decoration-denominator-1" name="indoor-wall-decoration-denominator-1">
                         <input type="hidden" id="indoor-wall-decoration-option-1" name="indoor-wall-decoration-option-1">
+                        <input type="hidden" id="indoor-wall-type-1" name="indoor-wall-type-1">
                         <button type="button" onclick="addItemOnclick('indoor-wall-decoration-','1','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('indoor-wall-decoration-','1')">-</button>
                     </td>
@@ -812,16 +839,23 @@ function content_5d261d7dd605a9_33175828 (Smarty_Internal_Template $_smarty_tpl)
                     <td colspan="2">
                         <div id="indoor-wall-decoration-2-1">
                             <input type="text" id="indoor-wall-decoration-numerator-2-1" name="indoor-wall-decoration-numerator-2-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="indoor-wall-decoration-denominator-2-1" name="indoor-wall-decoration-denominator-2-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
-                            <select id="indoor-wall-decoration-option-2-1" name="indoor-wall-decoration-option-2-1" class="select-menu">
+                            <select id="indoor-wall-decoration-option-2-1" name="indoor-wall-decoration-option-2-1" class="tiny-select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['indoor_wall_decoration_option']->value;?>
 
+                            </select>
+
+                            <select id="indoor-wall-type-2-1" name="indoor-wall-type-2-1">
+                                <option value="" style="display:none;">種類</option>
+                                <option value="無隔">無隔</option>
+                                <option value="有隔">有隔</option>
                             </select>
                         </div>
 
                         <input type="hidden" id="indoor-wall-decoration-numerator-2" name="indoor-wall-decoration-numerator-2">
                         <input type="hidden" id="indoor-wall-decoration-denominator-2" name="indoor-wall-decoration-denominator-2">
                         <input type="hidden" id="indoor-wall-decoration-option-2" name="indoor-wall-decoration-option-2">
+                        <input type="hidden" id="indoor-wall-type-2" name="indoor-wall-type-2">
                         <button type="button" onclick="addItemOnclick('indoor-wall-decoration-','2','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('indoor-wall-decoration-','2')">-</button>
                     </td>
@@ -829,16 +863,23 @@ function content_5d261d7dd605a9_33175828 (Smarty_Internal_Template $_smarty_tpl)
                     <td colspan="2">
                         <div id="indoor-wall-decoration-3-1">
                             <input type="text" id="indoor-wall-decoration-numerator-3-1" name="indoor-wall-decoration-numerator-3-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="indoor-wall-decoration-denominator-3-1" name="indoor-wall-decoration-denominator-3-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
-                            <select id="indoor-wall-decoration-option-3-1" name="indoor-wall-decoration-option-3-1" class="select-menu">
+                            <select id="indoor-wall-decoration-option-3-1" name="indoor-wall-decoration-option-3-1" class="tiny-select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['indoor_wall_decoration_option']->value;?>
 
+                            </select>
+
+                            <select id="indoor-wall-type-3-1" name="indoor-wall-type-3-1">
+                                <option value="" style="display:none;">種類</option>
+                                <option value="無隔">無隔</option>
+                                <option value="有隔">有隔</option>
                             </select>
                         </div>
 
                         <input type="hidden" id="indoor-wall-decoration-numerator-3" name="indoor-wall-decoration-numerator-3">
                         <input type="hidden" id="indoor-wall-decoration-denominator-3" name="indoor-wall-decoration-denominator-3">
                         <input type="hidden" id="indoor-wall-decoration-option-3" name="indoor-wall-decoration-option-3">
+                        <input type="hidden" id="indoor-wall-type-3" name="indoor-wall-type-3">
                         <button type="button" onclick="addItemOnclick('indoor-wall-decoration-','3','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('indoor-wall-decoration-','3')">-</button>
                     </td>
@@ -846,16 +887,23 @@ function content_5d261d7dd605a9_33175828 (Smarty_Internal_Template $_smarty_tpl)
                     <td colspan="2">
                         <div id="indoor-wall-decoration-4-1">
                             <input type="text" id="indoor-wall-decoration-numerator-4-1" name="indoor-wall-decoration-numerator-4-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="indoor-wall-decoration-denominator-4-1" name="indoor-wall-decoration-denominator-4-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
-                            <select id="indoor-wall-decoration-option-4-1" name="indoor-wall-decoration-option-4-1" class="select-menu">
+                            <select id="indoor-wall-decoration-option-4-1" name="indoor-wall-decoration-option-4-1" class="tiny-select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['indoor_wall_decoration_option']->value;?>
 
+                            </select>
+
+                            <select id="indoor-wall-type-4-1" name="indoor-wall-type-4-1">
+                                <option value="" style="display:none;">種類</option>
+                                <option value="無隔">無隔</option>
+                                <option value="有隔">有隔</option>
                             </select>
                         </div>
 
                         <input type="hidden" id="indoor-wall-decoration-numerator-4" name="indoor-wall-decoration-numerator-4">
                         <input type="hidden" id="indoor-wall-decoration-denominator-4" name="indoor-wall-decoration-denominator-4">
                         <input type="hidden" id="indoor-wall-decoration-option-4" name="indoor-wall-decoration-option-4">
+                        <input type="hidden" id="indoor-wall-type-4" name="indoor-wall-type-4">
                         <button type="button" onclick="addItemOnclick('indoor-wall-decoration-','4','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('indoor-wall-decoration-','4')">-</button>
                     </td>
@@ -1177,18 +1225,23 @@ function content_5d261d7dd605a9_33175828 (Smarty_Internal_Template $_smarty_tpl)
                     <td colspan="2">
                         <div class="table-container" id="toilet-equipment-1-1" style="margin-top:15px;">
                             <!-- 比例:<input type="radio" name="toilet-ratio-1-1" value="1">1<input type="radio" name="toilet-ratio-1-1" value="0.5">1/2<br> -->
-                            比例:<select id="toilet-ratio-1-1" name="toilet-ratio-1-1">
+                            比例:<select id="toilet-ratio-1-1" name="toilet-ratio-1-1" class="tiny-select-menu">
                                 <option value="" style="display:none;">請選擇比例</option>
                                 <option value="1">1</option>
                                 <option value="0.5">1/2</option>
                             </select><br>
-                            型式:<select id="toilet-type-1-1" name="toilet-type-1-1" class="select-menu">
+                            型式:<select id="toilet-type-1-1" name="toilet-type-1-1" class="tiny-select-menu" onchange="load_toilet_data(1,1)">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['toilet_equipment_option']->value;?>
 
-                            </select><br>
+                            </select>
+
+                            <select id="toilet-product-1-1" name="toilet-product-1-1">
+                                <option value="" style="display:none;">請選擇種類</option>
+                            </select>
+                            <br>
                             <!-- 座數:<input type="radio" name="toilet-number-1-1" value="3">1~3座<input type="radio" name="toilet-number-1-1" value="6">4~6座<input type="radio" name="toilet-number-1-1" value="7">7座以上 -->
-                            座數:<select id="toilet-number-1-1" name="toilet-number-1-1">
+                            座數:<select id="toilet-number-1-1" name="toilet-number-1-1" class="tiny-select-menu">
                                 <option value="" style="display:none;">請選擇座數</option>
                                 <option value="3">1~3座</option>
                                 <option value="6">4~6座</option>
@@ -1197,6 +1250,7 @@ function content_5d261d7dd605a9_33175828 (Smarty_Internal_Template $_smarty_tpl)
                         </div>
                         <input type="hidden" id="toilet-ratio-1" name="toilet-ratio-1">
                         <input type="hidden" id="toilet-type-1" name="toilet-type-1">
+                        <input type="hidden" id="toilet-product-1" name="toilet-product-1">
                         <input type="hidden" id="toilet-number-1" name="toilet-number-1">
                         <button type="button" onclick="addItemOnclick('toilet-equipment-','1','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('toilet-equipment-','1')">-</button>
@@ -1204,18 +1258,23 @@ function content_5d261d7dd605a9_33175828 (Smarty_Internal_Template $_smarty_tpl)
                     <td colspan="2">
                         <div class="table-container" id="toilet-equipment-2-1" style="margin-top:15px;">
                             <!-- 比例:<input type="radio" name="toilet-ratio-2-1" value="1">1<input type="radio" name="toilet-ratio-2-1" value="0.5">1/2<br> -->
-                            比例:<select id="toilet-ratio-2-1" name="toilet-ratio-2-1">
+                            比例:<select id="toilet-ratio-2-1" name="toilet-ratio-2-1" class="tiny-select-menu">
                                 <option value="" style="display:none;">請選擇比例</option>
                                 <option value="1">1</option>
                                 <option value="0.5">1/2</option>
                             </select><br>
-                            型式:<select id="toilet-type-2-1" name="toilet-type-2-1" class="select-menu">
+                            型式:<select id="toilet-type-2-1" name="toilet-type-2-1" class="tiny-select-menu" onchange="load_toilet_data(2,1)">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['toilet_equipment_option']->value;?>
 
-                            </select><br>
+                            </select>
+
+                            <select id="toilet-product-2-1" name="toilet-product-2-1">
+                                <option value="" style="display:none;">請選擇種類</option>
+                            </select>
+                            <br>
                             <!-- 座數:<input type="radio" name="toilet-number-2-1" value="3">1~3座<input type="radio" name="toilet-number-2-1" value="6">4~6座<input type="radio" name="toilet-number-2-1" value="7">7座以上 -->
-                            座數:<select id="toilet-number-2-1" name="toilet-number-2-1">
+                            座數:<select id="toilet-number-2-1" name="toilet-number-2-1" class="tiny-select-menu">
                                 <option value="" style="display:none;">請選擇座數</option>
                                 <option value="3">1~3座</option>
                                 <option value="6">4~6座</option>
@@ -1224,6 +1283,7 @@ function content_5d261d7dd605a9_33175828 (Smarty_Internal_Template $_smarty_tpl)
                         </div>
                         <input type="hidden" id="toilet-ratio-2" name="toilet-ratio-2">
                         <input type="hidden" id="toilet-type-2" name="toilet-type-2">
+                        <input type="hidden" id="toilet-product-2" name="toilet-product-2">
                         <input type="hidden" id="toilet-number-2" name="toilet-number-2">
                         <button type="button" onclick="addItemOnclick('toilet-equipment-','2','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('toilet-equipment-','2')">-</button>
@@ -1231,18 +1291,23 @@ function content_5d261d7dd605a9_33175828 (Smarty_Internal_Template $_smarty_tpl)
                     <td colspan="2">
                         <div class="table-container" id="toilet-equipment-3-1" style="margin-top:15px;">
                             <!-- 比例:<input type="radio" name="toilet-ratio-3-1" value="1">1<input type="radio" name="toilet-ratio-3-1" value="0.5">1/2<br> -->
-                            比例:<select id="toilet-ratio-3-1" name="toilet-ratio-3-1">
+                            比例:<select id="toilet-ratio-3-1" name="toilet-ratio-3-1" class="tiny-select-menu">
                                 <option value="" style="display:none;">請選擇比例</option>
                                 <option value="1">1</option>
                                 <option value="0.5">1/2</option>
                             </select><br>
-                            型式:<select id="toilet-type-3-1" name="toilet-type-3-1" class="select-menu">
+                            型式:<select id="toilet-type-3-1" name="toilet-type-3-1" class="tiny-select-menu" onchange="load_toilet_data(3,1)">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['toilet_equipment_option']->value;?>
 
-                            </select><br>
+                            </select>
+
+                            <select id="toilet-product-3-1" name="toilet-product-3-1">
+                                <option value="" style="display:none;">請選擇種類</option>
+                            </select>
+                            <br>
                             <!-- 座數:<input type="radio" name="toilet-number-3-1" value="3">1~3座<input type="radio" name="toilet-number-3-1" value="6">4~6座<input type="radio" name="toilet-number-3-1" value="7">7座以上 -->
-                            座數:<select id="toilet-number-3-1" name="toilet-number-3-1">
+                            座數:<select id="toilet-number-3-1" name="toilet-number-3-1" class="tiny-select-menu">
                                 <option value="" style="display:none;">請選擇座數</option>
                                 <option value="3">1~3座</option>
                                 <option value="6">4~6座</option>
@@ -1251,6 +1316,7 @@ function content_5d261d7dd605a9_33175828 (Smarty_Internal_Template $_smarty_tpl)
                         </div>
                         <input type="hidden" id="toilet-ratio-3" name="toilet-ratio-3">
                         <input type="hidden" id="toilet-type-3" name="toilet-type-3">
+                        <input type="hidden" id="toilet-product-3" name="toilet-product-3">
                         <input type="hidden" id="toilet-number-3" name="toilet-number-3">
                         <button type="button" onclick="addItemOnclick('toilet-equipment-','3','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('toilet-equipment-','3')">-</button>
@@ -1258,18 +1324,23 @@ function content_5d261d7dd605a9_33175828 (Smarty_Internal_Template $_smarty_tpl)
                     <td colspan="2">
                         <div class="table-container" id="toilet-equipment-4-1" style="margin-top:15px;">
                             <!-- 比例:<input type="radio" name="toilet-ratio-4-1" value="1">1<input type="radio" name="toilet-ratio-4-1" value="0.5">1/2<br> -->
-                            比例:<select id="toilet-ratio-4-1" name="toilet-ratio-4-1">
+                            比例:<select id="toilet-ratio-4-1" name="toilet-ratio-4-1" class="tiny-select-menu">
                                 <option value="" style="display:none;">請選擇比例</option>
                                 <option value="1">1</option>
                                 <option value="0.5">1/2</option>
                             </select><br>
-                            型式:<select id="toilet-type-4-1" name="toilet-type-4-1" class="select-menu">
+                            型式:<select id="toilet-type-4-1" name="toilet-type-4-1" class="tiny-select-menu" onchange="load_toilet_data(4,1)">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['toilet_equipment_option']->value;?>
 
-                            </select><br>
+                            </select>
+
+                            <select id="toilet-product-4-1" name="toilet-product-4-1">
+                                <option value="" style="display:none;">請選擇種類</option>
+                            </select>
+                            <br>
                             <!-- 座數:<input type="radio" name="toilet-number-4-1" value="3">1~3座<input type="radio" name="toilet-number-4-1" value="6">4~6座<input type="radio" name="toilet-number-4-1" value="7">7座以上 -->
-                            座數:<select id="toilet-number-4-1" name="toilet-number-4-1">
+                            座數:<select id="toilet-number-4-1" name="toilet-number-4-1" class="tiny-select-menu">
                                 <option value="" style="display:none;">請選擇座數</option>
                                 <option value="3">1~3座</option>
                                 <option value="6">4~6座</option>
@@ -1278,6 +1349,7 @@ function content_5d261d7dd605a9_33175828 (Smarty_Internal_Template $_smarty_tpl)
                         </div>
                         <input type="hidden" id="toilet-ratio-4" name="toilet-ratio-4">
                         <input type="hidden" id="toilet-type-4" name="toilet-type-4">
+                        <input type="hidden" id="toilet-product-4" name="toilet-product-4">
                         <input type="hidden" id="toilet-number-4" name="toilet-number-4">
                         <button type="button" onclick="addItemOnclick('toilet-equipment-','4','1')">+</button>
                         <button type="button" onclick="removeItemOnclick('toilet-equipment-','4')">-</button>
@@ -1345,10 +1417,10 @@ function content_5d261d7dd605a9_33175828 (Smarty_Internal_Template $_smarty_tpl)
 
                 <tr>
                     <td>窗或陽台設鐵柵<br>(鐵窗)</td>
-                    <td colspan="2"><input type="radio" name="window-level-1" value="普通">普通<input type="radio" name="window-level-1" value="美術">美術<input type="radio" name="window-level-1" value="豪華">豪華</td>
-                    <td colspan="2"><input type="radio" name="window-level-2" value="普通">普通<input type="radio" name="window-level-2" value="美術">美術<input type="radio" name="window-level-2" value="豪華">豪華</td>
-                    <td colspan="2"><input type="radio" name="window-level-3" value="普通">普通<input type="radio" name="window-level-3" value="美術">美術<input type="radio" name="window-level-3" value="豪華">豪華</td>
-                    <td colspan="2"><input type="radio" name="window-level-4" value="普通">普通<input type="radio" name="window-level-4" value="美術">美術<input type="radio" name="window-level-4" value="豪華">豪華</td>
+                    <td colspan="2"><input type="radio" name="window-level-1" value="普通型">普通型<input type="radio" name="window-level-1" value="美術型">美術型<input type="radio" name="window-level-1" value="豪華型">豪華型</td>
+                    <td colspan="2"><input type="radio" name="window-level-2" value="普通型">普通型<input type="radio" name="window-level-2" value="美術型">美術型<input type="radio" name="window-level-2" value="豪華型">豪華型</td>
+                    <td colspan="2"><input type="radio" name="window-level-3" value="普通型">普通型<input type="radio" name="window-level-3" value="美術型">美術型<input type="radio" name="window-level-3" value="豪華型">豪華型</td>
+                    <td colspan="2"><input type="radio" name="window-level-4" value="普通型">普通型<input type="radio" name="window-level-4" value="美術型">美術型<input type="radio" name="window-level-4" value="豪華型">豪華型</td>
                 </tr>
 
                 <tr>

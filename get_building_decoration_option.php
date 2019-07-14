@@ -16,6 +16,10 @@ switch ($category) {
         $result_option = get_floor_type_option($material,$building_type);
         break;
 
+    case 'add_minus_wall':
+        $result_option = get_building_decoration_option('加減牆');
+        break;
+
     case 'indoor_divide':
         $result_option = get_building_decoration_option('室內隔牆構造');
         break;
@@ -42,6 +46,11 @@ switch ($category) {
 
     case 'toilet_equipment':
         $result_option = get_building_decoration_option('給水、浴、廁設備');
+        break;
+
+    case 'toilet_type':
+        $item_name = $_POST['item_name'];
+        $result_option = get_toilet_type_option($item_name);
         break;
 }
 // $item_type = $_POST['item_type'];

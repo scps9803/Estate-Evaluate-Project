@@ -157,11 +157,34 @@ function get_floor_type_option($material,$building_type){
     return $floor_type_option;
 }
 
-function insertLandData($land_section,$land_number,$house_address,$land_use){
+function get_toilet_type_option($item_name){
+    $conn = connect_db();
+    $sql = "SELECT item_type FROM building_decoration WHERE category='給水、浴、廁設備' AND item_name='{$item_name}'";
+    $res = $conn->query($sql);
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $toilet_product[$i] = $row;
+        $i++;
+    }
+
+    $conn->close();
+
+    $toilet_product_option = "";
+
+    for($i=0;$i<count($toilet_product);$i++){
+        $toilet_product_option = $toilet_product_option
+        ."<option value='".$toilet_product[$i]["item_type"]."'>".$toilet_product[$i]["item_type"]."</option>";
+    }
+
+    return $toilet_product_option;
+}
+
+function insertLandData($land_section,$subsection,$land_number,$house_address,$land_use){
     $conn = connect_db();
 
     for($i=0;$i<count($land_section);$i++){
-        $land_id = $land_section[$i].$land_number[$i];
+        $land_id = $land_section[$i].$subsection[$i].$land_number[$i];
         $sql = "INSERT INTO building_locate VALUES('{$land_id}','{$house_address}','{$land_use}')";
 
         if ($conn->query($sql) === TRUE){
@@ -249,17 +272,17 @@ function insertResidentData($captain,$total_people,$house_address){
     $conn->close();
 }
 
-function insertFloorData($script_number,$main_building,$house_address){
+function insertFloorData($script_number,$main_building,$house_address,$discard_status){
     $conn = connect_db();
 
     for($i=0;$i<count($main_building);$i++){
         $fId = $script_number."-".$main_building[$i]["floor_id"];
         $sql = "INSERT INTO floor_info VALUES('{$fId}','{$main_building[$i]["house_type"]}',
-            '{$main_building[$i]["compensate_form"]}','{$main_building[$i]["material"]}',
-            '{$main_building[$i]["floor_type"]}','{$main_building[$i]["nth_floor"]}',
-            '{$main_building[$i]["floor_area"]}','{$main_building[$i]["floor_area"]}',
-            '{$main_building[$i]["usage"]}','{$main_building[$i]["layer-height"]}',
-            '{$house_address}')";
+            '{$discard_status[$i]}','{$main_building[$i]["compensate_form"]}',
+            '{$main_building[$i]["material"]}','{$main_building[$i]["floor_type"]}',
+            '{$main_building[$i]["nth_floor"]}','{$main_building[$i]["floor_area"]}',
+            '{$main_building[$i]["floor_area"]}','{$main_building[$i]["usage"]}',
+            '{$main_building[$i]["layer-height"]}','{$house_address}')";
 
         if ($conn->query($sql) === TRUE){
             // echo "New record created successfully";
@@ -300,6 +323,361 @@ function insertIndoorDivideData($fId,$indoor_divide_numerator,$indoor_divide_den
             }else{
                 echo "Error: " . $sql . "<br>" . $conn->error;
             }
+        }
+    }
+    $conn->close();
+    return $bdId;
+}
+
+function insertOutdoorWallData($fId,$main_building,$outdoor_wall_decoration_numerator,$outdoor_wall_decoration_denominator,$outdoor_wall_decoration_option){
+    $conn = connect_db();
+
+    for($i=0;$i<count($fId);$i++){
+
+        for($j=0;$j<count($outdoor_wall_decoration_numerator[$i]);$j++){
+
+            $sql = "SELECT bdId FROM building_decoration WHERE category='屋外牆粉裝' AND item_name='{$outdoor_wall_decoration_option[$i][$j]}' AND building_type='{$main_building[$i]["house_type"]}'";
+            $res = $conn->query($sql);
+
+            while($row = $res->fetch_assoc()) {
+                $bdId[$i][$j] = $row["bdId"];
+            }
+
+            $ratio = (float)$outdoor_wall_decoration_numerator[$i][$j]/$outdoor_wall_decoration_denominator[$i][$j];
+            $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId[$i][$j]}',NULL,'{$ratio}')";
+
+            if ($conn->query($sql) === TRUE){
+                // echo "New record created successfully";
+            }else{
+                echo "Error: " . $sql . "<br>" . $conn->error;
+            }
+        }
+    }
+    $conn->close();
+    return $bdId;
+}
+
+function insertIndoorWallData($fId,$indoor_wall_type,$indoor_wall_decoration_numerator,$indoor_wall_decoration_denominator,$indoor_wall_decoration_option){
+    $conn = connect_db();
+
+    for($i=0;$i<count($fId);$i++){
+
+        for($j=0;$j<count($indoor_wall_decoration_numerator[$i]);$j++){
+
+            $sql = "SELECT bdId FROM building_decoration WHERE category='室內牆粉裝' AND item_name='{$indoor_wall_decoration_option[$i][$j]}' AND item_type='{$indoor_wall_type[$i][$j]}'";
+            $res = $conn->query($sql);
+
+            while($row = $res->fetch_assoc()) {
+                $bdId[$i][$j] = $row["bdId"];
+            }
+
+            $ratio = (float)$indoor_wall_decoration_numerator[$i][$j]/$indoor_wall_decoration_denominator[$i][$j];
+            $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId[$i][$j]}',NULL,'{$ratio}')";
+
+            if ($conn->query($sql) === TRUE){
+                // echo "New record created successfully";
+            }else{
+                echo "Error: " . $sql . "<br>" . $conn->error;
+            }
+        }
+    }
+    $conn->close();
+    return $bdId;
+}
+
+function insertRoofData($fId,$roof_decoration_numerator,$roof_decoration_denominator,$roof_decoration_option){
+    $conn = connect_db();
+
+    for($i=0;$i<count($fId);$i++){
+
+        for($j=0;$j<count($roof_decoration_numerator[$i]);$j++){
+
+            $sql = "SELECT bdId FROM building_decoration WHERE category='屋頂(面)粉裝' AND item_name='{$roof_decoration_option[$i][$j]}'";
+            $res = $conn->query($sql);
+
+            while($row = $res->fetch_assoc()) {
+                $bdId[$i][$j] = $row["bdId"];
+            }
+
+            $ratio = (float)$roof_decoration_numerator[$i][$j]/$roof_decoration_denominator[$i][$j];
+            $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId[$i][$j]}',NULL,'{$ratio}')";
+
+            if ($conn->query($sql) === TRUE){
+                // echo "New record created successfully";
+            }else{
+                echo "Error: " . $sql . "<br>" . $conn->error;
+            }
+        }
+    }
+    $conn->close();
+    return $bdId;
+}
+
+function insertFloorDecorData($fId,$floor_decoration_numerator,$floor_decoration_denominator,$floor_decoration_option){
+    $conn = connect_db();
+
+    for($i=0;$i<count($fId);$i++){
+
+        for($j=0;$j<count($floor_decoration_numerator[$i]);$j++){
+
+            $sql = "SELECT bdId FROM building_decoration WHERE category='樓地板粉裝' AND item_name='{$floor_decoration_option[$i][$j]}'";
+            $res = $conn->query($sql);
+
+            while($row = $res->fetch_assoc()) {
+                $bdId[$i][$j] = $row["bdId"];
+            }
+
+            $ratio = (float)$floor_decoration_numerator[$i][$j]/$floor_decoration_denominator[$i][$j];
+            $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId[$i][$j]}',NULL,'{$ratio}')";
+
+            if ($conn->query($sql) === TRUE){
+                // echo "New record created successfully";
+            }else{
+                echo "Error: " . $sql . "<br>" . $conn->error;
+            }
+        }
+    }
+    $conn->close();
+    return $bdId;
+}
+
+function insertCeilingData($fId,$ceiling_decoration_numerator,$ceiling_decoration_denominator,$ceiling_decoration_option){
+    $conn = connect_db();
+
+    for($i=0;$i<count($fId);$i++){
+
+        for($j=0;$j<count($ceiling_decoration_numerator[$i]);$j++){
+
+            $sql = "SELECT bdId FROM building_decoration WHERE category='天花板粉裝' AND item_name='{$ceiling_decoration_option[$i][$j]}'";
+            $res = $conn->query($sql);
+
+            while($row = $res->fetch_assoc()) {
+                $bdId[$i][$j] = $row["bdId"];
+            }
+
+            $ratio = (float)$ceiling_decoration_numerator[$i][$j]/$ceiling_decoration_denominator[$i][$j];
+            $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId[$i][$j]}',NULL,'{$ratio}')";
+
+            if ($conn->query($sql) === TRUE){
+                // echo "New record created successfully";
+            }else{
+                echo "Error: " . $sql . "<br>" . $conn->error;
+            }
+        }
+    }
+    $conn->close();
+    return $bdId;
+}
+
+function insertDoorWindowData($fId,$door_window_numerator,$door_window_denominator,$door_window,$double_door,$double_window,$main_building){
+    $conn = connect_db();
+
+    for($i=0;$i<count($fId);$i++){
+
+        if(($door_window[$i] != $double_door[$i]) && ($double_door[$i] != "")){
+            $sql = "SELECT bdId FROM building_decoration WHERE category='門窗裝置' AND item_name='{$double_door[$i]}' AND building_type='{$main_building[$i]["house_type"]}'";
+            $res = $conn->query($sql);
+
+            while($row = $res->fetch_assoc()) {
+                $bdId[$i]["double"] = $row["bdId"];
+            }
+
+            $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId[$i]["double"]}',NULL,0.5)";
+
+            if ($conn->query($sql) === TRUE){
+                // echo "New record created successfully";
+            }else{
+                echo "Error: " . $sql . "<br>" . $conn->error;
+            }
+        }
+        else if(($door_window[$i] != $double_window[$i]) && ($double_window[$i] != "")){
+            $sql = "SELECT bdId FROM building_decoration WHERE category='門窗裝置' AND item_name='{$double_window[$i]}' AND building_type='{$main_building[$i]["house_type"]}'";
+            $res = $conn->query($sql);
+
+            while($row = $res->fetch_assoc()) {
+                $bdId[$i]["double"] = $row["bdId"];
+            }
+
+            $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId[$i]["double"]}',NULL,0.5)";
+
+            if ($conn->query($sql) === TRUE){
+                // echo "New record created successfully";
+            }else{
+                echo "Error: " . $sql . "<br>" . $conn->error;
+            }
+        }
+        $sql = "SELECT bdId FROM building_decoration WHERE category='門窗裝置' AND item_name='{$door_window[$i]}' AND building_type='{$main_building[$i]["house_type"]}'";
+        $res = $conn->query($sql);
+
+        while($row = $res->fetch_assoc()) {
+            $bdId[$i]["normal"] = $row["bdId"];
+        }
+
+        $ratio = (float)$door_window_numerator[$i]/$door_window_denominator[$i];
+        $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId[$i]["normal"]}',NULL,'{$ratio}')";
+
+        if ($conn->query($sql) === TRUE){
+            // echo "New record created successfully";
+        }else{
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+    }
+    $conn->close();
+    return $bdId;
+}
+
+function insertToiletData($fId,$toilet_ratio,$toilet_type,$toilet_product){
+    $conn = connect_db();
+
+    for($i=0;$i<count($fId);$i++){
+
+        for($j=0;$j<count($toilet_type[$i]);$j++){
+
+            $sql = "SELECT bdId FROM building_decoration WHERE category='給水、浴、廁設備' AND item_name='{$toilet_type[$i][$j]}' AND item_type='{$toilet_product[$i][$j]}'";
+            $res = $conn->query($sql);
+
+            while($row = $res->fetch_assoc()) {
+                $bdId[$i][$j] = $row["bdId"];
+            }
+
+            $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId[$i][$j]}',NULL,'{$toilet_ratio[$i][$j]}')";
+
+            if ($conn->query($sql) === TRUE){
+                // echo "New record created successfully";
+            }else{
+                echo "Error: " . $sql . "<br>" . $conn->error;
+            }
+        }
+    }
+    $conn->close();
+    return $bdId;
+}
+
+function insertElectricData($fId,$electric_usage,$electric_type){
+    $conn = connect_db();
+
+    for($i=0;$i<count($fId);$i++){
+        $sql = "SELECT bdId FROM building_decoration WHERE category='電氣設備(包括燈具)' AND item_type='{$electric_usage[$i]}' AND item_name='{$electric_type[$i]}'";
+        // $sql = "SELECT bdId FROM building_decoration WHERE category='電氣設備(包括燈具)' AND item_type='工廠庫房' AND item_name='電泡、普通日光燈露出配線簡單設備'";
+        $res = $conn->query($sql);
+
+        while($row = $res->fetch_assoc()) {
+            $bdId[$i] = $row["bdId"];
+        }
+
+        $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId[$i]}',NULL,1)";
+
+        if ($conn->query($sql) === TRUE){
+            // echo "New record created successfully";
+        }else{
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+    }
+    $conn->close();
+    return $bdId;
+}
+
+function insertWindowLevelData($fId,$window_level,$main_building){
+    $conn = connect_db();
+
+    for($i=0;$i<count($fId);$i++){
+        $sql = "SELECT bdId FROM building_decoration WHERE category='其他項目門窗裝置加柵' AND item_name='{$window_level[$i]}' AND building_type='{$main_building[$i]["house_type"]}'";
+        $res = $conn->query($sql);
+
+        while($row = $res->fetch_assoc()) {
+            $bdId[$i] = $row["bdId"];
+        }
+
+        $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId[$i]}',NULL,1)";
+
+        if ($conn->query($sql) === TRUE){
+            // echo "New record created successfully";
+        }else{
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+    }
+    $conn->close();
+    return $bdId;
+}
+
+function insertDaughterWallData($fId,$daughter_wall){
+    $conn = connect_db();
+
+    $sql = "SELECT DISTINCT item_name FROM building_decoration WHERE category='女兒牆'";
+    $res = $conn->query($sql);
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $item_name[$i] = $row["item_name"];
+        $i++;
+    }
+
+
+    for($i=0;$i<count($fId);$i++){
+        // $count = Array(""=>0, ""=>0, ""=>0);
+        // 初始化陣列
+        for($j=0;$j<count($item_name);$j++){
+            $count["{$item_name[$j]}"] = 0;
+        }
+
+        for($j=0;$j<count($daughter_wall[$i]);$j++){
+            $str = explode ("-",$daughter_wall[$i][$j]);
+            if($str[0] == "half_B"){
+                $value[$i][$j] = "1/2B";
+            }
+            else{
+                $value[$i][$j] = $str[0];
+            }
+            $item[$j] = $value[$i][$j];
+            $count["{$item[$j]}"] += 1;
+
+            $sql = "SELECT bdId FROM building_decoration WHERE category='女兒牆' AND item_name='{$value[$i][$j]}'";
+            $res = $conn->query($sql);
+
+            while($row = $res->fetch_assoc()) {
+                $bdId[$i][$j] = $row["bdId"];
+            }
+
+            // $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId[$i][$j]}',NULL,1)";
+            //
+            // if ($conn->query($sql) === TRUE){
+            //     // echo "New record created successfully";
+            // }else{
+            //     echo "Error: " . $sql . "<br>" . $conn->error;
+            // }
+        }
+
+        for($j=0;$j<count($daughter_wall[$i]);$j++){
+            $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId[$i][$j]}',NULL,'{$count[$item[$j]]}')";
+
+            if ($conn->query($sql) === TRUE){
+                // echo "New record created successfully";
+            }else{
+                echo "Error: " . $sql . "<br>" . $conn->error;
+            }
+        }
+    }
+    $conn->close();
+    return $bdId;
+}
+
+function insertBalconyData($fId,$balcony){
+    $conn = connect_db();
+
+    for($i=0;$i<count($fId);$i++){
+        $sql = "SELECT bdId FROM building_decoration WHERE category='陽台' AND item_name='陽台'";
+        $res = $conn->query($sql);
+
+        while($row = $res->fetch_assoc()) {
+            $bdId[$i] = $row["bdId"];
+        }
+
+        $count = count($balcony[$i]);
+        $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId[$i]}',NULL,'{$count}')";
+
+        if ($conn->query($sql) === TRUE){
+            // echo "New record created successfully";
+        }else{
+            echo "Error: " . $sql . "<br>" . $conn->error;
         }
     }
     $conn->close();
