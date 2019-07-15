@@ -255,13 +255,71 @@ function insertOwnBuildingData($pId,$house_address,$hold_ratio){
     $conn->close();
 }
 
-function insertResidentData($captain,$total_people,$house_address){
+function insertResidentData($captain,$total_people,$house_address,$exit_num,$remove_condition){
     $conn = connect_db();
+    $total_family_num = 0;
+    $index = 0;
+
+    if(count($captain)<=$exit_num){
+        for($i=0;$i<count($captain);$i++){
+            if($captain[$i]["family_num"]<6){
+                $sql = "SELECT mId FROM migration_fee WHERE family_num='{$captain[$i]["family_num"]}' AND item_type='{$remove_condition}'";
+            }
+            else{
+                $sql = "SELECT mId FROM migration_fee WHERE family_num='6' AND item_type='{$remove_condition}'";
+            }
+
+            $res = $conn->query($sql);
+            while($row = $res->fetch_assoc()) {
+                $mId[$i] = $row["mId"];
+            }
+            $move_status[$i] = "個別領取";
+        }
+    }
+    else{
+        for($i=0;$i<count($captain);$i++){
+            if($captain[$i]['independent']=="yes"){
+
+                if($captain[$i]["family_num"]<6){
+                    $sql = "SELECT mId FROM migration_fee WHERE family_num='{$captain[$i]["family_num"]}' AND item_type='{$remove_condition}'";
+                }
+                else{
+                    $sql = "SELECT mId FROM migration_fee WHERE family_num='6' AND item_type='{$remove_condition}'";
+                }
+
+                $res = $conn->query($sql);
+                while($row = $res->fetch_assoc()) {
+                    $mId[$i] = $row["mId"];
+                }
+
+                $move_status[$i] = "個別領取";
+            }
+            else{
+                $shareFeeIndex[$index] = $i;
+                $total_family_num += $captain[$i]["family_num"];
+                $move_status[$i] = "共同領取";
+                $index++;
+            }
+        }
+        for($i=0;$i<count($shareFeeIndex);$i++){
+            if($total_family_num<6){
+                $sql = "SELECT mId FROM migration_fee WHERE family_num='{$total_family_num}' AND item_type='{$remove_condition}'";
+            }
+            else{
+                $sql = "SELECT mId FROM migration_fee WHERE family_num='6' AND item_type='{$remove_condition}'";
+            }
+
+            $res = $conn->query($sql);
+            while($row = $res->fetch_assoc()) {
+                $mId[$shareFeeIndex[$i]] = $row["mId"];
+            }
+        }
+    }
 
     for($i=0;$i<count($captain);$i++){
         $sql = "INSERT INTO resident VALUES('{$captain[$i]["id"]}','{$captain[$i]["name"]}',
             '{$captain[$i]["household_number"]}','{$captain[$i]["set_household_date"]}',
-            '{$captain[$i]["family_num"]}','{$house_address}')";
+            '{$captain[$i]["family_num"]}','{$house_address}','{$mId[$i]}','{$move_status[$i]}')";
 
         if ($conn->query($sql) === TRUE){
             // echo "New record created successfully";

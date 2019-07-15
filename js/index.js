@@ -25,6 +25,7 @@ var captain_id_count = 1;
 var household_number_count = 1;
 var set_household_date_count = 1;
 var family_num_count = 1;
+var independent_count = 0;
 
 function addItemOnclick(id,column,num){
     var itemId = "#"+id+column+"-"+num;
@@ -516,7 +517,8 @@ function addInfoItemOnclick(id){
             addInfoItemOnclick('family-num');
             text =
             '<div id="captain-'+captain_count+'">'+
-                '<input type="text" name="captain-'+captain_count+'" required>'+
+                '<input type="text" name="captain-'+captain_count+'" required>&nbsp;'+
+                '<input type="checkbox" id="independent-'+captain_count+'" name="independent-'+captain_count+'" onchange="setIndependent()">有獨立生活機能'+
             '</div>';
             getCaptainCount();
             break;
@@ -934,6 +936,18 @@ function saveDialog(){
         $("#house_form").attr("action","sub_building.php");
     }
     else{
+        value_array = [];
+        for(var i=0;i<captain_count;i++){
+            if(document.getElementById("independent-"+(i+1)).checked){
+                $("#independent-"+(i+1)).val("yes");
+            }
+            else{
+                $("#independent-"+(i+1)).val("no");
+            }
+            value_array[i] = $("#independent-"+(i+1)).val();
+        }
+        $("#independent-judge").val(value_array);
+
         itemId = ["#minus-wall-num-","#minus-wall-option-","#add-wall-num-","#add-wall-option-"];
         writeToId = ["#minus-wall-count-","#minus-wall-option-","#add-wall-count-","#add-wall-option-"];
         countId = [this.minus_wall_count,this.add_wall_count];
@@ -1077,6 +1091,32 @@ function exportExcel(script_number,house_address){
              window.alert(err.statusText);
          }
     });
+}
+
+function setIndependent(){
+    if($("#exit-num").val()==""){
+        window.alert("請先選擇出口數!");
+        $focused = $(':focus');
+        $focused.prop("checked",false);
+    }
+    // for(var i=0;i<captain_count;i++){
+    //     if(document.getElementById("independent-"+(i+1)).checked){
+    //         if(independent_count<(captain_count-$("#exit-num").val())){
+    //             independent_count++;
+    //         }
+    //         else{
+    //             if(!document.getElementById("independent-"+(i+1)).checked){
+    //                 $("#independent-"+(i+1)).attr("disabled","true");
+    //             }
+    //         }
+    //     }
+    //     else{
+    //         if(!document.getElementById("independent-"+(i+1)).checked){
+    //             $("#independent-"+(i+1)).attr("disabled","false");
+    //         }
+    //         independent_count--;
+    //     }
+    // }
 }
 $(document).ready(function(){
     getOwnerCount();

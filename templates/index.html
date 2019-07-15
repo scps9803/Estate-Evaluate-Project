@@ -182,7 +182,7 @@
 
                     <tr>
                         <td>
-                            <select class="select-menu" name="exit-num" required>
+                            <select class="select-menu" id="exit-num" name="exit-num" required>
                                 <option value="" style="display:none;">請選擇項目</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -198,6 +198,8 @@
                             <div id="captain">
                                 <div id="captain-1">
                                     <input type="text" name="captain-1">
+                                    <input type="checkbox" id="independent-1" name="independent-1" onchange="setIndependent()">有獨立生活機能
+                                    <input type="hidden" id="independent-judge" name="independent-judge">
                                 </div>
                             </div>
                             <input type="hidden" id="captain_count" name="captain_count">

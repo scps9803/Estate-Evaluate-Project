@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-07-14 01:36:17
+/* Smarty version 3.1.33, created on 2019-07-15 16:36:10
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\index.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d2a8711ce9083_08578623',
+  'unifunc' => 'content_5d2cab7aa07403_15063203',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8c5734ee732081c4a28e016fd1e3245b00b0a0f9' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\index.html',
-      1 => 1563068127,
+      1 => 1563208181,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d2a8711ce9083_08578623 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d2cab7aa07403_15063203 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -213,7 +213,7 @@ function content_5d2a8711ce9083_08578623 (Smarty_Internal_Template $_smarty_tpl)
 
                     <tr>
                         <td>
-                            <select class="select-menu" name="exit-num" required>
+                            <select class="select-menu" id="exit-num" name="exit-num" required>
                                 <option value="" style="display:none;">請選擇項目</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -229,6 +229,8 @@ function content_5d2a8711ce9083_08578623 (Smarty_Internal_Template $_smarty_tpl)
                             <div id="captain">
                                 <div id="captain-1">
                                     <input type="text" name="captain-1">
+                                    <input type="checkbox" id="independent-1" name="independent-1" onchange="setIndependent()">有獨立生活機能
+                                    <input type="hidden" id="independent-judge" name="independent-judge">
                                 </div>
                             </div>
                             <input type="hidden" id="captain_count" name="captain_count">

@@ -59,9 +59,14 @@ $exit_num = $_POST['exit-num'];
 // 現住人資料
 $captain_count = $_POST['captain_count'];
 $total_people = 0;
+if(isset($_POST['independent-judge'])){
+    $independent = explode (",",$_POST['independent-judge']);
+}
+
 if($captain_count>=1){
     for($i=0;$i<$captain_count;$i++){
         $captain[$i]['name'] = $_POST['captain-'.($i+1)];
+        $captain[$i]['independent'] = $independent[$i];
         $captain[$i]['id'] = $_POST['captain-id-'.($i+1)];
         $captain[$i]['household_number'] = $_POST['household-number-'.($i+1)];
         $captain[$i]['set_household_date'] = $_POST['set-household-date-'.($i+1)];
@@ -373,7 +378,7 @@ insertBuildingData($house_address,$legal_status,$build_number,$tax_number,
     $legal_certificate,$build_certificate,$captain_count,$exit_num,
     $total_floor,$remove_condition);
 insertOwnBuildingData($pId,$house_address,$hold_ratio);
-insertResidentData($captain,$total_people,$house_address);
+insertResidentData($captain,$total_people,$house_address,$exit_num,$remove_condition);
 insertFloorData($script_number,$main_building,$house_address,$discard_status);
 
 // 儲存粉裝資料
