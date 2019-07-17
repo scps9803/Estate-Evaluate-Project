@@ -347,6 +347,23 @@ function insertFloorData($script_number,$main_building,$house_address,$discard_s
         }else{
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
+
+        $sql = "SELECT bdId FROM building_decoration WHERE category='房屋構造體(別)' AND
+            item_name='{$main_building[$i]["material"]}' AND item_type='{$main_building[$i]["floor_type"]}'
+            AND building_type='{$main_building[$i]["house_type"]}'";
+
+        $res = $conn->query($sql);
+        while($row = $res->fetch_assoc()) {
+            $bdId[$i] = $row["bdId"];
+        }
+
+        $sql = "INSERT INTO has_building_decoration VALUES('{$fId}','{$bdId[$i]}',NULL,1)";
+
+        if ($conn->query($sql) === TRUE){
+            // echo "New record created successfully";
+        }else{
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
     }
     $conn->close();
 }
@@ -851,4 +868,38 @@ function getResidentData($house_address){
     $conn->close();
     return $result;
 }
+
+function getMainBuildingData($house_address){
+    $conn = connect_db();
+
+    $sql = "SELECT * FROM (floor_info NATURAL JOIN has_building_decoration) NATURAL JOIN building_decoration WHERE address='{$house_address}' AND category='房屋構造體(別)'";
+    $res = $conn->query($sql);
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $row["points"] = number_format($row["points"],2,".",",");
+        $row["floor_area"] = number_format($row["floor_area"],2,".",",");
+        $result[$i] = $row;
+        $i++;
+    }
+
+    $conn->close();
+    return $result;
+}
+
+// function getStructurePoints($house_address){
+//     $conn = connect_db();
+//
+//     $sql = "SELECT * FROM floor_info NATURAL JOIN building WHERE address='{$house_address}'";
+//     $res = $conn->query($sql);
+//
+//     $i = 0;
+//     while($row = $res->fetch_assoc()) {
+//         $result[$i] = $row;
+//         $i++;
+//     }
+//
+//     $conn->close();
+//     return $result;
+// }
 ?>

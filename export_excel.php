@@ -4,10 +4,14 @@ include "library.php";
 // $house_address = $_POST["house_address"];
 // $data = getRecordData($house_address);
 $script_number = "建合001";
-$owner_data = getOwnerData("建國二路100號");
-$building_data = getBuildingData('建國二路100號');
-$land_data = getLandData('建國二路100號');
-$resident_data = getResidentData('建國二路100號');
+$house_address = '建國二路100號';
+$price = 12.6;
+$owner_data = getOwnerData($house_address);
+$building_data = getBuildingData($house_address);
+$land_data = getLandData($house_address);
+$resident_data = getResidentData($house_address);
+$main_building_data = getMainBuildingData($house_address);
+// $points = getStructurePoints($house_address);
 
 // echo count($owner_data);
 // echo $owner_data[0]["name"];
@@ -91,6 +95,25 @@ for($i=0;$i<count($resident_data);$i++){
     $objPHPExcel->setActiveSheetIndex(0)->setCellValue( 'X10', $total_people);
 }
 
+$total_area = 0;
+$total_price = 0;
+for($i=0;$i<count($main_building_data);$i++){
+    $objPHPExcel->setActiveSheetIndex(0)
+                ->setCellValue( 'A'.($i+13), $i+1)
+                ->setCellValue( 'C'.($i+13), $main_building_data[$i]["structure"].$main_building_data[$i]["floor_type"])
+                ->setCellValue( 'I'.($i+13), $main_building_data[$i]["nth_floor"]."/".count($main_building_data))
+                ->setCellValue( 'J'.($i+13), $main_building_data[$i]["use_type"])
+                ->setCellValue( 'L'.($i+13), $main_building_data[$i]["points"])
+                ->setCellValue( 'O'.($i+13), $main_building_data[$i]["points"])
+                ->setCellValue( 'Q'.($i+13), $price)
+                ->setCellValue( 'S'.($i+13), $main_building_data[$i]["floor_area"])
+                ->setCellValue( 'U'.($i+13), number_format($main_building_data[$i]["points"]*$main_building_data[$i]["floor_area"]*$price,0,"",","));
+                $total_area += $main_building_data[$i]["floor_area"];
+                // $total_price += number_format($main_building_data[$i]["points"]*$main_building_data[$i]["floor_area"]*$price,"0","",",");
+}
+$objPHPExcel->setActiveSheetIndex(0)
+            ->setCellValue( 'S20', $total_area);
+            // ->setCellValue( 'U20', $total_price);
 
 
 $objActSheet = $objPHPExcel->getActiveSheet();
@@ -98,5 +121,5 @@ $objActSheet->setTitle('Simple2222');
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
 $objWriter->save('file/myexchel.xls');
 
-echo json_encode(array('status' => 'completed'));
+echo json_encode(array('status' => 'completed','tt' => $main_building_data[0]["points"],'type' => $main_building_data[0]["floor_area"]));
 ?>

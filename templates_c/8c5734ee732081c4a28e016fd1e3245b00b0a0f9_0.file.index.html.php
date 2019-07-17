@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-07-15 16:36:10
+/* Smarty version 3.1.33, created on 2019-07-17 11:50:30
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\index.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d2cab7aa07403_15063203',
+  'unifunc' => 'content_5d2f0b86e5c236_25535080',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8c5734ee732081c4a28e016fd1e3245b00b0a0f9' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\index.html',
-      1 => 1563208181,
+      1 => 1563364176,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d2cab7aa07403_15063203 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d2f0b86e5c236_25535080 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -229,7 +229,7 @@ function content_5d2cab7aa07403_15063203 (Smarty_Internal_Template $_smarty_tpl)
                             <div id="captain">
                                 <div id="captain-1">
                                     <input type="text" name="captain-1">
-                                    <input type="checkbox" id="independent-1" name="independent-1" onchange="setIndependent()">有獨立生活機能
+                                    <input type="checkbox" id="independent-1" name="independent-1">有獨立生活機能
                                     <input type="hidden" id="independent-judge" name="independent-judge">
                                 </div>
                             </div>

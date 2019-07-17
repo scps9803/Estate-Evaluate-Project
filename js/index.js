@@ -518,7 +518,7 @@ function addInfoItemOnclick(id){
             text =
             '<div id="captain-'+captain_count+'">'+
                 '<input type="text" name="captain-'+captain_count+'" required>&nbsp;'+
-                '<input type="checkbox" id="independent-'+captain_count+'" name="independent-'+captain_count+'" onchange="setIndependent()">有獨立生活機能'+
+                '<input type="checkbox" id="independent-'+captain_count+'" name="independent-'+captain_count+'">有獨立生活機能'+
             '</div>';
             getCaptainCount();
             break;
@@ -1093,31 +1093,83 @@ function exportExcel(script_number,house_address){
     });
 }
 
-function setIndependent(){
+function setIndependent(num){
     if($("#exit-num").val()==""){
         window.alert("請先選擇出口數!");
         $focused = $(':focus');
         $focused.prop("checked",false);
     }
-    // for(var i=0;i<captain_count;i++){
-    //     if(document.getElementById("independent-"+(i+1)).checked){
-    //         if(independent_count<(captain_count-$("#exit-num").val())){
-    //             independent_count++;
-    //         }
-    //         else{
-    //             if(!document.getElementById("independent-"+(i+1)).checked){
-    //                 $("#independent-"+(i+1)).attr("disabled","true");
-    //             }
-    //         }
-    //     }
-    //     else{
-    //         if(!document.getElementById("independent-"+(i+1)).checked){
-    //             $("#independent-"+(i+1)).attr("disabled","false");
-    //         }
-    //         independent_count--;
-    //     }
-    // }
+    else{
+        // window.alert(document.getElementById("independent-"+num).checked);
+        var exit_num = $("#exit-num").val();
+        if(document.getElementById("independent-"+num).checked){
+            // if(exit_num==1){
+            //     independent_count++;
+            // }
+            // else if(independent_count < exit_num && exit_num > 1){
+            //     independent_count++;
+            // }
+            // else{
+            //     // var count = $("#exit-num").val();
+            //     window.alert(count+"個出口最多只能有"+count+"戶獨立生活戶!\n請先取消勾選再重新選擇!");
+            //     $focused = $(':focus');
+            //     $focused.prop("checked",false);
+            // }
+
+            // if(exit_num==1){
+            //     window.alert("1個出口所有戶口合併計算!");
+            //     $focused = $(':focus');
+            //     $focused.prop("checked",false);
+            // }
+            // else if(independent_count < exit_num-1 && exit_num > 1){
+            //     independent_count++;
+            // }
+            // else{
+            //     var count = $("#exit-num").val()-1;
+            //     window.alert(count+"個出口最多只能有"+count+"戶獨立生活戶!\n請先取消勾選再重新選擇!");
+            //     $focused = $(':focus');
+            //     $focused.prop("checked",false);
+            // }
+
+            if(exit_num<captain_count){
+                independent_count++;
+            }
+
+        }
+        else{
+            // if(independent_count>=$("#exit-num").val()){
+            //     independent_count--;
+            // }
+            independent_count--;
+        }
+        window.alert(independent_count);
+
+        // for(var i=0;i<captain_count;i++){
+        //     if(document.getElementById("independent-"+(i+1)).checked){
+        //         if(independent_count<$("#exit-num").val()){
+        //             independent_count++;
+        //         }
+        //         else{
+        //             // window.alert(captain_count-$("#exit-num").val());
+        //             // window.alert(independent_count);
+        //             var count = $("#exit-num").val();
+        //             window.alert(count+"個出口最多只能有"+count+"戶獨立生活戶!\n請先取消勾選再重新選擇!");
+        //
+        //             $focused = $(':focus');
+        //             $focused.prop("checked",false);
+        //             break;
+        //         }
+        //     }
+        //     else{
+        //         if(independent_count>=$("#exit-num").val()){
+        //             independent_count--;
+        //         }
+        //     }
+        //     // window.alert("inde: "+independent_count);
+        // }
+    }
 }
+
 $(document).ready(function(){
     getOwnerCount();
     getCaptainCount();
