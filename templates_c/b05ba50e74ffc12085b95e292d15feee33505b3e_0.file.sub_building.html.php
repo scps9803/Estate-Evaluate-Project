@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-06-26 22:39:54
+/* Smarty version 3.1.33, created on 2019-07-18 16:37:03
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\sub_building.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d1383ba5c9af8_03411692',
+  'unifunc' => 'content_5d30a02fc179e0_59866498',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b05ba50e74ffc12085b95e292d15feee33505b3e' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\sub_building.html',
-      1 => 1561559936,
+      1 => 1563467822,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d1383ba5c9af8_03411692 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d30a02fc179e0_59866498 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head>
@@ -55,6 +55,12 @@ function content_5d1383ba5c9af8_03411692 (Smarty_Internal_Template $_smarty_tpl)
                                         <option value="" style="display:none;">請選擇項目</option>
                                         <option value="">電柱(RC造)遷移費</option>
                                         <option value="">窗型冷氣遷移費</option>
+                                    </select>
+
+                                    <select class="small-select-menu" name="other-item-type-1">
+                                        <option value="" style="display:none;">請選擇室內外</option>
+                                        <option value="室內">室內</option>
+                                        <option value="室外">室外</option>
                                     </select>
                                 </div>
                             </div>

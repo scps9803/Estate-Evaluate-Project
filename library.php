@@ -877,8 +877,8 @@ function getMainBuildingData($house_address){
 
     $i = 0;
     while($row = $res->fetch_assoc()) {
-        $row["points"] = number_format($row["points"],2,".",",");
-        $row["floor_area"] = number_format($row["floor_area"],2,".",",");
+        $row["points"] = number_format($row["points"],2,".","");
+        $row["floor_area"] = number_format($row["floor_area"],2,".","");
         $result[$i] = $row;
         $i++;
     }

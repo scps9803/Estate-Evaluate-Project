@@ -486,6 +486,12 @@ function addInfoItemOnclick(id){
                     '<option value="" style="display:none;">請選擇項目</option>'+
                     '<option value="">電柱(RC造)遷移費</option>'+
                     '<option value="">窗型冷氣遷移費</option>'+
+                '</select>&nbsp;'+
+
+                '<select class="small-select-menu" name="other-item-type-'+other_item_count+'">'+
+                    '<option value="" style="display:none;">請選擇室內外</option>'+
+                    '<option value="室內">室內</option>'+
+                    '<option value="室外">室外</option>'+
                 '</select>'+
             '</div>';
             break;

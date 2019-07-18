@@ -2,6 +2,7 @@
 include "library.php";
 // $script_number = $_POST['script_number'];
 // $house_address = $_POST["house_address"];
+
 // $data = getRecordData($house_address);
 $script_number = "建合001";
 $house_address = '建國二路100號';
@@ -11,6 +12,14 @@ $building_data = getBuildingData($house_address);
 $land_data = getLandData($house_address);
 $resident_data = getResidentData($house_address);
 $main_building_data = getMainBuildingData($house_address);
+
+if(substr($script_number,0,6) == "建合"){
+    $compensate_type = "補償";
+}
+else{
+    $compensate_type = "救濟";
+}
+
 // $points = getStructurePoints($house_address);
 
 // echo count($owner_data);
@@ -28,8 +37,17 @@ require_once '/classes/PHPExcel.php';
 require_once '/classes/PHPExcel/Writer/Excel5.php';
 $objPHPExcel  = new PHPExcel();
 
+// 計算主建物、雜項物筆數設定不同頁數的模板
+$main_count = (int)(count($main_building_data)/7)+1;
+$other_count = 1;
+if($other_count > $main_count){
+    $pages = $other_count;
+}
+else{
+    $pages = $main_count;
+}
 // 自行建立的 Excel 版型檔名
-$excelTemplate = './excel_templates/template1.xls';
+$excelTemplate = './excel_templates/template'.$pages.'.xls';
 
 // 判斷 Excel 檔案是否存在
 if (!file_exists($excelTemplate)) {
@@ -97,7 +115,10 @@ for($i=0;$i<count($resident_data);$i++){
 
 $total_area = 0;
 $total_price = 0;
+$total_fee = 0;
+$total_auto = 0;
 for($i=0;$i<count($main_building_data);$i++){
+    $fee = number_format($main_building_data[$i]["points"]*$main_building_data[$i]["floor_area"]*$price,0,"","");
     $objPHPExcel->setActiveSheetIndex(0)
                 ->setCellValue( 'A'.($i+13), $i+1)
                 ->setCellValue( 'C'.($i+13), $main_building_data[$i]["structure"].$main_building_data[$i]["floor_type"])
@@ -107,19 +128,43 @@ for($i=0;$i<count($main_building_data);$i++){
                 ->setCellValue( 'O'.($i+13), $main_building_data[$i]["points"])
                 ->setCellValue( 'Q'.($i+13), $price)
                 ->setCellValue( 'S'.($i+13), $main_building_data[$i]["floor_area"])
-                ->setCellValue( 'U'.($i+13), number_format($main_building_data[$i]["points"]*$main_building_data[$i]["floor_area"]*$price,0,"",","));
+                ->setCellValue( 'U'.($i+13), $fee)
+                ->setCellValue( 'Z'.($i+13), $compensate_type);
                 $total_area += $main_building_data[$i]["floor_area"];
-                // $total_price += number_format($main_building_data[$i]["points"]*$main_building_data[$i]["floor_area"]*$price,"0","",",");
+                $total_price += $fee;
 }
+
+for($i=0;$i<count($main_building_data);$i++){
+    $fee = number_format($main_building_data[$i]["points"]*$main_building_data[$i]["floor_area"]*$price,0,"","");
+    if($compensate_type == "補償"){
+        $objPHPExcel->setActiveSheetIndex(0)
+                    ->setCellValue( 'AB'.($i+13), $fee)
+                    ->setCellValue( 'AE'.($i+13), number_format($fee*0.5,0,"",""));
+                    $total_fee += $fee;
+                    $total_auto += number_format($fee*0.5,0,"","");
+    }
+    else{
+        $objPHPExcel->setActiveSheetIndex(0)
+                    ->setCellValue( 'AB'.($i+13), number_format($fee*0.6,0,"",""))
+                    ->setCellValue( 'AE'.($i+13), number_format($fee*0.6*0.5,0,"",""));
+                    $total_fee += number_format($fee*0.6,0,"","");
+                    $total_auto += number_format($fee*0.6*0.5,0,"","");
+    }
+}
+
 $objPHPExcel->setActiveSheetIndex(0)
-            ->setCellValue( 'S20', $total_area);
-            // ->setCellValue( 'U20', $total_price);
+            ->setCellValue( 'S20', $total_area)
+            ->setCellValue( 'U20', $total_price)
+            ->setCellValue( 'AB20', $total_fee)
+            ->setCellValue( 'AE20', $total_auto);
 
 
 $objActSheet = $objPHPExcel->getActiveSheet();
-$objActSheet->setTitle('Simple2222');
+$objActSheet->setTitle('default');
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
 $objWriter->save('file/myexchel.xls');
+date_default_timezone_set('Asia/Taipei');
+// $objWriter->save('file/'.date("YmdHis").'.xls');
 
 echo json_encode(array('status' => 'completed','tt' => $main_building_data[0]["points"],'type' => $main_building_data[0]["floor_area"]));
 ?>
