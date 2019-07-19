@@ -381,7 +381,9 @@ function addInfoItemOnclick(id){
             addInfoItemOnclick('land-number');
             text =
             '<div id="land-section-'+land_section_count+'">'+
-            '<input type="text" name="land-section-'+land_section_count+'" value="" required><br>'+
+            // '<input type="text" name="land-section-'+land_section_count+'" value="" required><br>'+
+            '<input type="text" id="section-'+land_section_count+'" name="land-section-'+land_section_count+'" list="land-section-list-'+land_section_count+'" autocomplete="off" oninput="getLandSectionOption('+land_section_count+')" required><br>'+
+            '<datalist id="land-section-list-'+land_section_count+'"></datalist>'+
             '</div>';
             getLandSectionCount();
             break;
@@ -390,8 +392,13 @@ function addInfoItemOnclick(id){
             subsection_count += 1;
 
             text =
-            '<div id="subsection-'+subsection_count+'">'+
-                '<input type="text" name="subsection-'+subsection_count+'" value=""><br>'+
+            '<div id="subsection-'+subsection_count+'" style="margin-top:6px;">'+
+                // '<input type="text" name="subsection-'+subsection_count+'" value=""><br>'+
+                '<select name="subsection-'+subsection_count+'">'+
+                    '<option value="">無</option>'+
+                    '<option value="新坡小段">新坡小段</option>'+
+                    '<option value="過溪子小段">過溪子小段</option>'+
+                '</select>'+
             '</div>';
             break;
 
@@ -936,12 +943,63 @@ function saveDialog(){
     //         '</td>'+
     //     '</tr>'+
     // '</table>';
+    // text =
+    // '<h1>雜項設施</h1>'+
+    // '<table border="1">'+
+    //     '<tr>'+
+    //         '<td>項目</td>'+
+    //         '<td>面積</td>'+
+    //         '<td>是否自拆</td>'+
+    //     '</tr>'+
+    //
+    //     '<tr>'+
+    //         '<td>'+
+    //             '<div id="other-item" class="input-align-top">'+
+    //                 '<div id="other-item-1">'+
+    //                     '<select class="select-menu" name="other-item-1">'+
+    //                         '<option value="" style="display:none;">請選擇項目</option>'+
+    //                         '<option value="">電柱(RC造)遷移費</option>'+
+    //                         '<option value="">窗型冷氣遷移費</option>'+
+    //                     '</select>'+
+    //
+    //                     '<select class="small-select-menu" name="other-item-type-1">'+
+    //                         '<option value="" style="display:none;">請選擇室內外</option>'+
+    //                         '<option value="室內">室內</option>'+
+    //                         '<option value="室外">室外</option>'+
+    //                     '</select>'+
+    //                 '</div>'+
+    //             '</div>'+
+    //             '<button type="button" onclick="addInfoItemOnclick("other-item")">+</button>'+
+    //             '<button type="button" onclick="removeInfoItemOnclick("other-item")">-</button>'+
+    //         '</td>'+
+    //         '<td>'+
+    //             '<div id="calArea">'+
+    //                 '<div id="calArea-1">'+
+    //                     '<input type="text" name="calArea-1" class="larger-input-size" placeholder="請輸入面積計算式" title="請輸入面積計算式">'+
+    //                 '</div>'+
+    //             '</div>'+
+    //         '</td>'+
+    //         '<td>'+
+    //             '<div id="auto-remove">'+
+    //                 '<div id="auto-remove-1">'+
+    //                     '<input type="radio" name="auto-remove-1">是<input type="radio" name="auto-remove-1">否'+
+    //                 '</div>'+
+    //             '</div>'+
+    //         '</td>'+
+    //     '</tr>'+
+    // '</table>';
 
     var isContinue = window.confirm("是否繼續輸入雜項設施?");
     if(isContinue==true){
-        $("#house_form").attr("action","sub_building.php");
+        // $("#house_form").attr("action","sub_building.php");
+        // $("#sub-building").append(text);
+        $("#action").val("sub_building");
+        window.alert($("#action").val());
+        window.alert($("#section-1").val());
     }
     else{
+        $("#action").val("submit");
+        window.alert($("#action").val());
         value_array = [];
         for(var i=0;i<captain_count;i++){
             if(document.getElementById("independent-"+(i+1)).checked){
@@ -1099,6 +1157,11 @@ function exportExcel(script_number,house_address){
     });
 }
 
+function continueInput(){
+    $("#action").val("continue");
+    window.alert($("#action").val());
+}
+
 function setIndependent(num){
     if($("#exit-num").val()==""){
         window.alert("請先選擇出口數!");
@@ -1173,6 +1236,33 @@ function setIndependent(num){
         //     }
         //     // window.alert("inde: "+independent_count);
         // }
+    }
+}
+
+function getLandSectionOption(num){
+    // window.alert($("#land-section-"+num));
+
+    var item = "#section-"+num;
+
+    if($(item).val().length!=0){
+        // window.alert($(item).val());
+        $.ajax({
+             url: "get_building_decoration_option.php",
+             type: "POST",
+             data:{
+                category: 'land_section',
+                str: $(item).val()
+             },
+             cache:false,
+             dataType: "json",
+             // contentType: 'application/json; charset=utf-8',
+             success: function(data){
+                 $("#land-section-list-"+num).html(data.item_name);
+             },
+             error:function(err){
+                 window.alert(err.statusText);
+             }
+        });
     }
 }
 

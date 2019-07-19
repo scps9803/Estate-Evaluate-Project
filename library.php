@@ -180,6 +180,32 @@ function get_toilet_type_option($item_name){
     return $toilet_product_option;
 }
 
+function get_land_section_option($str){
+    $conn = connect_db();
+    $sql = "SELECT DISTINCT land_section FROM land WHERE land_section LIKE '%{$str}%'";
+    $res = $conn->query($sql);
+    if($res->num_rows==0){
+        return "";
+    }
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $land_section[$i] = $row;
+        $i++;
+    }
+
+    $conn->close();
+
+    $land_section_option = "";
+
+    for($i=0;$i<count($land_section);$i++){
+        $land_section_option = $land_section_option
+        ."<option value='".$land_section[$i]["land_section"]."'>".$land_section[$i]["land_section"]."</option>";
+    }
+
+    return $land_section_option;
+}
+
 function insertLandData($land_section,$subsection,$land_number,$house_address,$land_use){
     $conn = connect_db();
 

@@ -13,7 +13,7 @@
 </head>
 <body>
     <div class="container" align="center">
-        <form class="" action="house_submit_preview.php" method="post" id="house_form">
+        <form class="" action="house_submit_preview.php" method="post" id="house_form" onkeydown="if(event.keyCode==13)return false;">
             <table border="1">
                 <tbody>
                     <tr>
@@ -35,11 +35,29 @@
                     </tr>
 
                     <tr>
-                        <td><input type="text" name="district" value="" required></td>
+                        <td>
+                            <input type="text" id="district" name="district" list="district-list" autocomplete="off" required>
+                            <datalist id="district-list">
+                                <option value="觀音區">觀音區</option>
+                                <option value="蘆竹區">蘆竹區</option>
+                                <option value="楊梅區">楊梅區</option>
+                                <option value="大園區">大園區</option>
+                                <option value="中壢區">中壢區</option>
+                                <option value="平鎮區">平鎮區</option>
+                                <option value="復興區">復興區</option>
+                                <option value="新屋區">新屋區</option>
+                                <option value="龜山區">龜山區</option>
+                                <option value="八德區">八德區</option>
+                                <option value="桃園區">桃園區</option>
+                                <option value="大溪區">大溪區</option>
+                                <option value="龍潭區">龍潭區</option>
+                            </datalist>
+                        </td>
                         <td>
                             <div id="land-section">
                                 <div id="land-section-1">
-                                    <input type="text" name="land-section-1" value="" required><br>
+                                    <input type="text" id="section-1" name="land-section-1" list="land-section-list-1" autocomplete="off" oninput="getLandSectionOption(1)" required><br>
+                                    <datalist id="land-section-list-1"></datalist>
                                 </div>
                             </div>
                             <input type="hidden" id="land_section_count" name="land_section_count">
@@ -50,7 +68,12 @@
                         <td>
                             <div id="subsection" class="input-align">
                                 <div id="subsection-1">
-                                    <input type="text" name="subsection-1" value=""><br>
+                                    <!-- <input type="text" name="subsection-1"><br> -->
+                                    <select name="subsection-1">
+                                        <option value="">無</option>
+                                        <option value="新坡小段">新坡小段</option>
+                                        <option value="過溪子小段">過溪子小段</option>
+                                    </select>
                                 </div>
                             </div>
                             <!-- <button type="button" onclick="addInfoItemOnclick('subsection')">+</button>
@@ -1422,9 +1445,11 @@
                     </td>
                 </tr>
             </table> -->
+            <span id="sub-building"></span>
 
+            <input type="hidden" id="action" name="action" value="">
             <input type="submit" value="儲存" onclick="saveDialog()">
-            <input type="submit" value="繼續輸入下一頁">
+            <input type="submit" value="繼續輸入下一頁" onclick="continueInput()">
         </form>
     </div>
 </body>

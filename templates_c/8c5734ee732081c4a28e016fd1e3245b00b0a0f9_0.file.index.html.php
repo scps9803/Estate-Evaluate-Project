@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-07-17 11:50:30
+/* Smarty version 3.1.33, created on 2019-07-19 18:10:25
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\index.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d2f0b86e5c236_25535080',
+  'unifunc' => 'content_5d320791a2d637_64888033',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8c5734ee732081c4a28e016fd1e3245b00b0a0f9' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\index.html',
-      1 => 1563364176,
+      1 => 1563559776,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d2f0b86e5c236_25535080 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d320791a2d637_64888033 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,7 +44,7 @@ function content_5d2f0b86e5c236_25535080 (Smarty_Internal_Template $_smarty_tpl)
 </head>
 <body>
     <div class="container" align="center">
-        <form class="" action="house_submit_preview.php" method="post" id="house_form">
+        <form class="" action="house_submit_preview.php" method="post" id="house_form" onkeydown="if(event.keyCode==13)return false;">
             <table border="1">
                 <tbody>
                     <tr>
@@ -66,11 +66,29 @@ function content_5d2f0b86e5c236_25535080 (Smarty_Internal_Template $_smarty_tpl)
                     </tr>
 
                     <tr>
-                        <td><input type="text" name="district" value="" required></td>
+                        <td>
+                            <input type="text" id="district" name="district" list="district-list" autocomplete="off" required>
+                            <datalist id="district-list">
+                                <option value="觀音區">觀音區</option>
+                                <option value="蘆竹區">蘆竹區</option>
+                                <option value="楊梅區">楊梅區</option>
+                                <option value="大園區">大園區</option>
+                                <option value="中壢區">中壢區</option>
+                                <option value="平鎮區">平鎮區</option>
+                                <option value="復興區">復興區</option>
+                                <option value="新屋區">新屋區</option>
+                                <option value="龜山區">龜山區</option>
+                                <option value="八德區">八德區</option>
+                                <option value="桃園區">桃園區</option>
+                                <option value="大溪區">大溪區</option>
+                                <option value="龍潭區">龍潭區</option>
+                            </datalist>
+                        </td>
                         <td>
                             <div id="land-section">
                                 <div id="land-section-1">
-                                    <input type="text" name="land-section-1" value="" required><br>
+                                    <input type="text" id="section-1" name="land-section-1" list="land-section-list-1" autocomplete="off" oninput="getLandSectionOption(1)" required><br>
+                                    <datalist id="land-section-list-1"></datalist>
                                 </div>
                             </div>
                             <input type="hidden" id="land_section_count" name="land_section_count">
@@ -81,7 +99,12 @@ function content_5d2f0b86e5c236_25535080 (Smarty_Internal_Template $_smarty_tpl)
                         <td>
                             <div id="subsection" class="input-align">
                                 <div id="subsection-1">
-                                    <input type="text" name="subsection-1" value=""><br>
+                                    <!-- <input type="text" name="subsection-1"><br> -->
+                                    <select name="subsection-1">
+                                        <option value="">無</option>
+                                        <option value="新坡小段">新坡小段</option>
+                                        <option value="過溪子小段">過溪子小段</option>
+                                    </select>
                                 </div>
                             </div>
                             <!-- <button type="button" onclick="addInfoItemOnclick('subsection')">+</button>
@@ -1509,9 +1532,11 @@ function content_5d2f0b86e5c236_25535080 (Smarty_Internal_Template $_smarty_tpl)
                     </td>
                 </tr>
             </table> -->
+            <span id="sub-building"></span>
 
+            <input type="hidden" id="action" name="action" value="">
             <input type="submit" value="儲存" onclick="saveDialog()">
-            <input type="submit" value="繼續輸入下一頁">
+            <input type="submit" value="繼續輸入下一頁" onclick="continueInput()">
         </form>
     </div>
 </body>

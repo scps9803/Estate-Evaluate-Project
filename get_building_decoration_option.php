@@ -52,6 +52,11 @@ switch ($category) {
         $item_name = $_POST['item_name'];
         $result_option = get_toilet_type_option($item_name);
         break;
+
+    case 'land_section':
+        $str = $_POST['str'];
+        $result_option = get_land_section_option($str);
+        break;
 }
 // $item_type = $_POST['item_type'];
 //

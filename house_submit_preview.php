@@ -8,6 +8,21 @@ $KEYIN_ID = "DEMO1234";
 date_default_timezone_set('Asia/Taipei');
 $KEYIN_DATETIME = date("Y-m-d/H:i:s");
 
+// 程式動作設定
+$action = $_POST['action'];
+switch ($action) {
+    case 'continue':
+        // code...
+        break;
+
+    case 'sub_building':
+        $smarty->display("sub_building.html");
+        break;
+
+    case 'submit':
+        break;
+}
+
 // 行政區
 $district = $_POST['district'];
 

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-07-18 16:37:03
+/* Smarty version 3.1.33, created on 2019-07-19 22:56:28
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\sub_building.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d30a02fc179e0_59866498',
+  'unifunc' => 'content_5d31da1cab2fa4_93190627',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b05ba50e74ffc12085b95e292d15feee33505b3e' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\sub_building.html',
-      1 => 1563467822,
+      1 => 1563548156,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d30a02fc179e0_59866498 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d31da1cab2fa4_93190627 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head>
@@ -83,7 +83,7 @@ function content_5d30a02fc179e0_59866498 (Smarty_Internal_Template $_smarty_tpl)
                         </td>
                     </tr>
                 </table>
-                <input type="button" value="回前一頁" onclick="window.history.back();">
+                <!-- <input type="button" value="回前一頁" onclick="window.history.back();"> -->
                 <input type="submit" value="儲存">
             </form>
         </div>
