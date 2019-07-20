@@ -17,7 +17,9 @@ switch ($action) {
 
     case 'sub_building':
         $house_address = $_POST['houseAddress'];
+        $script_number = $_POST['legal-status']."-".$_POST['script-number'];
         $smarty->assign("house_address",$house_address);
+        $smarty->assign("script_number",$script_number);
         $smarty->display("sub_building.html");
         break;
 

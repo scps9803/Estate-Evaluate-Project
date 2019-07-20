@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-07-20 09:39:56
+/* Smarty version 3.1.33, created on 2019-07-20 12:35:36
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\sub_building.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d32e16c6840f6_15411147',
+  'unifunc' => 'content_5d330a98d16399_59264016',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b05ba50e74ffc12085b95e292d15feee33505b3e' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\sub_building.html',
-      1 => 1563615570,
+      1 => 1563626134,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d32e16c6840f6_15411147 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d330a98d16399_59264016 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head>
@@ -44,7 +44,7 @@ function content_5d32e16c6840f6_15411147 (Smarty_Internal_Template $_smarty_tpl)
                 <table border="1">
                     <tr>
                         <td>項目</td>
-                        <td>面積</td>
+                        <td>面積/數量</td>
                         <td>是否自拆</td>
                     </tr>
 
@@ -74,7 +74,7 @@ function content_5d32e16c6840f6_15411147 (Smarty_Internal_Template $_smarty_tpl)
                         <td>
                             <div id="calArea">
                                 <div id="calArea-1">
-                                    <input type="text" name="calArea-1" class="larger-input-size" placeholder="請輸入面積計算式" title="請輸入面積計算式">
+                                    <input type="text" name="calArea-1" class="larger-input-size" placeholder="請輸入面積計算式或數量" title="請輸入面積計算式或數量">
                                 </div>
                             </div>
                         </td>
@@ -89,6 +89,7 @@ function content_5d32e16c6840f6_15411147 (Smarty_Internal_Template $_smarty_tpl)
                 </table>
                 <!-- <input type="button" value="回前一頁" onclick="window.history.back();"> -->
                 <input type="hidden" name="house_address" value="建國二路100號">
+                <input type="hidden" name="script_number" value="建合-001">
                 <input type="submit" value="儲存">
             </form>
         </div>

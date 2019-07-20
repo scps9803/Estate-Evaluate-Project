@@ -1002,29 +1002,63 @@ function getSubbuildingOption($application){
     return $sub_building_option;
 }
 
-// function insertSubbuildingData($house_address,$sub_building){
-//     $conn = connect_db();
-//
-//     for($i=0;$i<count($sub_building);$i++){
-//         $sql = "SELECT sId FROM sub_building WHERE application='{$sub_building[$i]["category"]}' AND item_name='{$sub_building[$i]["item"]}'"
-//         $res = $conn->query($sql);
-//
-//         while($row = $res->fetch_assoc()) {
-//             $sId[$i] = $row["sId"];
-//         }
-//
-//         $sql = "INSERT INTO has_subbuilding VALUES('{$house_address}','{$sId[$i]}',
-//             '{$sub_building[$i]["item_type"]}','{$sub_building[$i]["area_calculate_text"]}',
-//             '{$sub_building[$i]["area"]}','{$sub_building[$i]["auto_remove"]}')";
-//
-//         if ($conn->query($sql) === TRUE){
-//             // echo "New record created successfully";
-//         }else{
-//             echo "Error: " . $sql . "<br>" . $conn->error;
-//         }
-//     }
-//     $conn->close();
-// }
+function insertSubbuildingData($house_address,$sub_building){
+    $conn = connect_db();
+
+    for($i=0;$i<count($sub_building);$i++){
+        $sql = "SELECT sId FROM sub_building WHERE application='{$sub_building[$i]["category"]}' AND item_name='{$sub_building[$i]["item"]}'";
+        $res = $conn->query($sql);
+
+        while($row = $res->fetch_assoc()) {
+            $sId[$i] = $row["sId"];
+        }
+
+        $sql = "INSERT INTO has_subbuilding VALUES('{$house_address}','{$sId[$i]}',
+            '{$sub_building[$i]["item_type"]}','{$sub_building[$i]["area_calculate_text"]}',
+            '{$sub_building[$i]["area"]}','{$sub_building[$i]["auto_remove"]}')";
+
+        if ($conn->query($sql) === TRUE){
+            // echo "New record created successfully";
+        }else{
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+    }
+    $conn->close();
+}
+
+function getSubbuildingData($house_address,$item_type){
+    $conn = connect_db();
+
+    // $sql = "SELECT * FROM has_subbuilding as a LEFT JOIN sub_building as b on a.sId=b.sId WHERE address='{$house_address}' AND item_type='{$item_type}'";
+    $sql = "SELECT address,a.sId,application,item_name,unitprice,unit,item_type,area_calculate_text,area,a.auto_remove
+        FROM has_subbuilding as a LEFT JOIN sub_building as b on a.sId=b.sId WHERE address='{$house_address}' AND item_type='{$item_type}'";
+    $res = $conn->query($sql);
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $result[$i] = $row;
+        $i++;
+    }
+
+    $conn->close();
+    return $result;
+}
+
+function getDecorationData($house_address){
+    $conn = connect_db();
+
+    $sql = "SELECT * FROM has_building_decoration AS a LEFT JOIN floor_info AS b ON a.fId=b.fId WHERE address='{$house_address}'";
+    $res = $conn->query($sql);
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $result[$i] = $row;
+        $i++;
+    }
+
+    $conn->close();
+    return $result;
+}
 
 // function getStructurePoints($house_address){
 //     $conn = connect_db();

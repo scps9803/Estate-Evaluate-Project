@@ -511,7 +511,7 @@ function addInfoItemOnclick(id){
 
             text =
             '<div id="calArea-'+calArea_count+'">'+
-                '<input type="text" name="calArea-'+calArea_count+'" class="larger-input-size" placeholder="請輸入面積計算式" title="請輸入面積計算式">'+
+                '<input type="text" name="calArea-'+calArea_count+'" class="larger-input-size" placeholder="請輸入面積計算式或數量" title="請輸入面積計算式或數量">'+
             '</div>';
             break;
 

@@ -12,12 +12,30 @@ $building_data = getBuildingData($house_address);
 $land_data = getLandData($house_address);
 $resident_data = getResidentData($house_address);
 $main_building_data = getMainBuildingData($house_address);
+$sub_building_data = getSubbuildingData($house_address,'室內');
+$outdoor_sub_building_data = getSubbuildingData($house_address,'室外');
+// 撈出建物粉裝資料
+$decorationData = getDecorationData($house_address);
 
 if(substr($script_number,0,6) == "建合"){
     $compensate_type = "補償";
+    $title = "(合法建築物)";
+    $building_text = "建築改良物\n拆遷補償金";
+    $sub_building_text = "雜項設施\n拆遷補償金";
 }
 else{
     $compensate_type = "救濟";
+    $title = "(其他建築物)";
+    $building_text = "建築改良物\n拆遷救濟金";
+    $sub_building_text = "雜項設施\n拆遷救濟金";
+}
+
+$land_number = "";
+$total_land_area = 0;
+for($i=0;$i<count($land_data);$i++){
+    $land_number = $land_number.$land_data[$i]["land_number"];
+    if($i!=count($land_data)-1) {$land_number = $land_number."、";}
+    $total_land_area += $land_data[$i]["area"];
 }
 
 // $points = getStructurePoints($house_address);
@@ -38,14 +56,16 @@ require_once '/classes/PHPExcel/Writer/Excel5.php';
 $objPHPExcel  = new PHPExcel();
 
 // 計算主建物、雜項物筆數設定不同頁數的模板
-$main_count = (int)(count($main_building_data)/7)+1;
-$other_count = 1;
-if($other_count > $main_count){
-    $pages = $other_count;
-}
-else{
-    $pages = $main_count;
-}
+$main_count = (int)(count($main_building_data)/8)+1;
+$other_count = (int)(count($sub_building_data)/8)+1;
+$outdoor_other_count = (int)(count($outdoor_sub_building_data)/8)+1;
+$pages = max($main_count,max($other_count,$outdoor_other_count));
+// if($other_count > $main_count){
+//     $pages = $other_count;
+// }
+// else{
+//     $pages = $main_count;
+// }
 // 自行建立的 Excel 版型檔名
 $excelTemplate = './excel_templates/template'.$pages.'.xls';
 
@@ -77,7 +97,11 @@ if($owner_data[0]["cellphone"] == ""){
     $phone = $owner_data[0]["telephone"];
 }
 $objPHPExcel->setActiveSheetIndex(0)
-            ->setCellValue( 'AH3', $script_number )
+            ->setCellValue( 'AH3', $script_number)
+            ->setCellValue( 'R3', $title)
+            ->setCellValue( 'AB11', $building_text)
+            ->setCellValue( 'L21', $sub_building_text)
+            ->setCellValue( 'AE21', $sub_building_text)
             ->setCellValue( 'C4', $owner_data[0]["name"].$text)
             ->setCellValue( 'G4', $owner_data[0]["pId"])
             ->setCellValue( 'L4', $owner_data[0]["current_address"])
@@ -91,8 +115,10 @@ $objPHPExcel->setActiveSheetIndex(0)
             // 行政區尚未設定
             ->setCellValue( 'E7', '')
             ->setCellValue( 'G7', $land_data[0]['land_section'])
-            ->setCellValue( 'K7', $land_data[0]['land_number'])
-            ->setCellValue( 'X7', $land_data[0]['area']);
+            // ->setCellValue( 'K7', $land_data[0]['land_number'])
+            ->setCellValue( 'K7', $land_number)
+            // ->setCellValue( 'X7', $land_data[0]['area']);
+            ->setCellValue( 'X7', $total_land_area);
 $total_people = 0;
 for($i=0;$i<count($resident_data);$i++){
     $total_people += $resident_data[$i]["family_num"];
@@ -158,6 +184,84 @@ $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue( 'AB20', $total_fee)
             ->setCellValue( 'AE20', $total_auto);
 
+// 室內雜項物
+$total_init_fee = 0;
+$total_subbuilding_fee = 0;
+$total_auto_remove_fee = 0;
+for($i=0;$i<count($sub_building_data);$i++){
+
+    $init_fee = number_format($sub_building_data[$i]["unitprice"]*number_format($sub_building_data[$i]["area"],2,".",","),0,"","");
+    if($compensate_type == "補償"){
+        $sub_building_fee = $init_fee;
+    }
+    else{
+        $sub_building_fee = number_format($sub_building_data[$i]["unitprice"]*number_format($sub_building_data[$i]["area"],2,".",",")*0.6,0,"","");
+    }
+
+    if($sub_building_data[$i]["auto_remove"]=="是"){
+        $auto_remove_fee = number_format($sub_building_fee*0.5,0,"","");
+    }
+    else{
+        $auto_remove_fee = 0;
+    }
+
+    $objPHPExcel->setActiveSheetIndex(0)
+                ->setCellValue( 'A'.($i+23), $i+1)
+                ->setCellValue( 'C'.($i+23), $sub_building_data[$i]["item_name"])
+                ->setCellValue( 'F'.($i+23), $sub_building_data[$i]["application"])
+                ->setCellValue( 'G'.($i+23), $sub_building_data[$i]["unitprice"])
+                ->setCellValue( 'I'.($i+23), number_format($sub_building_data[$i]["area"],2,".",",").$sub_building_data[$i]["unit"])
+                ->setCellValue( 'J'.($i+23), $init_fee)
+                ->setCellValue( 'L'.($i+23), $sub_building_fee)
+                ->setCellValue( 'O'.($i+23), $auto_remove_fee);
+                $total_init_fee += $init_fee;
+                $total_subbuilding_fee += $sub_building_fee;
+                $total_auto_remove_fee += $auto_remove_fee;
+}
+$objPHPExcel->setActiveSheetIndex(0)
+            ->setCellValue( 'J30', $total_init_fee)
+            ->setCellValue( 'L30', $total_subbuilding_fee)
+            ->setCellValue( 'O30', $total_auto_remove_fee);
+
+// 室外雜項物
+$out_total_init_fee = 0;
+$out_total_subbuilding_fee = 0;
+$out_total_auto_remove_fee = 0;
+for($i=0;$i<count($outdoor_sub_building_data);$i++){
+
+    $init_fee = number_format($outdoor_sub_building_data[$i]["unitprice"]*number_format($outdoor_sub_building_data[$i]["area"],2,".",","),0,"","");
+    if($compensate_type == "補償"){
+        $sub_building_fee = $init_fee;
+    }
+    else{
+        $sub_building_fee = number_format($outdoor_sub_building_data[$i]["unitprice"]*number_format($outdoor_sub_building_data[$i]["area"],2,".",",")*0.6,0,"","");
+    }
+
+    if($outdoor_sub_building_data[$i]["auto_remove"]=="是"){
+        $auto_remove_fee = number_format($sub_building_fee*0.5,0,"","");
+    }
+    else{
+        $auto_remove_fee = 0;
+    }
+
+    $objPHPExcel->setActiveSheetIndex(0)
+                ->setCellValue( 'S'.($i+23), $i+1)
+                ->setCellValue( 'U'.($i+23), $outdoor_sub_building_data[$i]["item_name"])
+                ->setCellValue( 'Y'.($i+23), $outdoor_sub_building_data[$i]["application"])
+                ->setCellValue( 'Z'.($i+23), $outdoor_sub_building_data[$i]["unitprice"])
+                ->setCellValue( 'AB'.($i+23), number_format($outdoor_sub_building_data[$i]["area"],2,".",",").$outdoor_sub_building_data[$i]["unit"])
+                ->setCellValue( 'AD'.($i+23), $init_fee)
+                ->setCellValue( 'AE'.($i+23), $sub_building_fee)
+                ->setCellValue( 'AH'.($i+23), $auto_remove_fee);
+                $out_total_init_fee += $init_fee;
+                $out_total_subbuilding_fee += $sub_building_fee;
+                $out_total_auto_remove_fee += $auto_remove_fee;
+}
+$objPHPExcel->setActiveSheetIndex(0)
+            ->setCellValue( 'AD30', $out_total_init_fee)
+            ->setCellValue( 'AE30', $out_total_subbuilding_fee)
+            ->setCellValue( 'AH30', $out_total_auto_remove_fee);
+
 
 $objActSheet = $objPHPExcel->getActiveSheet();
 $objActSheet->setTitle('default');
@@ -166,5 +270,5 @@ $objWriter->save('file/myexchel.xls');
 date_default_timezone_set('Asia/Taipei');
 // $objWriter->save('file/'.date("YmdHis").'.xls');
 
-echo json_encode(array('status' => 'completed','tt' => $main_building_data[0]["points"],'type' => $main_building_data[0]["floor_area"]));
+echo json_encode(array('status' => 'completed','tt' => $main_building_data[0]["points"],'type' => $auto_remove_fee));
 ?>

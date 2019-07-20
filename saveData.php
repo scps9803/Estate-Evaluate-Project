@@ -5,6 +5,7 @@ include("library.php");
 $smarty = new Smarty;
 
 $house_address = $_POST['house_address'];
+$script_number = $_POST['script_number'];
 $other_item_count = $_POST['other-item-count'];
 // 儲存雜項物資料
 for($i=0;$i<$other_item_count;$i++){
@@ -17,4 +18,7 @@ for($i=0;$i<$other_item_count;$i++){
 }
 
 insertSubbuildingData($house_address,$sub_building);
+$smarty->assign("script_number",$script_number);
+$smarty->assign("house_address",$house_address);
+$smarty->display("saveData.html");
 ?>
