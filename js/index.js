@@ -394,7 +394,7 @@ function addInfoItemOnclick(id){
             text =
             '<div id="subsection-'+subsection_count+'" style="margin-top:6px;">'+
                 // '<input type="text" name="subsection-'+subsection_count+'" value=""><br>'+
-                '<select name="subsection-'+subsection_count+'">'+
+                '<select id="sub_section-'+subsection_count+'" name="subsection-'+subsection_count+'">'+
                     '<option value="">無</option>'+
                     '<option value="新坡小段">新坡小段</option>'+
                     '<option value="過溪子小段">過溪子小段</option>'+
@@ -407,7 +407,7 @@ function addInfoItemOnclick(id){
 
             text =
             '<div id="land-number-'+land_number_count+'">'+
-                '<input type="text" name="land-number-'+land_number_count+'" placeholder="多個地號請用\'、\'分隔" value="" required><br>'+
+                '<input type="text" id="land-num-'+land_number_count+'" name="land-number-'+land_number_count+'" placeholder="多個地號請用\'、\'分隔" onchange="isLandNumExist('+land_number_count+')" required><br>'+
             '</div>';
             break;
 
@@ -489,10 +489,12 @@ function addInfoItemOnclick(id){
             addInfoItemOnclick('auto-remove');
             text =
             '<div id="other-item-'+other_item_count+'">'+
-                '<select class="select-menu" name="other-item-'+other_item_count+'">'+
+                '<select class="small-select-menu" id="other-item-category-'+other_item_count+'" name="other-item-category-'+other_item_count+'" onclick="getSubbuildingCategory('+other_item_count+');this.onclick=null;" onchange="getSubbuildingOption('+other_item_count+')">'+
+                    '<option value="" style="display:none;">請選擇種類</option>'+
+                '</select>&nbsp;'+
+
+                '<select class="select-menu" id="other-item-option-'+other_item_count+'" name="other-item-'+other_item_count+'">'+
                     '<option value="" style="display:none;">請選擇項目</option>'+
-                    '<option value="">電柱(RC造)遷移費</option>'+
-                    '<option value="">窗型冷氣遷移費</option>'+
                 '</select>&nbsp;'+
 
                 '<select class="small-select-menu" name="other-item-type-'+other_item_count+'">'+
@@ -501,6 +503,7 @@ function addInfoItemOnclick(id){
                     '<option value="室外">室外</option>'+
                 '</select>'+
             '</div>';
+            getOtherItemCount();
             break;
 
         case 'calArea':
@@ -517,7 +520,7 @@ function addInfoItemOnclick(id){
 
             text =
             '<div id="auto-remove-'+auto_remove_count+'">'+
-                '<input type="radio" name="auto-remove-'+auto_remove_count+'">是<input type="radio" name="auto-remove-'+auto_remove_count+'">否'+
+                '<input type="radio" name="auto-remove-'+auto_remove_count+'" value="是">是<input type="radio" name="auto-remove-'+auto_remove_count+'" value="否">否'+
             '</div>';
             break;
 
@@ -636,6 +639,7 @@ function removeInfoItemOnclick(id){
             removeInfoItemOnclick('calArea');
             removeInfoItemOnclick('auto-remove');
             other_item_count = removeItem(id, other_item_count);
+            getOtherItemCount();
             break;
         case 'calArea':
             calArea_count = removeItem(id, calArea_count);
@@ -1124,6 +1128,10 @@ function getToiletEquipmentCount(num){
     $("#toilet-equipment-count-"+(num+1)).val(toilet_equipment_count[num]);
 }
 
+function getOtherItemCount(){
+    $("#other-item-count").val(other_item_count);
+}
+
 // function setRequired(id){
 //     var item = id+"1-2";
 //     window.alert(item);
@@ -1240,8 +1248,6 @@ function setIndependent(num){
 }
 
 function getLandSectionOption(num){
-    // window.alert($("#land-section-"+num));
-
     var item = "#section-"+num;
 
     if($(item).val().length!=0){
@@ -1266,10 +1272,90 @@ function getLandSectionOption(num){
     }
 }
 
+function isLandNumExist(num){
+    var item = "#land-num-"+num;
+    var section = "#section-"+num;
+    var subsection = "#sub_section-"+num;
+
+    numArray = $(item).val().split("、");
+    for(var i=0;i<numArray.length;i++){
+        $.ajax({
+             url: "get_building_decoration_option.php",
+             type: "POST",
+             data:{
+                category: 'land_number',
+                section: $(section).val(),
+                subsection: $(subsection).val(),
+                land_number: numArray[i]
+             },
+             cache:false,
+             dataType: "json",
+             // contentType: 'application/json; charset=utf-8',
+             success: function(data){
+                 if(data.item_name==false){
+                     window.alert("輸入地號在資料庫中查無!\n請重新輸入!");
+                 }
+                 else{
+                     // window.alert(data.item_name);
+                 }
+             },
+             error:function(err){
+                 window.alert(err.statusText);
+             }
+        });
+    }
+}
+
+function getSubbuildingCategory(num){
+    var item = "#other-item-category-"+num;
+
+    $.ajax({
+         url: "get_building_decoration_option.php",
+         type: "POST",
+         data:{
+            category: 'sub_building_category'
+         },
+         cache:false,
+         dataType: "json",
+         // contentType: 'application/json; charset=utf-8',
+         success: function(data){
+             // window.alert(data.item_name);
+             $(item).html(data.item_name);
+         },
+         error:function(err){
+             window.alert(err.statusText);
+         }
+    });
+}
+
+function getSubbuildingOption(num){
+    var item = "#other-item-option-"+num;
+    var application = $("#other-item-category-"+num).val();
+
+    $.ajax({
+         url: "get_building_decoration_option.php",
+         type: "POST",
+         data:{
+            category: 'sub_building_item',
+            application: application
+         },
+         cache:false,
+         dataType: "json",
+         // contentType: 'application/json; charset=utf-8',
+         success: function(data){
+             $(item).html(data.item_name);
+         },
+         error:function(err){
+             window.alert(err.statusText);
+         }
+    });
+}
+
 $(document).ready(function(){
     getOwnerCount();
     getCaptainCount();
     getLandSectionCount();
+    getOtherItemCount();
     for(var i=0;i<4;i++){
         getMinusWallCount(i);
         getAddWallCount(i);

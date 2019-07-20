@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-07-19 22:56:28
+/* Smarty version 3.1.33, created on 2019-07-20 09:39:56
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\sub_building.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d31da1cab2fa4_93190627',
+  'unifunc' => 'content_5d32e16c6840f6_15411147',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b05ba50e74ffc12085b95e292d15feee33505b3e' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\sub_building.html',
-      1 => 1563548156,
+      1 => 1563615570,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d31da1cab2fa4_93190627 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d32e16c6840f6_15411147 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head>
@@ -38,8 +38,9 @@ function content_5d31da1cab2fa4_93190627 (Smarty_Internal_Template $_smarty_tpl)
     </head>
     <body>
         <div class="container" align="center">
-            <form class="" action="" method="post">
+            <form class="" action="saveData.php" method="post">
                 <h1>雜項設施</h1>
+                <h3>(若無雜項可直接儲存略過)</h3>
                 <table border="1">
                     <tr>
                         <td>項目</td>
@@ -51,10 +52,12 @@ function content_5d31da1cab2fa4_93190627 (Smarty_Internal_Template $_smarty_tpl)
                         <td>
                             <div id="other-item" class="input-align-top">
                                 <div id="other-item-1">
-                                    <select class="select-menu" name="other-item-1">
+                                    <select class="small-select-menu" id="other-item-category-1" name="other-item-category-1" onclick="getSubbuildingCategory(1);this.onclick=null;" onchange="getSubbuildingOption(1)">
+                                        <option value="" style="display:none;">請選擇種類</option>
+                                    </select>
+
+                                    <select class="select-menu" id="other-item-option-1" name="other-item-1">
                                         <option value="" style="display:none;">請選擇項目</option>
-                                        <option value="">電柱(RC造)遷移費</option>
-                                        <option value="">窗型冷氣遷移費</option>
                                     </select>
 
                                     <select class="small-select-menu" name="other-item-type-1">
@@ -64,6 +67,7 @@ function content_5d31da1cab2fa4_93190627 (Smarty_Internal_Template $_smarty_tpl)
                                     </select>
                                 </div>
                             </div>
+                            <input type="hidden" id="other-item-count" name="other-item-count">
                             <button type="button" onclick="addInfoItemOnclick('other-item')">+</button>
                             <button type="button" onclick="removeInfoItemOnclick('other-item')">-</button>
                         </td>
@@ -77,13 +81,14 @@ function content_5d31da1cab2fa4_93190627 (Smarty_Internal_Template $_smarty_tpl)
                         <td>
                             <div id="auto-remove">
                                 <div id="auto-remove-1">
-                                    <input type="radio" name="auto-remove-1">是<input type="radio" name="auto-remove-1">否
+                                    <input type="radio" name="auto-remove-1" value="是">是<input type="radio" name="auto-remove-1" value="否">否
                                 </div>
                             </div>
                         </td>
                     </tr>
                 </table>
                 <!-- <input type="button" value="回前一頁" onclick="window.history.back();"> -->
+                <input type="hidden" name="house_address" value="建國二路100號">
                 <input type="submit" value="儲存">
             </form>
         </div>

@@ -210,14 +210,25 @@ function insertLandData($land_section,$subsection,$land_number,$house_address,$l
     $conn = connect_db();
 
     for($i=0;$i<count($land_section);$i++){
-        $land_id = $land_section[$i].$subsection[$i].$land_number[$i];
-        $sql = "INSERT INTO building_locate VALUES('{$land_id}','{$house_address}','{$land_use}')";
+        for($j=0;$j<count($land_number[$i]);$j++){
+            $land_id = $land_section[$i].$subsection[$i].$land_number[$i][$j];
+            $sql = "INSERT INTO building_locate VALUES('{$land_id}','{$house_address}','{$land_use}')";
 
-        if ($conn->query($sql) === TRUE){
-            // echo "New record created successfully";
-        }else{
-            echo "Error: " . $sql . "<br>" . $conn->error;
+            if ($conn->query($sql) === TRUE){
+                // echo "New record created successfully";
+            }else{
+                echo "Error: " . $sql . "<br>" . $conn->error;
+            }
         }
+
+        // $land_id = $land_section[$i].$subsection[$i].$land_number[$i];
+        // $sql = "INSERT INTO building_locate VALUES('{$land_id}','{$house_address}','{$land_use}')";
+        //
+        // if ($conn->query($sql) === TRUE){
+        //     // echo "New record created successfully";
+        // }else{
+        //     echo "Error: " . $sql . "<br>" . $conn->error;
+        // }
     }
     $conn->close();
 }
@@ -912,6 +923,108 @@ function getMainBuildingData($house_address){
     $conn->close();
     return $result;
 }
+
+function checkLandNumisExist($section,$subsection,$land_number){
+    $conn = connect_db();
+
+    if($subsection==""){
+        $sql = "SELECT * FROM land WHERE land_section='塔腳段' AND subsection IS NULL AND land_number='{$land_number}'";
+    }
+    else{
+        $sql = "SELECT * FROM land WHERE land_section='{$section}' AND subsection='{$subsection}'  AND land_number='{$land_number}'";
+    }
+    $res = $conn->query($sql);
+    $conn->close();
+
+    if($res->num_rows==0){
+        return false;
+    }
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $result[$i] = $row["land_number"];
+        $i++;
+    }
+    return $result;
+}
+
+function getSubbuildingCategory(){
+    $conn = connect_db();
+
+    $sql = "SELECT DISTINCT application FROM sub_building";
+    $res = $conn->query($sql);
+    if($res->num_rows==0){
+        return "";
+    }
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $category[$i] = $row;
+        $i++;
+    }
+
+    $conn->close();
+
+    $category_option = "";
+
+    for($i=0;$i<count($category);$i++){
+        $category_option = $category_option
+        ."<option value='".$category[$i]["application"]."'>".$category[$i]["application"]."</option>";
+    }
+
+    return $category_option;
+}
+
+function getSubbuildingOption($application){
+    $conn = connect_db();
+
+    $sql = "SELECT item_name FROM sub_building WHERE application='{$application}'";
+    $res = $conn->query($sql);
+    if($res->num_rows==0){
+        return "";
+    }
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $sub_building[$i] = $row;
+        $i++;
+    }
+
+    $conn->close();
+
+    $sub_building_option = "";
+
+    for($i=0;$i<count($sub_building);$i++){
+        $sub_building_option = $sub_building_option
+        ."<option value='".$sub_building[$i]["item_name"]."'>".$sub_building[$i]["item_name"]."</option>";
+    }
+
+    return $sub_building_option;
+}
+
+// function insertSubbuildingData($house_address,$sub_building){
+//     $conn = connect_db();
+//
+//     for($i=0;$i<count($sub_building);$i++){
+//         $sql = "SELECT sId FROM sub_building WHERE application='{$sub_building[$i]["category"]}' AND item_name='{$sub_building[$i]["item"]}'"
+//         $res = $conn->query($sql);
+//
+//         while($row = $res->fetch_assoc()) {
+//             $sId[$i] = $row["sId"];
+//         }
+//
+//         $sql = "INSERT INTO has_subbuilding VALUES('{$house_address}','{$sId[$i]}',
+//             '{$sub_building[$i]["item_type"]}','{$sub_building[$i]["area_calculate_text"]}',
+//             '{$sub_building[$i]["area"]}','{$sub_building[$i]["auto_remove"]}')";
+//
+//         if ($conn->query($sql) === TRUE){
+//             // echo "New record created successfully";
+//         }else{
+//             echo "Error: " . $sql . "<br>" . $conn->error;
+//         }
+//     }
+//     $conn->close();
+// }
 
 // function getStructurePoints($house_address){
 //     $conn = connect_db();

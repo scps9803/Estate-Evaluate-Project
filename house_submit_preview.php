@@ -16,6 +16,8 @@ switch ($action) {
         break;
 
     case 'sub_building':
+        $house_address = $_POST['houseAddress'];
+        $smarty->assign("house_address",$house_address);
         $smarty->display("sub_building.html");
         break;
 
@@ -32,7 +34,11 @@ for($i=0;$i<$land_section_count;$i++){
     if($_POST['land-section-'.($i+1)]=="") break;
     $land_section[$i] = $_POST['land-section-'.($i+1)];
     $subsection[$i] = $_POST['subsection-'.($i+1)];
-    $land_number[$i] = $_POST['land-number-'.($i+1)];
+    // $land_number[$i] = $_POST['land-number-'.($i+1)];
+    $temp_land = explode ("、",$_POST['land-number-'.($i+1)]);
+    for($j=0;$j<count($temp_land);$j++){
+        $land_number[$i][$j] = $temp_land[$j];
+    }
 }
 // 土地總面積
 $land_total_area = $_POST['land-total-area'];
@@ -386,12 +392,15 @@ $smarty->assign("date",$date);
 $smarty->display("house_submit_preview.html");
 
 // 儲存基本資料
-insertLandData($land_section,$subsection,$land_number,$house_address,$land_use);
-insertRecordData($script_number,$house_address,$KEYIN_ID,$KEYIN_DATETIME);
-insertOwnerData($owner,$hold_ratio,$pId,$house_address,$address,$telephone,$cellphone);
 insertBuildingData($house_address,$legal_status,$build_number,$tax_number,
     $legal_certificate,$build_certificate,$captain_count,$exit_num,
     $total_floor,$remove_condition);
+insertLandData($land_section,$subsection,$land_number,$house_address,$land_use);
+insertRecordData($script_number,$house_address,$KEYIN_ID,$KEYIN_DATETIME);
+insertOwnerData($owner,$hold_ratio,$pId,$house_address,$address,$telephone,$cellphone);
+// insertBuildingData($house_address,$legal_status,$build_number,$tax_number,
+//     $legal_certificate,$build_certificate,$captain_count,$exit_num,
+//     $total_floor,$remove_condition);
 insertOwnBuildingData($pId,$house_address,$hold_ratio);
 insertResidentData($captain,$total_people,$house_address,$exit_num,$remove_condition);
 insertFloorData($script_number,$main_building,$house_address,$discard_status);

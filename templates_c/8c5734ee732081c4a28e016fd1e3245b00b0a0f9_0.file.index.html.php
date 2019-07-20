@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-07-19 18:10:25
+/* Smarty version 3.1.33, created on 2019-07-20 02:48:41
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\index.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d320791a2d637_64888033',
+  'unifunc' => 'content_5d32810952d6f9_42913383',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8c5734ee732081c4a28e016fd1e3245b00b0a0f9' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\index.html',
-      1 => 1563559776,
+      1 => 1563590764,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d320791a2d637_64888033 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d32810952d6f9_42913383 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -100,7 +100,7 @@ function content_5d320791a2d637_64888033 (Smarty_Internal_Template $_smarty_tpl)
                             <div id="subsection" class="input-align">
                                 <div id="subsection-1">
                                     <!-- <input type="text" name="subsection-1"><br> -->
-                                    <select name="subsection-1">
+                                    <select id="sub_section-1" name="subsection-1">
                                         <option value="">無</option>
                                         <option value="新坡小段">新坡小段</option>
                                         <option value="過溪子小段">過溪子小段</option>
@@ -114,7 +114,7 @@ function content_5d320791a2d637_64888033 (Smarty_Internal_Template $_smarty_tpl)
                         <td>
                             <div id="land-number" class="input-align">
                                 <div id="land-number-1">
-                                    <input type="text" name="land-number-1" placeholder="多個地號請用'、'分隔" value="" required><br>
+                                    <input type="text" id="land-num-1" name="land-number-1" placeholder="多個地號請用'、'分隔" onchange="isLandNumExist(1)" required><br>
                                 </div>
                             </div>
                             <!-- <button type="button" onclick="addInfoItemOnclick('land-number')">+</button>

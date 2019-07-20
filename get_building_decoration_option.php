@@ -57,6 +57,23 @@ switch ($category) {
         $str = $_POST['str'];
         $result_option = get_land_section_option($str);
         break;
+
+    case 'land_number':
+        $section = $_POST['section'];
+        $subsection = $_POST['subsection'];
+        $land_number = $_POST['land_number'];
+        // $temp = checkLandNumisExist($section,$subsection,$land_number);
+        $result_option = checkLandNumisExist($section,$subsection,$land_number);
+        // $result_option = $temp["land_number"];
+        break;
+
+    case 'sub_building_category':
+        $result_option = getSubbuildingCategory();
+        break;
+
+    case 'sub_building_item':
+        $application = $_POST['application'];
+        $result_option = getSubbuildingOption($application);
 }
 // $item_type = $_POST['item_type'];
 //

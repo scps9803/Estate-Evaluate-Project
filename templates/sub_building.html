@@ -11,8 +11,9 @@
     </head>
     <body>
         <div class="container" align="center">
-            <form class="" action="" method="post">
+            <form class="" action="saveData.php" method="post">
                 <h1>雜項設施</h1>
+                <h3>(若無雜項可直接儲存略過)</h3>
                 <table border="1">
                     <tr>
                         <td>項目</td>
@@ -24,10 +25,12 @@
                         <td>
                             <div id="other-item" class="input-align-top">
                                 <div id="other-item-1">
-                                    <select class="select-menu" name="other-item-1">
+                                    <select class="small-select-menu" id="other-item-category-1" name="other-item-category-1" onclick="getSubbuildingCategory(1);this.onclick=null;" onchange="getSubbuildingOption(1)">
+                                        <option value="" style="display:none;">請選擇種類</option>
+                                    </select>
+
+                                    <select class="select-menu" id="other-item-option-1" name="other-item-1">
                                         <option value="" style="display:none;">請選擇項目</option>
-                                        <option value="">電柱(RC造)遷移費</option>
-                                        <option value="">窗型冷氣遷移費</option>
                                     </select>
 
                                     <select class="small-select-menu" name="other-item-type-1">
@@ -37,6 +40,7 @@
                                     </select>
                                 </div>
                             </div>
+                            <input type="hidden" id="other-item-count" name="other-item-count">
                             <button type="button" onclick="addInfoItemOnclick('other-item')">+</button>
                             <button type="button" onclick="removeInfoItemOnclick('other-item')">-</button>
                         </td>
@@ -50,13 +54,14 @@
                         <td>
                             <div id="auto-remove">
                                 <div id="auto-remove-1">
-                                    <input type="radio" name="auto-remove-1">是<input type="radio" name="auto-remove-1">否
+                                    <input type="radio" name="auto-remove-1" value="是">是<input type="radio" name="auto-remove-1" value="否">否
                                 </div>
                             </div>
                         </td>
                     </tr>
                 </table>
                 <!-- <input type="button" value="回前一頁" onclick="window.history.back();"> -->
+                <input type="hidden" name="house_address" value="建國二路100號">
                 <input type="submit" value="儲存">
             </form>
         </div>

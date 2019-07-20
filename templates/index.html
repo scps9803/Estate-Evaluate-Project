@@ -69,7 +69,7 @@
                             <div id="subsection" class="input-align">
                                 <div id="subsection-1">
                                     <!-- <input type="text" name="subsection-1"><br> -->
-                                    <select name="subsection-1">
+                                    <select id="sub_section-1" name="subsection-1">
                                         <option value="">無</option>
                                         <option value="新坡小段">新坡小段</option>
                                         <option value="過溪子小段">過溪子小段</option>
@@ -83,7 +83,7 @@
                         <td>
                             <div id="land-number" class="input-align">
                                 <div id="land-number-1">
-                                    <input type="text" name="land-number-1" placeholder="多個地號請用'、'分隔" value="" required><br>
+                                    <input type="text" id="land-num-1" name="land-number-1" placeholder="多個地號請用'、'分隔" onchange="isLandNumExist(1)" required><br>
                                 </div>
                             </div>
                             <!-- <button type="button" onclick="addInfoItemOnclick('land-number')">+</button>
