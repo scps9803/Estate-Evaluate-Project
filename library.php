@@ -1033,6 +1033,7 @@ function getSubbuildingData($house_address,$item_type){
     $sql = "SELECT address,a.sId,application,item_name,unitprice,unit,item_type,area_calculate_text,area,a.auto_remove
         FROM has_subbuilding as a LEFT JOIN sub_building as b on a.sId=b.sId WHERE address='{$house_address}' AND item_type='{$item_type}'";
     $res = $conn->query($sql);
+    if($res->num_rows==0) return null;
 
     $i = 0;
     while($row = $res->fetch_assoc()) {
@@ -1044,11 +1045,29 @@ function getSubbuildingData($house_address,$item_type){
     return $result;
 }
 
-function getDecorationData($house_address){
+function getDecorationData($house_address,$category){
     $conn = connect_db();
 
-    $sql = "SELECT * FROM has_building_decoration AS a LEFT JOIN floor_info AS b ON a.fId=b.fId WHERE address='{$house_address}'";
+    $sql = "SELECT * FROM has_building_decoration AS a LEFT JOIN floor_info AS b ON a.fId=b.fId LEFT JOIN building_decoration AS c ON a.bdId=c.bdId WHERE address='{$house_address}' AND category='{$category}' ORDER BY nth_floor";
     $res = $conn->query($sql);
+    if($res->num_rows==0) return null;
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $result[$i] = $row;
+        $i++;
+    }
+
+    $conn->close();
+    return $result;
+}
+
+function getBuildingDecorationData($house_address,$category,$nth_floor){
+    $conn = connect_db();
+
+    $sql = "SELECT * FROM has_building_decoration AS a LEFT JOIN floor_info AS b ON a.fId=b.fId LEFT JOIN building_decoration AS c ON a.bdId=c.bdId WHERE address='{$house_address}' AND category='{$category}' AND nth_floor='{$nth_floor}' ORDER BY nth_floor";
+    $res = $conn->query($sql);
+    if($res->num_rows==0) return null;
 
     $i = 0;
     while($row = $res->fetch_assoc()) {
