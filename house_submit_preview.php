@@ -82,14 +82,14 @@ $exit_num = $_POST['exit-num'];
 // 現住人資料
 $captain_count = $_POST['captain_count'];
 $total_people = 0;
-if(isset($_POST['independent-judge'])){
-    $independent = explode (",",$_POST['independent-judge']);
+if(isset($_POST['cohabit-judge'])){
+    $cohabit = explode (",",$_POST['cohabit-judge']);
 }
 
 if($captain_count>=1){
     for($i=0;$i<$captain_count;$i++){
         $captain[$i]['name'] = $_POST['captain-'.($i+1)];
-        $captain[$i]['independent'] = $independent[$i];
+        $captain[$i]['cohabit'] = $cohabit[$i];
         $captain[$i]['id'] = $_POST['captain-id-'.($i+1)];
         $captain[$i]['household_number'] = $_POST['household-number-'.($i+1)];
         $captain[$i]['set_household_date'] = $_POST['set-household-date-'.($i+1)];
@@ -504,7 +504,7 @@ if($door_window_numerator[0] != ""){
 }
 
 if($toilet_ratio[0][0] != ""){
-    $bdId = insertToiletData($fId,$toilet_ratio,$toilet_type,$toilet_product);
+    $bdId = insertToiletData($fId,$toilet_ratio,$toilet_type,$toilet_product,$toilet_number);
     echo "浴廁 BDID: <br>";
     print_r($toilet_ratio);
     print_r($toilet_type);

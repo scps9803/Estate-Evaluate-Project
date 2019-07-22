@@ -283,12 +283,38 @@ for($i=0;$i<count($main_decoration_data);$i++){
     $ceiling_text = "";
     $ceiling_points = 0;
 
+    $door_text = "";
+    $door_points = 0;
+
+    $toilet_text = "";
+    $toilet_points = 0;
+
+    $electric_text = "";
+    $electric_points = 0;
+
+    $window_level_text = "";
+    $window_level_points = 0;
+
+    $balcony_text = "陽台(";
+    $balcony_points = 0;
+
+    $daughter_text = "";
+    $daughter_points = 0;
+
+    $extra_percent = 0;
+
     $indoor_divide_decoration_data = getBuildingDecorationData($house_address,'室內隔牆構造',$i+1);
     $outdoor_wall_decoration_data = getBuildingDecorationData($house_address,'屋外牆粉裝',$i+1);
     $indoor_wall_decoration_data = getBuildingDecorationData($house_address,'室內牆粉裝',$i+1);
     $roof_decoration_data = getBuildingDecorationData($house_address,'屋頂(面)粉裝',$i+1);
     $floor_decoration_data = getBuildingDecorationData($house_address,'樓地板粉裝',$i+1);
     $ceiling_decoration_data = getBuildingDecorationData($house_address,'天花板粉裝',$i+1);
+    $door_decoration_data = getBuildingDecorationData($house_address,'門窗裝置',$i+1);
+    $toilet_decoration_data = getBuildingDecorationData($house_address,'給水、浴、廁設備',$i+1);
+    $electric_decoration_data = getBuildingDecorationData($house_address,'電氣設備(包括燈具)',$i+1);
+    $window_level_decoration_data = getBuildingDecorationData($house_address,'其他項目門窗裝置加柵',$i+1);
+    $balcony_decoration_data = getBuildingDecorationData($house_address,'陽台',$i+1);
+    $daughter_decoration_data = getBuildingDecorationData($house_address,'女兒牆',$i+1);
 
     if($indoor_divide_decoration_data!=null){
         for($j=0;$j<count($indoor_divide_decoration_data);$j++){
@@ -350,6 +376,106 @@ for($i=0;$i<count($main_decoration_data);$i++){
         }
     }
 
+    if($door_decoration_data!=null){
+        for($j=0;$j<count($door_decoration_data);$j++){
+            $door_text = $door_text.$door_decoration_data[$j]["ratio"]." ".$door_decoration_data[$j]["item_name"]."\n";
+            $door_points += $door_decoration_data[$j]["ratio"]*$door_decoration_data[$j]["points"];
+        }
+        if(count($door_decoration_data)==1 && $door_decoration_data[0]["ratio"]==1){
+            $door_text = substr($door_text,1,strlen($door_text));
+        }
+    }
+
+    if($toilet_decoration_data!=null){
+        for($j=0;$j<count($toilet_decoration_data);$j++){
+            if($toilet_text.$toilet_decoration_data[$j]["area"]==1){
+                $note = "(一至三處)";
+            }
+            else if($toilet_text.$toilet_decoration_data[$j]["area"]==2){
+                $note = "(四至六處)";
+            }
+            else if($toilet_text.$toilet_decoration_data[$j]["area"]==3){
+                $note = "(七處以上)";
+            }
+            $toilet_text = $toilet_text.$toilet_decoration_data[$j]["ratio"]." ".$toilet_decoration_data[$j]["item_name"].$note."\n";
+            $toilet_points += $toilet_decoration_data[$j]["ratio"]*$toilet_decoration_data[$j]["points"];
+        }
+        if(count($toilet_decoration_data)==1 && $toilet_decoration_data[0]["ratio"]==1){
+            $toilet_text = substr($toilet_text,1,strlen($toilet_text));
+        }
+    }
+
+    if($electric_decoration_data!=null){
+        for($j=0;$j<count($electric_decoration_data);$j++){
+            $electric_text = $electric_text.$electric_decoration_data[$j]["ratio"]." ".$electric_decoration_data[$j]["item_name"]."\n";
+            $electric_points += $electric_decoration_data[$j]["ratio"]*$electric_decoration_data[$j]["points"];
+            $electric_type = $electric_decoration_data[$j]["item_type"];
+        }
+        if(count($electric_decoration_data)==1 && $electric_decoration_data[0]["ratio"]==1){
+            $electric_text = substr($electric_text,1,strlen($electric_text));
+        }
+    }
+
+    if($window_level_decoration_data!=null){
+        for($j=0;$j<count($window_level_decoration_data);$j++){
+            $window_level_text = $window_level_text.$window_level_decoration_data[$j]["ratio"]." ".$window_level_decoration_data[$j]["item_name"]."\n";
+            $window_level_points += $window_level_decoration_data[$j]["ratio"]*$window_level_decoration_data[$j]["points"];
+        }
+        if(count($window_level_decoration_data)==1 && $window_level_decoration_data[0]["ratio"]==1){
+            $window_level_text = substr($window_level_text,1,strlen($window_level_text));
+        }
+    }
+
+    if($balcony_decoration_data!=null){
+        for($j=0;$j<count($balcony_decoration_data);$j++){
+            $balcony_text = $balcony_text.$balcony_decoration_data[$j]["item_type"];
+            if($j!=count($balcony_decoration_data)-1){
+                $balcony_text = $balcony_text."、";
+            }
+            $balcony_points += $balcony_decoration_data[$j]["ratio"]*$balcony_decoration_data[$j]["points"];
+        }
+        $balcony_text = $balcony_text.")";
+        if(count($balcony_decoration_data)==1 && $balcony_decoration_data[0]["ratio"]==1){
+            $balcony_text = substr($balcony_text,1,strlen($balcony_text));
+        }
+    }
+
+    if($daughter_decoration_data!=null){
+        for($j=0;$j<count($daughter_decoration_data);$j++){
+            $daughter_text = $daughter_text.$daughter_decoration_data[$j]["item_name"]."牆(".$daughter_decoration_data[$j]["item_type"].")"."\n";
+            $daughter_points += $daughter_decoration_data[$j]["ratio"]*$daughter_decoration_data[$j]["points"];
+        }
+        if(count($daughter_decoration_data)==1 && $daughter_decoration_data[0]["ratio"]==1){
+            $daughter_text = substr($daughter_text,1,strlen($daughter_text));
+        }
+    }
+
+    if($main_decoration_data[$i]["layer_height"]<2.7){
+        $extra_percent = -(2.7-$main_decoration_data[$i]["layer_height"])*10;
+        $height_text = number_format($main_decoration_data[$i]["layer_height"],1,".",",")." m減少".abs($extra_percent)."%評點";
+    }
+    else if($main_decoration_data[$i]["layer_height"]>3.6){
+        $extra_percent = ($main_decoration_data[$i]["layer_height"]-3.6)*10;
+        $height_text = number_format($main_decoration_data[$i]["layer_height"],1,".",",")." m增加".$extra_percent."%評點";
+    }
+    else{
+        $height_text = number_format($main_decoration_data[$i]["layer_height"],1,".",",")." m為標準房屋高度";
+    }
+
+    // $total_points = number_format((number_format($main_decoration_data[$i]["points"],2,".",",")+
+    // number_format($indoor_divide_points,2,".",",")+number_format($outdoor_wall_points,2,".",",")+
+    // number_format($indoor_wall_points,2,".",",")+number_format($roof_points,2,".",",")+
+    // number_format($floor_points,2,".",",")+number_format($ceiling_points,2,".",",")+
+    // number_format($door_points,2,".",",")+number_format($toilet_points,2,".",",")+
+    // number_format($electric_points,2,".",",")+number_format($window_level_points,2,".",",")+
+    // number_format($balcony_points,2,".",",")+number_format($daughter_points,2,".",","))/100*(100+$extra_percent),2,".",",");
+    $total_points = number_format(($main_decoration_data[$i]["points"]+
+    $indoor_divide_points+$outdoor_wall_points+
+    $indoor_wall_points+$roof_points+
+    $floor_points+$ceiling_points+
+    $door_points+$toilet_points+
+    $electric_points+$window_level_points+
+    $balcony_points+$daughter_points)/100*(100+$extra_percent),2,".",",");
     switch ($i) {
         case 0:
         $objPHPExcel->setActiveSheetIndex(0)
@@ -366,6 +492,15 @@ for($i=0;$i<count($main_decoration_data);$i++){
                     ->setCellValue( 'D48', $roof_text)
                     ->setCellValue( 'D49', $floor_text)
                     ->setCellValue( 'D50', $ceiling_text)
+                    ->setCellValue( 'D51', $door_text)
+                    ->setCellValue( 'D52', $toilet_text)
+                    ->setCellValue( 'D53', $electric_text)
+                    ->setCellValue( 'D54', $electric_type)
+                    ->setCellValue( 'D55', $window_level_text)
+                    ->setCellValue( 'D56', $balcony_text)
+                    ->setCellValue( 'D57', $daughter_text)
+                    ->setCellValue( 'D58', $height_text)
+                    ->setCellValue( 'D59', $total_points)
 
                     // 塞入評點
                     ->setCellValue( 'G41', number_format($main_decoration_data[$i]["points"],2,".",","))
@@ -374,7 +509,14 @@ for($i=0;$i<count($main_decoration_data);$i++){
                     ->setCellValue( 'G47', number_format($indoor_wall_points,2,".",","))
                     ->setCellValue( 'G48', number_format($roof_points,2,".",","))
                     ->setCellValue( 'G49', number_format($floor_points,2,".",","))
-                    ->setCellValue( 'G50', number_format($ceiling_points,2,".",","));
+                    ->setCellValue( 'G50', number_format($ceiling_points,2,".",","))
+                    ->setCellValue( 'G51', number_format($door_points,2,".",","))
+                    ->setCellValue( 'G52', number_format($toilet_points,2,".",","))
+                    ->setCellValue( 'G53', number_format($electric_points,2,".",","))
+                    ->setCellValue( 'G55', number_format($window_level_points,2,".",","))
+                    ->setCellValue( 'G56', number_format($balcony_points,2,".",","))
+                    ->setCellValue( 'G57', number_format($daughter_points,2,".",","))
+                    ->setCellValue( 'G58', (100+$extra_percent)."%");
                     break;
         case 1:
         $objPHPExcel->setActiveSheetIndex(0)
@@ -391,6 +533,15 @@ for($i=0;$i<count($main_decoration_data);$i++){
                     ->setCellValue( 'H48', $roof_text)
                     ->setCellValue( 'H49', $floor_text)
                     ->setCellValue( 'H50', $ceiling_text)
+                    ->setCellValue( 'H51', $door_text)
+                    ->setCellValue( 'H52', $toilet_text)
+                    ->setCellValue( 'H53', $electric_text)
+                    ->setCellValue( 'H54', $electric_type)
+                    ->setCellValue( 'H55', $window_level_text)
+                    ->setCellValue( 'H56', $balcony_text)
+                    ->setCellValue( 'H57', $daughter_text)
+                    ->setCellValue( 'H58', $height_text)
+                    ->setCellValue( 'H59', $total_points)
 
                     // 塞入評點
                     ->setCellValue( 'K41', number_format($main_decoration_data[$i]["points"],2,".",","))
@@ -399,7 +550,14 @@ for($i=0;$i<count($main_decoration_data);$i++){
                     ->setCellValue( 'K47', number_format($indoor_wall_points,2,".",","))
                     ->setCellValue( 'K48', number_format($roof_points,2,".",","))
                     ->setCellValue( 'K49', number_format($floor_points,2,".",","))
-                    ->setCellValue( 'K50', number_format($ceiling_points,2,".",","));
+                    ->setCellValue( 'K50', number_format($ceiling_points,2,".",","))
+                    ->setCellValue( 'K51', number_format($door_points,2,".",","))
+                    ->setCellValue( 'K52', number_format($toilet_points,2,".",","))
+                    ->setCellValue( 'K53', number_format($electric_points,2,".",","))
+                    ->setCellValue( 'K55', number_format($window_level_points,2,".",","))
+                    ->setCellValue( 'K56', number_format($balcony_points,2,".",","))
+                    ->setCellValue( 'K57', number_format($daughter_points,2,".",","))
+                    ->setCellValue( 'K58', (100+$extra_percent)."%");
                     break;
         case 2:
         $objPHPExcel->setActiveSheetIndex(0)
@@ -416,6 +574,15 @@ for($i=0;$i<count($main_decoration_data);$i++){
                     ->setCellValue( 'M48', $roof_text)
                     ->setCellValue( 'M49', $floor_text)
                     ->setCellValue( 'M50', $ceiling_text)
+                    ->setCellValue( 'M51', $door_text)
+                    ->setCellValue( 'M52', $toilet_text)
+                    ->setCellValue( 'M53', $electric_text)
+                    ->setCellValue( 'M54', $electric_type)
+                    ->setCellValue( 'M55', $window_level_text)
+                    ->setCellValue( 'M56', $balcony_text)
+                    ->setCellValue( 'M57', $daughter_text)
+                    ->setCellValue( 'M58', $height_text)
+                    ->setCellValue( 'M59', $total_points)
 
                     // 塞入評點
                     ->setCellValue( 'P41', number_format($main_decoration_data[$i]["points"],2,".",","))
@@ -424,7 +591,14 @@ for($i=0;$i<count($main_decoration_data);$i++){
                     ->setCellValue( 'P47', number_format($indoor_wall_points,2,".",","))
                     ->setCellValue( 'P48', number_format($roof_points,2,".",","))
                     ->setCellValue( 'P49', number_format($floor_points,2,".",","))
-                    ->setCellValue( 'P50', number_format($ceiling_points,2,".",","));
+                    ->setCellValue( 'P50', number_format($ceiling_points,2,".",","))
+                    ->setCellValue( 'P51', number_format($door_points,2,".",","))
+                    ->setCellValue( 'P52', number_format($toilet_points,2,".",","))
+                    ->setCellValue( 'P53', number_format($electric_points,2,".",","))
+                    ->setCellValue( 'P55', number_format($window_level_points,2,".",","))
+                    ->setCellValue( 'P56', number_format($balcony_points,2,".",","))
+                    ->setCellValue( 'P57', number_format($daughter_points,2,".",","))
+                    ->setCellValue( 'P58', (100+$extra_percent)."%");
                     break;
         case 3:
         $objPHPExcel->setActiveSheetIndex(0)
@@ -441,6 +615,15 @@ for($i=0;$i<count($main_decoration_data);$i++){
                     ->setCellValue( 'R48', $roof_text)
                     ->setCellValue( 'R49', $floor_text)
                     ->setCellValue( 'R50', $ceiling_text)
+                    ->setCellValue( 'R51', $door_text)
+                    ->setCellValue( 'R52', $toilet_text)
+                    ->setCellValue( 'R53', $electric_text)
+                    ->setCellValue( 'R54', $electric_type)
+                    ->setCellValue( 'R55', $window_level_text)
+                    ->setCellValue( 'R56', $balcony_text)
+                    ->setCellValue( 'R57', $daughter_text)
+                    ->setCellValue( 'R58', $height_text)
+                    ->setCellValue( 'R59', $total_points)
 
                     // 塞入評點
                     ->setCellValue( 'V41', number_format($main_decoration_data[$i]["points"],2,".",","))
@@ -449,7 +632,14 @@ for($i=0;$i<count($main_decoration_data);$i++){
                     ->setCellValue( 'V47', number_format($indoor_wall_points,2,".",","))
                     ->setCellValue( 'V48', number_format($roof_points,2,".",","))
                     ->setCellValue( 'V49', number_format($floor_points,2,".",","))
-                    ->setCellValue( 'V50', number_format($ceiling_points,2,".",","));
+                    ->setCellValue( 'V50', number_format($ceiling_points,2,".",","))
+                    ->setCellValue( 'V51', number_format($door_points,2,".",","))
+                    ->setCellValue( 'V52', number_format($toilet_points,2,".",","))
+                    ->setCellValue( 'V53', number_format($electric_points,2,".",","))
+                    ->setCellValue( 'V55', number_format($window_level_points,2,".",","))
+                    ->setCellValue( 'V56', number_format($balcony_points,2,".",","))
+                    ->setCellValue( 'V57', number_format($daughter_points,2,".",","))
+                    ->setCellValue( 'V58', (100+$extra_percent)."%");
                     break;
         case 4:
         $objPHPExcel->setActiveSheetIndex(0)
@@ -466,6 +656,15 @@ for($i=0;$i<count($main_decoration_data);$i++){
                     ->setCellValue( 'W48', $roof_text)
                     ->setCellValue( 'W49', $floor_text)
                     ->setCellValue( 'W50', $ceiling_text)
+                    ->setCellValue( 'W51', $door_text)
+                    ->setCellValue( 'W52', $toilet_text)
+                    ->setCellValue( 'W53', $electric_text)
+                    ->setCellValue( 'W54', $electric_type)
+                    ->setCellValue( 'W55', $window_level_text)
+                    ->setCellValue( 'W56', $balcony_text)
+                    ->setCellValue( 'W57', $daughter_text)
+                    ->setCellValue( 'W58', $height_text)
+                    ->setCellValue( 'W59', $total_points)
 
                     // 塞入評點
                     ->setCellValue( 'AA41', number_format($main_decoration_data[$i]["points"],2,".",","))
@@ -474,7 +673,14 @@ for($i=0;$i<count($main_decoration_data);$i++){
                     ->setCellValue( 'AA47', number_format($indoor_wall_points,2,".",","))
                     ->setCellValue( 'AA48', number_format($roof_points,2,".",","))
                     ->setCellValue( 'AA49', number_format($floor_points,2,".",","))
-                    ->setCellValue( 'AA50', number_format($ceiling_points,2,".",","));
+                    ->setCellValue( 'AA50', number_format($ceiling_points,2,".",","))
+                    ->setCellValue( 'AA51', number_format($door_points,2,".",","))
+                    ->setCellValue( 'AA52', number_format($toilet_points,2,".",","))
+                    ->setCellValue( 'AA53', number_format($electric_points,2,".",","))
+                    ->setCellValue( 'AA55', number_format($window_level_points,2,".",","))
+                    ->setCellValue( 'AA56', number_format($balcony_points,2,".",","))
+                    ->setCellValue( 'AA57', number_format($daughter_points,2,".",","))
+                    ->setCellValue( 'AA58', (100+$extra_percent)."%");
                     break;
         case 5:
         $objPHPExcel->setActiveSheetIndex(0)
@@ -491,6 +697,15 @@ for($i=0;$i<count($main_decoration_data);$i++){
                     ->setCellValue( 'AC48', $roof_text)
                     ->setCellValue( 'AC49', $floor_text)
                     ->setCellValue( 'AC50', $ceiling_text)
+                    ->setCellValue( 'AC51', $door_text)
+                    ->setCellValue( 'AC52', $toilet_text)
+                    ->setCellValue( 'AC53', $electric_text)
+                    ->setCellValue( 'AC54', $electric_type)
+                    ->setCellValue( 'AC55', $window_level_text)
+                    ->setCellValue( 'AC56', $balcony_text)
+                    ->setCellValue( 'AC57', $daughter_text)
+                    ->setCellValue( 'AC58', $height_text)
+                    ->setCellValue( 'AC59', $total_points)
 
                     // 塞入評點
                     ->setCellValue( 'AF41', number_format($main_decoration_data[$i]["points"],2,".",","))
@@ -499,7 +714,14 @@ for($i=0;$i<count($main_decoration_data);$i++){
                     ->setCellValue( 'AF47', number_format($indoor_wall_points,2,".",","))
                     ->setCellValue( 'AF48', number_format($roof_points,2,".",","))
                     ->setCellValue( 'AF49', number_format($floor_points,2,".",","))
-                    ->setCellValue( 'AF50', number_format($ceiling_points,2,".",","));
+                    ->setCellValue( 'AF50', number_format($ceiling_points,2,".",","))
+                    ->setCellValue( 'AF51', number_format($door_points,2,".",","))
+                    ->setCellValue( 'AF52', number_format($toilet_points,2,".",","))
+                    ->setCellValue( 'AF53', number_format($electric_points,2,".",","))
+                    ->setCellValue( 'AF55', number_format($window_level_points,2,".",","))
+                    ->setCellValue( 'AF56', number_format($balcony_points,2,".",","))
+                    ->setCellValue( 'AF57', number_format($daughter_points,2,".",","))
+                    ->setCellValue( 'AF58', (100+$extra_percent)."%");
                     break;
     }
 }

@@ -247,9 +247,9 @@ function addItemOnclick(id,column,num){
                 // '座數:<input type="radio" name="toilet-number-'+column+"-"+toilet_equipment_count[column-1]+'" value="3">1~3座<input type="radio" name="toilet-number-'+column+"-"+toilet_equipment_count[column-1]+'" value="6">4~6座<input type="radio" name="toilet-number-'+column+"-"+toilet_equipment_count[column-1]+'" value="7">7座以上'+
                 '座數:<select id="toilet-number-'+column+"-"+toilet_equipment_count[column-1]+'" name="toilet-number-'+column+"-"+toilet_equipment_count[column-1]+'" class="tiny-select-menu" required>'+
                     '<option value="" style="display:none;">請選擇座數</option>'+
-                    '<option value="3">1~3座</option>'+
-                    '<option value="6">4~6座</option>'+
-                    '<option value="7">7座以上</option>'+
+                    '<option value="1">1~3座</option>'+
+                    '<option value="2">4~6座</option>'+
+                    '<option value="3">7座以上</option>'+
                 '</select>';
             '</div>';
             $(text).insertAfter($(itemId));
@@ -534,7 +534,7 @@ function addInfoItemOnclick(id){
             text =
             '<div id="captain-'+captain_count+'">'+
                 '<input type="text" name="captain-'+captain_count+'" required>&nbsp;'+
-                '<input type="checkbox" id="independent-'+captain_count+'" name="independent-'+captain_count+'">有獨立生活機能'+
+                '<input type="checkbox" id="cohabit-'+captain_count+'" name="cohabit-'+captain_count+'">共同生活戶'+
             '</div>';
             getCaptainCount();
             break;
@@ -1006,15 +1006,20 @@ function saveDialog(){
         window.alert($("#action").val());
         value_array = [];
         for(var i=0;i<captain_count;i++){
-            if(document.getElementById("independent-"+(i+1)).checked){
-                $("#independent-"+(i+1)).val("yes");
+            if($("#exit-num").val()==1){
+                $("#cohabit-"+(i+1)).val("yes");
             }
             else{
-                $("#independent-"+(i+1)).val("no");
+                if(document.getElementById("cohabit-"+(i+1)).checked){
+                    $("#cohabit-"+(i+1)).val("yes");
+                }
+                else{
+                    $("#cohabit-"+(i+1)).val("no");
+                }
             }
-            value_array[i] = $("#independent-"+(i+1)).val();
+            value_array[i] = $("#cohabit-"+(i+1)).val();
         }
-        $("#independent-judge").val(value_array);
+        $("#cohabit-judge").val(value_array);
 
         itemId = ["#minus-wall-num-","#minus-wall-option-","#add-wall-num-","#add-wall-option-"];
         writeToId = ["#minus-wall-count-","#minus-wall-option-","#add-wall-count-","#add-wall-option-"];
@@ -1170,80 +1175,27 @@ function continueInput(){
     window.alert($("#action").val());
 }
 
-function setIndependent(num){
+function setCohabit(num){
     if($("#exit-num").val()==""){
         window.alert("請先選擇出口數!");
         $focused = $(':focus');
         $focused.prop("checked",false);
     }
     else{
-        // window.alert(document.getElementById("independent-"+num).checked);
         var exit_num = $("#exit-num").val();
-        if(document.getElementById("independent-"+num).checked){
-            // if(exit_num==1){
-            //     independent_count++;
-            // }
-            // else if(independent_count < exit_num && exit_num > 1){
-            //     independent_count++;
-            // }
-            // else{
-            //     // var count = $("#exit-num").val();
-            //     window.alert(count+"個出口最多只能有"+count+"戶獨立生活戶!\n請先取消勾選再重新選擇!");
-            //     $focused = $(':focus');
-            //     $focused.prop("checked",false);
-            // }
-
-            // if(exit_num==1){
-            //     window.alert("1個出口所有戶口合併計算!");
-            //     $focused = $(':focus');
-            //     $focused.prop("checked",false);
-            // }
-            // else if(independent_count < exit_num-1 && exit_num > 1){
-            //     independent_count++;
-            // }
-            // else{
-            //     var count = $("#exit-num").val()-1;
-            //     window.alert(count+"個出口最多只能有"+count+"戶獨立生活戶!\n請先取消勾選再重新選擇!");
-            //     $focused = $(':focus');
-            //     $focused.prop("checked",false);
-            // }
-
-            if(exit_num<captain_count){
-                independent_count++;
+        for(var i=0;i<captain_count;i++){
+            if(exit_num==1){
+                $("#cohabit-"+num).val("yes");
             }
-
+            else{
+                if(document.getElementById("cohabit-"+num).checked){
+                    $("#cohabit-"+num).val("yes");
+                }
+                else{
+                    $("#cohabit-"+num).val("no");
+                }
+            }
         }
-        else{
-            // if(independent_count>=$("#exit-num").val()){
-            //     independent_count--;
-            // }
-            independent_count--;
-        }
-        window.alert(independent_count);
-
-        // for(var i=0;i<captain_count;i++){
-        //     if(document.getElementById("independent-"+(i+1)).checked){
-        //         if(independent_count<$("#exit-num").val()){
-        //             independent_count++;
-        //         }
-        //         else{
-        //             // window.alert(captain_count-$("#exit-num").val());
-        //             // window.alert(independent_count);
-        //             var count = $("#exit-num").val();
-        //             window.alert(count+"個出口最多只能有"+count+"戶獨立生活戶!\n請先取消勾選再重新選擇!");
-        //
-        //             $focused = $(':focus');
-        //             $focused.prop("checked",false);
-        //             break;
-        //         }
-        //     }
-        //     else{
-        //         if(independent_count>=$("#exit-num").val()){
-        //             independent_count--;
-        //         }
-        //     }
-        //     // window.alert("inde: "+independent_count);
-        // }
     }
 }
 
@@ -1294,6 +1246,7 @@ function isLandNumExist(num){
              success: function(data){
                  if(data.item_name==false){
                      window.alert("輸入地號在資料庫中查無!\n請重新輸入!");
+                     $(item).val("");
                  }
                  else{
                      // window.alert(data.item_name);

@@ -296,27 +296,23 @@ function insertResidentData($captain,$total_people,$house_address,$exit_num,$rem
     $conn = connect_db();
     $total_family_num = 0;
     $index = 0;
+    $shareFeeIndex = array();
 
-    if(count($captain)<=$exit_num){
-        for($i=0;$i<count($captain);$i++){
-            if($captain[$i]["family_num"]<6){
-                $sql = "SELECT mId FROM migration_fee WHERE family_num='{$captain[$i]["family_num"]}' AND item_type='{$remove_condition}'";
-            }
-            else{
-                $sql = "SELECT mId FROM migration_fee WHERE family_num='6' AND item_type='{$remove_condition}'";
-            }
-
-            $res = $conn->query($sql);
-            while($row = $res->fetch_assoc()) {
-                $mId[$i] = $row["mId"];
-            }
-            $move_status[$i] = "個別領取";
+    $no_count = 0;
+    for($i=0;$i<count($captain);$i++){
+        if($captain[$i]["cohabit"]=="no"){
+            $no_count += 1;
         }
     }
-    else{
+    if($no_count<2){
         for($i=0;$i<count($captain);$i++){
-            if($captain[$i]['independent']=="yes"){
-
+            if($captain[$i]["cohabit"]=="yes"){
+                $shareFeeIndex[$index] = $i;
+                $total_family_num += $captain[$i]["family_num"];
+                $move_status[$i] = "共同領取";
+                $index++;
+            }
+            else{
                 if($captain[$i]["family_num"]<6){
                     $sql = "SELECT mId FROM migration_fee WHERE family_num='{$captain[$i]["family_num"]}' AND item_type='{$remove_condition}'";
                 }
@@ -328,16 +324,10 @@ function insertResidentData($captain,$total_people,$house_address,$exit_num,$rem
                 while($row = $res->fetch_assoc()) {
                     $mId[$i] = $row["mId"];
                 }
-
                 $move_status[$i] = "個別領取";
             }
-            else{
-                $shareFeeIndex[$index] = $i;
-                $total_family_num += $captain[$i]["family_num"];
-                $move_status[$i] = "共同領取";
-                $index++;
-            }
         }
+
         for($i=0;$i<count($shareFeeIndex);$i++){
             if($total_family_num<6){
                 $sql = "SELECT mId FROM migration_fee WHERE family_num='{$total_family_num}' AND item_type='{$remove_condition}'";
@@ -351,17 +341,89 @@ function insertResidentData($captain,$total_people,$house_address,$exit_num,$rem
                 $mId[$shareFeeIndex[$i]] = $row["mId"];
             }
         }
+
+        for($i=0;$i<count($captain);$i++){
+            $sql = "INSERT INTO resident VALUES('{$captain[$i]["id"]}','{$captain[$i]["name"]}',
+                '{$captain[$i]["household_number"]}','{$captain[$i]["set_household_date"]}',
+                '{$captain[$i]["family_num"]}','{$house_address}','{$mId[$i]}','{$move_status[$i]}')";
+
+            if ($conn->query($sql) === TRUE){
+                // echo "New record created successfully";
+            }else{
+                echo "Error: " . $sql . "<br>" . $conn->error;
+            }
+        }
     }
+    else{
+        $index_yes = 0;
+        $index_no = 0;
+        $total_yes = 0;
+        $total_no = 0;
+        for($i=0;$i<count($captain);$i++){
+            if($captain[$i]["cohabit"]=="yes"){
+                $captain_yes[$index_yes] = $captain[$i];
+                $move_status_yes[$index_yes] = "共同領取";
+                $total_yes += $captain[$i]["family_num"];
+                $index_yes++;
+            }
+            else{
+                $captain_no[$index_no] = $captain[$i];
+                $move_status_no[$index_no] = "共同領取";
+                $total_no += $captain[$i]["family_num"];
+                $index_no++;
+            }
+        }
+        // 分別插入兩組資料
+        for($i=0;$i<count($captain_yes);$i++){
+            if($total_yes<6){
+                $sql = "SELECT mId FROM migration_fee WHERE family_num='{$total_yes}' AND item_type='{$remove_condition}'";
+            }
+            else{
+                $sql = "SELECT mId FROM migration_fee WHERE family_num='6' AND item_type='{$remove_condition}'";
+            }
 
-    for($i=0;$i<count($captain);$i++){
-        $sql = "INSERT INTO resident VALUES('{$captain[$i]["id"]}','{$captain[$i]["name"]}',
-            '{$captain[$i]["household_number"]}','{$captain[$i]["set_household_date"]}',
-            '{$captain[$i]["family_num"]}','{$house_address}','{$mId[$i]}','{$move_status[$i]}')";
+            $res = $conn->query($sql);
+            while($row = $res->fetch_assoc()) {
+                $mId[$i] = $row["mId"];
+            }
+        }
 
-        if ($conn->query($sql) === TRUE){
-            // echo "New record created successfully";
-        }else{
-            echo "Error: " . $sql . "<br>" . $conn->error;
+        for($i=0;$i<count($captain_yes);$i++){
+            $sql = "INSERT INTO resident VALUES('{$captain_yes[$i]["id"]}','{$captain_yes[$i]["name"]}',
+                '{$captain_yes[$i]["household_number"]}','{$captain_yes[$i]["set_household_date"]}',
+                '{$captain_yes[$i]["family_num"]}','{$house_address}','{$mId[$i]}','{$move_status_yes[$i]}')";
+
+            if ($conn->query($sql) === TRUE){
+                // echo "New record created successfully";
+            }else{
+                echo "Error: " . $sql . "<br>" . $conn->error;
+            }
+        }
+
+        for($i=0;$i<count($captain_no);$i++){
+            if($total_no<6){
+                $sql = "SELECT mId FROM migration_fee WHERE family_num='{$total_no}' AND item_type='{$remove_condition}'";
+            }
+            else{
+                $sql = "SELECT mId FROM migration_fee WHERE family_num='6' AND item_type='{$remove_condition}'";
+            }
+
+            $res = $conn->query($sql);
+            while($row = $res->fetch_assoc()) {
+                $mId[$i] = $row["mId"];
+            }
+        }
+
+        for($i=0;$i<count($captain_no);$i++){
+            $sql = "INSERT INTO resident VALUES('{$captain_no[$i]["id"]}','{$captain_no[$i]["name"]}',
+                '{$captain_no[$i]["household_number"]}','{$captain_no[$i]["set_household_date"]}',
+                '{$captain_no[$i]["family_num"]}','{$house_address}','{$mId[$i]}','{$move_status_no[$i]}')";
+
+            if ($conn->query($sql) === TRUE){
+                // echo "New record created successfully";
+            }else{
+                echo "Error: " . $sql . "<br>" . $conn->error;
+            }
         }
     }
     $conn->close();
@@ -627,64 +689,379 @@ function insertCeilingData($fId,$ceiling_decoration_numerator,$ceiling_decoratio
     return $bdId;
 }
 
+// function insertDoorWindowData($fId,$door_window_numerator,$door_window_denominator,$door_window,$double_door,$double_window,$main_building){
+//     $conn = connect_db();
+//
+//     for($i=0;$i<count($fId);$i++){
+//
+//         // if(($door_window[$i] != $double_door[$i]) && ($double_door[$i] != "")){
+//         // 第二層僅有門或窗
+//         if(($double_door[$i] == "") || ($double_window[$i] == "")){
+//             // $sql = "SELECT bdId FROM building_decoration WHERE category='門窗裝置' AND item_name='{$double_door[$i]}' AND building_type='{$main_building[$i]["house_type"]}'";
+//             $sql = "SELECT bdId FROM building_decoration WHERE category='門窗裝置' AND item_name='{$double_door[$i]}' OR item_name='{$double_window[$i]}' AND building_type='{$main_building[$i]["house_type"]}'";
+//             $res = $conn->query($sql);
+//
+//             while($row = $res->fetch_assoc()) {
+//                 $bdId[$i]["double"] = $row["bdId"];
+//             }
+//
+//             $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId[$i]["double"]}',NULL,0.5)";
+//
+//             if ($conn->query($sql) === TRUE){
+//                 // echo "New record created successfully";
+//             }else{
+//                 echo "Error: " . $sql . "<br>" . $conn->error;
+//             }
+//         }
+//         // else if(($door_window[$i] != $double_window[$i]) && ($double_window[$i] != "")){
+//         //     $sql = "SELECT bdId FROM building_decoration WHERE category='門窗裝置' AND item_name='{$double_window[$i]}' AND building_type='{$main_building[$i]["house_type"]}'";
+//         //     $res = $conn->query($sql);
+//         //
+//         //     while($row = $res->fetch_assoc()) {
+//         //         $bdId[$i]["double"] = $row["bdId"];
+//         //     }
+//         //
+//         //     $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId[$i]["double"]}',NULL,0.5)";
+//         //
+//         //     if ($conn->query($sql) === TRUE){
+//         //         // echo "New record created successfully";
+//         //     }else{
+//         //         echo "Error: " . $sql . "<br>" . $conn->error;
+//         //     }
+//         // }
+//
+//         // 第二層門窗皆有
+//         else{
+//             $sql = "SELECT bdId FROM building_decoration WHERE category='門窗裝置' AND item_name='{$door_window[$i]}' AND building_type='{$main_building[$i]["house_type"]}'";
+//             $res = $conn->query($sql);
+//
+//             while($row = $res->fetch_assoc()) {
+//                 $bdId[$i]["normal"] = $row["bdId"];
+//             }
+//
+//             // $ratio = (float)$door_window_numerator[$i]/$door_window_denominator[$i];
+//             $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId[$i]["normal"]}',NULL,2)";
+//
+//             if ($conn->query($sql) === TRUE){
+//                 // echo "New record created successfully";
+//             }else{
+//                 echo "Error: " . $sql . "<br>" . $conn->error;
+//             }
+//         }
+//         $sql = "SELECT bdId FROM building_decoration WHERE category='門窗裝置' AND item_name='{$door_window[$i]}' AND building_type='{$main_building[$i]["house_type"]}'";
+//         $res = $conn->query($sql);
+//
+//         while($row = $res->fetch_assoc()) {
+//             $bdId[$i]["normal"] = $row["bdId"];
+//         }
+//
+//         $ratio = (float)$door_window_numerator[$i]/$door_window_denominator[$i];
+//         $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId[$i]["normal"]}',NULL,'{$ratio}')";
+//
+//         if ($conn->query($sql) === TRUE){
+//             // echo "New record created successfully";
+//         }else{
+//             echo "Error: " . $sql . "<br>" . $conn->error;
+//         }
+//     }
+//     $conn->close();
+//     return $bdId;
+// }
+
 function insertDoorWindowData($fId,$door_window_numerator,$door_window_denominator,$door_window,$double_door,$double_window,$main_building){
     $conn = connect_db();
-
     for($i=0;$i<count($fId);$i++){
+        if($double_door[$i] != "" && $double_window[$i] != ""){
+            if($double_door[$i] == $double_window[$i]){
+                if($double_door[$i] == $door_window[$i]){
+                    // (1+ratio)*first
+                    $sql = "SELECT bdId FROM building_decoration WHERE category='門窗裝置' AND item_name='{$door_window[$i]}' AND building_type='{$main_building[$i]["house_type"]}'";
+                    $res = $conn->query($sql);
+                    while($row = $res->fetch_assoc()) {
+                        $bdId = $row["bdId"];
+                    }
+                    $ratio = 1+($door_window_numerator[$i]/$door_window_denominator[$i]);
 
-        if(($door_window[$i] != $double_door[$i]) && ($double_door[$i] != "")){
-            $sql = "SELECT bdId FROM building_decoration WHERE category='門窗裝置' AND item_name='{$double_door[$i]}' AND building_type='{$main_building[$i]["house_type"]}'";
-            $res = $conn->query($sql);
+                    $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId}',NULL,'{$ratio}')";
+                    if ($conn->query($sql) === TRUE){
+                        // echo "New record created successfully";
+                    }else{
+                        echo "Error: " . $sql . "<br>" . $conn->error;
+                    }
+                }
+                else{
+                    // 1 2nd door + ratio*first
+                    $sql = "SELECT bdId FROM building_decoration WHERE category='門窗裝置' AND item_name='{$double_door[$i]}' AND building_type='{$main_building[$i]["house_type"]}'";
+                    $res = $conn->query($sql);
+                    while($row = $res->fetch_assoc()) {
+                        $bdId = $row["bdId"];
+                    }
 
-            while($row = $res->fetch_assoc()) {
-                $bdId[$i]["double"] = $row["bdId"];
+                    $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId}',NULL,1)";
+                    if ($conn->query($sql) === TRUE){
+                        // echo "New record created successfully";
+                    }else{
+                        echo "Error: " . $sql . "<br>" . $conn->error;
+                    }
+                    // ratio*first
+                    $sql = "SELECT bdId FROM building_decoration WHERE category='門窗裝置' AND item_name='{$door_window[$i]}' AND building_type='{$main_building[$i]["house_type"]}'";
+                    $res = $conn->query($sql);
+                    while($row = $res->fetch_assoc()) {
+                        $bdId = $row["bdId"];
+                    }
+                    $ratio = $door_window_numerator[$i]/$door_window_denominator[$i];
+
+                    $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId}',NULL,'{$ratio}')";
+                    if ($conn->query($sql) === TRUE){
+                        // echo "New record created successfully";
+                    }else{
+                        echo "Error: " . $sql . "<br>" . $conn->error;
+                    }
+                }
             }
+            else{
+                if($double_door[$i] == $door_window[$i]){
+                    // 0.5 2nd door + ratio*first
+                    $sql = "SELECT bdId FROM building_decoration WHERE category='門窗裝置' AND item_name='{$double_door[$i]}' AND building_type='{$main_building[$i]["house_type"]}'";
+                    $res = $conn->query($sql);
+                    while($row = $res->fetch_assoc()) {
+                        $bdId = $row["bdId"];
+                    }
 
-            $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId[$i]["double"]}',NULL,0.5)";
+                    $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId}',NULL,0.5)";
+                    if ($conn->query($sql) === TRUE){
+                        // echo "New record created successfully";
+                    }else{
+                        echo "Error: " . $sql . "<br>" . $conn->error;
+                    }
+                    // ratio*first
+                    $sql = "SELECT bdId FROM building_decoration WHERE category='門窗裝置' AND item_name='{$door_window[$i]}' AND building_type='{$main_building[$i]["house_type"]}'";
+                    $res = $conn->query($sql);
+                    while($row = $res->fetch_assoc()) {
+                        $bdId = $row["bdId"];
+                    }
+                    $ratio = $door_window_numerator[$i]/$door_window_denominator[$i];
 
+                    $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId}',NULL,'{$ratio}')";
+                    if ($conn->query($sql) === TRUE){
+                        // echo "New record created successfully";
+                    }else{
+                        echo "Error: " . $sql . "<br>" . $conn->error;
+                    }
+                }
+                else if($double_window[$i] == $door_window[$i]){
+                    // 0.5 2nd window + ratio*first
+                    $sql = "SELECT bdId FROM building_decoration WHERE category='門窗裝置' AND item_name='{$double_window[$i]}' AND building_type='{$main_building[$i]["house_type"]}'";
+                    $res = $conn->query($sql);
+                    while($row = $res->fetch_assoc()) {
+                        $bdId = $row["bdId"];
+                    }
+
+                    $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId}',NULL,0.5)";
+                    if ($conn->query($sql) === TRUE){
+                        // echo "New record created successfully";
+                    }else{
+                        echo "Error: " . $sql . "<br>" . $conn->error;
+                    }
+                    // ratio*first
+                    $sql = "SELECT bdId FROM building_decoration WHERE category='門窗裝置' AND item_name='{$door_window[$i]}' AND building_type='{$main_building[$i]["house_type"]}'";
+                    $res = $conn->query($sql);
+                    while($row = $res->fetch_assoc()) {
+                        $bdId = $row["bdId"];
+                    }
+                    $ratio = $door_window_numerator[$i]/$door_window_denominator[$i];
+
+                    $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId}',NULL,'{$ratio}')";
+                    if ($conn->query($sql) === TRUE){
+                        // echo "New record created successfully";
+                    }else{
+                        echo "Error: " . $sql . "<br>" . $conn->error;
+                    }
+                }
+                else{
+                    // 0.5 2nd door + 0.5 2nd window + ratio*first
+                    $sql = "SELECT bdId FROM building_decoration WHERE category='門窗裝置' AND item_name='{$double_door[$i]}' AND building_type='{$main_building[$i]["house_type"]}'";
+                    $res = $conn->query($sql);
+                    while($row = $res->fetch_assoc()) {
+                        $bdId = $row["bdId"];
+                    }
+
+                    $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId}',NULL,0.5)";
+                    if ($conn->query($sql) === TRUE){
+                        // echo "New record created successfully";
+                    }else{
+                        echo "Error: " . $sql . "<br>" . $conn->error;
+                    }
+                    // 0.5 2nd window
+                    $sql = "SELECT bdId FROM building_decoration WHERE category='門窗裝置' AND item_name='{$double_window[$i]}' AND building_type='{$main_building[$i]["house_type"]}'";
+                    $res = $conn->query($sql);
+                    while($row = $res->fetch_assoc()) {
+                        $bdId = $row["bdId"];
+                    }
+
+                    $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId}',NULL,0.5)";
+                    if ($conn->query($sql) === TRUE){
+                        // echo "New record created successfully";
+                    }else{
+                        echo "Error: " . $sql . "<br>" . $conn->error;
+                    }
+                    // ratio*first
+                    $sql = "SELECT bdId FROM building_decoration WHERE category='門窗裝置' AND item_name='{$door_window[$i]}' AND building_type='{$main_building[$i]["house_type"]}'";
+                    $res = $conn->query($sql);
+                    while($row = $res->fetch_assoc()) {
+                        $bdId = $row["bdId"];
+                    }
+                    $ratio = $door_window_numerator[$i]/$door_window_denominator[$i];
+
+                    $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId}',NULL,'{$ratio}')";
+                    if ($conn->query($sql) === TRUE){
+                        // echo "New record created successfully";
+                    }else{
+                        echo "Error: " . $sql . "<br>" . $conn->error;
+                    }
+                }
+            }
+        }
+        else if($double_door[$i] != "" && $double_window[$i] == ""){
+            if($double_door[$i] == $door_window[$i]){
+                // 0.5 2nd door + ratio*first
+                $sql = "SELECT bdId FROM building_decoration WHERE category='門窗裝置' AND item_name='{$double_door[$i]}' AND building_type='{$main_building[$i]["house_type"]}'";
+                $res = $conn->query($sql);
+                while($row = $res->fetch_assoc()) {
+                    $bdId = $row["bdId"];
+                }
+
+                $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId}',NULL,0.5)";
+                if ($conn->query($sql) === TRUE){
+                    // echo "New record created successfully";
+                }else{
+                    echo "Error: " . $sql . "<br>" . $conn->error;
+                }
+                // ratio*first
+                $sql = "SELECT bdId FROM building_decoration WHERE category='門窗裝置' AND item_name='{$door_window[$i]}' AND building_type='{$main_building[$i]["house_type"]}'";
+                $res = $conn->query($sql);
+                while($row = $res->fetch_assoc()) {
+                    $bdId = $row["bdId"];
+                }
+                $ratio = $door_window_numerator[$i]/$door_window_denominator[$i];
+
+                $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId}',NULL,'{$ratio}')";
+                if ($conn->query($sql) === TRUE){
+                    // echo "New record created successfully";
+                }else{
+                    echo "Error: " . $sql . "<br>" . $conn->error;
+                }
+            }
+            else{
+                // 0.5 2nd window + ratio*first
+                $sql = "SELECT bdId FROM building_decoration WHERE category='門窗裝置' AND item_name='{$double_window[$i]}' AND building_type='{$main_building[$i]["house_type"]}'";
+                $res = $conn->query($sql);
+                while($row = $res->fetch_assoc()) {
+                    $bdId = $row["bdId"];
+                }
+
+                $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId}',NULL,0.5)";
+                if ($conn->query($sql) === TRUE){
+                    // echo "New record created successfully";
+                }else{
+                    echo "Error: " . $sql . "<br>" . $conn->error;
+                }
+                // ratio*first
+                $sql = "SELECT bdId FROM building_decoration WHERE category='門窗裝置' AND item_name='{$door_window[$i]}' AND building_type='{$main_building[$i]["house_type"]}'";
+                $res = $conn->query($sql);
+                while($row = $res->fetch_assoc()) {
+                    $bdId = $row["bdId"];
+                }
+                $ratio = $door_window_numerator[$i]/$door_window_denominator[$i];
+
+                $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId}',NULL,'{$ratio}')";
+                if ($conn->query($sql) === TRUE){
+                    // echo "New record created successfully";
+                }else{
+                    echo "Error: " . $sql . "<br>" . $conn->error;
+                }
+            }
+        }
+        else if($double_door[$i] == "" && $double_window[$i] != ""){
+            if($double_window[$i] == $door_window[$i]){
+                // 0.5 2nd window + ratio*first
+                $sql = "SELECT bdId FROM building_decoration WHERE category='門窗裝置' AND item_name='{$double_window[$i]}' AND building_type='{$main_building[$i]["house_type"]}'";
+                $res = $conn->query($sql);
+                while($row = $res->fetch_assoc()) {
+                    $bdId = $row["bdId"];
+                }
+
+                $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId}',NULL,0.5)";
+                if ($conn->query($sql) === TRUE){
+                    // echo "New record created successfully";
+                }else{
+                    echo "Error: " . $sql . "<br>" . $conn->error;
+                }
+                // ratio*first
+                $sql = "SELECT bdId FROM building_decoration WHERE category='門窗裝置' AND item_name='{$door_window[$i]}' AND building_type='{$main_building[$i]["house_type"]}'";
+                $res = $conn->query($sql);
+                while($row = $res->fetch_assoc()) {
+                    $bdId = $row["bdId"];
+                }
+                $ratio = $door_window_numerator[$i]/$door_window_denominator[$i];
+
+                $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId}',NULL,'{$ratio}')";
+                if ($conn->query($sql) === TRUE){
+                    // echo "New record created successfully";
+                }else{
+                    echo "Error: " . $sql . "<br>" . $conn->error;
+                }
+            }
+            else{
+                // 0.5 2nd door + ratio*first
+                $sql = "SELECT bdId FROM building_decoration WHERE category='門窗裝置' AND item_name='{$double_door[$i]}' AND building_type='{$main_building[$i]["house_type"]}'";
+                $res = $conn->query($sql);
+                while($row = $res->fetch_assoc()) {
+                    $bdId = $row["bdId"];
+                }
+
+                $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId}',NULL,0.5)";
+                if ($conn->query($sql) === TRUE){
+                    // echo "New record created successfully";
+                }else{
+                    echo "Error: " . $sql . "<br>" . $conn->error;
+                }
+                // ratio*first
+                $sql = "SELECT bdId FROM building_decoration WHERE category='門窗裝置' AND item_name='{$door_window[$i]}' AND building_type='{$main_building[$i]["house_type"]}'";
+                $res = $conn->query($sql);
+                while($row = $res->fetch_assoc()) {
+                    $bdId = $row["bdId"];
+                }
+                $ratio = $door_window_numerator[$i]/$door_window_denominator[$i];
+
+                $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId}',NULL,'{$ratio}')";
+                if ($conn->query($sql) === TRUE){
+                    // echo "New record created successfully";
+                }else{
+                    echo "Error: " . $sql . "<br>" . $conn->error;
+                }
+            }
+        }
+        else{
+            // ratio*first
+            $sql = "SELECT bdId FROM building_decoration WHERE category='門窗裝置' AND item_name='{$door_window[$i]}' AND building_type='{$main_building[$i]["house_type"]}'";
+            $res = $conn->query($sql);
+            while($row = $res->fetch_assoc()) {
+                $bdId = $row["bdId"];
+            }
+            $ratio = $door_window_numerator[$i]/$door_window_denominator[$i];
+
+            $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId}',NULL,'{$ratio}')";
             if ($conn->query($sql) === TRUE){
                 // echo "New record created successfully";
             }else{
                 echo "Error: " . $sql . "<br>" . $conn->error;
             }
-        }
-        else if(($door_window[$i] != $double_window[$i]) && ($double_window[$i] != "")){
-            $sql = "SELECT bdId FROM building_decoration WHERE category='門窗裝置' AND item_name='{$double_window[$i]}' AND building_type='{$main_building[$i]["house_type"]}'";
-            $res = $conn->query($sql);
-
-            while($row = $res->fetch_assoc()) {
-                $bdId[$i]["double"] = $row["bdId"];
-            }
-
-            $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId[$i]["double"]}',NULL,0.5)";
-
-            if ($conn->query($sql) === TRUE){
-                // echo "New record created successfully";
-            }else{
-                echo "Error: " . $sql . "<br>" . $conn->error;
-            }
-        }
-        $sql = "SELECT bdId FROM building_decoration WHERE category='門窗裝置' AND item_name='{$door_window[$i]}' AND building_type='{$main_building[$i]["house_type"]}'";
-        $res = $conn->query($sql);
-
-        while($row = $res->fetch_assoc()) {
-            $bdId[$i]["normal"] = $row["bdId"];
-        }
-
-        $ratio = (float)$door_window_numerator[$i]/$door_window_denominator[$i];
-        $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId[$i]["normal"]}',NULL,'{$ratio}')";
-
-        if ($conn->query($sql) === TRUE){
-            // echo "New record created successfully";
-        }else{
-            echo "Error: " . $sql . "<br>" . $conn->error;
         }
     }
-    $conn->close();
-    return $bdId;
 }
 
-function insertToiletData($fId,$toilet_ratio,$toilet_type,$toilet_product){
+function insertToiletData($fId,$toilet_ratio,$toilet_type,$toilet_product,$toilet_number){
     $conn = connect_db();
 
     for($i=0;$i<count($fId);$i++){
@@ -697,8 +1074,8 @@ function insertToiletData($fId,$toilet_ratio,$toilet_type,$toilet_product){
             while($row = $res->fetch_assoc()) {
                 $bdId[$i][$j] = $row["bdId"];
             }
-
-            $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId[$i][$j]}',NULL,'{$toilet_ratio[$i][$j]}')";
+            // 將area欄位作為數量使用
+            $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId[$i][$j]}','{$toilet_number[$i][$j]}','{$toilet_ratio[$i][$j]}')";
 
             if ($conn->query($sql) === TRUE){
                 // echo "New record created successfully";
@@ -788,7 +1165,20 @@ function insertDaughterWallData($fId,$daughter_wall){
             $item[$j] = $value[$i][$j];
             $count["{$item[$j]}"] += 1;
 
-            $sql = "SELECT bdId FROM building_decoration WHERE category='女兒牆' AND item_name='{$value[$i][$j]}'";
+            if($str[1]=="front"){
+                $direction[$i][$j] = "前";
+            }
+            else if($str[1]=="behind"){
+                $direction[$i][$j] = "後";
+            }
+            else if($str[1]=="left"){
+                $direction[$i][$j] = "左";
+            }
+            else if($str[1]=="right"){
+                $direction[$i][$j] = "右";
+            }
+
+            $sql = "SELECT bdId FROM building_decoration WHERE category='女兒牆' AND item_name='{$value[$i][$j]}' AND item_type='{$direction[$i][$j]}'";
             $res = $conn->query($sql);
 
             while($row = $res->fetch_assoc()) {
@@ -805,7 +1195,9 @@ function insertDaughterWallData($fId,$daughter_wall){
         }
 
         for($j=0;$j<count($daughter_wall[$i]);$j++){
-            $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId[$i][$j]}',NULL,'{$count[$item[$j]]}')";
+            // $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId[$i][$j]}',NULL,'{$count[$item[$j]]}')";
+            // 改變儲存方式
+            $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId[$i][$j]}',NULL,1)";
 
             if ($conn->query($sql) === TRUE){
                 // echo "New record created successfully";
@@ -822,20 +1214,39 @@ function insertBalconyData($fId,$balcony){
     $conn = connect_db();
 
     for($i=0;$i<count($fId);$i++){
-        $sql = "SELECT bdId FROM building_decoration WHERE category='陽台' AND item_name='陽台'";
-        $res = $conn->query($sql);
+        // $sql = "SELECT bdId FROM building_decoration WHERE category='陽台' AND item_name='陽台'";
+        // $res = $conn->query($sql);
+        //
+        // while($row = $res->fetch_assoc()) {
+        //     $bdId[$i] = $row["bdId"];
+        // }
+        //
+        // $count = count($balcony[$i]);
+        // $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId[$i]}',NULL,'{$count}')";
+        //
+        // if ($conn->query($sql) === TRUE){
+        //     // echo "New record created successfully";
+        // }else{
+        //     echo "Error: " . $sql . "<br>" . $conn->error;
+        // }
 
-        while($row = $res->fetch_assoc()) {
-            $bdId[$i] = $row["bdId"];
-        }
+        // 變更儲存方式
+        for($j=0;$j<count($balcony[$i]);$j++){
+            $sql = "SELECT bdId FROM building_decoration WHERE category='陽台' AND item_name='陽台' AND item_type='{$balcony[$i][$j]}'";
+            $res = $conn->query($sql);
 
-        $count = count($balcony[$i]);
-        $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId[$i]}',NULL,'{$count}')";
+            while($row = $res->fetch_assoc()) {
+                $bdId[$i][$j] = $row["bdId"];
+            }
 
-        if ($conn->query($sql) === TRUE){
-            // echo "New record created successfully";
-        }else{
-            echo "Error: " . $sql . "<br>" . $conn->error;
+            // $count = count($balcony[$i]);
+            $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId[$i][$j]}',NULL,1)";
+
+            if ($conn->query($sql) === TRUE){
+                // echo "New record created successfully";
+            }else{
+                echo "Error: " . $sql . "<br>" . $conn->error;
+            }
         }
     }
     $conn->close();
@@ -928,7 +1339,7 @@ function checkLandNumisExist($section,$subsection,$land_number){
     $conn = connect_db();
 
     if($subsection==""){
-        $sql = "SELECT * FROM land WHERE land_section='塔腳段' AND subsection IS NULL AND land_number='{$land_number}'";
+        $sql = "SELECT * FROM land WHERE land_section='{$section}' AND subsection IS NULL AND land_number='{$land_number}'";
     }
     else{
         $sql = "SELECT * FROM land WHERE land_section='{$section}' AND subsection='{$subsection}'  AND land_number='{$land_number}'";

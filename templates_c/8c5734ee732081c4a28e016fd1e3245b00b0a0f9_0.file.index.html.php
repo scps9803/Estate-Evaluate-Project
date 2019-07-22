@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-07-20 02:48:41
+/* Smarty version 3.1.33, created on 2019-07-22 15:23:17
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\index.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d32810952d6f9_42913383',
+  'unifunc' => 'content_5d35d4e59b0744_35171766',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8c5734ee732081c4a28e016fd1e3245b00b0a0f9' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\index.html',
-      1 => 1563590764,
+      1 => 1563808964,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d32810952d6f9_42913383 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d35d4e59b0744_35171766 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -252,8 +252,8 @@ function content_5d32810952d6f9_42913383 (Smarty_Internal_Template $_smarty_tpl)
                             <div id="captain">
                                 <div id="captain-1">
                                     <input type="text" name="captain-1">
-                                    <input type="checkbox" id="independent-1" name="independent-1">有獨立生活機能
-                                    <input type="hidden" id="independent-judge" name="independent-judge">
+                                    <input type="checkbox" id="cohabit-1" name="cohabit-1">共同生活戶
+                                    <input type="hidden" id="cohabit-judge" name="cohabit-judge">
                                 </div>
                             </div>
                             <input type="hidden" id="captain_count" name="captain_count">
@@ -1268,9 +1268,9 @@ function content_5d32810952d6f9_42913383 (Smarty_Internal_Template $_smarty_tpl)
                             <!-- 座數:<input type="radio" name="toilet-number-1-1" value="3">1~3座<input type="radio" name="toilet-number-1-1" value="6">4~6座<input type="radio" name="toilet-number-1-1" value="7">7座以上 -->
                             座數:<select id="toilet-number-1-1" name="toilet-number-1-1" class="tiny-select-menu">
                                 <option value="" style="display:none;">請選擇座數</option>
-                                <option value="3">1~3座</option>
-                                <option value="6">4~6座</option>
-                                <option value="7">7座以上</option>
+                                <option value="1">1~3座</option>
+                                <option value="2">4~6座</option>
+                                <option value="3">7座以上</option>
                             </select>
                         </div>
                         <input type="hidden" id="toilet-ratio-1" name="toilet-ratio-1">
@@ -1301,9 +1301,9 @@ function content_5d32810952d6f9_42913383 (Smarty_Internal_Template $_smarty_tpl)
                             <!-- 座數:<input type="radio" name="toilet-number-2-1" value="3">1~3座<input type="radio" name="toilet-number-2-1" value="6">4~6座<input type="radio" name="toilet-number-2-1" value="7">7座以上 -->
                             座數:<select id="toilet-number-2-1" name="toilet-number-2-1" class="tiny-select-menu">
                                 <option value="" style="display:none;">請選擇座數</option>
-                                <option value="3">1~3座</option>
-                                <option value="6">4~6座</option>
-                                <option value="7">7座以上</option>
+                                <option value="1">1~3座</option>
+                                <option value="2">4~6座</option>
+                                <option value="3">7座以上</option>
                             </select>
                         </div>
                         <input type="hidden" id="toilet-ratio-2" name="toilet-ratio-2">
@@ -1334,9 +1334,9 @@ function content_5d32810952d6f9_42913383 (Smarty_Internal_Template $_smarty_tpl)
                             <!-- 座數:<input type="radio" name="toilet-number-3-1" value="3">1~3座<input type="radio" name="toilet-number-3-1" value="6">4~6座<input type="radio" name="toilet-number-3-1" value="7">7座以上 -->
                             座數:<select id="toilet-number-3-1" name="toilet-number-3-1" class="tiny-select-menu">
                                 <option value="" style="display:none;">請選擇座數</option>
-                                <option value="3">1~3座</option>
-                                <option value="6">4~6座</option>
-                                <option value="7">7座以上</option>
+                                <option value="1">1~3座</option>
+                                <option value="2">4~6座</option>
+                                <option value="3">7座以上</option>
                             </select>
                         </div>
                         <input type="hidden" id="toilet-ratio-3" name="toilet-ratio-3">
@@ -1367,9 +1367,9 @@ function content_5d32810952d6f9_42913383 (Smarty_Internal_Template $_smarty_tpl)
                             <!-- 座數:<input type="radio" name="toilet-number-4-1" value="3">1~3座<input type="radio" name="toilet-number-4-1" value="6">4~6座<input type="radio" name="toilet-number-4-1" value="7">7座以上 -->
                             座數:<select id="toilet-number-4-1" name="toilet-number-4-1" class="tiny-select-menu">
                                 <option value="" style="display:none;">請選擇座數</option>
-                                <option value="3">1~3座</option>
-                                <option value="6">4~6座</option>
-                                <option value="7">7座以上</option>
+                                <option value="1">1~3座</option>
+                                <option value="2">4~6座</option>
+                                <option value="3">7座以上</option>
                             </select>
                         </div>
                         <input type="hidden" id="toilet-ratio-4" name="toilet-ratio-4">
