@@ -397,7 +397,7 @@ $smarty->display("house_submit_preview.html");
 insertBuildingData($house_address,$legal_status,$build_number,$tax_number,
     $legal_certificate,$build_certificate,$captain_count,$exit_num,
     $total_floor,$remove_condition);
-insertLandData($land_section,$subsection,$land_number,$house_address,$land_use);
+insertLandData($district,$land_section,$subsection,$land_number,$house_address,$land_use);
 insertRecordData($script_number,$house_address,$KEYIN_ID,$KEYIN_DATETIME);
 insertOwnerData($owner,$hold_ratio,$pId,$house_address,$address,$telephone,$cellphone);
 // insertBuildingData($house_address,$legal_status,$build_number,$tax_number,

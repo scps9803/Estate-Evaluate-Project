@@ -206,13 +206,13 @@ function get_land_section_option($str){
     return $land_section_option;
 }
 
-function insertLandData($land_section,$subsection,$land_number,$house_address,$land_use){
+function insertLandData($district,$land_section,$subsection,$land_number,$house_address,$land_use){
     $conn = connect_db();
 
     for($i=0;$i<count($land_section);$i++){
         for($j=0;$j<count($land_number[$i]);$j++){
             $land_id = $land_section[$i].$subsection[$i].$land_number[$i][$j];
-            $sql = "INSERT INTO building_locate VALUES('{$land_id}','{$house_address}','{$land_use}')";
+            $sql = "INSERT INTO building_locate VALUES('{$land_id}','{$district}','{$house_address}','{$land_use}')";
 
             if ($conn->query($sql) === TRUE){
                 // echo "New record created successfully";
@@ -1288,7 +1288,8 @@ function getBuildingData($house_address){
 function getLandData($house_address){
     $conn = connect_db();
 
-    $sql = "SELECT * FROM building_locate NATURAL JOIN land WHERE address='{$house_address}'";
+    // $sql = "SELECT * FROM building_locate NATURAL JOIN land WHERE address='{$house_address}'";
+    $sql = "SELECT * FROM building_locate AS a LEFT JOIN land AS b ON a.land_id=b.land_id WHERE address='{$house_address}'";
     $res = $conn->query($sql);
 
     $i = 0;
@@ -1304,7 +1305,8 @@ function getLandData($house_address){
 function getResidentData($house_address){
     $conn = connect_db();
 
-    $sql = "SELECT * FROM resident WHERE address='{$house_address}'";
+    // $sql = "SELECT * FROM resident NATURAL JOIN migration_fee WHERE address='{$house_address}'";
+    $sql = "SELECT * FROM resident AS r LEFT JOIN migration_fee AS m ON r.mId=m.mId WHERE address='{$house_address}'";
     $res = $conn->query($sql);
 
     $i = 0;
