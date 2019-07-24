@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-07-22 15:23:17
+/* Smarty version 3.1.33, created on 2019-07-24 16:32:03
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\index.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d35d4e59b0744_35171766',
+  'unifunc' => 'content_5d388803616f47_58091245',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8c5734ee732081c4a28e016fd1e3245b00b0a0f9' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\index.html',
-      1 => 1563808964,
+      1 => 1563985921,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d35d4e59b0744_35171766 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d388803616f47_58091245 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -399,10 +399,10 @@ function content_5d35d4e59b0744_35171766 (Smarty_Internal_Template $_smarty_tpl)
 
                 <tr>
                     <td colspan="2"><span class="required">(*)</span><br>樓層面積<br>計算式</td>
-                    <td colspan="2"><input type="text" class="larger-input-size" id="floor-area-1" name="floor-area-1" required></td>
-                    <td colspan="2"><input type="text" class="larger-input-size" id="floor-area-2" name="floor-area-2"></td>
-                    <td colspan="2"><input type="text" class="larger-input-size" id="floor-area-3" name="floor-area-3"></td>
-                    <td colspan="2"><input type="text" class="larger-input-size" id="floor-area-4" name="floor-area-4"></td>
+                    <td colspan="2"><input type="text" class="larger-input-size" id="floor-area-1" name="floor-area-1" onchange="checkAreaCalText(1)" required></td>
+                    <td colspan="2"><input type="text" class="larger-input-size" id="floor-area-2" name="floor-area-2" onchange="checkAreaCalText(2)"></td>
+                    <td colspan="2"><input type="text" class="larger-input-size" id="floor-area-3" name="floor-area-3" onchange="checkAreaCalText(3)"></td>
+                    <td colspan="2"><input type="text" class="larger-input-size" id="floor-area-4" name="floor-area-4" onchange="checkAreaCalText(4)"></td>
                 </tr>
 
                 <tr>

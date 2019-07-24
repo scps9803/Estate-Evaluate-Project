@@ -12,6 +12,10 @@ $res = $conn->query($sql);
 $i=0;
 $record = NULL;
 while($row=$res->fetch_assoc()){
+    if($record[$i-1]["rId"]==$row["rId"]){
+        $record[$i-1]["land_id"] = $record[$i-1]["land_id"] . "<br>" . $row["land_id"];
+        continue;
+    }
     $record[$i] = $row;
     $i++;
 }

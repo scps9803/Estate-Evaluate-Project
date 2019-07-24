@@ -1,10 +1,21 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-    <head>
-        <meta charset="utf-8">
-        <title></title>
-    </head>
-    <body>
-        <h3>儲存成功!</h3>
-    </body>
-</html>
+<?php
+require_once 'classes/PHPExcel.php';
+require_once 'classes/PHPExcel/Writer/Excel5.php';
+$objPHPExcel  = new PHPExcel();
+$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+
+$text = "=(100+200*3*0.5)+(5*28*0.853+17*56.89)";
+$calAreaTool = "tools/calAreaText.xls";
+$objPHPExcel = PHPExcel_IOFactory::load($calAreaTool);
+$objPHPExcel->setActiveSheetIndex(0)->setCellValue( 'A1', $text);
+
+$objActSheet = $objPHPExcel->getActiveSheet();
+$objActSheet->setTitle('default');
+$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+$objWriter->save('tools/calAreaText.xls');
+
+$objPHPExcel = PHPExcel_IOFactory::load($calAreaTool);
+$area = $objPHPExcel->getActiveSheet()->getCell('A1')->getCalculatedValue();
+
+echo number_format($area,2,".",",");
+?>

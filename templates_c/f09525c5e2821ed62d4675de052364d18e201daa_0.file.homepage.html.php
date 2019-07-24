@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-07-14 08:32:05
+/* Smarty version 3.1.33, created on 2019-07-24 17:58:52
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\homepage.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d2ae885cd51f3_51409184',
+  'unifunc' => 'content_5d389c5cc3f0d7_54851915',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'f09525c5e2821ed62d4675de052364d18e201daa' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\homepage.html',
-      1 => 1563093106,
+      1 => 1563991130,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d2ae885cd51f3_51409184 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d389c5cc3f0d7_54851915 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -232,7 +232,8 @@ foreach ($_from as $_smarty_tpl->tpl_vars['k']->value => $_smarty_tpl->tpl_vars[
         "<td><button class='btn btn-default'>查看</button>&nbsp;<button class='btn btn-default'>編輯</button></td>" +
         "<td><?php echo $_smarty_tpl->tpl_vars['row']->value['keyin_datetime'];?>
 </td>" +
-        "<td><button class='btn btn-default'>一鍵下載</button></td>" +
+        "<td><button class='btn btn-default'><a href='getFile.php?recordNo=<?php echo $_smarty_tpl->tpl_vars['row']->value['rId'];?>
+'>一鍵下載</a></button></td>" +
         "</tr>" +
         "<?php
 }

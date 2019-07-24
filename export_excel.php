@@ -4,7 +4,7 @@ include "library.php";
 // $house_address = $_POST["house_address"];
 
 // $data = getRecordData($house_address);
-$script_number = "建合001";
+$script_number = "建合-001";
 $house_address = '建國二路100號';
 $price = 12.6;
 $owner_data = getOwnerData($house_address);
@@ -52,8 +52,8 @@ ini_set('display_startup_errors', TRUE);
 define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br>');
 date_default_timezone_set('Europe/London');
 
-require_once '/classes/PHPExcel.php';
-require_once '/classes/PHPExcel/Writer/Excel5.php';
+require_once 'classes/PHPExcel.php';
+require_once 'classes/PHPExcel/Writer/Excel5.php';
 $objPHPExcel  = new PHPExcel();
 
 // 計算主建物、雜項物筆數設定不同頁數的模板
@@ -810,7 +810,24 @@ for($i=0;$i<count($main_decoration_data);$i++){
 $objActSheet = $objPHPExcel->getActiveSheet();
 $objActSheet->setTitle('default');
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
-$objWriter->save('file/myexchel.xls');
+if($compensate_type == "補償"){
+    $savePath = "file/building/legal/".substr($script_number,strlen($script_number)-3,strlen($script_number))."/";
+}
+else{
+    $savePath = "file/building/illegal/".substr($script_number,strlen($script_number)-3,strlen($script_number))."/";
+}
+
+if(!file_exists($savePath)){
+    mkdir($savePath);
+}
+
+$fileNo = $script_number."-1";
+$filename = base64_encode($fileNo);
+$file_type = ".xls";
+echo $savePath;
+$objWriter->save($savePath.$filename.$file_type);
+insertFileData($script_number,$savePath,$fileNo,$filename,$file_type);
+// $objWriter->save('file/myexchel.xls');
 date_default_timezone_set('Asia/Taipei');
 // $objWriter->save('file/'.date("YmdHis").'.xls');
 

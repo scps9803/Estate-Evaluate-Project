@@ -1,6 +1,8 @@
 <?php
 session_start();
 require_once "smarty/libs/Smarty.class.php";
+require_once 'classes/PHPExcel.php';
+require_once 'classes/PHPExcel/Writer/Excel5.php';
 include("library.php");
 $smarty = new Smarty;
 
@@ -146,7 +148,23 @@ $total_floor = $_POST['total-floor-1'];
         $main_building[$i]["floor_type"] = $_POST['floor-type-'.($i+1)];
         $main_building[$i]["nth_floor"] = $_POST['nth-floor-'.($i+1)];
         $main_building[$i]["points"] = getMainBuildingPoint($main_building[$i]["material"],$main_building[$i]["floor_type"],$main_building[$i]["house_type"]);
-        $main_building[$i]["floor_area"] = $_POST['floor-area-'.($i+1)];
+        $main_building[$i]["floor_area_calculate_text"] = $_POST['floor-area-'.($i+1)];
+
+        $objPHPExcel  = new PHPExcel();
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+
+        $calAreaTool = "tools/calAreaText.xls";
+        $objPHPExcel = PHPExcel_IOFactory::load($calAreaTool);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue( 'A1', "=".$main_building[$i]["floor_area_calculate_text"]);
+
+        $objActSheet = $objPHPExcel->getActiveSheet();
+        $objActSheet->setTitle('default');
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+        $objWriter->save('tools/calAreaText.xls');
+
+        $objPHPExcel = PHPExcel_IOFactory::load($calAreaTool);
+        $area = $objPHPExcel->getActiveSheet()->getCell('A1')->getCalculatedValue();
+        $main_building[$i]["floor_area"] = $area;
         // print_r($main_building[$i]["points"]);
         // echo "<br>";
         // print_r($main_building[$i]["floor_area"]);

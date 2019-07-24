@@ -1304,6 +1304,24 @@ function getSubbuildingOption(num){
     });
 }
 
+function checkAreaCalText(num){
+    var item = "#floor-area-"+num;
+
+    str = $(item).val();
+    for(var i=0;i<str.length;i++){
+        if(str[i].charCodeAt()>=40 && str[i].charCodeAt()<=57){
+            if(str[i].charCodeAt()==44){
+                alert("只能輸入數字、小數點、運算符號、括號!");
+                break;
+            }
+        }
+        else{
+            alert("只能輸入數字、小數點、運算符號、括號!");
+            break;
+        }
+    }
+}
+
 $(document).ready(function(){
     getOwnerCount();
     getCaptainCount();

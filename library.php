@@ -9,6 +9,7 @@ function connect_db()
     // $username = "dayicom_jimmy7920";
     // $password = "ji7151618";
     // $dbname = "dayicom_estate_db";
+    // $dbname = "dayicom_test_db";
 
     // Create connection
     $conn = new mysqli($servername, $username, $password, $dbname);
@@ -437,7 +438,7 @@ function insertFloorData($script_number,$main_building,$house_address,$discard_s
         $sql = "INSERT INTO floor_info VALUES('{$fId}','{$main_building[$i]["house_type"]}',
             '{$discard_status[$i]}','{$main_building[$i]["compensate_form"]}',
             '{$main_building[$i]["material"]}','{$main_building[$i]["floor_type"]}',
-            '{$main_building[$i]["nth_floor"]}','{$main_building[$i]["floor_area"]}',
+            '{$main_building[$i]["nth_floor"]}','{$main_building[$i]["floor_area_calculate_text"]}',
             '{$main_building[$i]["floor_area"]}','{$main_building[$i]["usage"]}',
             '{$main_building[$i]["layer-height"]}','{$house_address}')";
 
@@ -1479,6 +1480,45 @@ function getBuildingDecorationData($house_address,$category,$nth_floor){
     $conn = connect_db();
 
     $sql = "SELECT * FROM has_building_decoration AS a LEFT JOIN floor_info AS b ON a.fId=b.fId LEFT JOIN building_decoration AS c ON a.bdId=c.bdId WHERE address='{$house_address}' AND category='{$category}' AND nth_floor='{$nth_floor}' ORDER BY nth_floor";
+    $res = $conn->query($sql);
+    if($res->num_rows==0) return null;
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $result[$i] = $row;
+        $i++;
+    }
+
+    $conn->close();
+    return $result;
+}
+
+function insertFileData($script_number,$savePath,$fileNo,$filename,$file_type){
+    $conn = connect_db();
+    $size = filesize($savePath.$filename.$file_type);
+    $all_filename = $filename.$file_type;
+
+    if($file_type == ".xls"){
+        $content_type = "application/vnd.ms-excel";
+    }
+    else if($file_type == ".txt"){
+        $content_type = "text/plain";
+    }
+
+    $sql = "INSERT INTO file_table VALUES('{$fileNo}','{$savePath}','{$all_filename}','{$size}','{$content_type}','{$script_number}')";
+
+    if ($conn->query($sql) === TRUE){
+        // echo "New record created successfully";
+    }else{
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+    $conn->close();
+}
+
+function getFileInfo($recordNo){
+    $conn = connect_db();
+
+    $sql = "SELECT * FROM file_table NATURAL JOIN record WHERE rId='{$recordNo}'";
     $res = $conn->query($sql);
     if($res->num_rows==0) return null;
 
