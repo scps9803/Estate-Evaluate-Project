@@ -13,7 +13,7 @@
         <div class="container" align="center">
             <form class="" action="saveData.php" method="post">
                 <h1>雜項設施</h1>
-                <h3>(若無雜項可直接儲存略過)</h3>
+                <!-- <h3>(若無雜項可直接儲存略過)</h3> -->
                 <table border="1">
                     <tr>
                         <td>項目</td>
@@ -25,15 +25,15 @@
                         <td>
                             <div id="other-item" class="input-align-top">
                                 <div id="other-item-1">
-                                    <select class="small-select-menu" id="other-item-category-1" name="other-item-category-1" onclick="getSubbuildingCategory(1);this.onclick=null;" onchange="getSubbuildingOption(1)">
+                                    <select class="small-select-menu" id="other-item-category-1" name="other-item-category-1" onclick="getSubbuildingCategory(1);this.onclick=null;" onchange="getSubbuildingOption(1)" required>
                                         <option value="" style="display:none;">請選擇種類</option>
                                     </select>
 
-                                    <select class="select-menu" id="other-item-option-1" name="other-item-1">
+                                    <select class="select-menu" id="other-item-option-1" name="other-item-1" required>
                                         <option value="" style="display:none;">請選擇項目</option>
                                     </select>
 
-                                    <select class="small-select-menu" name="other-item-type-1">
+                                    <select class="small-select-menu" name="other-item-type-1" required>
                                         <option value="" style="display:none;">請選擇室內外</option>
                                         <option value="室內">室內</option>
                                         <option value="室外">室外</option>
@@ -61,8 +61,8 @@
                     </tr>
                 </table>
                 <!-- <input type="button" value="回前一頁" onclick="window.history.back();"> -->
-                <input type="hidden" name="house_address" value="建國二路100號">
-                <input type="hidden" name="script_number" value="建合-001">
+                <input type="hidden" name="house_address" value="{$house_address}">
+                <input type="hidden" name="script_number" value="{$script_number}">
                 <input type="submit" value="儲存">
             </form>
         </div>

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-07-20 12:35:36
+/* Smarty version 3.1.33, created on 2019-07-25 17:30:14
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\sub_building.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d330a98d16399_59264016',
+  'unifunc' => 'content_5d39e726662632_55896743',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b05ba50e74ffc12085b95e292d15feee33505b3e' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\sub_building.html',
-      1 => 1563626134,
+      1 => 1564075811,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d330a98d16399_59264016 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d39e726662632_55896743 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head>
@@ -40,7 +40,7 @@ function content_5d330a98d16399_59264016 (Smarty_Internal_Template $_smarty_tpl)
         <div class="container" align="center">
             <form class="" action="saveData.php" method="post">
                 <h1>雜項設施</h1>
-                <h3>(若無雜項可直接儲存略過)</h3>
+                <!-- <h3>(若無雜項可直接儲存略過)</h3> -->
                 <table border="1">
                     <tr>
                         <td>項目</td>
@@ -52,15 +52,15 @@ function content_5d330a98d16399_59264016 (Smarty_Internal_Template $_smarty_tpl)
                         <td>
                             <div id="other-item" class="input-align-top">
                                 <div id="other-item-1">
-                                    <select class="small-select-menu" id="other-item-category-1" name="other-item-category-1" onclick="getSubbuildingCategory(1);this.onclick=null;" onchange="getSubbuildingOption(1)">
+                                    <select class="small-select-menu" id="other-item-category-1" name="other-item-category-1" onclick="getSubbuildingCategory(1);this.onclick=null;" onchange="getSubbuildingOption(1)" required>
                                         <option value="" style="display:none;">請選擇種類</option>
                                     </select>
 
-                                    <select class="select-menu" id="other-item-option-1" name="other-item-1">
+                                    <select class="select-menu" id="other-item-option-1" name="other-item-1" required>
                                         <option value="" style="display:none;">請選擇項目</option>
                                     </select>
 
-                                    <select class="small-select-menu" name="other-item-type-1">
+                                    <select class="small-select-menu" name="other-item-type-1" required>
                                         <option value="" style="display:none;">請選擇室內外</option>
                                         <option value="室內">室內</option>
                                         <option value="室外">室外</option>
@@ -88,8 +88,10 @@ function content_5d330a98d16399_59264016 (Smarty_Internal_Template $_smarty_tpl)
                     </tr>
                 </table>
                 <!-- <input type="button" value="回前一頁" onclick="window.history.back();"> -->
-                <input type="hidden" name="house_address" value="建國二路100號">
-                <input type="hidden" name="script_number" value="建合-001">
+                <input type="hidden" name="house_address" value="<?php echo $_smarty_tpl->tpl_vars['house_address']->value;?>
+">
+                <input type="hidden" name="script_number" value="<?php echo $_smarty_tpl->tpl_vars['script_number']->value;?>
+">
                 <input type="submit" value="儲存">
             </form>
         </div>

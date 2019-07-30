@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-07-24 17:58:52
+/* Smarty version 3.1.33, created on 2019-07-25 15:14:53
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\homepage.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d389c5cc3f0d7_54851915',
+  'unifunc' => 'content_5d39c76dd149f4_44476249',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'f09525c5e2821ed62d4675de052364d18e201daa' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\homepage.html',
-      1 => 1563991130,
+      1 => 1564067688,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d389c5cc3f0d7_54851915 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d39c76dd149f4_44476249 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -102,16 +102,15 @@ function content_5d389c5cc3f0d7_54851915 (Smarty_Internal_Template $_smarty_tpl)
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="index.php">首頁</a></li>
+                    <li class="active"><a href="login.php">首頁</a></li>
                     <li><a href="#">關於本站</a></li>
-                    <li><a href="#">Deals</a></li>
-                    <li><a href="store.php?category=0">線上商店</a></li>
+                    <li><a href="#">問題反映</a></li>
                     <li><a href="#">聯繫我們</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <!-- <?php echo $_smarty_tpl->tpl_vars['welcome']->value;?>
  -->
-                    <li><a href="cart.php?add_to_cart=no"><span class="glyphicon glyphicon-shopping-cart"></span>購物車</a></li>
+                    <!-- <li><a href="cart.php?add_to_cart=no"><span class="glyphicon glyphicon-shopping-cart"></span>購物車</a></li> -->
                 </ul>
             </div>
         </div>
@@ -125,8 +124,9 @@ function content_5d389c5cc3f0d7_54851915 (Smarty_Internal_Template $_smarty_tpl)
                 <ul class="nav nav-pills nav-stacked">
                     <li id="accountBtn"><a href="#">個人資料</a></li>
                     <li id="transBtn"><a href="#">紀錄查詢</a></li>
-                    <li id="walletBtn"><a href="index.php">新增查案</a></li>
-                    <li id="investBtn"><a href="#">XX</a></li>
+                    <li id="walletBtn"><a href="index.php" target="_blank">新增建物查案</a></li>
+                    <li id="investBtn"><a href="#">新增農作物、水產、禽畜查案</a></li>
+                    <li id=""><a href="#">新增機械搬遷查案</a></li>
                 </ul><br>
 
                 <div class="input-group">
@@ -269,15 +269,15 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>" +
         });
 
         $("#walletBtn").click(function() {
-            $("#accountBtn").css("background-color","");
-            $(".col-sm-9 >").remove();
-            $(".col-sm-9").append(wallet);
+            // $("#accountBtn").css("background-color","");
+            // $(".col-sm-9 >").remove();
+            // $(".col-sm-9").append(wallet);
         });
 
         $("#investBtn").click(function() {
-            $("#accountBtn").css("background-color","");
-            $(".col-sm-9 >").remove();
-            $(".col-sm-9").append(invest);
+            // $("#accountBtn").css("background-color","");
+            // $(".col-sm-9 >").remove();
+            // $(".col-sm-9").append(invest);
         });
     });
 

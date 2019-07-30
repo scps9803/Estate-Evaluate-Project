@@ -74,6 +74,12 @@ switch ($category) {
     case 'sub_building_item':
         $application = $_POST['application'];
         $result_option = getSubbuildingOption($application);
+        break;
+
+    case 'land_lord':
+        $name = $_POST['name'];
+        $hold_id = $_POST['hold_id'];
+        $result_option = checkLandLordisExist($name,$hold_id);
 }
 // $item_type = $_POST['item_type'];
 //

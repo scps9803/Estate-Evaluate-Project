@@ -441,7 +441,8 @@ function addInfoItemOnclick(id){
 
             text =
             '<div id="pId-'+pId_count+'">'+
-                '<input type="text" name="pId-'+pId_count+'" value="" placeholder="所有權人-'+pId_count+'" required>'+
+                '<input type="text" name="pId-'+pId_count+'" value="" placeholder="所有權人-'+pId_count+'" required>&nbsp;'+
+                '<input type="text" id="hold-id-'+pId_count+'" name="hold-id-'+pId_count+'" value="" placeholder="歸戶號" class="small-input-size" onchange="checkOwner('+pId_count+')" required>'+
             '</div>';
             break;
 
@@ -489,15 +490,15 @@ function addInfoItemOnclick(id){
             addInfoItemOnclick('auto-remove');
             text =
             '<div id="other-item-'+other_item_count+'">'+
-                '<select class="small-select-menu" id="other-item-category-'+other_item_count+'" name="other-item-category-'+other_item_count+'" onclick="getSubbuildingCategory('+other_item_count+');this.onclick=null;" onchange="getSubbuildingOption('+other_item_count+')">'+
+                '<select class="small-select-menu" id="other-item-category-'+other_item_count+'" name="other-item-category-'+other_item_count+'" onclick="getSubbuildingCategory('+other_item_count+');this.onclick=null;" onchange="getSubbuildingOption('+other_item_count+')" required>'+
                     '<option value="" style="display:none;">請選擇種類</option>'+
                 '</select>&nbsp;'+
 
-                '<select class="select-menu" id="other-item-option-'+other_item_count+'" name="other-item-'+other_item_count+'">'+
+                '<select class="select-menu" id="other-item-option-'+other_item_count+'" name="other-item-'+other_item_count+'" required>'+
                     '<option value="" style="display:none;">請選擇項目</option>'+
                 '</select>&nbsp;'+
 
-                '<select class="small-select-menu" name="other-item-type-'+other_item_count+'">'+
+                '<select class="small-select-menu" name="other-item-type-'+other_item_count+'" required>'+
                     '<option value="" style="display:none;">請選擇室內外</option>'+
                     '<option value="室內">室內</option>'+
                     '<option value="室外">室外</option>'+
@@ -998,56 +999,57 @@ function saveDialog(){
         // $("#house_form").attr("action","sub_building.php");
         // $("#sub-building").append(text);
         $("#action").val("sub_building");
-        window.alert($("#action").val());
-        window.alert($("#section-1").val());
+        // window.alert($("#action").val());
+        // window.alert($("#section-1").val());
     }
     else{
         $("#action").val("submit");
-        window.alert($("#action").val());
-        value_array = [];
-        for(var i=0;i<captain_count;i++){
-            if($("#exit-num").val()==1){
+        // window.alert($("#action").val());
+    }
+
+    value_array = [];
+    for(var i=0;i<captain_count;i++){
+        if($("#exit-num").val()==1 && captain_count>1){
+            $("#cohabit-"+(i+1)).val("yes");
+        }
+        else{
+            if(document.getElementById("cohabit-"+(i+1)).checked){
                 $("#cohabit-"+(i+1)).val("yes");
             }
             else{
-                if(document.getElementById("cohabit-"+(i+1)).checked){
-                    $("#cohabit-"+(i+1)).val("yes");
-                }
-                else{
-                    $("#cohabit-"+(i+1)).val("no");
-                }
+                $("#cohabit-"+(i+1)).val("no");
             }
-            value_array[i] = $("#cohabit-"+(i+1)).val();
         }
-        $("#cohabit-judge").val(value_array);
-
-        itemId = ["#minus-wall-num-","#minus-wall-option-","#add-wall-num-","#add-wall-option-"];
-        writeToId = ["#minus-wall-count-","#minus-wall-option-","#add-wall-count-","#add-wall-option-"];
-        countId = [this.minus_wall_count,this.add_wall_count];
-
-        decoration_itemId = ["#indoor-divide-numerator-","#indoor-divide-denominator-","#indoor-divide-option-","#outdoor-wall-decoration-numerator-","#outdoor-wall-decoration-denominator-","#outdoor-wall-decoration-option-","#indoor-wall-decoration-numerator-","#indoor-wall-decoration-denominator-","#indoor-wall-decoration-option-","#roof-decoration-numerator-","#roof-decoration-denominator-","#roof-decoration-option-","#floor-decoration-numerator-","#floor-decoration-denominator-",
-        "#floor-decoration-option-","#ceiling-decoration-numerator-","#ceiling-decoration-denominator-","#ceiling-decoration-option-","#toilet-ratio-","#toilet-type-","#toilet-number-"];
-        decoration_writeToId = ["#indoor-divide-numerator-","#indoor-divide-denominator-","#indoor-divide-option-","#outdoor-wall-decoration-numerator-","#outdoor-wall-decoration-denominator-","#outdoor-wall-decoration-option-","#indoor-wall-decoration-numerator-","#indoor-wall-decoration-denominator-","#indoor-wall-decoration-option-","#roof-decoration-numerator-","#roof-decoration-denominator-","#roof-decoration-option-","#floor-decoration-numerator-","#floor-decoration-denominator-",
-        "#floor-decoration-option-","#ceiling-decoration-numerator-","#ceiling-decoration-denominator-","#ceiling-decoration-option-","#toilet-ratio-","#toilet-type-","#toilet-number-"];
-        decoration_countId = [this.indoor_divide_count,this.outdoor_wall_decoration_count,this.indoor_wall_decoration_count,this.roof_decoration_count,this.floor_decoration_count,this.ceiling_decoration_count,this.toilet_equipment_count];
-
-        // 新增室內牆型別
-        $indoor_wall_type = "#indoor-wall-type-";
-        // 新增浴廁產地種類
-        $toilet_product = "#toilet-product-";
-
-        for(var i=0;i<itemId.length;i++){
-            writeDataToOneRow(itemId[i],writeToId[i],countId[Math.floor(i/2)]);
-        }
-
-        //粉裝造作
-        for(var i=0;i<decoration_itemId.length;i++){
-            writeDataToOneRow(decoration_itemId[i],decoration_writeToId[i],decoration_countId[Math.floor(i/3)]);
-        }
-
-        writeDataToOneRow($indoor_wall_type,$indoor_wall_type, this.indoor_wall_decoration_count);
-        writeDataToOneRow($toilet_product,$toilet_product, this.toilet_equipment_count);
+        value_array[i] = $("#cohabit-"+(i+1)).val();
     }
+    $("#cohabit-judge").val(value_array);
+
+    itemId = ["#minus-wall-num-","#minus-wall-option-","#add-wall-num-","#add-wall-option-"];
+    writeToId = ["#minus-wall-count-","#minus-wall-option-","#add-wall-count-","#add-wall-option-"];
+    countId = [this.minus_wall_count,this.add_wall_count];
+
+    decoration_itemId = ["#indoor-divide-numerator-","#indoor-divide-denominator-","#indoor-divide-option-","#outdoor-wall-decoration-numerator-","#outdoor-wall-decoration-denominator-","#outdoor-wall-decoration-option-","#indoor-wall-decoration-numerator-","#indoor-wall-decoration-denominator-","#indoor-wall-decoration-option-","#roof-decoration-numerator-","#roof-decoration-denominator-","#roof-decoration-option-","#floor-decoration-numerator-","#floor-decoration-denominator-",
+    "#floor-decoration-option-","#ceiling-decoration-numerator-","#ceiling-decoration-denominator-","#ceiling-decoration-option-","#toilet-ratio-","#toilet-type-","#toilet-number-"];
+    decoration_writeToId = ["#indoor-divide-numerator-","#indoor-divide-denominator-","#indoor-divide-option-","#outdoor-wall-decoration-numerator-","#outdoor-wall-decoration-denominator-","#outdoor-wall-decoration-option-","#indoor-wall-decoration-numerator-","#indoor-wall-decoration-denominator-","#indoor-wall-decoration-option-","#roof-decoration-numerator-","#roof-decoration-denominator-","#roof-decoration-option-","#floor-decoration-numerator-","#floor-decoration-denominator-",
+    "#floor-decoration-option-","#ceiling-decoration-numerator-","#ceiling-decoration-denominator-","#ceiling-decoration-option-","#toilet-ratio-","#toilet-type-","#toilet-number-"];
+    decoration_countId = [this.indoor_divide_count,this.outdoor_wall_decoration_count,this.indoor_wall_decoration_count,this.roof_decoration_count,this.floor_decoration_count,this.ceiling_decoration_count,this.toilet_equipment_count];
+
+    // 新增室內牆型別
+    $indoor_wall_type = "#indoor-wall-type-";
+    // 新增浴廁產地種類
+    $toilet_product = "#toilet-product-";
+
+    for(var i=0;i<itemId.length;i++){
+        writeDataToOneRow(itemId[i],writeToId[i],countId[Math.floor(i/2)]);
+    }
+
+    //粉裝造作
+    for(var i=0;i<decoration_itemId.length;i++){
+        writeDataToOneRow(decoration_itemId[i],decoration_writeToId[i],decoration_countId[Math.floor(i/3)]);
+    }
+
+    writeDataToOneRow($indoor_wall_type,$indoor_wall_type, this.indoor_wall_decoration_count);
+    writeDataToOneRow($toilet_product,$toilet_product, this.toilet_equipment_count);
 }
 
 function writeDataToOneRow(itemId,writeToId,countId){
@@ -1151,28 +1153,40 @@ function getOtherItemCount(){
 // }
 
 function exportExcel(script_number,house_address){
-    $.ajax({
-         url: "export_excel.php",
-         type: "POST",
-         data:{
-            script_number: script_number,
-            house_address: house_address
-         },
-         cache:false,
-         dataType: "json",
-         // contentType: 'application/json; charset=utf-8',
-         success: function(data){
-             window.alert("Excel匯出成功!");
-         },
-         error:function(err){
-             window.alert(err.statusText);
-         }
+    $("#msg").html("<h1>Excel報表正在匯出中...<br>請勿關閉視窗...</h1>");
+    $.post("export_excel.php", {'script_number':script_number, 'house_address':house_address},
+    function(){
+        window.alert("Excel匯出成功!");
+    }).done(function() {
+        alert("請點擊繼續!");
+        location.href = "homepage.php";
+      })
+      .fail(function() {
+        alert("Excel匯出失敗!");
     });
+    // $.ajax({
+    //      url: "export_excel.php",
+    //      type: "POST",
+    //      data:{
+    //         script_number: script_number,
+    //         house_address: house_address
+    //      },
+    //      cache:false,
+    //      dataType: "json",
+    //      // contentType: 'application/json; charset=utf-8',
+    //      success: function(data){
+    //          window.alert("Excel匯出成功!");
+    //          location.href = "homepage.php";
+    //      },
+    //      error:function(err){
+    //          window.alert(err.statusText);
+    //      }
+    // });
 }
 
 function continueInput(){
     $("#action").val("continue");
-    window.alert($("#action").val());
+    // window.alert($("#action").val());
 }
 
 function setCohabit(num){
@@ -1184,7 +1198,7 @@ function setCohabit(num){
     else{
         var exit_num = $("#exit-num").val();
         for(var i=0;i<captain_count;i++){
-            if(exit_num==1){
+            if(exit_num==1 && captain_count>1){
                 $("#cohabit-"+num).val("yes");
             }
             else{
@@ -1320,6 +1334,47 @@ function checkAreaCalText(num){
             break;
         }
     }
+}
+
+function isCohabitNumTrue(cohabit_count,not_cohabit_count,captain_count){
+    if((cohabit_count+not_cohabit_count==captain_count) && cohabit_count!=0 && not_cohabit_count!=0){
+        return true;
+    }
+    return false;
+}
+
+function checkOwner(num){
+    var name = "input[name='owner-"+num+"']";
+    var hold_id = "#hold-id-"+num;
+    // window.alert($(name).val());
+    // window.alert($(hold_id).val());
+
+    $.ajax({
+         url: "get_building_decoration_option.php",
+         type: "POST",
+         data:{
+            category: 'land_lord',
+            name: $(name).val(),
+            hold_id: $(hold_id).val()
+         },
+         cache:false,
+         dataType: "json",
+         // contentType: 'application/json; charset=utf-8',
+         success: function(data){
+             if(data.item_name==false){
+                 window.alert("查無此人或輸入錯誤!\n請重新輸入!");
+                 $(name).val("");
+                 $(hold_id).val("");
+             }
+             else{
+                 // window.alert(data.item_name);
+                 $("#addressText-"+num).val(data.item_name);
+             }
+         },
+         error:function(err){
+             window.alert(err.statusText);
+         }
+    });
 }
 
 $(document).ready(function(){

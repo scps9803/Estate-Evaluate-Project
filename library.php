@@ -477,6 +477,9 @@ function insertMinusWallData($fId,$minus_wall_count,$minus_wall_option){
 
             $sql = "SELECT bdId FROM building_decoration WHERE category='加減牆' AND item_name='{$minus_wall_option[$i][$j]}' AND item_type='減牆'";
             $res = $conn->query($sql);
+            if($res->num_rows==0){
+                break;
+            }
 
             while($row = $res->fetch_assoc()) {
                 $bdId[$i][$j] = $row["bdId"];
@@ -504,6 +507,9 @@ function insertAddWallData($fId,$add_wall_count,$add_wall_option){
 
             $sql = "SELECT bdId FROM building_decoration WHERE category='加減牆' AND item_name='{$add_wall_option[$i][$j]}' AND item_type='加牆'";
             $res = $conn->query($sql);
+            if($res->num_rows==0){
+                break;
+            }
 
             while($row = $res->fetch_assoc()) {
                 $bdId[$i][$j] = $row["bdId"];
@@ -531,6 +537,9 @@ function insertIndoorDivideData($fId,$indoor_divide_numerator,$indoor_divide_den
 
             $sql = "SELECT bdId FROM building_decoration WHERE category='室內隔牆構造' AND item_name='{$indoor_divide_option[$i][$j]}'";
             $res = $conn->query($sql);
+            if($res->num_rows==0){
+                break;
+            }
 
             while($row = $res->fetch_assoc()) {
                 $bdId[$i][$j] = $row["bdId"];
@@ -559,6 +568,9 @@ function insertOutdoorWallData($fId,$main_building,$outdoor_wall_decoration_nume
 
             $sql = "SELECT bdId FROM building_decoration WHERE category='屋外牆粉裝' AND item_name='{$outdoor_wall_decoration_option[$i][$j]}' AND building_type='{$main_building[$i]["house_type"]}'";
             $res = $conn->query($sql);
+            if($res->num_rows==0){
+                break;
+            }
 
             while($row = $res->fetch_assoc()) {
                 $bdId[$i][$j] = $row["bdId"];
@@ -587,6 +599,9 @@ function insertIndoorWallData($fId,$indoor_wall_type,$indoor_wall_decoration_num
 
             $sql = "SELECT bdId FROM building_decoration WHERE category='室內牆粉裝' AND item_name='{$indoor_wall_decoration_option[$i][$j]}' AND item_type='{$indoor_wall_type[$i][$j]}'";
             $res = $conn->query($sql);
+            if($res->num_rows==0){
+                break;
+            }
 
             while($row = $res->fetch_assoc()) {
                 $bdId[$i][$j] = $row["bdId"];
@@ -615,6 +630,9 @@ function insertRoofData($fId,$roof_decoration_numerator,$roof_decoration_denomin
 
             $sql = "SELECT bdId FROM building_decoration WHERE category='屋頂(面)粉裝' AND item_name='{$roof_decoration_option[$i][$j]}'";
             $res = $conn->query($sql);
+            if($res->num_rows==0){
+                break;
+            }
 
             while($row = $res->fetch_assoc()) {
                 $bdId[$i][$j] = $row["bdId"];
@@ -643,6 +661,9 @@ function insertFloorDecorData($fId,$floor_decoration_numerator,$floor_decoration
 
             $sql = "SELECT bdId FROM building_decoration WHERE category='樓地板粉裝' AND item_name='{$floor_decoration_option[$i][$j]}'";
             $res = $conn->query($sql);
+            if($res->num_rows==0){
+                break;
+            }
 
             while($row = $res->fetch_assoc()) {
                 $bdId[$i][$j] = $row["bdId"];
@@ -671,6 +692,9 @@ function insertCeilingData($fId,$ceiling_decoration_numerator,$ceiling_decoratio
 
             $sql = "SELECT bdId FROM building_decoration WHERE category='天花板粉裝' AND item_name='{$ceiling_decoration_option[$i][$j]}'";
             $res = $conn->query($sql);
+            if($res->num_rows==0){
+                break;
+            }
 
             while($row = $res->fetch_assoc()) {
                 $bdId[$i][$j] = $row["bdId"];
@@ -1428,8 +1452,8 @@ function insertSubbuildingData($house_address,$sub_building){
         }
 
         $sql = "INSERT INTO has_subbuilding VALUES('{$house_address}','{$sId[$i]}',
-            '{$sub_building[$i]["item_type"]}','{$sub_building[$i]["area_calculate_text"]}',
-            '{$sub_building[$i]["area"]}','{$sub_building[$i]["auto_remove"]}')";
+            '{$sub_building[$i]["item_type"]}','{$sub_building[$i]["area_calculate_text"]}'
+            ,'{$sub_building[$i]["area"]}','{$sub_building[$i]["auto_remove"]}')";
 
         if ($conn->query($sql) === TRUE){
             // echo "New record created successfully";
@@ -1529,6 +1553,25 @@ function getFileInfo($recordNo){
     }
 
     $conn->close();
+    return $result;
+}
+
+function checkLandLordisExist($name,$hold_id){
+    $conn = connect_db();
+
+    $sql = "SELECT * FROM landlord WHERE hold_id='{$hold_id}' AND name='{$name}'";
+    $res = $conn->query($sql);
+    $conn->close();
+
+    if($res->num_rows==0){
+        return false;
+    }
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $result[$i] = $row["address"];
+        $i++;
+    }
     return $result;
 }
 

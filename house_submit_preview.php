@@ -26,6 +26,11 @@ switch ($action) {
         break;
 
     case 'submit':
+        $house_address = $_POST['houseAddress'];
+        $script_number = $_POST['legal-status']."-".$_POST['script-number'];
+        $smarty->assign("house_address",$house_address);
+        $smarty->assign("script_number",$script_number);
+        $smarty->display("finish.html");
         break;
 }
 
@@ -45,7 +50,7 @@ for($i=0;$i<$land_section_count;$i++){
     }
 }
 // 土地總面積
-$land_total_area = $_POST['land-total-area'];
+// $land_total_area = $_POST['land-total-area'];
 
 // 合法狀態、手稿編號、廢棄狀態
 $legal_status = $_POST['legal-status'];
@@ -111,8 +116,9 @@ else{
 // ------------------------------以上為調查表個資部分----------------------------------
 // ------------------------------以下為建物查估部分----------------------------------
 $legal_number = $_POST['build-number']."<br>".$_POST['tax_number'];
-$location = "桃園市、".$_POST['district']."、".$_POST['land-section-1']."，".$_POST['land-number-1']."，"
-."標示面積 ".$_POST['land-total-area']." m<sup>2</sup>";
+// $location = "桃園市、".$_POST['district']."、".$_POST['land-section-1']."，".$_POST['land-number-1']."，"
+// ."標示面積 ".$_POST['land-total-area']." m<sup>2</sup>";
+$location = "";
 
 
 
@@ -409,7 +415,7 @@ $smarty->assign("land_use",$land_use);
 $smarty->assign("main_building",$main_building);
 $smarty->assign("date",$date);
 
-$smarty->display("house_submit_preview.html");
+// $smarty->display("house_submit_preview.html");
 
 // 儲存基本資料
 insertBuildingData($house_address,$legal_status,$build_number,$tax_number,
@@ -422,13 +428,16 @@ insertOwnerData($owner,$hold_ratio,$pId,$house_address,$address,$telephone,$cell
 //     $legal_certificate,$build_certificate,$captain_count,$exit_num,
 //     $total_floor,$remove_condition);
 insertOwnBuildingData($pId,$house_address,$hold_ratio);
-insertResidentData($captain,$total_people,$house_address,$exit_num,$remove_condition);
+if($captain[0]["name"]!=""){
+    insertResidentData($captain,$total_people,$house_address,$exit_num,$remove_condition);
+}
 insertFloorData($script_number,$main_building,$house_address,$discard_status);
 
 // 儲存粉裝資料
 if($minus_wall_count[0][0] != ""){
     $bdId = insertMinusWallData($fId,$minus_wall_count,$minus_wall_option);
     echo "減牆 BDID: <br>";
+    echo "數量: ".count($minus_wall_count)."<br>";
     print_r($minus_wall_count);
     print_r($minus_wall_option);
     echo "<br>";

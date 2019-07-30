@@ -2,10 +2,10 @@
 include "library.php";
 // $script_number = $_POST['script_number'];
 // $house_address = $_POST["house_address"];
-
+//
 // $data = getRecordData($house_address);
-$script_number = "建合-001";
-$house_address = '建國二路100號';
+$script_number = $_POST["script_number"];
+$house_address = $_POST["house_address"];
 $price = 12.6;
 $owner_data = getOwnerData($house_address);
 $building_data = getBuildingData($house_address);
@@ -116,6 +116,13 @@ $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue( 'G4', $owner_data[0]["pId"])
             ->setCellValue( 'L4', $owner_data[0]["current_address"])
             ->setCellValue( 'X4', $phone)
+            // 地主資料待更新，暫時與建物相同
+
+            ->setCellValue( 'C5', $owner_data[0]["name"].$text)
+            ->setCellValue( 'G5', $owner_data[0]["pId"])
+            ->setCellValue( 'L5', $owner_data[0]["current_address"])
+            ->setCellValue( 'X5', $phone)
+
             ->setCellValue( 'AE4', $building_data[0]["legal_status"])
             ->setCellValue( 'AE5', $building_data[0]["legal_certificate"])
             ->setCellValue( 'AE7', $building_data[0]["remove_condition"])
