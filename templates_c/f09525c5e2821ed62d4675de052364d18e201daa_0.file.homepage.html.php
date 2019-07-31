@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-07-30 14:33:41
+/* Smarty version 3.1.33, created on 2019-07-31 15:00:00
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\homepage.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d405545a9eb31_62066352',
+  'unifunc' => 'content_5d41acf044ca00_47697032',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'f09525c5e2821ed62d4675de052364d18e201daa' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\homepage.html',
-      1 => 1564497220,
+      1 => 1564585197,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d405545a9eb31_62066352 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d41acf044ca00_47697032 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -125,7 +125,7 @@ function content_5d405545a9eb31_62066352 (Smarty_Internal_Template $_smarty_tpl)
                     <li id="accountBtn"><a href="#">個人資料</a></li>
                     <li id="transBtn"><a href="#">紀錄查詢</a></li>
                     <li id="walletBtn"><a href="index.php" target="_blank">新增建物查案</a></li>
-                    <li id="investBtn"><a href="#">新增農作物、水產、禽畜查案</a></li>
+                    <li id="investBtn"><a href="corp.php" target="_blank">新增農作物、水產、禽畜查案</a></li>
                     <li id=""><a href="#">新增機械搬遷查案</a></li>
                 </ul><br>
 

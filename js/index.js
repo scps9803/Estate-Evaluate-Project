@@ -426,6 +426,21 @@ function addInfoItemOnclick(id){
             getOwnerCount();
             break;
 
+        case 'corp-owner':
+            owner_count += 1;
+
+            addInfoItemOnclick('hold-ratio');
+            addInfoItemOnclick('pId');
+            addInfoItemOnclick('corp-address');
+            addInfoItemOnclick('telephone');
+            addInfoItemOnclick('cellphone');
+            text =
+            '<div id="corp-owner-'+owner_count+'">'+
+                '<input type="text" name="corp-owner-'+owner_count+'" placeholder="所有權人-'+owner_count+'" required><br>'+
+            '</div>';
+            getOwnerCount();
+            break;
+
         case 'hold-ratio':
             hold_ratio_count += 1;
 
@@ -441,8 +456,8 @@ function addInfoItemOnclick(id){
 
             text =
             '<div id="pId-'+pId_count+'">'+
-                '<input type="text" name="pId-'+pId_count+'" value="" placeholder="所有權人-'+pId_count+'" required>&nbsp;'+
-                '<input type="text" id="hold-id-'+pId_count+'" name="hold-id-'+pId_count+'" value="" placeholder="歸戶號" class="small-input-size" onchange="checkOwner('+pId_count+')" required>'+
+                '<input type="text" name="pId-'+pId_count+'" value="" placeholder="所有權人-'+pId_count+'" required>'+
+                // '<input type="text" id="hold-id-'+pId_count+'" name="hold-id-'+pId_count+'" value="" placeholder="歸戶號" class="small-input-size" onchange="checkOwner('+pId_count+')" required>'+
             '</div>';
             break;
 
@@ -452,6 +467,15 @@ function addInfoItemOnclick(id){
             text =
             '<div id="address-'+address_count+'">'+
                 '<input type="checkbox" id="sameAddressBox-'+address_count+'" onclick="checkSameAddressBox('+address_count+')">同房屋門牌'+
+                '<input type="text" id="addressText-'+address_count+'" name="addressText-'+address_count+'" value="" class="large-input-size" placeholder="所有權人-'+address_count+'">'+
+            '</div>';
+            break;
+
+        case 'corp-address':
+            address_count += 1;
+
+            text =
+            '<div id="corp-address-'+address_count+'">'+
                 '<input type="text" id="addressText-'+address_count+'" name="addressText-'+address_count+'" value="" class="large-input-size" placeholder="所有權人-'+address_count+'">'+
             '</div>';
             break;
@@ -512,7 +536,7 @@ function addInfoItemOnclick(id){
 
             text =
             '<div id="calArea-'+calArea_count+'">'+
-                '<input type="text" name="calArea-'+calArea_count+'" class="larger-input-size" placeholder="請輸入面積計算式或數量" title="請輸入面積計算式或數量">'+
+                '<input type="text" name="calArea-'+calArea_count+'" class="larger-input-size" placeholder="請輸入面積計算式或數量" title="請輸入面積計算式或數量" required>'+
             '</div>';
             break;
 
@@ -521,7 +545,7 @@ function addInfoItemOnclick(id){
 
             text =
             '<div id="auto-remove-'+auto_remove_count+'">'+
-                '<input type="radio" name="auto-remove-'+auto_remove_count+'" value="是">是<input type="radio" name="auto-remove-'+auto_remove_count+'" value="否">否'+
+                '<input type="radio" name="auto-remove-'+auto_remove_count+'" value="是">是<input type="radio" name="auto-remove-'+auto_remove_count+'" value="否" required>否'+
             '</div>';
             break;
 
@@ -620,6 +644,15 @@ function removeInfoItemOnclick(id){
             owner_count = removeItem(id, owner_count);
             getOwnerCount();
             break;
+        case 'corp-owner':
+            removeInfoItemOnclick('hold-ratio');
+            removeInfoItemOnclick('pId');
+            removeInfoItemOnclick('corp-address');
+            removeInfoItemOnclick('telephone');
+            removeInfoItemOnclick('cellphone');
+            owner_count = removeItem(id, owner_count);
+            getOwnerCount();
+            break;
         case 'hold-ratio':
             hold_ratio_count = removeItem(id, hold_ratio_count);
             break;
@@ -627,6 +660,9 @@ function removeInfoItemOnclick(id){
             pId_count = removeItem(id, pId_count);
             break;
         case 'address':
+            address_count = removeItem(id, address_count);
+            break;
+        case 'corp-address':
             address_count = removeItem(id, address_count);
             break;
         case 'telephone':

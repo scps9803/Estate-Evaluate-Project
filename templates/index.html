@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>線上查估系統</title>
+  <title>新增建物查案</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> -->
@@ -13,6 +13,7 @@
 </head>
 <body>
     <div class="container" align="center">
+        <h1>建物調查表</h1>
         <form class="" action="house_submit_preview.php" method="post" id="house_form" onkeydown="if(event.keyCode==13)return false;">
             <table border="1">
                 <tbody>
@@ -95,7 +96,8 @@
                     <tr>
                         <td><span class="required">(*)</span>建物所有權人<br>或權利人姓名</td>
                         <td><span class="required">(*)</span>持分比例</td>
-                        <td><span class="required">(*)</span>身分證字號/歸戶號</td>
+                        <!-- <td><span class="required">(*)</span>身分證字號/歸戶號</td> -->
+                        <td><span class="required">(*)</span>身分證字號</td>
                         <td><span class="required">(*)</span>房屋門牌</td>
                         <td colspan="3"><input type="text" name="houseAddress" value="" class="larger-input-size" id="houseAddress" required></td>
                         <td><span class="required">(*)</span><br>拆除情形</td>
@@ -128,7 +130,7 @@
                             <div id="pId" class="input-align">
                                 <div id="pId-1">
                                     <input type="text" name="pId-1" value="" placeholder="所有權人-1" required>
-                                    <input type="text" id="hold-id-1" name="hold-id-1" value="" placeholder="歸戶號" class="small-input-size" onchange="checkOwner(1)" required>
+                                    <!-- <input type="text" id="hold-id-1" name="hold-id-1" value="" placeholder="歸戶號" class="small-input-size" onchange="checkOwner(1)" required> -->
                                 </div>
                             </div>
                         </td>

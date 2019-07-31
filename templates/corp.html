@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>新增農作物查案</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> -->
+  <link rel="stylesheet" href="css/style.css">
+  <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+  <script type="text/javascript" src="js/index.js"></script>
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+  <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> -->
+</head>
+<body>
+    <div class="container" align="center">
+        <h1>農作物調查表</h1>
+        <form class="" action="" method="post" id="" onkeydown="if(event.keyCode==13)return false;">
+            <table border="1">
+                <tbody>
+                    <tr>
+                        <td rowspan="2">基地標示</td>
+                        <td><span class="required">(*)</span>鄉鎮市</td>
+                        <td><span class="required">(*)</span>段</td>
+                        <td>小段</td>
+                        <td colspan="3"><span class="required">(*)</span>地號</td>
+                        <!-- <td colspan="2"><span class="required">(*)</span>面積(m<sup>2</sup>)</td> -->
+                        <td rowspan="2"><span class="required">(*)</span><br>查估手稿編號</td>
+                        <td rowspan="2">
+                            <input type="radio" name="legal-status" value="農合" required>農合
+                            <input type="radio" name="legal-status" value="農非">農非
+                            <input type="text" name="script-number" value="" placeholder="輸入手稿編號" required><br>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <input type="text" id="district" name="district" list="district-list" autocomplete="off" required>
+                            <datalist id="district-list">
+                                <option value="觀音區">觀音區</option>
+                                <option value="蘆竹區">蘆竹區</option>
+                                <option value="楊梅區">楊梅區</option>
+                                <option value="大園區">大園區</option>
+                                <option value="中壢區">中壢區</option>
+                                <option value="平鎮區">平鎮區</option>
+                                <option value="復興區">復興區</option>
+                                <option value="新屋區">新屋區</option>
+                                <option value="龜山區">龜山區</option>
+                                <option value="八德區">八德區</option>
+                                <option value="桃園區">桃園區</option>
+                                <option value="大溪區">大溪區</option>
+                                <option value="龍潭區">龍潭區</option>
+                            </datalist>
+                        </td>
+                        <td>
+                            <div id="land-section">
+                                <div id="land-section-1">
+                                    <input type="text" id="section-1" name="land-section-1" list="land-section-list-1" autocomplete="off" oninput="getLandSectionOption(1)" required><br>
+                                    <datalist id="land-section-list-1"></datalist>
+                                </div>
+                            </div>
+                            <input type="hidden" id="land_section_count" name="land_section_count">
+                            <button type="button" onclick="addInfoItemOnclick('land-section')">+</button>
+                            <button type="button" onclick="removeInfoItemOnclick('land-section')">-</button>
+                        </td>
+
+                        <td>
+                            <div id="subsection" class="input-align">
+                                <div id="subsection-1">
+                                    <select id="sub_section-1" name="subsection-1">
+                                        <option value="">無</option>
+                                        <option value="新坡小段">新坡小段</option>
+                                        <option value="過溪子小段">過溪子小段</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </td>
+
+                        <td colspan="3">
+                            <div id="land-number" class="input-align">
+                                <div id="land-number-1">
+                                    <input type="text" id="land-num-1" name="land-number-1" placeholder="多個地號請用'、'分隔" onchange="isLandNumExist(1)" required><br>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><span class="required">(*)</span>農林漁牧作物所有人</td>
+                        <td><span class="required">(*)</span>持分比例</td>
+                        <td><span class="required">(*)</span>身分證字號</td>
+                        <td>通訊住址</td>
+                        <td colspan="5">
+                            <div id="corp-address">
+                                <div id="corp-address-1">
+                                    <input type="text" id="addressText-1" name="addressText-1" value="" class="large-input-size" placeholder="所有權人-1">
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr rowspan="2">
+                        <td rowspan="2">
+                            <div id="corp-owner">
+                                <div id="corp-owner-1">
+                                    <input type="text" name="corp-owner-1" placeholder="所有權人-1" required><br>
+                                </div>
+                            </div>
+                            <input type="hidden" id="owner_count" name="owner_count">
+                            <button type="button" onclick="addInfoItemOnclick('corp-owner')">+</button>
+                            <button type="button" onclick="removeInfoItemOnclick('corp-owner')">-</button>
+                        </td>
+
+                        <td rowspan="2">
+                            <div id="hold-ratio" class="input-align">
+                                <div id="hold-ratio-1">
+                                    <input type="text" name="hold-numerator-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)" required>
+                                    /&nbsp;<input type="text" name="hold-denominator-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)" required>
+                                </div>
+                            </div>
+                        </td>
+
+                        <td rowspan="2">
+                            <div id="pId" class="input-align">
+                                <div id="pId-1">
+                                    <input type="text" name="pId-1" value="" placeholder="所有權人-1" required>
+                                    <!-- <input type="text" id="hold-id-1" name="hold-id-1" value="" placeholder="歸戶號" class="small-input-size" onchange="checkOwner(1)" required> -->
+                                </div>
+                            </div>
+                        </td>
+
+                        <td rowspan="2">聯絡電話</td>
+                        <td colspan="2" rowspan="2">
+                            <div id="telephone">
+                                <div id="telephone-1">
+                                    <input type="tel" name="telephone-1" value="" placeholder="所有權人-1">
+                                </div>
+                            </div>
+                        </td>
+                        <td rowspan="2">聯絡手機</td>
+                        <td colspan="2" rowspan="2">
+                            <div id="cellphone">
+                                <div id="cellphone-1">
+                                    <input type="tel" name="cellphone-1" value="" placeholder="所有權人-1" oninput="cellphoneListen('1')" maxlength="11">
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+
+                    </tr>
+
+                    <!-- <tr>
+                        <td><span class="required">(*)</span>土地所有權人</td>
+                        <td><span class="required">(*)</span>持分比例</td>
+                        <td><span class="required">(*)</span>身分證字號</td>
+
+                    </tr> -->
+
+                    <!-- <td><span class="required">(*)</span>權屬</td> -->
+                    <!-- <td colspan="5">
+                        <select class="select-menu" name="corp_belong" id="corp_belong" required="">
+                            <option value="" style="display:none;">請選擇權屬</option>
+                            <option value="所有權人">所有權人</option>
+                            <option value="實際使用人">實際使用人</option>
+                        </select>
+                    </td> -->
+                    <tr>
+                        <td><span class="required">(*)</span>作物種類</td>
+                        <td><span class="required">(*)</span>作物名稱</td>
+                        <td><span class="required">(*)</span>數量</td>
+                        <td><span class="required">(*)</span>單位</td>
+                        <td colspan="4"><span class="required">(*)</span>種植面積</td>
+                        <td>備註</td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div style="margin-top:4px;">
+                                <select class="" name="" required>
+                                    <option value="">請選擇種類</option>
+                                </select>
+                            <div>
+                            <button type="button" name="">+</button>
+                            <button type="button" name="">-</button>
+                        </td>
+
+                        <td>
+                            <select class="" name="" style="margin-bottom:18px;" required>
+                                <option value="">請選擇項目</option>
+                            </select>
+                        </td>
+
+                        <td><input type="text" placeholder="請輸入數量" style="margin-bottom:18px;" required></td>
+
+                        <td>
+                            <select class="" name="" style="margin-bottom:18px;" required>
+                                <option value="">請選擇單位</option>
+                            </select>
+                        </td>
+
+                        <td colspan="4"><input type="text" class="large-input-size" placeholder="請輸入種植面積" style="margin-bottom:18px;" required></td>
+                        <td><input type="text" class="large-input-size" style="margin-bottom:18px;"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <br><br>
+        <div class="container" align="center">
+
+            <!-- <input type="hidden" id="action" name="action" value="">
+            <input type="submit" value="儲存" onclick="saveDialog()">
+            <input type="submit" value="繼續輸入下一頁" onclick="continueInput()"> -->
+            <input type="submit" value="儲存">
+        </form>
+    </div>
+</body>
+</html>
