@@ -181,7 +181,7 @@
         "<th>地址</th>" +
         "<th>查看/編輯</th>" +
         "<th>建立時間</th>" +
-        "<th>下載報表</th>" +
+        "<th>下載報表/刪除</th>" +
         "</tr>" +
         "</thead>" +
 
@@ -193,7 +193,9 @@
         "<td>{$row.address}</td>" +
         "<td><button class='btn btn-default'>查看</button>&nbsp;<button class='btn btn-default'>編輯</button></td>" +
         "<td>{$row.keyin_datetime}</td>" +
-        "<td><button class='btn btn-default'><a href='getFile.php?recordNo={$row.rId}'>一鍵下載</a></button></td>" +
+        "<td><button class='btn btn-default'><a href='getFile.php?recordNo={$row.rId}'>一鍵下載</a></button>&nbsp;" +
+        "<button class='btn btn-default' onclick=deleteAlert('{$row.rId}','{$row.address}')>刪除</button>" +
+        "</td>" +
         "</tr>" +
         "{/foreach}" +
         "</tbody>" +
@@ -237,6 +239,30 @@
             // $(".col-sm-9").append(invest);
         });
     });
+
+    function deleteAlert(rId,address){
+        if(confirm("確定刪除此筆資料?")){
+            // window.alert(rId+" : "+address);
+            // window.alert(rId+" "+address);
+            $.ajax({
+                 url: "deleteRecord.php",
+                 type: "GET",
+                 data:{
+                    recordNo: rId,
+                    address: address
+                 },
+                 cache:false,
+                 dataType: "json",
+                 // contentType: 'application/json; charset=utf-8',
+                 success: function(data){
+                     window.alert(data.status);
+                 },
+                 error:function(err){
+                     window.alert(err.statusText);
+                 }
+            });
+        }
+    }
 
 </script>
 

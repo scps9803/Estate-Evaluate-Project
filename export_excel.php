@@ -4,8 +4,10 @@ include "library.php";
 // $house_address = $_POST["house_address"];
 //
 // $data = getRecordData($house_address);
-$script_number = $_POST["script_number"];
-$house_address = $_POST["house_address"];
+// $script_number = $_POST["script_number"];
+// $house_address = $_POST["house_address"];
+$script_number = "建合-001";
+$house_address = "建國二路100號";
 $price = 12.6;
 $owner_data = getOwnerData($house_address);
 $building_data = getBuildingData($house_address);
@@ -209,36 +211,49 @@ for($i=0;$i<count($main_building_data);$i++){
 
 for($i=0;$i<count($main_building_data);$i++){
     $fee = number_format($main_building_data[$i]["points"]*$main_building_data[$i]["floor_area"]*$price,0,"","");
+    if($main_building_data[$i]["discard_status"]=="yes"){
+        $discard_ratio = 0.25;
+        $hint = "廢棄";
+    }
+    else{
+        $discard_ratio = 1;
+        $hint = "";
+    }
+
     if($compensate_type == "補償"){
         if($i<7){
             $objPHPExcel->setActiveSheetIndex(0)
-                        ->setCellValue( 'AB'.($i+13), $fee)
-                        ->setCellValue( 'AE'.($i+13), number_format($fee*0.5,0,"",""));
-                        $total_fee += $fee;
-                        $total_auto += number_format($fee*0.5,0,"","");
+                        ->setCellValue( 'AB'.($i+13), $fee*$discard_ratio)
+                        ->setCellValue( 'AE'.($i+13), number_format($fee*$discard_ratio*0.5,0,"",""))
+                        ->setCellValue( 'AH'.($i+13), $hint);
+                        $total_fee += $fee*$discard_ratio;
+                        $total_auto += number_format($fee*$discard_ratio*0.5,0,"","");
         }
         else{
             $objPHPExcel->setActiveSheetIndex(0)
-                        ->setCellValue( 'AB'.($i+40), $fee)
-                        ->setCellValue( 'AE'.($i+40), number_format($fee*0.5,0,"",""));
-                        $total_fee += $fee;
-                        $total_auto += number_format($fee*0.5,0,"","");
+                        ->setCellValue( 'AB'.($i+40), $fee*$discard_ratio)
+                        ->setCellValue( 'AE'.($i+40), number_format($fee*$discard_ratio*0.5,0,"",""))
+                        ->setCellValue( 'AH'.($i+40), $hint);
+                        $total_fee += $fee*$discard_ratio;
+                        $total_auto += number_format($fee*$discard_ratio*0.5,0,"","");
         }
     }
     else{
         if($i<7){
             $objPHPExcel->setActiveSheetIndex(0)
-                        ->setCellValue( 'AB'.($i+13), number_format($fee*0.6,0,"",""))
-                        ->setCellValue( 'AE'.($i+13), number_format($fee*0.6*0.5,0,"",""));
-                        $total_fee += number_format($fee*0.6,0,"","");
-                        $total_auto += number_format($fee*0.6*0.5,0,"","");
+                        ->setCellValue( 'AB'.($i+13), number_format($fee*$discard_ratio*0.6,0,"",""))
+                        ->setCellValue( 'AE'.($i+13), number_format($fee*$discard_ratio*0.6*0.5,0,"",""))
+                        ->setCellValue( 'AH'.($i+13), $hint);
+                        $total_fee += number_format($fee*$discard_ratio*0.6,0,"","");
+                        $total_auto += number_format($fee*$discard_ratio*0.6*0.5,0,"","");
         }
         else{
             $objPHPExcel->setActiveSheetIndex(0)
-                        ->setCellValue( 'AB'.($i+40), number_format($fee*0.6,0,"",""))
-                        ->setCellValue( 'AE'.($i+40), number_format($fee*0.6*0.5,0,"",""));
-                        $total_fee += number_format($fee*0.6,0,"","");
-                        $total_auto += number_format($fee*0.6*0.5,0,"","");
+                        ->setCellValue( 'AB'.($i+40), number_format($fee*$discard_ratio*0.6,0,"",""))
+                        ->setCellValue( 'AE'.($i+40), number_format($fee*$discard_ratio*0.6*0.5,0,"",""))
+                        ->setCellValue( 'AH'.($i+40), $hint);
+                        $total_fee += number_format($fee*$discard_ratio*0.6,0,"","");
+                        $total_auto += number_format($fee*$discard_ratio*0.6*0.5,0,"","");
         }
     }
 }
@@ -834,11 +849,49 @@ $file_type = ".xls";
 echo $savePath;
 $objWriter->save($savePath.$filename.$file_type);
 insertFileData($script_number,$savePath,$fileNo,$filename,$file_type);
+
+$fileNo = $script_number."-2";
+$filename = base64_encode($fileNo);
+$file_type = ".txt";
+if(file_exists($savePath.$filename.$file_type)){
+    unlink($savePath.$filename.$file_type);
+}
+$file = fopen($savePath.$filename.$file_type,"a+"); //開啟檔案
+
+fwrite($file,"◆主要結構部份\r\n");
+for($i=0;$i<count($main_building_data);$i++){
+    fwrite($file,($i+1).". ".$main_building_data[$i]["structure"]." ".$main_building_data[$i]["nth_floor"]."/".count($main_building_data)."樓\r\n   面積 : ".$main_building_data[$i]["floor_area"]."=".$main_building_data[$i]["floor_area"]."m2\r\n");
+}
+fwrite($file,"◆雜項工作物部份(室內)\r\n");
+for($i=0;$i<count($sub_building_data);$i++){
+    fwrite($file,($i+1).". ".$sub_building_data[$i]["item_name"]." : ".number_format($sub_building_data[$i]["unitprice"],0,".",",")."元/".$sub_building_data[$i]["unit"]."\r\n   ");
+    if($sub_building_data[$i]["unit"]!="m2" && $sub_building_data[$i]["unit"]!="m3"){
+        $text = "數量 : ";
+    }
+    else{
+        $text = "面積 : ";
+    }
+    fwrite($file,$text.$sub_building_data[$i]["area_calculate_text"]."=".$sub_building_data[$i]["area"].$sub_building_data[$i]["unit"]."\r\n   ".$sub_building_data[$i]["area"]."*".number_format($sub_building_data[$i]["unitprice"],0,".",",")."=".number_format($sub_building_data[$i]["area"]*$sub_building_data[$i]["unitprice"],0,".",",")."元\r\n");
+}
+fwrite($file,"◆雜項工作物部份(室外)\r\n");
+for($i=0;$i<count($outdoor_sub_building_data);$i++){
+    fwrite($file,($i+1).". ".$outdoor_sub_building_data[$i]["item_name"]." : ".number_format($outdoor_sub_building_data[$i]["unitprice"],0,".",",")."元/".$outdoor_sub_building_data[$i]["unit"]."\r\n   ");
+    if($outdoor_sub_building_data[$i]["unit"]!="m2" && $outdoor_sub_building_data[$i]["unit"]!="m3"){
+        $text = "數量 : ";
+    }
+    else{
+        $text = "面積 : ";
+    }
+    fwrite($file,$text.$outdoor_sub_building_data[$i]["area_calculate_text"]."=".$outdoor_sub_building_data[$i]["area"].$outdoor_sub_building_data[$i]["unit"]."\r\n   ".$outdoor_sub_building_data[$i]["area"]."*".number_format($outdoor_sub_building_data[$i]["unitprice"],0,".",",")."=".number_format($outdoor_sub_building_data[$i]["area"]*$outdoor_sub_building_data[$i]["unitprice"],0,".",",")."元\r\n");
+}
+
+fclose($file);
+insertFileData($script_number,$savePath,$fileNo,$filename,$file_type);
 // $objWriter->save('file/myexchel.xls');
 date_default_timezone_set('Asia/Taipei');
 // $objWriter->save('file/'.date("YmdHis").'.xls');
 
-echo json_encode(array('status' => 'completed','tt' => count($main_decoration_data)));
+echo json_encode(array('status' => 'completed','tt' => $daughter_text));
 
 // function processDecorationText($data){
 //     $text = "";
