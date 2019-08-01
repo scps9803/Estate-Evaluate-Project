@@ -150,12 +150,65 @@
 
                     </tr>
 
-                    <!-- <tr>
+                    <tr>
                         <td><span class="required">(*)</span>土地所有權人</td>
-                        <td><span class="required">(*)</span>持分比例</td>
+                        <td><span class="required">(*)</span>歸戶號</td>
                         <td><span class="required">(*)</span>身分證字號</td>
+                        <td>通訊住址</td>
+                        <td colspan="5">
+                            <div id="land-address">
+                                <div id="land-address-1">
+                                    <input type="text" id="landAddressText-1" name="landAddressText-1" value="" class="large-input-size" placeholder="所有權人-1">
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
 
-                    </tr> -->
+                    <tr>
+                        <td>
+                            <div id="land-owner">
+                                <div id="land-owner-1">
+                                    <input type="text" name="land-owner-1" placeholder="所有權人-1" required><br>
+                                </div>
+                            </div>
+                            <input type="hidden" id="land_owner_count" name="land_owner_count">
+                            <button type="button" onclick="addInfoItemOnclick('land-owner')">+</button>
+                            <button type="button" onclick="removeInfoItemOnclick('land-owner')">-</button>
+                        </td>
+
+                        <td>
+                            <div id="hold-id" class="input-align">
+                                <div id="hold-id-1">
+                                    <input type="text" name="hold-id-1" value="" placeholder="所有權人-1" required>
+                                </div>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div id="land-pId" class="input-align">
+                                <div id="land-pId-1">
+                                    <input type="text" name="land-pId-1" value="" placeholder="所有權人-1" required>
+                                </div>
+                            </div>
+                        </td>
+
+                        <td>聯絡電話</td>
+                        <td colspan="2">
+                            <div id="land-telephone">
+                                <div id="land-telephone-1">
+                                    <input type="tel" name="land-telephone-1" value="" placeholder="所有權人-1">
+                                </div>
+                            </div>
+                        </td>
+                        <td>聯絡手機</td>
+                        <td colspan="2">
+                            <div id="land-cellphone">
+                                <div id="land-cellphone-1">
+                                    <input type="tel" name="land-cellphone-1" value="" placeholder="所有權人-1" maxlength="11">
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
 
                     <!-- <td><span class="required">(*)</span>權屬</td> -->
                     <!-- <td colspan="5">
@@ -177,7 +230,7 @@
                     <tr>
                         <td>
                             <div style="margin-top:4px;">
-                                <select class="" name="" required>
+                                <select id="corp-category-1" name="corp-category-1" required>
                                     <option value="">請選擇種類</option>
                                 </select>
                             <div>
@@ -186,21 +239,21 @@
                         </td>
 
                         <td>
-                            <select class="" name="" style="margin-bottom:18px;" required>
+                            <select id="corp-item-1" name="corp-item-1" style="margin-bottom:18px;" required>
                                 <option value="">請選擇項目</option>
                             </select>
                         </td>
 
-                        <td><input type="text" placeholder="請輸入數量" style="margin-bottom:18px;" required></td>
+                        <td><input type="text" id="corp-num-1" name="corp-num-1" placeholder="請輸入數量" style="margin-bottom:18px;" required></td>
 
                         <td>
-                            <select class="" name="" style="margin-bottom:18px;" required>
+                            <select class="" id="corp-unit-1" name="corp-unit-1" style="margin-bottom:18px;" required>
                                 <option value="">請選擇單位</option>
                             </select>
                         </td>
 
-                        <td colspan="4"><input type="text" class="large-input-size" placeholder="請輸入種植面積" style="margin-bottom:18px;" required></td>
-                        <td><input type="text" class="large-input-size" style="margin-bottom:18px;"></td>
+                        <td colspan="4"><input type="text" id="corp-area-1" name="corp-area-1" class="large-input-size" placeholder="請輸入種植面積" style="margin-bottom:18px;" required></td>
+                        <td><input type="text" id="corp-note-1" name="corp-note-1" class="large-input-size" style="margin-bottom:18px;"></td>
                     </tr>
                 </tbody>
             </table>

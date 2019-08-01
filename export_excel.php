@@ -4,12 +4,13 @@ include "library.php";
 // $house_address = $_POST["house_address"];
 //
 // $data = getRecordData($house_address);
-$script_number = $_POST["script_number"];
-$house_address = $_POST["house_address"];
-// $script_number = "建合-001";
-// $house_address = "建國二路100號";
+// $script_number = $_POST["script_number"];
+// $house_address = $_POST["house_address"];
+$script_number = "建合-001";
+$house_address = "建國二路100號";
 $price = 12.6;
 $owner_data = getOwnerData($house_address);
+$land_owner_data = getLandOwnerData($house_address);
 $building_data = getBuildingData($house_address);
 $land_data = getLandData($house_address);
 $resident_data = getResidentData($house_address);
@@ -90,6 +91,7 @@ $objPHPExcel = PHPExcel_IOFactory::load($excelTemplate);
 //             ->setCellValue( 'D3', true )           //布林型
 //             ->setCellValue( 'D4', '=SUM(C1:D2)' );//公式
 
+// 建物所有人
 if(count($owner_data)>1){
     $text = '等'.count($owner_data).'人';
 }
@@ -100,6 +102,19 @@ else{
 $phone = $owner_data[0]["cellphone"];
 if($owner_data[0]["cellphone"] == ""){
     $phone = $owner_data[0]["telephone"];
+}
+
+// 土地所有人
+if(count($land_owner_data)>1){
+    $land_text = '等'.count($land_owner_data).'人';
+}
+else{
+    $land_text = "";
+}
+
+$land_phone = $land_owner_data[0]["cellphone"];
+if($land_owner_data[0]["cellphone"] == ""){
+    $land_phone = $land_owner_data[0]["telephone"];
 }
 
 if($land_data[0]["land_use"]=="自用"){
@@ -120,10 +135,10 @@ $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue( 'X4', $phone)
             // 地主資料待更新，暫時與建物相同
 
-            ->setCellValue( 'C5', $owner_data[0]["name"].$text)
-            ->setCellValue( 'G5', $owner_data[0]["pId"])
-            ->setCellValue( 'L5', $owner_data[0]["current_address"])
-            ->setCellValue( 'X5', $phone)
+            ->setCellValue( 'C5', $land_owner_data[0]["name"].$land_text)
+            ->setCellValue( 'G5', $land_owner_data[0]["pId"])
+            ->setCellValue( 'L5', $land_owner_data[0]["current_address"])
+            ->setCellValue( 'X5', $land_phone)
 
             ->setCellValue( 'AE4', $building_data[0]["legal_status"])
             ->setCellValue( 'AE5', $building_data[0]["legal_certificate"])

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-07-31 14:58:31
+/* Smarty version 3.1.33, created on 2019-08-01 14:39:07
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\index.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d41ac9741b8a8_21444829',
+  'unifunc' => 'content_5d42f98b9e83d4_81915698',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8c5734ee732081c4a28e016fd1e3245b00b0a0f9' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\index.html',
-      1 => 1564585109,
+      1 => 1564670341,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d41ac9741b8a8_21444829 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d42f98b9e83d4_81915698 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -190,6 +190,68 @@ function content_5d41ac9741b8a8_21444829 (Smarty_Internal_Template $_smarty_tpl)
                             <div id="cellphone">
                                 <div id="cellphone-1">
                                     <input type="tel" name="cellphone-1" value="" placeholder="所有權人-1" oninput="cellphoneListen('1')" maxlength="11">
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><span class="required">(*)</span>土地所有權人</td>
+                        <td><span class="required">(*)</span>歸戶號</td>
+                        <td><span class="required">(*)</span>身分證字號</td>
+                        <td>通訊住址</td>
+                        <td colspan="5">
+                            <div id="land-address">
+                                <div id="land-address-1">
+                                    <input type="text" id="landAddressText-1" name="landAddressText-1" value="" class="large-input-size" placeholder="所有權人-1">
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div id="land-owner">
+                                <div id="land-owner-1">
+                                    <input type="text" name="land-owner-1" placeholder="所有權人-1" required><br>
+                                </div>
+                            </div>
+                            <input type="hidden" id="land_owner_count" name="land_owner_count">
+                            <button type="button" onclick="addInfoItemOnclick('land-owner')">+</button>
+                            <button type="button" onclick="removeInfoItemOnclick('land-owner')">-</button>
+                        </td>
+
+                        <td>
+                            <div id="hold-id" class="input-align">
+                                <div id="hold-id-1">
+                                    <input type="text" name="hold-id-1" value="" placeholder="所有權人-1" required>
+                                    <!-- <input type="text" id="hold-id-1" name="hold-id-1" value="" placeholder="歸戶號" class="small-input-size" onchange="checkOwner(1)" required> -->
+                                </div>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div id="land-pId" class="input-align">
+                                <div id="land-pId-1">
+                                    <input type="text" name="land-pId-1" value="" placeholder="所有權人-1" required>
+                                    <!-- <input type="text" id="hold-id-1" name="hold-id-1" value="" placeholder="歸戶號" class="small-input-size" onchange="checkOwner(1)" required> -->
+                                </div>
+                            </div>
+                        </td>
+
+                        <td>聯絡電話</td>
+                        <td colspan="2">
+                            <div id="land-telephone">
+                                <div id="land-telephone-1">
+                                    <input type="tel" name="land-telephone-1" value="" placeholder="所有權人-1">
+                                </div>
+                            </div>
+                        </td>
+                        <td>聯絡手機</td>
+                        <td colspan="2">
+                            <div id="land-cellphone">
+                                <div id="land-cellphone-1">
+                                    <input type="tel" name="land-cellphone-1" value="" placeholder="所有權人-1" maxlength="11">
                                 </div>
                             </div>
                         </td>

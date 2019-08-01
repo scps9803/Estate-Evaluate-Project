@@ -1294,6 +1294,22 @@ function getOwnerData($house_address){
     return $result;
 }
 
+function getLandOwnerData($house_address){
+    $conn = connect_db();
+
+    $sql = "SELECT * FROM land_owner NATURAL JOIN own_land WHERE address='{$house_address}'";
+    $res = $conn->query($sql);
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $result[$i] = $row;
+        $i++;
+    }
+
+    $conn->close();
+    return $result;
+}
+
 function getBuildingData($house_address){
     $conn = connect_db();
 
@@ -1573,6 +1589,29 @@ function checkLandLordisExist($name,$hold_id){
         $i++;
     }
     return $result;
+}
+
+function insertLandOwnerData($land_owner,$hold_id,$land_pId,$landAddressText,$land_telephone,$land_cellphone,$house_address){
+    $conn = connect_db();
+
+    for($i=0;$i<count($land_owner);$i++){
+        $sql = "INSERT INTO land_owner VALUES('{$hold_id[$i]}','{$land_pId[$i]}','{$land_owner[$i]}','{$land_telephone[$i]}','{$land_cellphone[$i]}','{$landAddressText[$i]}')";
+
+        if ($conn->query($sql) === TRUE){
+            // echo "New record created successfully";
+        }else{
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+
+        $sql = "INSERT INTO own_land VALUES('{$hold_id[$i]}','{$house_address}')";
+
+        if ($conn->query($sql) === TRUE){
+            // echo "New record created successfully";
+        }else{
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+    }
+    $conn->close();
 }
 
 // function getStructurePoints($house_address){

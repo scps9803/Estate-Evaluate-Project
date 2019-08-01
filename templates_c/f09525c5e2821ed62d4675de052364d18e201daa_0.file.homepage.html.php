@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-07-31 15:00:00
+/* Smarty version 3.1.33, created on 2019-08-01 13:57:06
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\homepage.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d41acf044ca00_47697032',
+  'unifunc' => 'content_5d42efb21440b9_06184232',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'f09525c5e2821ed62d4675de052364d18e201daa' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\homepage.html',
-      1 => 1564585197,
+      1 => 1564667824,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d41acf044ca00_47697032 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d42efb21440b9_06184232 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -301,9 +301,11 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>" +
                  // contentType: 'application/json; charset=utf-8',
                  success: function(data){
                      window.alert(data.status);
+                     location.reload();
                  },
                  error:function(err){
                      window.alert(err.statusText);
+                     location.reload();
                  }
             });
         }

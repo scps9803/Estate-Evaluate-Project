@@ -12,11 +12,19 @@ var land_section_count = 1;
 var subsection_count = 1;
 var land_number_count = 1;
 var owner_count = 1;
+var land_owner_count = 1;
 var hold_ratio_count = 1;
 var pId_count = 1;
 var address_count = 1;
 var telephone_count = 1;
 var cellphone_count = 1;
+
+var hold_id_count = 1;
+var land_pId_count = 1;
+var land_address_count = 1;
+var land_telephone_count = 1;
+var land_cellphone_count = 1;
+
 var other_item_count = 1;
 var calArea_count = 1;
 var auto_remove_count = 1;
@@ -426,6 +434,21 @@ function addInfoItemOnclick(id){
             getOwnerCount();
             break;
 
+        case 'land-owner':
+            land_owner_count += 1;
+
+            addInfoItemOnclick('hold-id');
+            addInfoItemOnclick('land-pId');
+            addInfoItemOnclick('land-address');
+            addInfoItemOnclick('land-telephone');
+            addInfoItemOnclick('land-cellphone');
+            text =
+            '<div id="land-owner-'+land_owner_count+'">'+
+                '<input type="text" name="land-owner-'+land_owner_count+'" placeholder="所有權人-'+land_owner_count+'" required><br>'+
+            '</div>';
+            getLandOwnerCount();
+            break;
+
         case 'corp-owner':
             owner_count += 1;
 
@@ -504,6 +527,60 @@ function addInfoItemOnclick(id){
             $(item).on('input', 'input', function(){
                 cellphoneListen(current_count);
             });
+            break;
+
+
+        case 'hold-id':
+            hold_id_count += 1;
+
+            text =
+            '<div id="hold-id-'+hold_id_count+'">'+
+                '<input type="text" name="hold-id-'+hold_id_count+'" value="" placeholder="所有權人-'+hold_id_count+'" required>'+
+            '</div>';
+            break;
+
+        case 'land-pId':
+            land_pId_count += 1;
+
+            text =
+            '<div id="land-pId-'+land_pId_count+'">'+
+                '<input type="text" name="land-pId-'+land_pId_count+'" value="" placeholder="所有權人-'+land_pId_count+'" required>'+
+            '</div>';
+            break;
+
+        case 'land-address':
+            land_address_count += 1;
+
+            text =
+            '<div id="land-address-'+land_address_count+'">'+
+                '<input type="text" id="landAddressText-'+land_address_count+'" name="landAddressText-'+land_address_count+'" value="" class="large-input-size" placeholder="所有權人-'+land_address_count+'">'+
+            '</div>';
+            break;
+
+        case 'land-telephone':
+            land_telephone_count += 1;
+
+            text =
+            '<div id="land-telephone-'+land_telephone_count+'">'+
+                '<input type="tel" name="land-telephone-'+land_telephone_count+'" value="" placeholder="所有權人-'+land_telephone_count+'">'+
+            '</div>';
+            break;
+
+        case 'land-cellphone':
+            land_cellphone_count += 1;
+            var current_count = land_cellphone_count;
+
+            text =
+            '<div id="land-cellphone-'+land_cellphone_count+'">'+
+                '<input type="tel" name="land-cellphone-'+land_cellphone_count+'" value="" placeholder="所有權人-'+land_cellphone_count+'" maxlength="11">'+
+            '</div>';
+            isAppend = true;
+            $(itemId).append(text);
+
+            // var item = '#land-cellphone-'+current_count;
+            // $(item).on('input', 'input', function(){
+            //     cellphoneListen(current_count);
+            // });
             break;
 
             // 雜項設施
@@ -644,6 +721,15 @@ function removeInfoItemOnclick(id){
             owner_count = removeItem(id, owner_count);
             getOwnerCount();
             break;
+        case 'land-owner':
+            removeInfoItemOnclick('hold-id');
+            removeInfoItemOnclick('land-pId');
+            removeInfoItemOnclick('land-address');
+            removeInfoItemOnclick('land-telephone');
+            removeInfoItemOnclick('land-cellphone');
+            land_owner_count = removeItem(id, land_owner_count);
+            getLandOwnerCount();
+            break;
         case 'corp-owner':
             removeInfoItemOnclick('hold-ratio');
             removeInfoItemOnclick('pId');
@@ -670,6 +756,22 @@ function removeInfoItemOnclick(id){
             break;
         case 'cellphone':
             cellphone_count = removeItem(id, cellphone_count);
+            break;
+
+        case 'hold-id':
+            hold_id_count = removeItem(id, hold_id_count);
+            break;
+        case 'land-pId':
+            land_pId_count = removeItem(id, land_pId_count);
+            break;
+        case 'land-address':
+            land_address_count = removeItem(id, land_address_count);
+            break;
+        case 'land-telephone':
+            land_telephone_count = removeItem(id, land_telephone_count);
+            break;
+        case 'land-cellphone':
+            land_cellphone_count = removeItem(id, land_cellphone_count);
             break;
             // 雜項設施
         case 'other-item':
@@ -1127,6 +1229,10 @@ function getOwnerCount(){
     $("#owner_count").val(owner_count);
 }
 
+function getLandOwnerCount(){
+    $("#land_owner_count").val(land_owner_count);
+}
+
 function getCaptainCount(){
     $("#captain_count").val(captain_count);
 }
@@ -1415,6 +1521,7 @@ function checkOwner(num){
 
 $(document).ready(function(){
     getOwnerCount();
+    getLandOwnerCount();
     getCaptainCount();
     getLandSectionCount();
     getOtherItemCount();

@@ -68,6 +68,17 @@ for($i=0;$i<$owner_count;$i++){
     $cellphone[$i] = $_POST['cellphone-'.($i+1)];
     $telephone[$i] = $_POST['telephone-'.($i+1)];
 }
+// 土地所有人、歸戶號、身分證字號、住址、電話等個人資料
+$land_owner_count = $_POST['land_owner_count'];
+for($i=0;$i<$land_owner_count;$i++){
+    $land_owner[$i] = $_POST['land-owner-'.($i+1)];
+    $hold_id[$i] = $_POST['hold-id-'.($i+1)];
+    $land_pId[$i] = $_POST['land-pId-'.($i+1)];
+    $landAddressText[$i] = $_POST['landAddressText-'.($i+1)];
+    $land_cellphone[$i] = $_POST['land-cellphone-'.($i+1)];
+    $land_telephone[$i] = $_POST['land-telephone-'.($i+1)];
+}
+print_r($land_owner);
 
 // 房屋門牌
 $house_address = $_POST['houseAddress'];
@@ -424,6 +435,7 @@ insertBuildingData($house_address,$legal_status,$build_number,$tax_number,
 insertLandData($district,$land_section,$subsection,$land_number,$house_address,$land_use);
 insertRecordData($script_number,$house_address,$KEYIN_ID,$KEYIN_DATETIME);
 insertOwnerData($owner,$hold_ratio,$pId,$house_address,$address,$telephone,$cellphone);
+insertLandOwnerData($land_owner,$hold_id,$land_pId,$landAddressText,$land_telephone,$land_cellphone,$house_address);
 // insertBuildingData($house_address,$legal_status,$build_number,$tax_number,
 //     $legal_certificate,$build_certificate,$captain_count,$exit_num,
 //     $total_floor,$remove_condition);

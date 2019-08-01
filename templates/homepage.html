@@ -256,9 +256,11 @@
                  // contentType: 'application/json; charset=utf-8',
                  success: function(data){
                      window.alert(data.status);
+                     location.reload();
                  },
                  error:function(err){
                      window.alert(err.statusText);
+                     location.reload();
                  }
             });
         }
