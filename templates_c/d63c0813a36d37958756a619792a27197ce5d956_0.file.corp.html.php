@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-01 16:53:38
+/* Smarty version 3.1.33, created on 2019-08-03 16:27:44
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\corp.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d431912404e94_35895448',
+  'unifunc' => 'content_5d45b600e784b4_47313411',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'd63c0813a36d37958756a619792a27197ce5d956' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\corp.html',
-      1 => 1564678416,
+      1 => 1564849509,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d431912404e94_35895448 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d45b600e784b4_47313411 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -252,39 +252,82 @@ function content_5d431912404e94_35895448 (Smarty_Internal_Template $_smarty_tpl)
                     <tr>
                         <td><span class="required">(*)</span>作物種類</td>
                         <td><span class="required">(*)</span>作物名稱</td>
+                        <td><span class="required">(*)</span>作物規格</td>
                         <td><span class="required">(*)</span>數量</td>
                         <td><span class="required">(*)</span>單位</td>
-                        <td colspan="4"><span class="required">(*)</span>種植面積</td>
+                        <td colspan="3"><span class="required">(*)</span>種植面積</td>
                         <td>備註</td>
                     </tr>
 
                     <tr>
                         <td>
-                            <div style="margin-top:4px;">
-                                <select id="corp-category-1" name="corp-category-1" required>
-                                    <option value="">請選擇種類</option>
-                                </select>
-                            <div>
-                            <button type="button" name="">+</button>
-                            <button type="button" name="">-</button>
+                            <div id="corp-category" style="margin-top:4px;">
+                                <div id="corp-category-1">
+                                    <select name="corp-category-1" onchange="load_corp_item_Data(1)" required>
+                                        <option value="" style="display:none;">請選擇種類</option>
+                                        <?php echo $_smarty_tpl->tpl_vars['corp_category_option']->value;?>
+
+                                    </select>
+                                </div>
+                            </div>
+                            <input type="hidden" id="corp-count" name="corp-count">
+                            <button type="button" name="" onclick="addInfoItemOnclick('corp-category')">+</button>
+                            <button type="button" name="" onclick="removeInfoItemOnclick('corp-category')">-</button>
                         </td>
 
                         <td>
-                            <select id="corp-item-1" name="corp-item-1" style="margin-bottom:18px;" required>
-                                <option value="">請選擇項目</option>
-                            </select>
+                            <div id="corp-item" style="margin-bottom:18px">
+                                <div id="corp-item-1">
+                                    <select name="corp-item-1" onchange="load_corp_type_Data(1)" required>
+                                        <option value="">請選擇項目</option>
+                                    </select>
+                                </div>
+                            </div>
                         </td>
-
-                        <td><input type="text" id="corp-num-1" name="corp-num-1" placeholder="請輸入數量" style="margin-bottom:18px;" required></td>
 
                         <td>
-                            <select class="" id="corp-unit-1" name="corp-unit-1" style="margin-bottom:18px;" required>
-                                <option value="">請選擇單位</option>
-                            </select>
+                            <div id="corp-type" style="margin-bottom:18px">
+                                <div id="corp-type-1">
+                                    <select name="corp-type-1" required>
+                                        <option value="">請選擇規格</option>
+                                    </select>
+                                </div>
+                            </div>
                         </td>
 
-                        <td colspan="4"><input type="text" id="corp-area-1" name="corp-area-1" class="large-input-size" placeholder="請輸入種植面積" style="margin-bottom:18px;" required></td>
-                        <td><input type="text" id="corp-note-1" name="corp-note-1" class="large-input-size" style="margin-bottom:18px;"></td>
+                        <td>
+                            <div id="corp-num" style="margin-bottom:18px">
+                                <div id="corp-num-1">
+                                    <input type="text" name="corp-num-1" pattern="[0-9]{1,5}" title="只能輸入5位以下數字" placeholder="請輸入數量" required>
+                                </div>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div id="corp-unit" style="margin-bottom:18px">
+                                <div id="corp-unit-1">
+                                    <select class="" name="corp-unit-1" required>
+                                        <option value="">請選擇單位</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </td>
+
+                        <td colspan="3">
+                            <div id="corp-area" style="margin-bottom:18px">
+                                <div id="corp-area-1">
+                                    <input type="text" name="corp-area-1" class="large-input-size" placeholder="請輸入種植面積" required>
+                                </div>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div id="corp-note" style="margin-bottom:18px">
+                                <div id="corp-note-1">
+                                    <input type="text" name="corp-note-1" class="large-input-size">
+                                </div>
+                            </div>
+                        </td>
                     </tr>
                 </tbody>
             </table>

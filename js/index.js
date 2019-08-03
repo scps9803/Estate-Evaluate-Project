@@ -35,6 +35,8 @@ var set_household_date_count = 1;
 var family_num_count = 1;
 var independent_count = 0;
 
+var corp_count = 1;
+
 function addItemOnclick(id,column,num){
     var itemId = "#"+id+column+"-"+num;
     var result_option = "";
@@ -692,6 +694,74 @@ function addInfoItemOnclick(id){
                     '<option value="15">15</option>'+
                 '</select>'+
             '</div>';
+            break;
+            // 農作物選單
+        case 'corp-category':
+            corp_count += 1;
+
+            addInfoItemOnclick('corp-item');
+            addInfoItemOnclick('corp-type');
+            addInfoItemOnclick('corp-num');
+            addInfoItemOnclick('corp-unit');
+            addInfoItemOnclick('corp-area');
+            addInfoItemOnclick('corp-note');
+            text =
+            '<div id="corp-category-'+corp_count+'" style="margin-top:4px">'+
+                '<select name="corp-category-'+corp_count+'" onchange="load_corp_item_Data('+corp_count+')" required>'+
+                    '<option value="" style="display:none;">請選擇種類</option>'+
+                    '{$corp_category_option}'+
+                '</select>'+
+            '</div>';
+            getCorpCount();
+            break;
+
+        case 'corp-item':
+            text =
+            '<div id="corp-item-'+corp_count+'" style="margin-top:4px">'+
+                '<select name="corp-item-'+corp_count+'" style="" onchange="load_corp_type_Data('+corp_count+')" required>'+
+                    '<option value="">請選擇項目</option>'+
+                '</select>'+
+            '</div>';
+            break;
+
+        case 'corp-type':
+            text =
+            '<div id="corp-type-'+corp_count+'" style="margin-top:4px">'+
+                '<select name="corp-type-'+corp_count+'" required>'+
+                    '<option value="">請選擇規格</option>'+
+                '</select>'+
+            '</div>';
+            break;
+
+        case 'corp-num':
+            text =
+            '<div id="corp-num-'+corp_count+'" style="margin-top:-2px">'+
+                '<input type="text" name="corp-num-'+corp_count+'" pattern="[0-9]{literal}{1,5}{/literal}" title="只能輸入5位以下數字" placeholder="請輸入數量" required>'+
+            '</div>';
+            break;
+
+        case 'corp-unit':
+            text =
+            '<div id="corp-unit-'+corp_count+'" style="margin-top:4px">'+
+                '<select class="" name="corp-unit-'+corp_count+'" required>'+
+                    '<option value="">請選擇單位</option>'+
+                '</select>'+
+            '</div>';
+            break;
+
+        case 'corp-area':
+            text =
+            '<div id="corp-area-'+corp_count+'" style="margin-top:-2px">'+
+                '<input type="text" name="corp-area-'+corp_count+'" class="large-input-size" placeholder="請輸入種植面積" required>'+
+            '</div>';
+            break;
+
+        case 'corp-note':
+            text =
+            '<div id="corp-note-'+corp_count+'" style="margin-top:-2px">'+
+                '<input type="text" name="corp-note-'+corp_count+'" class="large-input-size">'+
+            '</div>';
+            break;
     }
     if(!isAppend){
         $(itemId).append(text);
@@ -805,6 +875,25 @@ function removeInfoItemOnclick(id){
             break;
         case 'family-num':
             family_num_count = removeItem(id, family_num_count);
+            break;
+        case 'corp-category':
+            removeInfoItemOnclick('corp-item');
+            removeInfoItemOnclick('corp-type');
+            removeInfoItemOnclick('corp-num');
+            removeInfoItemOnclick('corp-unit');
+            removeInfoItemOnclick('corp-area');
+            removeInfoItemOnclick('corp-note');
+            corp_count = removeItem(id, corp_count);
+            getCorpCount();
+            break;
+        case 'corp-item':
+        case 'corp-type':
+        case 'corp-num':
+        case 'corp-unit':
+        case 'corp-area':
+        case 'corp-note':
+            removeItem(id, corp_count);
+            break;
     }
 }
 
@@ -1281,6 +1370,10 @@ function getOtherItemCount(){
     $("#other-item-count").val(other_item_count);
 }
 
+function getCorpCount(){
+    $("#corp-count").val(corp_count);
+}
+
 // function setRequired(id){
 //     var item = id+"1-2";
 //     window.alert(item);
@@ -1519,12 +1612,60 @@ function checkOwner(num){
     });
 }
 
+function load_corp_item_Data(num){
+    var item = "#corp-category-"+num;
+    var classfication = $(item).val();
+
+    $.ajax({
+         url: "get_building_decoration_option.php",
+         type: "POST",
+         data:{
+            category: 'corp_item',
+            classfication: classfication
+         },
+         cache:false,
+         dataType: "json",
+         // contentType: 'application/json; charset=utf-8',
+         success: function(data){
+             $("#corp-item-"+num).html(data.item_name);
+             load_corp_type_Data(num);
+         },
+         error:function(err){
+             window.alert(err.statusText);
+         }
+    });
+}
+
+function load_corp_type_Data(num){
+    var item = "#corp-item-"+num;
+    var corp_item = $(item).val();
+
+    $.ajax({
+         url: "get_building_decoration_option.php",
+         type: "POST",
+         data:{
+            category: 'corp_type',
+            corp_item: corp_item
+         },
+         cache:false,
+         dataType: "json",
+         // contentType: 'application/json; charset=utf-8',
+         success: function(data){
+             $("#corp-type-"+num).html(data.item_name);
+         },
+         error:function(err){
+             window.alert(err.statusText);
+         }
+    });
+}
+
 $(document).ready(function(){
     getOwnerCount();
     getLandOwnerCount();
     getCaptainCount();
     getLandSectionCount();
     getOtherItemCount();
+    getCorpCount();
     for(var i=0;i<4;i++){
         getMinusWallCount(i);
         getAddWallCount(i);

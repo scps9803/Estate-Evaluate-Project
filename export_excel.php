@@ -875,12 +875,12 @@ $file = fopen($savePath.$filename.$file_type,"a+"); //開啟檔案
 
 fwrite($file,"◆主要結構部份\r\n");
 for($i=0;$i<count($main_building_data);$i++){
-    fwrite($file,($i+1).". ".$main_building_data[$i]["structure"]." ".$main_building_data[$i]["nth_floor"]."/".count($main_building_data)."樓\r\n   面積 : ".$main_building_data[$i]["floor_area"]."=".$main_building_data[$i]["floor_area"]."m2\r\n");
+    fwrite($file,($i+1).". ".$main_building_data[$i]["structure"]." ".$main_building_data[$i]["nth_floor"]."/".count($main_building_data)."樓\r\n   面積 : ".$main_building_data[$i]["floor_area"]."=".$main_building_data[$i]["floor_area"]."㎡\r\n");
 }
 fwrite($file,"◆雜項工作物部份(室內)\r\n");
 for($i=0;$i<count($sub_building_data);$i++){
     fwrite($file,($i+1).". ".$sub_building_data[$i]["item_name"]." : ".number_format($sub_building_data[$i]["unitprice"],0,".",",")."元/".$sub_building_data[$i]["unit"]."\r\n   ");
-    if($sub_building_data[$i]["unit"]!="m2" && $sub_building_data[$i]["unit"]!="m3"){
+    if($sub_building_data[$i]["unit"]!="㎡" && $sub_building_data[$i]["unit"]!="m³"){
         $text = "數量 : ";
     }
     else{
@@ -891,7 +891,7 @@ for($i=0;$i<count($sub_building_data);$i++){
 fwrite($file,"◆雜項工作物部份(室外)\r\n");
 for($i=0;$i<count($outdoor_sub_building_data);$i++){
     fwrite($file,($i+1).". ".$outdoor_sub_building_data[$i]["item_name"]." : ".number_format($outdoor_sub_building_data[$i]["unitprice"],0,".",",")."元/".$outdoor_sub_building_data[$i]["unit"]."\r\n   ");
-    if($outdoor_sub_building_data[$i]["unit"]!="m2" && $outdoor_sub_building_data[$i]["unit"]!="m3"){
+    if($outdoor_sub_building_data[$i]["unit"]!="㎡" && $outdoor_sub_building_data[$i]["unit"]!="m³"){
         $text = "數量 : ";
     }
     else{

@@ -80,6 +80,15 @@ switch ($category) {
         $name = $_POST['name'];
         $hold_id = $_POST['hold_id'];
         $result_option = checkLandLordisExist($name,$hold_id);
+        break;
+
+    case 'corp_item':
+        $classfication = $_POST['classfication'];
+        $result_option = getCorpOption($classfication);
+        break;
+    case 'corp_type':
+        $corp_item = $_POST['corp_item'];
+        $result_option = getCorpTypeOption($corp_item);
 }
 // $item_type = $_POST['item_type'];
 //

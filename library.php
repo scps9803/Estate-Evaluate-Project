@@ -51,6 +51,21 @@ function load_electric_Data(){
     return $house_construct;
 }
 
+function load_corp_item_Data(){
+    $conn = connect_db();
+    $sql = "SELECT DISTINCT category FROM corp";
+    $res = $conn->query($sql);
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $corp_category[$i] = $row;
+        $i++;
+    }
+
+    $conn->close();
+    return $corp_category;
+}
+
 function get_electric_type_option($category,$item_type){
     require_once "smarty/libs/Smarty.class.php";
     $smarty = new Smarty;
@@ -1612,6 +1627,74 @@ function insertLandOwnerData($land_owner,$hold_id,$land_pId,$landAddressText,$la
         }
     }
     $conn->close();
+}
+
+function getCorpOption($classfication){
+    $conn = connect_db();
+
+    $sql = "SELECT DISTINCT item FROM corp WHERE category='{$classfication}'";
+    $res = $conn->query($sql);
+    if($res->num_rows==0){
+        return "";
+    }
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $corp_item[$i] = $row;
+        $i++;
+    }
+
+    $conn->close();
+
+    $corp_item_option = "";
+
+    for($i=0;$i<count($corp_item);$i++){
+        $corp_item_option = $corp_item_option
+        ."<option value='".$corp_item[$i]["item"]."'>".$corp_item[$i]["item"]."</option>";
+    }
+
+    return $corp_item_option;
+}
+
+function getCorpTypeOption($corp_item){
+    $conn = connect_db();
+
+    $sql = "SELECT * FROM corp WHERE item='{$corp_item}'";
+    $res = $conn->query($sql);
+    if($res->num_rows==0){
+        return "";
+    }
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $corp_type[$i] = $row;
+        $i++;
+    }
+
+    $conn->close();
+
+    $corp_type_option = "";
+
+    for($i=0;$i<count($corp_type);$i++){
+        if($corp_type[$i]["corp_age"]!=NULL){
+            $corp_type_option = $corp_type_option
+            ."<option value='".$corp_type[$i]["corp_age"]."'>".$corp_type[$i]["corp_age"]."</option>";
+        }
+        else if($corp_type[$i]["cm_length"]!=NULL){
+            $corp_type_option = $corp_type_option
+            ."<option value='".$corp_type[$i]["cm_length"]."'>".$corp_type[$i]["cm_length"]."</option>";
+        }
+        else if($corp_type[$i]["m_length"]!=NULL){
+            $corp_type_option = $corp_type_option
+            ."<option value='".$corp_type[$i]["m_length"]."'>".$corp_type[$i]["m_length"]."</option>";
+        }
+        else{
+            $corp_type_option = $corp_type_option
+            ."<option value='none'>無特別規格</option>";
+        }
+    }
+
+    return $corp_type_option;
 }
 
 // function getStructurePoints($house_address){
