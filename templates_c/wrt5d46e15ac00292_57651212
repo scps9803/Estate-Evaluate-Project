@@ -1,4 +1,27 @@
-<!DOCTYPE html>
+<?php
+/* Smarty version 3.1.33, created on 2019-08-04 13:44:58
+  from 'C:\wamp64\www\Estate-Evaluate-Project\templates\corp.html' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '3.1.33',
+  'unifunc' => 'content_5d46e15abf54a2_18213772',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    'd63c0813a36d37958756a619792a27197ce5d956' => 
+    array (
+      0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\corp.html',
+      1 => 1564926296,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+),false)) {
+function content_5d46e15abf54a2_18213772 (Smarty_Internal_Template $_smarty_tpl) {
+?><!DOCTYPE html>
 <html lang="en">
 <head>
   <title>新增農作物查案</title>
@@ -6,10 +29,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> -->
   <link rel="stylesheet" href="css/style.css">
-  <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-  <script type="text/javascript" src="js/index.js"></script>
-  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
-  <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> -->
+  <?php echo '<script'; ?>
+ type="text/javascript" src="js/jquery-3.4.1.min.js"><?php echo '</script'; ?>
+>
+  <?php echo '<script'; ?>
+ type="text/javascript" src="js/index.js"><?php echo '</script'; ?>
+>
+  <!-- <?php echo '<script'; ?>
+ src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"><?php echo '</script'; ?>
+> -->
+  <!-- <?php echo '<script'; ?>
+ src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"><?php echo '</script'; ?>
+> -->
 </head>
 <body>
     <div class="container" align="center">
@@ -113,8 +144,8 @@
                         <td rowspan="2">
                             <div id="hold-ratio" class="input-align">
                                 <div id="hold-ratio-1">
-                                    <input type="text" name="hold-numerator-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)" required>
-                                    /&nbsp;<input type="text" name="hold-denominator-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)" required>
+                                    <input type="text" name="hold-numerator-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)" required>
+                                    /&nbsp;<input type="text" name="hold-denominator-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)" required>
                                 </div>
                             </div>
                         </td>
@@ -234,7 +265,8 @@
                                 <div id="corp-category-1">
                                     <select name="corp-category-1" onchange="load_corp_item_Data(1)" required>
                                         <option value="" style="display:none;">請選擇種類</option>
-                                        {$corp_category_option}
+                                        <?php echo $_smarty_tpl->tpl_vars['corp_category_option']->value;?>
+
                                     </select>
                                 </div>
                             </div>
@@ -266,7 +298,7 @@
                         <td>
                             <div id="corp-num" style="margin-bottom:18px">
                                 <div id="corp-num-1">
-                                    <input type="text" name="corp-num-1" pattern="[0-9]{literal}{1,5}{/literal}" title="只能輸入5位以下數字" placeholder="請輸入數量" required>
+                                    <input type="text" name="corp-num-1" pattern="[0-9]{1,5}" title="只能輸入5位以下數字" placeholder="請輸入數量" required>
                                 </div>
                             </div>
                         </td>
@@ -306,8 +338,10 @@
             <!-- <input type="hidden" id="action" name="action" value="">
             <input type="submit" value="儲存" onclick="saveDialog()">
             <input type="submit" value="繼續輸入下一頁" onclick="continueInput()"> -->
-            <input type="submit" value="儲存" onclick="window.alert('測試用介面，資料不儲存')">
+            <input type="submit" value="儲存" onclick="window.alert();">
         </form>
     </div>
 </body>
 </html>
+<?php }
+}

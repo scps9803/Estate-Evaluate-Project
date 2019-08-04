@@ -1697,6 +1697,29 @@ function getCorpTypeOption($corp_item){
     return $corp_type_option;
 }
 
+function insertNewDoorWindowData($fId,$resultArray,$resultRatio,$main_building){
+    $conn = connect_db();
+
+    for($i=0;$i<count($fId);$i++){
+        for($j=0;$j<count($resultArray);$j++){
+            $sql = "SELECT bdId FROM building_decoration WHERE category='門窗裝置' AND item_name='{$resultArray[$j]}' AND building_type='{$main_building[$i]["house_type"]}'";
+            $res = $conn->query($sql);
+            while($row = $res->fetch_assoc()) {
+                $bdId = $row["bdId"];
+            }
+
+            $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId}',NULL,'{$resultRatio[$j]}')";
+
+            if ($conn->query($sql) === TRUE){
+                // echo "New record created successfully";
+            }else{
+                echo "Error: " . $sql . "<br>" . $conn->error;
+            }
+        }
+    }
+    $conn->close();
+}
+
 // function getStructurePoints($house_address){
 //     $conn = connect_db();
 //

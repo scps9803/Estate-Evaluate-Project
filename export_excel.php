@@ -4,10 +4,10 @@ include "library.php";
 // $house_address = $_POST["house_address"];
 //
 // $data = getRecordData($house_address);
-// $script_number = $_POST["script_number"];
-// $house_address = $_POST["house_address"];
-$script_number = "建合-001";
-$house_address = "建國二路100號";
+$script_number = $_POST["script_number"];
+$house_address = $_POST["house_address"];
+// $script_number = "建合-001";
+// $house_address = "建國二路100號";
 $price = 12.6;
 $owner_data = getOwnerData($house_address);
 $land_owner_data = getLandOwnerData($house_address);

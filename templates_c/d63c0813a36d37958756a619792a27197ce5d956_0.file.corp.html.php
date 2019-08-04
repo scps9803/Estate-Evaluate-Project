@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-03 16:27:44
+/* Smarty version 3.1.33, created on 2019-08-04 13:46:26
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\corp.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d45b600e784b4_47313411',
+  'unifunc' => 'content_5d46e1b212bdd4_84504722',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'd63c0813a36d37958756a619792a27197ce5d956' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\corp.html',
-      1 => 1564849509,
+      1 => 1564926384,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d45b600e784b4_47313411 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d46e1b212bdd4_84504722 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -338,7 +338,7 @@ function content_5d45b600e784b4_47313411 (Smarty_Internal_Template $_smarty_tpl)
             <!-- <input type="hidden" id="action" name="action" value="">
             <input type="submit" value="儲存" onclick="saveDialog()">
             <input type="submit" value="繼續輸入下一頁" onclick="continueInput()"> -->
-            <input type="submit" value="儲存">
+            <input type="submit" value="儲存" onclick="window.alert('測試用介面，資料不儲存')">
         </form>
     </div>
 </body>
