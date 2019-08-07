@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-07-31 13:48:28
+/* Smarty version 3.1.33, created on 2019-08-06 22:31:53
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\sub_building.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d419c2c7bfce1_03744760',
+  'unifunc' => 'content_5d498f598f9865_55348320',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b05ba50e74ffc12085b95e292d15feee33505b3e' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\sub_building.html',
-      1 => 1564580906,
+      1 => 1565100869,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d419c2c7bfce1_03744760 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d498f598f9865_55348320 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head>
@@ -88,10 +88,10 @@ function content_5d419c2c7bfce1_03744760 (Smarty_Internal_Template $_smarty_tpl)
                     </tr>
                 </table>
                 <!-- <input type="button" value="回前一頁" onclick="window.history.back();"> -->
-                <!-- <input type="hidden" name="house_address" value="<?php echo $_smarty_tpl->tpl_vars['house_address']->value;?>
+                <input type="hidden" name="house_address" value="<?php echo $_smarty_tpl->tpl_vars['house_address']->value;?>
 ">
                 <input type="hidden" name="script_number" value="<?php echo $_smarty_tpl->tpl_vars['script_number']->value;?>
-"> -->
+">
                 <input type="submit" value="儲存">
             </form>
         </div>

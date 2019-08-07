@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-04 15:33:17
+/* Smarty version 3.1.33, created on 2019-08-06 16:36:45
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\index.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d46fabd10be09_11547704',
+  'unifunc' => 'content_5d49ac9d30ad15_39872419',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8c5734ee732081c4a28e016fd1e3245b00b0a0f9' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\index.html',
-      1 => 1564932795,
+      1 => 1565109402,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d46fabd10be09_11547704 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d49ac9d30ad15_39872419 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1250,75 +1250,108 @@ function content_5d46fabd10be09_11547704 (Smarty_Internal_Template $_smarty_tpl)
                     </td>
 
                     <td>
-                        <input type="text" name="door-window-numerator-2" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" name="door-window-denominator-2" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
-                        <select name="door-window-2" class="median-select-menu">
+                        <label for="">第一層門</label>
+                        <!-- <input type="text" name="first-door-numerator-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" name="first-door-denominator-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)"> -->
+                        <select name="first-door-2" class="median-select-menu">
+                            <option value="" style="display:none;">請選擇材質</option>
+                            <?php echo $_smarty_tpl->tpl_vars['door_window_option']->value;?>
+
+                        </select>
+                        <br>
+                        <label for="">第一層窗</label>
+                        <!-- <input type="text" name="first-window-numerator-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" name="first-window-denominator-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)"> -->
+                        <select name="first-window-2" class="median-select-menu">
                             <option value="" style="display:none;">請選擇材質</option>
                             <?php echo $_smarty_tpl->tpl_vars['door_window_option']->value;?>
 
                         </select>
                     </td>
-                    <!-- <td><input type="checkbox" name="double-door-window-2">雙層門<br><input type="checkbox" name="double-door-window-2">雙層窗</td> -->
                     <td>
-                        <!-- <input type="checkbox" name="double-door-window-2">雙層門 -->
-                        雙層門<select class="median-select-menu" name="double-door-2">
+                        <label for="">第二層門</label>
+                        <!-- <input type="text" name="second-door-numerator-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" name="second-door-denominator-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)"> -->
+                        <select name="second-door-2" class="median-select-menu">
                             <option value="" style="display:none;">請選擇材質</option>
                             <?php echo $_smarty_tpl->tpl_vars['door_window_option']->value;?>
 
-                        </select><br>
-                        <!-- <input type="checkbox" name="double-door-window-2">雙層窗 -->
-                        雙層窗<select class="median-select-menu" name="double-window-2">
-                            <option value="" style="display:none;">請選擇材質</option>
-                            <?php echo $_smarty_tpl->tpl_vars['door_window_option']->value;?>
-
-                        </select><br>
-                    </td>
-
-                    <td>
-                        <input type="text" name="door-window-numerator-3" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" name="door-window-denominator-3" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
-                        <select name="door-window-3" class="median-select-menu">
+                        </select>
+                        <br>
+                        <label for="">第二層窗</label>
+                        <!-- <input type="text" name="second-window-numerator-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" name="second-window-denominator-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)"> -->
+                        <select name="second-window-2" class="median-select-menu">
                             <option value="" style="display:none;">請選擇材質</option>
                             <?php echo $_smarty_tpl->tpl_vars['door_window_option']->value;?>
 
                         </select>
                     </td>
-                    <!-- <td><input type="checkbox" name="double-door-window-3">雙層門<br><input type="checkbox" name="double-door-window-3">雙層窗</td> -->
+
                     <td>
-                        <!-- <input type="checkbox" name="double-door-window-3">雙層門 -->
-                        雙層門<select class="median-select-menu" name="double-door-3">
+                        <label for="">第一層門</label>
+                        <!-- <input type="text" name="first-door-numerator-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" name="first-door-denominator-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)"> -->
+                        <select name="first-door-3" class="median-select-menu">
                             <option value="" style="display:none;">請選擇材質</option>
                             <?php echo $_smarty_tpl->tpl_vars['door_window_option']->value;?>
 
-                        </select><br>
-                        <!-- <input type="checkbox" name="double-door-window-3">雙層窗 -->
-                        >雙層窗<select class="median-select-menu" name="double-window-3">
-                            <option value="" style="display:none;">請選擇材質</option>
-                            <?php echo $_smarty_tpl->tpl_vars['door_window_option']->value;?>
-
-                        </select><br>
-                    </td>
-
-                    <td>
-                        <input type="text" name="door-window-numerator-4" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" name="door-window-denominator-4" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
-                        <select name="door-window-4" class="median-select-menu">
+                        </select>
+                        <br>
+                        <label for="">第一層窗</label>
+                        <!-- <input type="text" name="first-window-numerator-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" name="first-window-denominator-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)"> -->
+                        <select name="first-window-3" class="median-select-menu">
                             <option value="" style="display:none;">請選擇材質</option>
                             <?php echo $_smarty_tpl->tpl_vars['door_window_option']->value;?>
 
                         </select>
                     </td>
-                    <!-- <td><input type="checkbox" name="double-door-window-4">雙層門<br><input type="checkbox" name="double-door-window-4">雙層窗</td> -->
                     <td>
-                        <!-- <input type="checkbox" name="double-door-window-4">雙層門 -->
-                        雙層門<select class="median-select-menu" name="double-door-4">
+                        <label for="">第二層門</label>
+                        <!-- <input type="text" name="second-door-numerator-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" name="second-door-denominator-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)"> -->
+                        <select name="second-door-3" class="median-select-menu">
                             <option value="" style="display:none;">請選擇材質</option>
                             <?php echo $_smarty_tpl->tpl_vars['door_window_option']->value;?>
 
-                        </select><br>
-                        <!-- <input type="checkbox" name="double-door-window-4">雙層窗 -->
-                        雙層窗<select class="median-select-menu" name="double-window-4">
+                        </select>
+                        <br>
+                        <label for="">第二層窗</label>
+                        <!-- <input type="text" name="second-window-numerator-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" name="second-window-denominator-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)"> -->
+                        <select name="second-window-3" class="median-select-menu">
                             <option value="" style="display:none;">請選擇材質</option>
                             <?php echo $_smarty_tpl->tpl_vars['door_window_option']->value;?>
 
-                        </select><br>
+                        </select>
+                    </td>
+
+                    <td>
+                        <label for="">第一層門</label>
+                        <!-- <input type="text" name="first-door-numerator-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" name="first-door-denominator-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)"> -->
+                        <select name="first-door-4" class="median-select-menu">
+                            <option value="" style="display:none;">請選擇材質</option>
+                            <?php echo $_smarty_tpl->tpl_vars['door_window_option']->value;?>
+
+                        </select>
+                        <br>
+                        <label for="">第一層窗</label>
+                        <!-- <input type="text" name="first-window-numerator-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" name="first-window-denominator-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)"> -->
+                        <select name="first-window-4" class="median-select-menu">
+                            <option value="" style="display:none;">請選擇材質</option>
+                            <?php echo $_smarty_tpl->tpl_vars['door_window_option']->value;?>
+
+                        </select>
+                    </td>
+                    <td>
+                        <label for="">第二層門</label>
+                        <!-- <input type="text" name="second-door-numerator-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" name="second-door-denominator-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)"> -->
+                        <select name="second-door-4" class="median-select-menu">
+                            <option value="" style="display:none;">請選擇材質</option>
+                            <?php echo $_smarty_tpl->tpl_vars['door_window_option']->value;?>
+
+                        </select>
+                        <br>
+                        <label for="">第二層窗</label>
+                        <!-- <input type="text" name="second-window-numerator-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" name="second-window-denominator-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)"> -->
+                        <select name="second-window-4" class="median-select-menu">
+                            <option value="" style="display:none;">請選擇材質</option>
+                            <?php echo $_smarty_tpl->tpl_vars['door_window_option']->value;?>
+
+                        </select>
                     </td>
                 </tr>
 

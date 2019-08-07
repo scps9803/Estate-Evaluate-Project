@@ -326,40 +326,41 @@ $total_floor = $_POST['total-floor-1'];
         // $double_door[$i] = $_POST['double-door-'.($i+1)];
         // $double_window[$i] = $_POST['double-window-'.($i+1)];
         // echo $door_window_numerator[$i]."/".$door_window_denominator[$i]."--".$door_window[$i].",".$double_door[$i].",".$double_window[$i]."<br>";
-
-        $first_door[$i] = $_POST['first-door-'.($i+1)];
-        $first_window[$i] = $_POST['first-window-'.($i+1)];
-        $second_door[$i] = $_POST['second-door-'.($i+1)];
-        $second_window[$i] = $_POST['second-window-'.($i+1)];
-        if($first_door[$i]=="" && $first_window[$i]=="" && $second_door[$i]=="" && $second_window[$i]==""){
-            $isDoorEmpty = true;
-            break;
-        }
-
-        $optionArray[0] = $first_door[$i];
-        $optionArray[1] = $first_window[$i];
-        $optionArray[2] = $second_door[$i];
-        $optionArray[3] = $second_window[$i];
-        $index = 0;
-        $resultArray = [];
-        $resultRatio = [];
-        echo "第一層門: ".$first_door[$i].", 第一層窗: ".$first_window[$i]."<br>第二層門: ".$second_door[$i].", 第二層窗: ".$second_window[$i]."<br>";
-        for($j=0;$j<count($optionArray);$j++){
-            $key = array_search($optionArray[$j], $resultArray);
-            // echo "key: ".$key."<br>";
-            // echo $optionArray[$j]."<br>";
-
-            if($key===false && $optionArray[$j]!=""){
-                $resultArray[$index] = $optionArray[$j];
-                $resultRatio[$index] = 0.5;
-                $index++;
+        if(isset($_POST['first-door-'.($i+1)])){
+            $first_door[$i] = $_POST['first-door-'.($i+1)];
+            $first_window[$i] = $_POST['first-window-'.($i+1)];
+            $second_door[$i] = $_POST['second-door-'.($i+1)];
+            $second_window[$i] = $_POST['second-window-'.($i+1)];
+            if($first_door[$i]=="" && $first_window[$i]=="" && $second_door[$i]=="" && $second_window[$i]==""){
+                $isDoorEmpty = true;
+                break;
             }
-            else if($key!==false && $optionArray[$j]!=""){
-                $resultRatio[$key] += 0.5;
+
+            $optionArray[0] = $first_door[$i];
+            $optionArray[1] = $first_window[$i];
+            $optionArray[2] = $second_door[$i];
+            $optionArray[3] = $second_window[$i];
+            $index = 0;
+            $resultArray = [];
+            $resultRatio = [];
+            echo "第一層門: ".$first_door[$i].", 第一層窗: ".$first_window[$i]."<br>第二層門: ".$second_door[$i].", 第二層窗: ".$second_window[$i]."<br>";
+            for($j=0;$j<count($optionArray);$j++){
+                $key = array_search($optionArray[$j], $resultArray);
+                // echo "key: ".$key."<br>";
+                // echo $optionArray[$j]."<br>";
+
+                if($key===false && $optionArray[$j]!=""){
+                    $resultArray[$index] = $optionArray[$j];
+                    $resultRatio[$index] = 0.5;
+                    $index++;
+                }
+                else if($key!==false && $optionArray[$j]!=""){
+                    $resultRatio[$key] += 0.5;
+                }
             }
+            print_r($resultArray);
+            print_r($resultRatio);
         }
-        print_r($resultArray);
-        print_r($resultRatio);
     }
     echo "<br>---------------------------<br>";
 

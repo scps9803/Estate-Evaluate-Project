@@ -66,6 +66,40 @@ function load_corp_item_Data(){
     return $corp_category;
 }
 
+function get_corp_item_option(){
+    $corp_category = load_corp_item_Data();
+    $corp_category_option = "";
+
+    for($i=0;$i<count($corp_category);$i++){
+        $corp_category_option = $corp_category_option
+        ."<option value='".$corp_category[$i]["category"]."'>".$corp_category[$i]["category"]."</option>";
+    }
+    return $corp_category_option;
+}
+
+function getCorpUnitOption($corp_item,$corp_type){
+    $conn = connect_db();
+
+    if($corp_type=="none"){
+        $sql = "SELECT unit FROM corp WHERE item='{$corp_item}'";
+    }
+    else{
+        $sql = "SELECT unit FROM corp WHERE item='{$corp_item}' AND (corp_age='{$corp_type}' OR cm_length='{$corp_type}' OR m_length='{$corp_type}')";
+    }
+
+    $res = $conn->query($sql);
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $corp_unit[$i] = $row;
+        $i++;
+    }
+
+    if($res->num_rows==1){
+        $corp_unit_option = "<option value='".$corp_unit[0]["unit"]."'>".$corp_unit[0]["unit"]."</option>";
+    }
+    return $corp_unit_option;
+}
+
 function get_electric_type_option($category,$item_type){
     require_once "smarty/libs/Smarty.class.php";
     $smarty = new Smarty;
@@ -1110,6 +1144,9 @@ function insertToiletData($fId,$toilet_ratio,$toilet_type,$toilet_product,$toile
 
             $sql = "SELECT bdId FROM building_decoration WHERE category='給水、浴、廁設備' AND item_name='{$toilet_type[$i][$j]}' AND item_type='{$toilet_product[$i][$j]}'";
             $res = $conn->query($sql);
+            if($res->num_rows==0){
+                return;
+            }
 
             while($row = $res->fetch_assoc()) {
                 $bdId[$i][$j] = $row["bdId"];
@@ -1135,6 +1172,9 @@ function insertElectricData($fId,$electric_usage,$electric_type){
         $sql = "SELECT bdId FROM building_decoration WHERE category='電氣設備(包括燈具)' AND item_type='{$electric_usage[$i]}' AND item_name='{$electric_type[$i]}'";
         // $sql = "SELECT bdId FROM building_decoration WHERE category='電氣設備(包括燈具)' AND item_type='工廠庫房' AND item_name='電泡、普通日光燈露出配線簡單設備'";
         $res = $conn->query($sql);
+        if($res->num_rows==0){
+            return;
+        }
 
         while($row = $res->fetch_assoc()) {
             $bdId[$i] = $row["bdId"];
@@ -1158,6 +1198,9 @@ function insertWindowLevelData($fId,$window_level,$main_building){
     for($i=0;$i<count($fId);$i++){
         $sql = "SELECT bdId FROM building_decoration WHERE category='其他項目門窗裝置加柵' AND item_name='{$window_level[$i]}' AND building_type='{$main_building[$i]["house_type"]}'";
         $res = $conn->query($sql);
+        if($res->num_rows==0){
+            return;
+        }
 
         while($row = $res->fetch_assoc()) {
             $bdId[$i] = $row["bdId"];
@@ -1220,6 +1263,9 @@ function insertDaughterWallData($fId,$daughter_wall){
 
             $sql = "SELECT bdId FROM building_decoration WHERE category='女兒牆' AND item_name='{$value[$i][$j]}' AND item_type='{$direction[$i][$j]}'";
             $res = $conn->query($sql);
+            if($res->num_rows==0){
+                return;
+            }
 
             while($row = $res->fetch_assoc()) {
                 $bdId[$i][$j] = $row["bdId"];
@@ -1274,6 +1320,9 @@ function insertBalconyData($fId,$balcony){
         for($j=0;$j<count($balcony[$i]);$j++){
             $sql = "SELECT bdId FROM building_decoration WHERE category='陽台' AND item_name='陽台' AND item_type='{$balcony[$i][$j]}'";
             $res = $conn->query($sql);
+            if($res->num_rows==0){
+                return;
+            }
 
             while($row = $res->fetch_assoc()) {
                 $bdId[$i][$j] = $row["bdId"];
@@ -1364,6 +1413,9 @@ function getResidentData($house_address){
     // $sql = "SELECT * FROM resident NATURAL JOIN migration_fee WHERE address='{$house_address}'";
     $sql = "SELECT * FROM resident AS r LEFT JOIN migration_fee AS m ON r.mId=m.mId WHERE address='{$house_address}'";
     $res = $conn->query($sql);
+    if($res->num_rows==0){
+        return;
+    }
 
     $i = 0;
     while($row = $res->fetch_assoc()) {

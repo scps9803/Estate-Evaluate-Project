@@ -5,6 +5,39 @@ $recordNo = $_GET["recordNo"];
 $address = $_GET["address"];
 $conn = connect_db();
 
+$sql = "SELECT * FROM file_table WHERE rId='{$recordNo}'";
+$res = $conn->query($sql);
+$i = 0;
+while($row = $res->fetch_assoc()) {
+    $result[$i] = $row;
+    $i++;
+}
+$path = $result[0]["filepath"];
+// $path = "file/building/legal/001/";
+
+if(is_dir($path)){
+//掃描一個資料夾內的所有資料夾和檔案並返回陣列
+    $p = scandir($path);
+    foreach($p as $val){
+        //排除目錄中的.和..
+        if($val !="." && $val !=".."){
+            echo $path.$val."<br>";
+            //如果是目錄則遞迴子目錄，繼續操作
+            if(is_dir($path.$val)){
+                //子目錄中操作刪除資料夾和檔案
+                // deldir($path.$val.'/');
+                //目錄清空後刪除空資料夾
+                @rmdir($path.$val.'/');
+            }
+            else{
+                //如果是檔案直接刪除
+                unlink($path.$val);
+            }
+        }
+    }
+    @rmdir($path.'/');
+}
+
 $sql = "DELETE FROM resident WHERE address='{$address}'";
 if ($conn->query($sql) === TRUE) {
     // echo "Record deleted successfully";
@@ -83,38 +116,38 @@ if ($conn->query($sql) === TRUE) {
 }
 
 
-$sql = "SELECT * FROM file_table WHERE rId='{$recordNo}'";
-$res = $conn->query($sql);
-$i = 0;
-while($row = $res->fetch_assoc()) {
-    $result[$i] = $row;
-    $i++;
-}
-$path = $result[0]["filepath"];
-// $path = "file/building/legal/001/";
-
-if(is_dir($path)){
-//掃描一個資料夾內的所有資料夾和檔案並返回陣列
-    $p = scandir($path);
-    foreach($p as $val){
-        //排除目錄中的.和..
-        if($val !="." && $val !=".."){
-            echo $path.$val."<br>";
-            //如果是目錄則遞迴子目錄，繼續操作
-            if(is_dir($path.$val)){
-                //子目錄中操作刪除資料夾和檔案
-                // deldir($path.$val.'/');
-                //目錄清空後刪除空資料夾
-                @rmdir($path.$val.'/');
-            }
-            else{
-                //如果是檔案直接刪除
-                unlink($path.$val);
-            }
-        }
-    }
-    @rmdir($path.'/');
-}
+// $sql = "SELECT * FROM file_table WHERE rId='{$recordNo}'";
+// $res = $conn->query($sql);
+// $i = 0;
+// while($row = $res->fetch_assoc()) {
+//     $result[$i] = $row;
+//     $i++;
+// }
+// $path = $result[0]["filepath"];
+// // $path = "file/building/legal/001/";
+//
+// if(is_dir($path)){
+// //掃描一個資料夾內的所有資料夾和檔案並返回陣列
+//     $p = scandir($path);
+//     foreach($p as $val){
+//         //排除目錄中的.和..
+//         if($val !="." && $val !=".."){
+//             echo $path.$val."<br>";
+//             //如果是目錄則遞迴子目錄，繼續操作
+//             if(is_dir($path.$val)){
+//                 //子目錄中操作刪除資料夾和檔案
+//                 // deldir($path.$val.'/');
+//                 //目錄清空後刪除空資料夾
+//                 @rmdir($path.$val.'/');
+//             }
+//             else{
+//                 //如果是檔案直接刪除
+//                 unlink($path.$val);
+//             }
+//         }
+//     }
+//     @rmdir($path.'/');
+// }
 $conn->close();
 echo json_encode(array('status' => "刪除成功!"));
 ?>

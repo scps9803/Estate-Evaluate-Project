@@ -6,6 +6,8 @@ include "library.php";
 // $data = getRecordData($house_address);
 $script_number = $_POST["script_number"];
 $house_address = $_POST["house_address"];
+// $script_number = "建合-002";
+// $house_address = "東區經國路5號";
 // $script_number = "建合-001";
 // $house_address = "建國二路100號";
 $price = 12.6;
@@ -553,7 +555,7 @@ for($i=0;$i<count($main_decoration_data);$i++){
         }
         $balcony_text = $balcony_text.")";
         if(count($balcony_decoration_data)==1 && $balcony_decoration_data[0]["ratio"]==1){
-            $balcony_text = substr($balcony_text,1,strlen($balcony_text));
+            $balcony_text = substr($balcony_text,0,strlen($balcony_text));
         }
     }
 
@@ -563,7 +565,7 @@ for($i=0;$i<count($main_decoration_data);$i++){
             $daughter_points += $daughter_decoration_data[$j]["ratio"]*$daughter_decoration_data[$j]["points"];
         }
         if(count($daughter_decoration_data)==1 && $daughter_decoration_data[0]["ratio"]==1){
-            $daughter_text = substr($daughter_text,1,strlen($daughter_text));
+            $daughter_text = substr($daughter_text,0,strlen($daughter_text));
         }
     }
 
@@ -906,7 +908,9 @@ insertFileData($script_number,$savePath,$fileNo,$filename,$file_type);
 date_default_timezone_set('Asia/Taipei');
 // $objWriter->save('file/'.date("YmdHis").'.xls');
 
-echo json_encode(array('status' => 'completed','tt' => $daughter_text));
+echo json_encode(array('status' => 'completed','tt' => $balcony_text));
+echo "<br>";
+echo "hi: ".$daughter_text;
 
 // function processDecorationText($data){
 //     $text = "";
