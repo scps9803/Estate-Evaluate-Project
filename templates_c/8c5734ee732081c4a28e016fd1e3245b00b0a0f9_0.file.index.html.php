@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-06 16:36:45
+/* Smarty version 3.1.33, created on 2019-08-07 17:10:44
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\index.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d49ac9d30ad15_39872419',
+  'unifunc' => 'content_5d4b0614074e00_03626005',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8c5734ee732081c4a28e016fd1e3245b00b0a0f9' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\index.html',
-      1 => 1565109402,
+      1 => 1565197817,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d49ac9d30ad15_39872419 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d4b0614074e00_03626005 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -292,7 +292,8 @@ function content_5d49ac9d30ad15_39872419 (Smarty_Internal_Template $_smarty_tpl)
 
                     <tr>
                         <td><span class="required">(*)</span>出口數</td>
-                        <td colspan="2">戶長姓名</td>
+                        <td>戶長姓名</td>
+                        <td>出口編號</td>
                         <td>戶長身份證字號</td>
                         <td>戶口名簿號碼</td>
                         <td colspan="3">設籍日期</td>
@@ -305,25 +306,32 @@ function content_5d49ac9d30ad15_39872419 (Smarty_Internal_Template $_smarty_tpl)
                                 <option value="" style="display:none;">請選擇項目</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
-                                <!-- <option value="3">3</option>
+                                <option value="3">3</option>
                                 <option value="4">4</option>
-                                <option value="5">5</option>
+                                <!-- <option value="5">5</option>
                                 <option value="6">6</option>
                                 <option value="7">7</option>
                                 <option value="8">8</option> -->
                             </select>
                         </td>
-                        <td colspan="2">
+                        <td>
                             <div id="captain">
                                 <div id="captain-1">
                                     <input type="text" name="captain-1">
-                                    <input type="checkbox" id="cohabit-1" name="cohabit-1">共同生活戶
-                                    <input type="hidden" id="cohabit-judge" name="cohabit-judge">
+                                    <!-- <input type="checkbox" id="cohabit-1" name="cohabit-1">共同生活戶
+                                    <input type="hidden" id="cohabit-judge" name="cohabit-judge"> -->
                                 </div>
                             </div>
                             <input type="hidden" id="captain_count" name="captain_count">
                             <button type="button" onclick="addInfoItemOnclick('captain')">+</button>
                             <button type="button" onclick="removeInfoItemOnclick('captain')">-</button>
+                        </td>
+                        <td>
+                            <div id="exit-No" class="input-align">
+                                <div id="exit-No-1">
+                                    <input type="text" name="exit-No-1" pattern="[0-9]{1}" title="共同出口戶請填相同數字，例如A、B共用出口都填1，C有單獨出口請填2" placeholder="共同出口戶請填相同數字，例如A、B共用出口都填1，C有單獨出口請填2" onclick="cohabitRemind()" onchange="checkExitNoCorrect()">
+                                </div>
+                            </div>
                         </td>
                         <td>
                             <div id="captain-id" class="input-align">

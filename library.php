@@ -342,141 +342,231 @@ function insertOwnBuildingData($pId,$house_address,$hold_ratio){
     $conn->close();
 }
 
+// function insertResidentData($captain,$total_people,$house_address,$exit_num,$remove_condition){
+//     $conn = connect_db();
+//     $total_family_num = 0;
+//     $index = 0;
+//     $shareFeeIndex = array();
+//
+//     $no_count = 0;
+//     for($i=0;$i<count($captain);$i++){
+//         if($captain[$i]["cohabit"]=="no"){
+//             $no_count += 1;
+//         }
+//     }
+//     if($no_count<2){
+//         for($i=0;$i<count($captain);$i++){
+//             if($captain[$i]["cohabit"]=="yes"){
+//                 $shareFeeIndex[$index] = $i;
+//                 $total_family_num += $captain[$i]["family_num"];
+//                 $move_status[$i] = "共同領取";
+//                 $index++;
+//             }
+//             else{
+//                 if($captain[$i]["family_num"]<6){
+//                     $sql = "SELECT mId FROM migration_fee WHERE family_num='{$captain[$i]["family_num"]}' AND item_type='{$remove_condition}'";
+//                 }
+//                 else{
+//                     $sql = "SELECT mId FROM migration_fee WHERE family_num='6' AND item_type='{$remove_condition}'";
+//                 }
+//
+//                 $res = $conn->query($sql);
+//                 while($row = $res->fetch_assoc()) {
+//                     $mId[$i] = $row["mId"];
+//                 }
+//                 $move_status[$i] = "個別領取";
+//             }
+//         }
+//
+//         for($i=0;$i<count($shareFeeIndex);$i++){
+//             if($total_family_num<6){
+//                 $sql = "SELECT mId FROM migration_fee WHERE family_num='{$total_family_num}' AND item_type='{$remove_condition}'";
+//             }
+//             else{
+//                 $sql = "SELECT mId FROM migration_fee WHERE family_num='6' AND item_type='{$remove_condition}'";
+//             }
+//
+//             $res = $conn->query($sql);
+//             while($row = $res->fetch_assoc()) {
+//                 $mId[$shareFeeIndex[$i]] = $row["mId"];
+//             }
+//         }
+//
+//         for($i=0;$i<count($captain);$i++){
+//             $sql = "INSERT INTO resident VALUES('{$captain[$i]["id"]}','{$captain[$i]["name"]}',
+//                 '{$captain[$i]["household_number"]}','{$captain[$i]["set_household_date"]}',
+//                 '{$captain[$i]["family_num"]}','{$house_address}','{$mId[$i]}','{$move_status[$i]}')";
+//
+//             if ($conn->query($sql) === TRUE){
+//                 // echo "New record created successfully";
+//             }else{
+//                 echo "Error: " . $sql . "<br>" . $conn->error;
+//             }
+//         }
+//     }
+//     else{
+//         $index_yes = 0;
+//         $index_no = 0;
+//         $total_yes = 0;
+//         $total_no = 0;
+//         for($i=0;$i<count($captain);$i++){
+//             if($captain[$i]["cohabit"]=="yes"){
+//                 $captain_yes[$index_yes] = $captain[$i];
+//                 $move_status_yes[$index_yes] = "共同領取";
+//                 $total_yes += $captain[$i]["family_num"];
+//                 $index_yes++;
+//             }
+//             else{
+//                 $captain_no[$index_no] = $captain[$i];
+//                 $move_status_no[$index_no] = "共同領取";
+//                 $total_no += $captain[$i]["family_num"];
+//                 $index_no++;
+//             }
+//         }
+//         // 分別插入兩組資料
+//         for($i=0;$i<count($captain_yes);$i++){
+//             if($total_yes<6){
+//                 $sql = "SELECT mId FROM migration_fee WHERE family_num='{$total_yes}' AND item_type='{$remove_condition}'";
+//             }
+//             else{
+//                 $sql = "SELECT mId FROM migration_fee WHERE family_num='6' AND item_type='{$remove_condition}'";
+//             }
+//
+//             $res = $conn->query($sql);
+//             while($row = $res->fetch_assoc()) {
+//                 $mId[$i] = $row["mId"];
+//             }
+//         }
+//
+//         for($i=0;$i<count($captain_yes);$i++){
+//             $sql = "INSERT INTO resident VALUES('{$captain_yes[$i]["id"]}','{$captain_yes[$i]["name"]}',
+//                 '{$captain_yes[$i]["household_number"]}','{$captain_yes[$i]["set_household_date"]}',
+//                 '{$captain_yes[$i]["family_num"]}','{$house_address}','{$mId[$i]}','{$move_status_yes[$i]}')";
+//
+//             if ($conn->query($sql) === TRUE){
+//                 // echo "New record created successfully";
+//             }else{
+//                 echo "Error: " . $sql . "<br>" . $conn->error;
+//             }
+//         }
+//
+//         for($i=0;$i<count($captain_no);$i++){
+//             if($total_no<6){
+//                 $sql = "SELECT mId FROM migration_fee WHERE family_num='{$total_no}' AND item_type='{$remove_condition}'";
+//             }
+//             else{
+//                 $sql = "SELECT mId FROM migration_fee WHERE family_num='6' AND item_type='{$remove_condition}'";
+//             }
+//
+//             $res = $conn->query($sql);
+//             while($row = $res->fetch_assoc()) {
+//                 $mId[$i] = $row["mId"];
+//             }
+//         }
+//
+//         for($i=0;$i<count($captain_no);$i++){
+//             $sql = "INSERT INTO resident VALUES('{$captain_no[$i]["id"]}','{$captain_no[$i]["name"]}',
+//                 '{$captain_no[$i]["household_number"]}','{$captain_no[$i]["set_household_date"]}',
+//                 '{$captain_no[$i]["family_num"]}','{$house_address}','{$mId[$i]}','{$move_status_no[$i]}')";
+//
+//             if ($conn->query($sql) === TRUE){
+//                 // echo "New record created successfully";
+//             }else{
+//                 echo "Error: " . $sql . "<br>" . $conn->error;
+//             }
+//         }
+//     }
+//     $conn->close();
+// }
+
 function insertResidentData($captain,$total_people,$house_address,$exit_num,$remove_condition){
     $conn = connect_db();
-    $total_family_num = 0;
-    $index = 0;
-    $shareFeeIndex = array();
+    // $total_family_num = 0;
+    // $index = 0;
+    // $shareFeeIndex = array();
 
-    $no_count = 0;
-    for($i=0;$i<count($captain);$i++){
-        if($captain[$i]["cohabit"]=="no"){
-            $no_count += 1;
-        }
-    }
-    if($no_count<2){
-        for($i=0;$i<count($captain);$i++){
-            if($captain[$i]["cohabit"]=="yes"){
-                $shareFeeIndex[$index] = $i;
-                $total_family_num += $captain[$i]["family_num"];
-                $move_status[$i] = "共同領取";
-                $index++;
-            }
-            else{
-                if($captain[$i]["family_num"]<6){
-                    $sql = "SELECT mId FROM migration_fee WHERE family_num='{$captain[$i]["family_num"]}' AND item_type='{$remove_condition}'";
+    // for($i=0;$i<count($captain);$i++){
+    //     $total_family_num = 0;
+    //     $index = 0;
+    //     $shareFeeIndex = array();
+    //
+    //     $total_family_num += $captain[$i]["family_num"];
+    //     $shareFeeIndex[$index] = $i;
+    //     $index++;
+    //     for($j=$i+1;$j<count($captain);$j++){
+    //         if($captain[$i]["exitNo"]==$captain[$j]["exitNo"]){
+    //             $shareFeeIndex[$index] = $j;
+    //             $total_family_num += $captain[$j]["family_num"];
+    //             $index++;
+    //         }
+    //         else{
+    //
+    //         }
+    //     }
+    //     // INSERT
+    // }
+    getGroupIndex($captain,$remove_condition,$house_address);
+    $conn->close();
+}
+
+function getGroupIndex($captain,$remove_condition,$house_address){
+    // for($i=0;$i<count($captain);$i++){
+        $conn = connect_db();
+        $total_family_num = 0;
+        $index = 0;
+        $shareFeeIndex = array();
+
+        $other_index = 0;
+        $other_shareFeeIndex = array();
+
+        $total_family_num += $captain[0]["family_num"];
+        $shareFeeIndex[$index] = 0;
+        $index++;
+
+        $captain[0]["move_status"] = "個別領取";
+
+        if(count($captain)>1){
+            for($i=1;$i<count($captain);$i++){
+                if($captain[0]["exitNo"]==$captain[$i]["exitNo"]){
+                    $shareFeeIndex[$index] = $i;
+                    $total_family_num += $captain[$i]["family_num"];
+                    $captain[0]["move_status"] = "共同領取";
+                    $captain[$i]["move_status"] = "共同領取";
+                    $index++;
                 }
                 else{
-                    $sql = "SELECT mId FROM migration_fee WHERE family_num='6' AND item_type='{$remove_condition}'";
+                    $other_captain[$other_index] = $captain[$i];
+                    $other_index++;
                 }
-
-                $res = $conn->query($sql);
-                while($row = $res->fetch_assoc()) {
-                    $mId[$i] = $row["mId"];
-                }
-                $move_status[$i] = "個別領取";
             }
         }
-
+        // INSERT
+        if($total_family_num>=6){
+            $total_family_num = 6;
+        }
         for($i=0;$i<count($shareFeeIndex);$i++){
-            if($total_family_num<6){
-                $sql = "SELECT mId FROM migration_fee WHERE family_num='{$total_family_num}' AND item_type='{$remove_condition}'";
-            }
-            else{
-                $sql = "SELECT mId FROM migration_fee WHERE family_num='6' AND item_type='{$remove_condition}'";
-            }
-
+            $sql = "SELECT mId FROM migration_fee WHERE family_num='{$total_family_num}' AND item_type='{$remove_condition}'";
             $res = $conn->query($sql);
             while($row = $res->fetch_assoc()) {
-                $mId[$shareFeeIndex[$i]] = $row["mId"];
+                $mId = $row["mId"];
             }
-        }
 
-        for($i=0;$i<count($captain);$i++){
-            $sql = "INSERT INTO resident VALUES('{$captain[$i]["id"]}','{$captain[$i]["name"]}',
-                '{$captain[$i]["household_number"]}','{$captain[$i]["set_household_date"]}',
-                '{$captain[$i]["family_num"]}','{$house_address}','{$mId[$i]}','{$move_status[$i]}')";
-
+            $sql = "INSERT INTO resident VALUES('{$captain[$shareFeeIndex[$i]]["id"]}',
+                '{$captain[$shareFeeIndex[$i]]["name"]}','{$captain[$shareFeeIndex[$i]]["household_number"]}',
+                '{$captain[$shareFeeIndex[$i]]["set_household_date"]}','{$captain[$shareFeeIndex[$i]]["family_num"]}',
+                '{$house_address}','{$mId}','{$captain[$shareFeeIndex[$i]]["move_status"]}')";
             if ($conn->query($sql) === TRUE){
                 // echo "New record created successfully";
             }else{
                 echo "Error: " . $sql . "<br>" . $conn->error;
             }
         }
-    }
-    else{
-        $index_yes = 0;
-        $index_no = 0;
-        $total_yes = 0;
-        $total_no = 0;
-        for($i=0;$i<count($captain);$i++){
-            if($captain[$i]["cohabit"]=="yes"){
-                $captain_yes[$index_yes] = $captain[$i];
-                $move_status_yes[$index_yes] = "共同領取";
-                $total_yes += $captain[$i]["family_num"];
-                $index_yes++;
-            }
-            else{
-                $captain_no[$index_no] = $captain[$i];
-                $move_status_no[$index_no] = "共同領取";
-                $total_no += $captain[$i]["family_num"];
-                $index_no++;
-            }
+        // recursive call
+        if($other_index>0){
+            getGroupIndex($other_captain,$remove_condition,$house_address);
         }
-        // 分別插入兩組資料
-        for($i=0;$i<count($captain_yes);$i++){
-            if($total_yes<6){
-                $sql = "SELECT mId FROM migration_fee WHERE family_num='{$total_yes}' AND item_type='{$remove_condition}'";
-            }
-            else{
-                $sql = "SELECT mId FROM migration_fee WHERE family_num='6' AND item_type='{$remove_condition}'";
-            }
-
-            $res = $conn->query($sql);
-            while($row = $res->fetch_assoc()) {
-                $mId[$i] = $row["mId"];
-            }
-        }
-
-        for($i=0;$i<count($captain_yes);$i++){
-            $sql = "INSERT INTO resident VALUES('{$captain_yes[$i]["id"]}','{$captain_yes[$i]["name"]}',
-                '{$captain_yes[$i]["household_number"]}','{$captain_yes[$i]["set_household_date"]}',
-                '{$captain_yes[$i]["family_num"]}','{$house_address}','{$mId[$i]}','{$move_status_yes[$i]}')";
-
-            if ($conn->query($sql) === TRUE){
-                // echo "New record created successfully";
-            }else{
-                echo "Error: " . $sql . "<br>" . $conn->error;
-            }
-        }
-
-        for($i=0;$i<count($captain_no);$i++){
-            if($total_no<6){
-                $sql = "SELECT mId FROM migration_fee WHERE family_num='{$total_no}' AND item_type='{$remove_condition}'";
-            }
-            else{
-                $sql = "SELECT mId FROM migration_fee WHERE family_num='6' AND item_type='{$remove_condition}'";
-            }
-
-            $res = $conn->query($sql);
-            while($row = $res->fetch_assoc()) {
-                $mId[$i] = $row["mId"];
-            }
-        }
-
-        for($i=0;$i<count($captain_no);$i++){
-            $sql = "INSERT INTO resident VALUES('{$captain_no[$i]["id"]}','{$captain_no[$i]["name"]}',
-                '{$captain_no[$i]["household_number"]}','{$captain_no[$i]["set_household_date"]}',
-                '{$captain_no[$i]["family_num"]}','{$house_address}','{$mId[$i]}','{$move_status_no[$i]}')";
-
-            if ($conn->query($sql) === TRUE){
-                // echo "New record created successfully";
-            }else{
-                echo "Error: " . $sql . "<br>" . $conn->error;
-            }
-        }
-    }
-    $conn->close();
+        $conn->close();
+    // }
 }
 
 function insertFloorData($script_number,$main_building,$house_address,$discard_status){

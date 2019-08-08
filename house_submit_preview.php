@@ -100,14 +100,15 @@ $exit_num = $_POST['exit-num'];
 // 現住人資料
 $captain_count = $_POST['captain_count'];
 $total_people = 0;
-if(isset($_POST['cohabit-judge'])){
-    $cohabit = explode (",",$_POST['cohabit-judge']);
-}
+// if(isset($_POST['cohabit-judge'])){
+//     $cohabit = explode (",",$_POST['cohabit-judge']);
+// }
 
 if($captain_count>=1){
     for($i=0;$i<$captain_count;$i++){
         $captain[$i]['name'] = $_POST['captain-'.($i+1)];
-        $captain[$i]['cohabit'] = $cohabit[$i];
+        $captain[$i]['exitNo'] = $_POST['exit-No-'.($i+1)];
+        // $captain[$i]['cohabit'] = $cohabit[$i];
         $captain[$i]['id'] = $_POST['captain-id-'.($i+1)];
         $captain[$i]['household_number'] = $_POST['household-number-'.($i+1)];
         $captain[$i]['set_household_date'] = $_POST['set-household-date-'.($i+1)];
@@ -481,7 +482,7 @@ if($captain[0]["name"]!=""){
 insertFloorData($script_number,$main_building,$house_address,$discard_status);
 
 // 儲存粉裝資料
-if($minus_wall_count[0][0] != ""){
+if($minus_wall_option[0][0] != ""){
     $bdId = insertMinusWallData($fId,$minus_wall_count,$minus_wall_option);
     echo "減牆 BDID: <br>";
     echo "數量: ".count($minus_wall_count)."<br>";
@@ -493,7 +494,7 @@ if($minus_wall_count[0][0] != ""){
     print_r($fId);
 }
 
-if($add_wall_count[0][0] != ""){
+if($add_wall_option[0][0] != ""){
     $bdId = insertAddWallData($fId,$add_wall_count,$add_wall_option);
     echo "加牆 BDID: <br>";
     print_r($add_wall_count);

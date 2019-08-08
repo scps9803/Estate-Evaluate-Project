@@ -29,6 +29,7 @@ var other_item_count = 1;
 var calArea_count = 1;
 var auto_remove_count = 1;
 var captain_count = 1;
+var exit_No_count = 1;
 var captain_id_count = 1;
 var household_number_count = 1;
 var set_household_date_count = 1;
@@ -631,16 +632,26 @@ function addInfoItemOnclick(id){
         case 'captain':
             captain_count += 1;
 
+            addInfoItemOnclick('exit-No');
             addInfoItemOnclick('captain-id');
             addInfoItemOnclick('household-number');
             addInfoItemOnclick('set-household-date');
             addInfoItemOnclick('family-num');
             text =
             '<div id="captain-'+captain_count+'">'+
-                '<input type="text" name="captain-'+captain_count+'" required>&nbsp;'+
-                '<input type="checkbox" id="cohabit-'+captain_count+'" name="cohabit-'+captain_count+'">共同生活戶'+
+                '<input type="text" name="captain-'+captain_count+'" required>'+
+                // '<input type="checkbox" id="cohabit-'+captain_count+'" name="cohabit-'+captain_count+'">共同生活戶'+
             '</div>';
             getCaptainCount();
+            break;
+
+        case 'exit-No':
+            exit_No_count += 1;
+
+            text =
+            '<div id="exit-No-'+exit_No_count+'">'+
+                '<input type="text" name="exit-No-'+exit_No_count+'" pattern="[0-9]{literal}{1}{/literal}" title="共同出口戶請填相同數字，例如A、B共用出口都填1，C有單獨出口請填2" placeholder="共同出口戶請填相同數字，例如A、B共用出口都填1，C有單獨出口請填2" onclick="cohabitRemind()" onchange="checkExitNoCorrect()" required>'+
+            '</div>';
             break;
 
         case 'captain-id':
@@ -857,12 +868,16 @@ function removeInfoItemOnclick(id){
             auto_remove_count = removeItem(id, auto_remove_count);
             break;
         case 'captain':
+            removeInfoItemOnclick('exit-No');
             removeInfoItemOnclick('captain-id');
             removeInfoItemOnclick('household-number');
             removeInfoItemOnclick('set-household-date');
             removeInfoItemOnclick('family-num');
             captain_count = removeItem(id, captain_count);
             getCaptainCount();
+            break;
+        case 'exit-No':
+            exit_No_count = removeItem(id, exit_No_count);
             break;
         case 'captain-id':
             captain_id_count = removeItem(id, captain_id_count);
@@ -1225,7 +1240,7 @@ function saveDialog(){
     //         '</td>'+
     //     '</tr>'+
     // '</table>';
-
+    checkExitNo();
     var isContinue = window.confirm("是否繼續輸入雜項設施?");
     if(isContinue==true){
         // $("#house_form").attr("action","sub_building.php");
@@ -1711,6 +1726,45 @@ function load_corp_unit_Data(num){
              window.alert(err.statusText);
          }
     });
+}
+
+function cohabitRemind(){
+    window.alert("共同出口戶請填相同數字，例如A、B共用出口都填1，C有單獨出口請填2");
+}
+
+function checkExitNo(){
+    for(var i=1;i<=captain_count;i++){
+        var captain = $("input[name='captain-"+i+"']").val();
+        var exitNo = "input[name='exit-No-"+i+"']";
+        if(captain != ""){
+            // window.alert(captain);
+            $(exitNo).attr("required","");
+        }
+        else{
+            $(exitNo).removeAttr("required");
+        }
+    }
+}
+
+function checkExitNoCorrect(){
+    var array = [];
+    var index = 0;
+    var exitNum = $("#exit-num").val();
+
+    for(var i=0;i<exit_No_count;i++){
+        var item = "input[name='exit-No-"+(i+1)+"']";
+        if(!array.includes($(item).val())){
+            array.push($(item).val());
+        }
+    }
+
+    if(array.length>exitNum){
+        window.alert("輸入的出口編號錯誤!\n"+exitNum+"個出口不能有"+array.length+"組獨立戶!");
+        for(var i=0;i<exit_No_count;i++){
+            var item = "input[name='exit-No-"+(i+1)+"']";
+            $(item).val("");
+        }
+    }
 }
 
 $(document).ready(function(){
