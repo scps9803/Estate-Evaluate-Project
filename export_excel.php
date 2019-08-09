@@ -4,10 +4,10 @@ include "library.php";
 // $house_address = $_POST["house_address"];
 //
 // $data = getRecordData($house_address);
-$script_number = $_POST["script_number"];
-$house_address = $_POST["house_address"];
-// $script_number = "建合-002";
-// $house_address = "東區經國路5號";
+// $script_number = $_POST["script_number"];
+// $house_address = $_POST["house_address"];
+$script_number = "建非-001";
+$house_address = "建國二路100號";
 // $script_number = "建合-001";
 // $house_address = "建國二路100號";
 $price = 12.6;
@@ -570,15 +570,17 @@ for($i=0;$i<count($main_decoration_data);$i++){
     }
 
     if($main_decoration_data[$i]["layer_height"]<2.7){
-        $extra_percent = -(2.7-$main_decoration_data[$i]["layer_height"])*10;
-        $height_text = number_format($main_decoration_data[$i]["layer_height"],1,".",",")." m減少".abs($extra_percent)."%評點";
+        // $extra_percent = -(2.7-$main_decoration_data[$i]["layer_height"])*10;
+        $extra_percent = -(2.7-number_format($main_decoration_data[$i]["layer_height"],1,".",","))*10;
+        $height_text = number_format($main_decoration_data[$i]["layer_height"],2,".",",")." m減少".abs($extra_percent)."%評點";
     }
     else if($main_decoration_data[$i]["layer_height"]>3.6){
-        $extra_percent = ($main_decoration_data[$i]["layer_height"]-3.6)*10;
-        $height_text = number_format($main_decoration_data[$i]["layer_height"],1,".",",")." m增加".$extra_percent."%評點";
+        // $extra_percent = ($main_decoration_data[$i]["layer_height"]-3.6)*10;
+        $extra_percent = (number_format($main_decoration_data[$i]["layer_height"],1,".",",")-3.6)*10;
+        $height_text = number_format($main_decoration_data[$i]["layer_height"],2,".",",")." m增加".$extra_percent."%評點";
     }
     else{
-        $height_text = number_format($main_decoration_data[$i]["layer_height"],1,".",",")." m為標準房屋高度";
+        $height_text = number_format($main_decoration_data[$i]["layer_height"],2,".",",")." m為標準房屋高度";
     }
 
     // $total_points = number_format((number_format($main_decoration_data[$i]["points"],2,".",",")+

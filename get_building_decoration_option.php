@@ -100,6 +100,20 @@ switch ($category) {
         $corp_type = $_POST['corp_type'];
         $result_option = getCorpUnitOption($corp_item,$corp_type);
         break;
+
+    case 'land_owner':
+        $str = $_POST['str'];
+        $result_option = getLandOwnerOption($str);
+        break;
+
+    case 'auto_complete_owner':
+        $section = $_POST['section'];
+        $subsection = $_POST['subsection'];
+        $land_number = $_POST['land_number'];
+        $result_option = getAutoCompleteOwnerData($section,$subsection,$land_number);
+        echo json_encode(array('hold_id' => $result_option["hold_id"],
+        'name' => $result_option["name"],'address' => $result_option["address"]));
+        return;
 }
 // $item_type = $_POST['item_type'];
 //

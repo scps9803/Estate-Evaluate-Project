@@ -114,7 +114,7 @@ function addItemOnclick(id,column,num){
 
             text =
             '<div id="indoor-divide-'+column+"-"+ indoor_divide_count[column-1]+'">'+
-            '<input type="text" id="indoor-divide-numerator-'+column+"-"+indoor_divide_count[column-1]+'" name="indoor-divide-numerator-'+column+"-"+indoor_divide_count[column-1]+'" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="indoor-divide-denominator-'+column+"-"+indoor_divide_count[column-1]+'" name="indoor-divide-denominator-'+column+"-"+indoor_divide_count[column-1]+'" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">'+
+            '<input type="text" id="indoor-divide-numerator-'+column+"-"+indoor_divide_count[column-1]+'" name="indoor-divide-numerator-'+column+"-"+indoor_divide_count[column-1]+'" class="tiny-input-size" placeholder="輸入" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput(\'indoor-divide-numerator-'+column+'-'+indoor_divide_count[column-1]+'\')">/<input type="text" id="indoor-divide-denominator-'+column+"-"+indoor_divide_count[column-1]+'" name="indoor-divide-denominator-'+column+"-"+indoor_divide_count[column-1]+'" class="tiny-input-size" placeholder="比例" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput(\'indoor-divide-denominator-'+column+'-'+indoor_divide_count[column-1]+'\')">'+
             '&nbsp;<select class="select-menu" id="indoor-divide-option-'+column+"-"+ indoor_divide_count[column-1] +'" name="indoor-divide-option-'+column+"-"+ indoor_divide_count[column-1] +'" required>'+
                 '<option value="" style="display:none;">請選擇材質</option>'+
             '</select>'+
@@ -133,8 +133,8 @@ function addItemOnclick(id,column,num){
 
             text =
             '<div id="outdoor-wall-decoration-'+column+"-"+ outdoor_wall_decoration_count[column-1]+'">'+
-                '<input type="text" id="outdoor-wall-decoration-numerator-'+column+"-"+outdoor_wall_decoration_count[column-1]+'" name="outdoor-wall-decoration-numerator-'+column+"-"+outdoor_wall_decoration_count[column-1]+'" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/'+
-                '<input type="text" id="outdoor-wall-decoration-denominator-'+column+"-"+outdoor_wall_decoration_count[column-1]+'" name="outdoor-wall-decoration-denominator-'+column+"-"+outdoor_wall_decoration_count[column-1]+'" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">'+
+                '<input type="text" id="outdoor-wall-decoration-numerator-'+column+"-"+outdoor_wall_decoration_count[column-1]+'" name="outdoor-wall-decoration-numerator-'+column+"-"+outdoor_wall_decoration_count[column-1]+'" class="tiny-input-size" placeholder="輸入" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput(\'outdoor-wall-decoration-numerator-'+column+'-'+outdoor_wall_decoration_count[column-1]+'\')">/'+
+                '<input type="text" id="outdoor-wall-decoration-denominator-'+column+"-"+outdoor_wall_decoration_count[column-1]+'" name="outdoor-wall-decoration-denominator-'+column+"-"+outdoor_wall_decoration_count[column-1]+'" class="tiny-input-size" placeholder="比例" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput(\'outdoor-wall-decoration-denominator-'+column+'-'+outdoor_wall_decoration_count[column-1]+'\')">'+
                 '&nbsp;<select id="outdoor-wall-decoration-option-'+column+"-"+ outdoor_wall_decoration_count[column-1] +'" name="outdoor-wall-decoration-option-'+column+"-"+ outdoor_wall_decoration_count[column-1] +'" class="select-menu" required>'+
                     '<option value="" style="display:none;">請選擇材質</option>'+
                 '</select>'+
@@ -153,9 +153,9 @@ function addItemOnclick(id,column,num){
 
             text =
             '<div id="indoor-wall-decoration-'+column+"-"+ indoor_wall_decoration_count[column-1]+'">'+
-                '<input type="text" id="indoor-wall-decoration-numerator-'+column+"-"+indoor_wall_decoration_count[column-1]+'" name="indoor-wall-decoration-numerator-'+column+"-"+indoor_wall_decoration_count[column-1]+'" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/'+
-                '<input type="text" id="indoor-wall-decoration-denominator-'+column+"-"+indoor_wall_decoration_count[column-1]+'" name="indoor-wall-decoration-denominator-'+column+"-"+indoor_wall_decoration_count[column-1]+'" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">'+
-                '&nbsp;<select id="indoor-wall-decoration-option-'+column+"-"+ indoor_wall_decoration_count[column-1] +'" name="indoor-wall-decoration-option-'+column+"-"+ indoor_wall_decoration_count[column-1] +'" class="tiny-select-menu" required>'+
+                '<input type="text" id="indoor-wall-decoration-numerator-'+column+"-"+indoor_wall_decoration_count[column-1]+'" name="indoor-wall-decoration-numerator-'+column+"-"+indoor_wall_decoration_count[column-1]+'" class="tiny-input-size" placeholder="輸入" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput(\'indoor-wall-decoration-numerator-'+column+'-'+indoor_wall_decoration_count[column-1]+'\')">/'+
+                '<input type="text" id="indoor-wall-decoration-denominator-'+column+"-"+indoor_wall_decoration_count[column-1]+'" name="indoor-wall-decoration-denominator-'+column+"-"+indoor_wall_decoration_count[column-1]+'" class="tiny-input-size" placeholder="比例" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput(\'indoor-wall-decoration-denominator-'+column+'-'+indoor_wall_decoration_count[column-1]+'\')">'+
+                '&nbsp;<select id="indoor-wall-decoration-option-'+column+"-"+ indoor_wall_decoration_count[column-1] +'" name="indoor-wall-decoration-option-'+column+"-"+ indoor_wall_decoration_count[column-1] +'" class="tiny-select-menu" onchange="autoCompleteIndoorWallType('+column+','+indoor_wall_decoration_count[column-1]+')" required>'+
                     '<option value="" style="display:none;">請選擇材質</option>'+
                 '</select>&nbsp;'+
 
@@ -179,8 +179,8 @@ function addItemOnclick(id,column,num){
 
             text =
             '<div id="roof-decoration-'+column+"-"+ roof_decoration_count[column-1]+'">'+
-                '<input type="text" id="roof-decoration-numerator-'+column+"-"+ roof_decoration_count[column-1]+'" name="roof-decoration-numerator-'+column+"-"+ roof_decoration_count[column-1]+'" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/'+
-                '<input type="text" id="roof-decoration-denominator-'+column+"-"+ roof_decoration_count[column-1]+'" name="roof-decoration-denominator-'+column+"-"+ roof_decoration_count[column-1]+'" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">'+
+                '<input type="text" id="roof-decoration-numerator-'+column+"-"+ roof_decoration_count[column-1]+'" name="roof-decoration-numerator-'+column+"-"+ roof_decoration_count[column-1]+'" class="tiny-input-size" placeholder="輸入" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput(\'roof-decoration-numerator-'+column+'-'+roof_decoration_count[column-1]+'\')">/'+
+                '<input type="text" id="roof-decoration-denominator-'+column+"-"+ roof_decoration_count[column-1]+'" name="roof-decoration-denominator-'+column+"-"+ roof_decoration_count[column-1]+'" class="tiny-input-size" placeholder="比例" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput(\'roof-decoration-denominator-'+column+'-'+roof_decoration_count[column-1]+'\')">'+
                 '&nbsp;<select id="roof-decoration-option-'+column+"-"+ roof_decoration_count[column-1] +'" name="roof-decoration-option-'+column+"-"+ roof_decoration_count[column-1] +'" class="select-menu" required>'+
                     '<option value="" style="display:none;">請選擇材質</option>'+
                 '</select>'+
@@ -199,8 +199,8 @@ function addItemOnclick(id,column,num){
 
             text =
             '<div id="floor-decoration-'+column+"-"+ floor_decoration_count[column-1]+'">'+
-                '<input type="text" id="floor-decoration-numerator-'+column+"-"+ floor_decoration_count[column-1]+'" name="floor-decoration-numerator-'+column+"-"+ floor_decoration_count[column-1]+'" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/'+
-                '<input type="text" id="floor-decoration-denominator-'+column+"-"+ floor_decoration_count[column-1]+'" name="floor-decoration-denominator-'+column+"-"+ floor_decoration_count[column-1]+'" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">'+
+                '<input type="text" id="floor-decoration-numerator-'+column+"-"+ floor_decoration_count[column-1]+'" name="floor-decoration-numerator-'+column+"-"+ floor_decoration_count[column-1]+'" class="tiny-input-size" placeholder="輸入" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput(\'floor-decoration-numerator-'+column+'-'+floor_decoration_count[column-1]+'\')">/'+
+                '<input type="text" id="floor-decoration-denominator-'+column+"-"+ floor_decoration_count[column-1]+'" name="floor-decoration-denominator-'+column+"-"+ floor_decoration_count[column-1]+'" class="tiny-input-size" placeholder="比例" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput(\'floor-decoration-denominator-'+column+'-'+floor_decoration_count[column-1]+'\')">'+
                 '&nbsp;<select id="floor-decoration-option-'+column+"-"+ floor_decoration_count[column-1] +'" name="floor-decoration-option-'+column+"-"+ floor_decoration_count[column-1] +'" class="select-menu" required>'+
                     '<option value="" style="display:none;">請選擇材質</option>'+
                 '</select>'+
@@ -219,8 +219,8 @@ function addItemOnclick(id,column,num){
 
             text=
             '<div id="ceiling-decoration-'+column+"-"+ ceiling_decoration_count[column-1] +'">'+
-                '<input type="text" id="ceiling-decoration-numerator-'+column+"-"+ ceiling_decoration_count[column-1] +'" name="ceiling-decoration-numerator-'+column+"-"+ ceiling_decoration_count[column-1] +'" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/'+
-                '<input type="text" id="ceiling-decoration-denominator-'+column+"-"+ ceiling_decoration_count[column-1] +'" name="ceiling-decoration-denominator-'+column+"-"+ ceiling_decoration_count[column-1] +'" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">'+
+                '<input type="text" id="ceiling-decoration-numerator-'+column+"-"+ ceiling_decoration_count[column-1] +'" name="ceiling-decoration-numerator-'+column+"-"+ ceiling_decoration_count[column-1] +'" class="tiny-input-size" placeholder="輸入" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput(\'ceiling-decoration-numerator-'+column+'-'+ceiling_decoration_count[column-1]+'\')">/'+
+                '<input type="text" id="ceiling-decoration-denominator-'+column+"-"+ ceiling_decoration_count[column-1] +'" name="ceiling-decoration-denominator-'+column+"-"+ ceiling_decoration_count[column-1] +'" class="tiny-input-size" placeholder="比例" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput(\'ceiling-decoration-denominator-'+column+'-'+ceiling_decoration_count[column-1]+'\')">'+
                 '&nbsp;<select id="ceiling-decoration-option-'+column+"-"+ ceiling_decoration_count[column-1] +'" name="ceiling-decoration-option-'+column+"-"+ ceiling_decoration_count[column-1] +'" class="select-menu" required>'+
                     '<option value="" style="display:none;">請選擇材質</option>'+
                 '</select>'+
@@ -447,7 +447,8 @@ function addInfoItemOnclick(id){
             addInfoItemOnclick('land-cellphone');
             text =
             '<div id="land-owner-'+land_owner_count+'">'+
-                '<input type="text" name="land-owner-'+land_owner_count+'" placeholder="所有權人-'+land_owner_count+'" required><br>'+
+                '<input type="text" name="land-owner-'+land_owner_count+'" list="land-owner-list-'+land_owner_count+'" autocomplete="off" placeholder="所有權人-'+land_owner_count+'" oninput="getLandOwnerOption('+land_owner_count+')" required><br>'+
+                '<datalist id="land-owner-list-'+land_owner_count+'"></datalist>';
             '</div>';
             getLandOwnerCount();
             break;
@@ -538,7 +539,7 @@ function addInfoItemOnclick(id){
 
             text =
             '<div id="hold-id-'+hold_id_count+'">'+
-                '<input type="text" name="hold-id-'+hold_id_count+'" value="" placeholder="所有權人-'+hold_id_count+'" required>'+
+                '<input type="text" name="hold-id-'+hold_id_count+'" value="" placeholder="所有權人-'+hold_id_count+'" onchange="checkOwner('+hold_id_count+')" required>'+
             '</div>';
             break;
 
@@ -1105,7 +1106,7 @@ function load_floor_type_data(num){
          error:function(err){
              // window.alert(err.statusText);
              window.alert("戶別選擇錯誤!請重新選擇!");
-             $(item).html('<option value="" style="display:none;">請選擇層別</option>');
+             // $(item).html('<option value="" style="display:none;">請選擇層別</option>');
              document.getElementById("building-material-"+num).selectedIndex = "0";
          }
     });
@@ -1316,7 +1317,7 @@ function writeDataToOneRow(itemId,writeToId,countId){
 }
 
 function changeColumnStatus(column,status){
-    var itemId = ["#house-type-","#discard-status-","#pay-form-","#building-material-","#floor-type-","#nth-floor-","#total-floor-","#floor-area-","#house-usage-"]
+    var itemId = ["#house-type-","#discard-status-","#pay-form-","#building-material-","#nth-floor-","#total-floor-","#floor-area-","#house-usage-"]
 
     switch (status) {
         case 'focus':
@@ -1518,7 +1519,9 @@ function isLandNumExist(num){
                      $(item).val("");
                  }
                  else{
-                     // window.alert(data.item_name);
+                     if(i==numArray.length){
+                         autoCompleteOwnerData(num,numArray,$(section).val(),$(subsection).val());
+                     }
                  }
              },
              error:function(err){
@@ -1599,10 +1602,8 @@ function isCohabitNumTrue(cohabit_count,not_cohabit_count,captain_count){
 }
 
 function checkOwner(num){
-    var name = "input[name='owner-"+num+"']";
-    var hold_id = "#hold-id-"+num;
-    // window.alert($(name).val());
-    // window.alert($(hold_id).val());
+    var name = "input[name='land-owner-"+num+"']";
+    var hold_id = "input[name='hold-id-"+num+"']";
 
     $.ajax({
          url: "get_building_decoration_option.php",
@@ -1617,13 +1618,12 @@ function checkOwner(num){
          // contentType: 'application/json; charset=utf-8',
          success: function(data){
              if(data.item_name==false){
-                 window.alert("查無此人或輸入錯誤!\n請重新輸入!");
+                 window.alert("名字或歸戶號輸入錯誤!\n請重新輸入!");
                  $(name).val("");
                  $(hold_id).val("");
              }
              else{
-                 // window.alert(data.item_name);
-                 $("#addressText-"+num).val(data.item_name);
+                 $("#landAddressText-"+num).val(data.item_name);
              }
          },
          error:function(err){
@@ -1728,8 +1728,16 @@ function load_corp_unit_Data(num){
     });
 }
 
+var isShow = false;
 function cohabitRemind(){
-    window.alert("共同出口戶請填相同數字，例如A、B共用出口都填1，C有單獨出口請填2");
+    if($("#exit-num").val()==""){
+        window.alert("請先選擇出口數!");
+        return;
+    }
+    if(!isShow){
+        window.alert("共同出口戶請填相同數字，例如A、B共用出口都填1，C有單獨出口請填2");
+    }
+    isShow = true;
 }
 
 function checkExitNo(){
@@ -1753,7 +1761,7 @@ function checkExitNoCorrect(){
 
     for(var i=0;i<exit_No_count;i++){
         var item = "input[name='exit-No-"+(i+1)+"']";
-        if(!array.includes($(item).val())){
+        if(!array.includes($(item).val()) && $(item).val()!=""){
             array.push($(item).val());
         }
     }
@@ -1765,6 +1773,75 @@ function checkExitNoCorrect(){
             $(item).val("");
         }
     }
+}
+
+function getLandOwnerOption(num){
+    var item = "input[name='land-owner-"+num+"']";
+
+    if($(item).val().length!=0){
+        $.ajax({
+             url: "get_building_decoration_option.php",
+             type: "POST",
+             data:{
+                category: 'land_owner',
+                str: $(item).val()
+             },
+             cache:false,
+             dataType: "json",
+             // contentType: 'application/json; charset=utf-8',
+             success: function(data){
+                 $("#land-owner-list-"+num).html(data.item_name);
+             },
+             error:function(err){
+                 window.alert(err.statusText);
+             }
+        });
+    }
+}
+
+function checkRatioInput(id){
+    var item = "#"+id;
+    if($(item).val() == "0"){
+        window.alert("分子或分母不能為0!");
+        $(item).val("");
+    }
+}
+
+function checkFloorType(num){
+    // var item = "#floor-type-"+num;
+    // window.alert($(item).val());
+}
+
+function autoCompleteIndoorWallType(column,num){
+    var item = "indoor-wall-type-"+column+"-"+num;
+    document.getElementById(item).selectedIndex = "1";
+}
+
+function autoCompleteOwnerData(num,numArray,section,subsection){
+    var item = "#land-owner-list-"+num;
+    var response_json = "";
+
+    $.ajax({
+         url: "get_building_decoration_option.php",
+         type: "POST",
+         data:{
+            category: 'auto_complete_owner',
+            section: section,
+            subsection: subsection,
+            land_number: numArray
+         },
+         cache:false,
+         dataType: "json",
+         // contentType: 'application/json; charset=utf-8',
+         success: function(data){
+             response_json = data;
+             window.alert(response_json.hold_id);
+             // $("#land-owner-list-"+num).html(data.item_name);
+         },
+         error:function(err){
+             window.alert(err.statusText);
+         }
+    });
 }
 
 $(document).ready(function(){

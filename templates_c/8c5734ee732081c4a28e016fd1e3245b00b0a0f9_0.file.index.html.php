@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-07 17:10:44
+/* Smarty version 3.1.33, created on 2019-08-09 13:31:56
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\index.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d4b0614074e00_03626005',
+  'unifunc' => 'content_5d4d75cc835a26_42673305',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8c5734ee732081c4a28e016fd1e3245b00b0a0f9' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\index.html',
-      1 => 1565197817,
+      1 => 1565357513,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d4b0614074e00_03626005 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d4d75cc835a26_42673305 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -68,7 +68,7 @@ function content_5d4b0614074e00_03626005 (Smarty_Internal_Template $_smarty_tpl)
 
                     <tr>
                         <td>
-                            <input type="text" id="district" name="district" list="district-list" autocomplete="off" required>
+                            <!-- <input type="text" id="district" name="district" list="district-list" autocomplete="off" required>
                             <datalist id="district-list">
                                 <option value="觀音區">觀音區</option>
                                 <option value="蘆竹區">蘆竹區</option>
@@ -83,13 +83,34 @@ function content_5d4b0614074e00_03626005 (Smarty_Internal_Template $_smarty_tpl)
                                 <option value="桃園區">桃園區</option>
                                 <option value="大溪區">大溪區</option>
                                 <option value="龍潭區">龍潭區</option>
-                            </datalist>
+                            </datalist> -->
+                            <select id="district" name="district" class="median-select-menu" required>
+                                <option value="觀音區">觀音區</option>
+                                <option value="蘆竹區">蘆竹區</option>
+                                <option value="楊梅區">楊梅區</option>
+                                <option value="大園區">大園區</option>
+                                <option value="中壢區">中壢區</option>
+                                <option value="平鎮區">平鎮區</option>
+                                <option value="復興區">復興區</option>
+                                <option value="新屋區">新屋區</option>
+                                <option value="龜山區">龜山區</option>
+                                <option value="八德區">八德區</option>
+                                <option value="桃園區">桃園區</option>
+                                <option value="大溪區">大溪區</option>
+                                <option value="龍潭區">龍潭區</option>
+                            </select>
                         </td>
                         <td>
                             <div id="land-section">
                                 <div id="land-section-1">
-                                    <input type="text" id="section-1" name="land-section-1" list="land-section-list-1" autocomplete="off" oninput="getLandSectionOption(1)" required><br>
-                                    <datalist id="land-section-list-1"></datalist>
+                                    <!-- <input type="text" id="section-1" name="land-section-1" list="land-section-list-1" autocomplete="off" oninput="getLandSectionOption(1)" required><br>
+                                    <datalist id="land-section-list-1"></datalist> -->
+                                    <select id="section-1" name="land-section-1" class="median-select-menu" required>
+                                        <option value="塔腳段">塔腳段</option>
+                                        <option value="新坡段">新坡段</option>
+                                        <option value="樹林子段">樹林子段</option>
+                                        <option value="草漯段">草漯段</option>
+                                    </select>
                                 </div>
                             </div>
                             <input type="hidden" id="land_section_count" name="land_section_count">
@@ -212,8 +233,10 @@ function content_5d4b0614074e00_03626005 (Smarty_Internal_Template $_smarty_tpl)
                     <tr>
                         <td>
                             <div id="land-owner">
-                                <div id="land-owner-1">
-                                    <input type="text" name="land-owner-1" placeholder="所有權人-1" required><br>
+                                <div id="land-owner-1" class="dropdown">
+                                    <!-- <input type="text" name="land-owner-1" list="land-owner-list-1" autocomplete="off" placeholder="所有權人-1" oninput="getLandOwnerOption(1)" required><br> -->
+                                    <input type="text" name="land-owner-1" list="land-owner-list-1" autocomplete="off" placeholder="所有權人-1" required><br>
+                                    <datalist id="land-owner-list-1"></datalist>
                                 </div>
                             </div>
                             <input type="hidden" id="land_owner_count" name="land_owner_count">
@@ -224,7 +247,7 @@ function content_5d4b0614074e00_03626005 (Smarty_Internal_Template $_smarty_tpl)
                         <td>
                             <div id="hold-id" class="input-align">
                                 <div id="hold-id-1">
-                                    <input type="text" name="hold-id-1" value="" placeholder="所有權人-1" required>
+                                    <input type="text" name="hold-id-1" value="" placeholder="所有權人-1" onchange="checkOwner(1)" required>
                                     <!-- <input type="text" id="hold-id-1" name="hold-id-1" value="" placeholder="歸戶號" class="small-input-size" onchange="checkOwner(1)" required> -->
                                 </div>
                             </div>
@@ -429,7 +452,7 @@ function content_5d4b0614074e00_03626005 (Smarty_Internal_Template $_smarty_tpl)
                             <?php echo $_smarty_tpl->tpl_vars['house_construct_option']->value;?>
 
                         </select><br>
-                        <select class="median-select-menu" id="floor-type-1" name="floor-type-1" style="margin-top:10px;" required>
+                        <select class="median-select-menu" id="floor-type-1" name="floor-type-1" style="margin-top:10px;" onchange="checkFloorType(1)">
                             <option value="" style="display:none;">請選擇層別</option>
                         </select>
                     </td>
@@ -526,10 +549,10 @@ function content_5d4b0614074e00_03626005 (Smarty_Internal_Template $_smarty_tpl)
                 </tr>
 
                 <tr>
-                    <td colspan="2">層高:<input type="number" name="layer-height-1" value="3.0" min="0" step="0.1" oninput="if(value.length>4)value=value.slice(0,4)" class="median-input-size">(m)</td>
-                    <td colspan="2">層高:<input type="number" name="layer-height-2" value="3.0" min="0" step="0.1" oninput="if(value.length>4)value=value.slice(0,4)" class="median-input-size">(m)</td>
-                    <td colspan="2">層高:<input type="number" name="layer-height-3" value="3.0" min="0" step="0.1" oninput="if(value.length>4)value=value.slice(0,4)" class="median-input-size">(m)</td>
-                    <td colspan="2">層高:<input type="number" name="layer-height-4" value="3.0" min="0" step="0.1" oninput="if(value.length>4)value=value.slice(0,4)" class="median-input-size">(m)</td>
+                    <td colspan="2">層高:<input type="number" name="layer-height-1" value="3.0" min="0" step="0.01" oninput="if(value.length>4)value=value.slice(0,4)" class="median-input-size">(m)</td>
+                    <td colspan="2">層高:<input type="number" name="layer-height-2" value="3.0" min="0" step="0.01" oninput="if(value.length>4)value=value.slice(0,4)" class="median-input-size">(m)</td>
+                    <td colspan="2">層高:<input type="number" name="layer-height-3" value="3.0" min="0" step="0.01" oninput="if(value.length>4)value=value.slice(0,4)" class="median-input-size">(m)</td>
+                    <td colspan="2">層高:<input type="number" name="layer-height-4" value="3.0" min="0" step="0.01" oninput="if(value.length>4)value=value.slice(0,4)" class="median-input-size">(m)</td>
                 </tr>
 
                 <tr>
@@ -766,7 +789,7 @@ function content_5d4b0614074e00_03626005 (Smarty_Internal_Template $_smarty_tpl)
                         <!-- <input type="checkbox" name="indoor-divide-1">RC牆<input type="checkbox" name="indoor-divide-1">1B<input type="checkbox" name="indoor-divide-1">1/2B
                         <input type="checkbox" name="indoor-divide-1">檜木造<input type="checkbox" name="indoor-divide-1">其他木造<br><input type="checkbox" name="indoor-divide-1">竹編牆 -->
                         <div id="indoor-divide-1-1">
-                            <input type="text" id="indoor-divide-numerator-1-1" name="indoor-divide-numerator-1-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="indoor-divide-denominator-1-1" name="indoor-divide-denominator-1-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                            <input type="text" id="indoor-divide-numerator-1-1" name="indoor-divide-numerator-1-1" class="tiny-input-size" placeholder="輸入" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('indoor-divide-numerator-1-1')">/<input type="text" id="indoor-divide-denominator-1-1" name="indoor-divide-denominator-1-1" class="tiny-input-size" placeholder="比例" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('indoor-divide-denominator-1-1')">
                             <select class="select-menu" id="indoor-divide-option-1-1" name="indoor-divide-option-1-1">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['indoor_divide_option']->value;?>
@@ -784,7 +807,7 @@ function content_5d4b0614074e00_03626005 (Smarty_Internal_Template $_smarty_tpl)
                         <!-- <input type="checkbox" name="indoor-divide-2">RC牆<input type="checkbox" name="indoor-divide-2">1B<input type="checkbox" name="indoor-divide-2">1/2B
                         <input type="checkbox" name="indoor-divide-2">檜木造<input type="checkbox" name="indoor-divide-2">其他木造<br><input type="checkbox" name="indoor-divide-2">竹編牆 -->
                         <div id="indoor-divide-2-1">
-                            <input type="text" id="indoor-divide-numerator-2-1" name="indoor-divide-numerator-2-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="indoor-divide-denominator-2-1" name="indoor-divide-denominator-2-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                            <input type="text" id="indoor-divide-numerator-2-1" name="indoor-divide-numerator-2-1" class="tiny-input-size" placeholder="輸入" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('indoor-divide-numerator-2-1')">/<input type="text" id="indoor-divide-denominator-2-1" name="indoor-divide-denominator-2-1" class="tiny-input-size" placeholder="比例" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('indoor-divide-denominator-2-1')">
                             <select class="select-menu" id="indoor-divide-option-2-1" name="indoor-divide-option-2-1">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['indoor_divide_option']->value;?>
@@ -802,7 +825,7 @@ function content_5d4b0614074e00_03626005 (Smarty_Internal_Template $_smarty_tpl)
                         <!-- <input type="checkbox" name="indoor-divide-3">RC牆<input type="checkbox" name="indoor-divide-3">1B<input type="checkbox" name="indoor-divide-3">1/2B
                         <input type="checkbox" name="indoor-divide-3">檜木造<input type="checkbox" name="indoor-divide-3">其他木造<br><input type="checkbox" name="indoor-divide-3">竹編牆 -->
                         <div id="indoor-divide-3-1">
-                            <input type="text" id="indoor-divide-numerator-3-1" name="indoor-divide-numerator-3-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="indoor-divide-denominator-3-1" name="indoor-divide-denominator-3-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                            <input type="text" id="indoor-divide-numerator-3-1" name="indoor-divide-numerator-3-1" class="tiny-input-size" placeholder="輸入" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('indoor-divide-numerator-3-1')">/<input type="text" id="indoor-divide-denominator-3-1" name="indoor-divide-denominator-3-1" class="tiny-input-size" placeholder="比例" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('indoor-divide-denominator-3-1')">
                             <select class="select-menu" id="indoor-divide-option-3-1" name="indoor-divide-option-3-1">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['indoor_divide_option']->value;?>
@@ -820,7 +843,7 @@ function content_5d4b0614074e00_03626005 (Smarty_Internal_Template $_smarty_tpl)
                         <!-- <input type="checkbox" name="indoor-divide-4">RC牆<input type="checkbox" name="indoor-divide-4">1B<input type="checkbox" name="indoor-divide-4">1/2B
                         <input type="checkbox" name="indoor-divide-4">檜木造<input type="checkbox" name="indoor-divide-4">其他木造<br><input type="checkbox" name="indoor-divide-4">竹編牆 -->
                         <div id="indoor-divide-4-1">
-                            <input type="text" id="indoor-divide-numerator-4-1" name="indoor-divide-numerator-4-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="indoor-divide-denominator-4-1" name="indoor-divide-denominator-4-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                            <input type="text" id="indoor-divide-numerator-4-1" name="indoor-divide-numerator-4-1" class="tiny-input-size" placeholder="輸入" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('indoor-divide-numerator-4-1')">/<input type="text" id="indoor-divide-denominator-4-1" name="indoor-divide-denominator-4-1" class="tiny-input-size" placeholder="比例" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('indoor-divide-denominator-4-1')">
                             <select class="select-menu" id="indoor-divide-option-4-1" name="indoor-divide-option-4-1">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['indoor_divide_option']->value;?>
@@ -841,7 +864,7 @@ function content_5d4b0614074e00_03626005 (Smarty_Internal_Template $_smarty_tpl)
                     <td>屋外牆粉裝</td>
                     <td colspan="2">
                         <div id="outdoor-wall-decoration-1-1">
-                            <input type="text" id="outdoor-wall-decoration-numerator-1-1" name="outdoor-wall-decoration-numerator-1-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="outdoor-wall-decoration-denominator-1-1" name="outdoor-wall-decoration-denominator-1-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                            <input type="text" id="outdoor-wall-decoration-numerator-1-1" name="outdoor-wall-decoration-numerator-1-1" class="tiny-input-size" placeholder="輸入" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('outdoor-wall-decoration-numerator-1-1')">/<input type="text" id="outdoor-wall-decoration-denominator-1-1" name="outdoor-wall-decoration-denominator-1-1" class="tiny-input-size" placeholder="比例" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('outdoor-wall-decoration-denominator-1-1')">
                             <select id="outdoor-wall-decoration-option-1-1" name="outdoor-wall-decoration-option-1-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['outdoor_wall_decoration_option']->value;?>
@@ -858,7 +881,7 @@ function content_5d4b0614074e00_03626005 (Smarty_Internal_Template $_smarty_tpl)
 
                     <td colspan="2">
                         <div id="outdoor-wall-decoration-2-1">
-                            <input type="text" id="outdoor-wall-decoration-numerator-2-1" name="outdoor-wall-decoration-numerator-2-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="outdoor-wall-decoration-denominator-2-1" name="outdoor-wall-decoration-denominator-2-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                            <input type="text" id="outdoor-wall-decoration-numerator-2-1" name="outdoor-wall-decoration-numerator-2-1" class="tiny-input-size" placeholder="輸入" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('outdoor-wall-decoration-numerator-2-1')">/<input type="text" id="outdoor-wall-decoration-denominator-2-1" name="outdoor-wall-decoration-denominator-2-1" class="tiny-input-size" placeholder="比例" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('outdoor-wall-decoration-denominator-2-1')">
                             <select id="outdoor-wall-decoration-option-2-1" name="outdoor-wall-decoration-option-2-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['outdoor_wall_decoration_option']->value;?>
@@ -875,7 +898,7 @@ function content_5d4b0614074e00_03626005 (Smarty_Internal_Template $_smarty_tpl)
 
                     <td colspan="2">
                         <div id="outdoor-wall-decoration-3-1">
-                            <input type="text" id="outdoor-wall-decoration-numerator-3-1" name="outdoor-wall-decoration-numerator-3-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="outdoor-wall-decoration-denominator-3-1" name="outdoor-wall-decoration-denominator-3-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                            <input type="text" id="outdoor-wall-decoration-numerator-3-1" name="outdoor-wall-decoration-numerator-3-1" class="tiny-input-size" placeholder="輸入" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('outdoor-wall-decoration-numerator-3-1')">/<input type="text" id="outdoor-wall-decoration-denominator-3-1" name="outdoor-wall-decoration-denominator-3-1" class="tiny-input-size" placeholder="比例" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('outdoor-wall-decoration-denominator-3-1')">
                             <select id="outdoor-wall-decoration-option-3-1" name="outdoor-wall-decoration-option-3-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['outdoor_wall_decoration_option']->value;?>
@@ -892,7 +915,7 @@ function content_5d4b0614074e00_03626005 (Smarty_Internal_Template $_smarty_tpl)
 
                     <td colspan="2">
                         <div id="outdoor-wall-decoration-4-1">
-                            <input type="text" id="outdoor-wall-decoration-numerator-4-1" name="outdoor-wall-decoration-numerator-4-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="outdoor-wall-decoration-denominator-4-1" name="outdoor-wall-decoration-denominator-4-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                            <input type="text" id="outdoor-wall-decoration-numerator-4-1" name="outdoor-wall-decoration-numerator-4-1" class="tiny-input-size" placeholder="輸入" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('outdoor-wall-decoration-numerator-4-1')">/<input type="text" id="outdoor-wall-decoration-denominator-4-1" name="outdoor-wall-decoration-denominator-4-1" class="tiny-input-size" placeholder="比例" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('outdoor-wall-decoration-denominator-4-1')">
                             <select id="outdoor-wall-decoration-option-4-1" name="outdoor-wall-decoration-option-4-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['outdoor_wall_decoration_option']->value;?>
@@ -912,8 +935,8 @@ function content_5d4b0614074e00_03626005 (Smarty_Internal_Template $_smarty_tpl)
                     <td>屋內牆粉裝</td>
                     <td colspan="2">
                         <div id="indoor-wall-decoration-1-1">
-                            <input type="text" id="indoor-wall-decoration-numerator-1-1" name="indoor-wall-decoration-numerator-1-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="indoor-wall-decoration-denominator-1-1" name="indoor-wall-decoration-denominator-1-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
-                            <select id="indoor-wall-decoration-option-1-1" name="indoor-wall-decoration-option-1-1" class="tiny-select-menu">
+                            <input type="text" id="indoor-wall-decoration-numerator-1-1" name="indoor-wall-decoration-numerator-1-1" class="tiny-input-size" placeholder="輸入" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('indoor-wall-decoration-numerator-1-1')">/<input type="text" id="indoor-wall-decoration-denominator-1-1" name="indoor-wall-decoration-denominator-1-1" class="tiny-input-size" placeholder="比例" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('indoor-wall-decoration-denominator-1-1')">
+                            <select id="indoor-wall-decoration-option-1-1" name="indoor-wall-decoration-option-1-1" class="tiny-select-menu" onchange="autoCompleteIndoorWallType(1,1)">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['indoor_wall_decoration_option']->value;?>
 
@@ -936,8 +959,8 @@ function content_5d4b0614074e00_03626005 (Smarty_Internal_Template $_smarty_tpl)
 
                     <td colspan="2">
                         <div id="indoor-wall-decoration-2-1">
-                            <input type="text" id="indoor-wall-decoration-numerator-2-1" name="indoor-wall-decoration-numerator-2-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="indoor-wall-decoration-denominator-2-1" name="indoor-wall-decoration-denominator-2-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
-                            <select id="indoor-wall-decoration-option-2-1" name="indoor-wall-decoration-option-2-1" class="tiny-select-menu">
+                            <input type="text" id="indoor-wall-decoration-numerator-2-1" name="indoor-wall-decoration-numerator-2-1" class="tiny-input-size" placeholder="輸入" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('indoor-wall-decoration-numerator-2-1')">/<input type="text" id="indoor-wall-decoration-denominator-2-1" name="indoor-wall-decoration-denominator-2-1" class="tiny-input-size" placeholder="比例" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('indoor-wall-decoration-denominator-2-1')">
+                            <select id="indoor-wall-decoration-option-2-1" name="indoor-wall-decoration-option-2-1" class="tiny-select-menu" onchange="autoCompleteIndoorWallType(2,1)">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['indoor_wall_decoration_option']->value;?>
 
@@ -960,8 +983,8 @@ function content_5d4b0614074e00_03626005 (Smarty_Internal_Template $_smarty_tpl)
 
                     <td colspan="2">
                         <div id="indoor-wall-decoration-3-1">
-                            <input type="text" id="indoor-wall-decoration-numerator-3-1" name="indoor-wall-decoration-numerator-3-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="indoor-wall-decoration-denominator-3-1" name="indoor-wall-decoration-denominator-3-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
-                            <select id="indoor-wall-decoration-option-3-1" name="indoor-wall-decoration-option-3-1" class="tiny-select-menu">
+                            <input type="text" id="indoor-wall-decoration-numerator-3-1" name="indoor-wall-decoration-numerator-3-1" class="tiny-input-size" placeholder="輸入" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('indoor-wall-decoration-numerator-3-1')">/<input type="text" id="indoor-wall-decoration-denominator-3-1" name="indoor-wall-decoration-denominator-3-1" class="tiny-input-size" placeholder="比例" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('indoor-wall-decoration-denominator-3-1')">
+                            <select id="indoor-wall-decoration-option-3-1" name="indoor-wall-decoration-option-3-1" class="tiny-select-menu" onchange="autoCompleteIndoorWallType(3,1)">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['indoor_wall_decoration_option']->value;?>
 
@@ -984,8 +1007,8 @@ function content_5d4b0614074e00_03626005 (Smarty_Internal_Template $_smarty_tpl)
 
                     <td colspan="2">
                         <div id="indoor-wall-decoration-4-1">
-                            <input type="text" id="indoor-wall-decoration-numerator-4-1" name="indoor-wall-decoration-numerator-4-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="indoor-wall-decoration-denominator-4-1" name="indoor-wall-decoration-denominator-4-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
-                            <select id="indoor-wall-decoration-option-4-1" name="indoor-wall-decoration-option-4-1" class="tiny-select-menu">
+                            <input type="text" id="indoor-wall-decoration-numerator-4-1" name="indoor-wall-decoration-numerator-4-1" class="tiny-input-size" placeholder="輸入" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('indoor-wall-decoration-numerator-4-1')">/<input type="text" id="indoor-wall-decoration-denominator-4-1" name="indoor-wall-decoration-denominator-4-1" class="tiny-input-size" placeholder="比例" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('indoor-wall-decoration-denominator-4-1')">
+                            <select id="indoor-wall-decoration-option-4-1" name="indoor-wall-decoration-option-4-1" class="tiny-select-menu" onchange="autoCompleteIndoorWallType(4,1)">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['indoor_wall_decoration_option']->value;?>
 
@@ -1011,7 +1034,7 @@ function content_5d4b0614074e00_03626005 (Smarty_Internal_Template $_smarty_tpl)
                     <td>屋頂(面)<br>粉裝</td>
                     <td colspan="2">
                         <div id="roof-decoration-1-1">
-                            <input type="text" id="roof-decoration-numerator-1-1" name="roof-decoration-numerator-1-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="roof-decoration-denominator-1-1" name="roof-decoration-denominator-1-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                            <input type="text" id="roof-decoration-numerator-1-1" name="roof-decoration-numerator-1-1" class="tiny-input-size" placeholder="輸入" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('roof-decoration-numerator-1-1')">/<input type="text" id="roof-decoration-denominator-1-1" name="roof-decoration-denominator-1-1" class="tiny-input-size" placeholder="比例" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('roof-decoration-denominator-1-1')">
                             <select id="roof-decoration-option-1-1" name="roof-decoration-option-1-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['roof_decoration_option']->value;?>
@@ -1028,7 +1051,7 @@ function content_5d4b0614074e00_03626005 (Smarty_Internal_Template $_smarty_tpl)
 
                     <td colspan="2">
                         <div id="roof-decoration-2-1">
-                            <input type="text" id="roof-decoration-numerator-2-1" name="roof-decoration-numerator-2-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="roof-decoration-denominator-2-1" name="roof-decoration-denominator-2-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                            <input type="text" id="roof-decoration-numerator-2-1" name="roof-decoration-numerator-2-1" class="tiny-input-size" placeholder="輸入" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('roof-decoration-numerator-2-1')">/<input type="text" id="roof-decoration-denominator-2-1" name="roof-decoration-denominator-2-1" class="tiny-input-size" placeholder="比例" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('roof-decoration-denominator-2-1')">
                             <select id="roof-decoration-option-2-1" name="roof-decoration-option-2-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['roof_decoration_option']->value;?>
@@ -1045,7 +1068,7 @@ function content_5d4b0614074e00_03626005 (Smarty_Internal_Template $_smarty_tpl)
 
                     <td colspan="2">
                         <div id="roof-decoration-3-1">
-                            <input type="text" id="roof-decoration-numerator-3-1" name="roof-decoration-numerator-3-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="roof-decoration-denominator-3-1" name="roof-decoration-denominator-3-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                            <input type="text" id="roof-decoration-numerator-3-1" name="roof-decoration-numerator-3-1" class="tiny-input-size" placeholder="輸入" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('roof-decoration-numerator-3-1')">/<input type="text" id="roof-decoration-denominator-3-1" name="roof-decoration-denominator-3-1" class="tiny-input-size" placeholder="比例" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('roof-decoration-denominator-3-1')">
                             <select id="roof-decoration-option-3-1" name="roof-decoration-option-3-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['roof_decoration_option']->value;?>
@@ -1062,7 +1085,7 @@ function content_5d4b0614074e00_03626005 (Smarty_Internal_Template $_smarty_tpl)
 
                     <td colspan="2">
                         <div id="roof-decoration-4-1">
-                            <input type="text" id="roof-decoration-numerator-4-1" name="roof-decoration-numerator-4-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="roof-decoration-denominator-4-1" name="roof-decoration-denominator-4-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                            <input type="text" id="roof-decoration-numerator-4-1" name="roof-decoration-numerator-4-1" class="tiny-input-size" placeholder="輸入" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('roof-decoration-numerator-4-1')">/<input type="text" id="roof-decoration-denominator-4-1" name="roof-decoration-denominator-4-1" class="tiny-input-size" placeholder="比例" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('roof-decoration-denominator-4-1')">
                             <select id="roof-decoration-option-4-1" name="roof-decoration-option-4-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['roof_decoration_option']->value;?>
@@ -1082,7 +1105,7 @@ function content_5d4b0614074e00_03626005 (Smarty_Internal_Template $_smarty_tpl)
                     <td>樓地板粉裝</td>
                     <td colspan="2">
                         <div id="floor-decoration-1-1">
-                            <input type="text" id="floor-decoration-numerator-1-1" name="floor-decoration-numerator-1-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="floor-decoration-denominator-1-1" name="floor-decoration-denominator-1-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                            <input type="text" id="floor-decoration-numerator-1-1" name="floor-decoration-numerator-1-1" class="tiny-input-size" placeholder="輸入" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('floor-decoration-numerator-1-1')">/<input type="text" id="floor-decoration-denominator-1-1" name="floor-decoration-denominator-1-1" class="tiny-input-size" placeholder="比例" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('floor-decoration-denominator-1-1')">
                             <select id="floor-decoration-option-1-1" name="floor-decoration-option-1-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['floor_decoration_option']->value;?>
@@ -1099,7 +1122,7 @@ function content_5d4b0614074e00_03626005 (Smarty_Internal_Template $_smarty_tpl)
 
                     <td colspan="2">
                         <div id="floor-decoration-2-1">
-                            <input type="text" id="floor-decoration-numerator-2-1" name="floor-decoration-numerator-2-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="floor-decoration-denominator-2-1" name="floor-decoration-denominator-2-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                            <input type="text" id="floor-decoration-numerator-2-1" name="floor-decoration-numerator-2-1" class="tiny-input-size" placeholder="輸入" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('floor-decoration-numerator-2-1')">/<input type="text" id="floor-decoration-denominator-2-1" name="floor-decoration-denominator-2-1" class="tiny-input-size" placeholder="比例" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('floor-decoration-denominator-2-1')">
                             <select id="floor-decoration-option-2-1" name="floor-decoration-option-2-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['floor_decoration_option']->value;?>
@@ -1116,7 +1139,7 @@ function content_5d4b0614074e00_03626005 (Smarty_Internal_Template $_smarty_tpl)
 
                     <td colspan="2">
                         <div id="floor-decoration-3-1">
-                            <input type="text" id="floor-decoration-numerator-3-1" name="floor-decoration-numerator-3-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="floor-decoration-denominator-3-1" name="floor-decoration-denominator-3-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                            <input type="text" id="floor-decoration-numerator-3-1" name="floor-decoration-numerator-3-1" class="tiny-input-size" placeholder="輸入" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('floor-decoration-numerator-3-1')">/<input type="text" id="floor-decoration-denominator-3-1" name="floor-decoration-denominator-3-1" class="tiny-input-size" placeholder="比例" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('floor-decoration-denominator-3-1')">
                             <select id="floor-decoration-option-3-1" name="floor-decoration-option-3-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['floor_decoration_option']->value;?>
@@ -1133,7 +1156,7 @@ function content_5d4b0614074e00_03626005 (Smarty_Internal_Template $_smarty_tpl)
 
                     <td colspan="2">
                         <div id="floor-decoration-4-1">
-                            <input type="text" id="floor-decoration-numerator-4-1" name="floor-decoration-numerator-4-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="floor-decoration-denominator-4-1" name="floor-decoration-denominator-4-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                            <input type="text" id="floor-decoration-numerator-4-1" name="floor-decoration-numerator-4-1" class="tiny-input-size" placeholder="輸入" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('floor-decoration-numerator-4-1')">/<input type="text" id="floor-decoration-denominator-4-1" name="floor-decoration-denominator-4-1" class="tiny-input-size" placeholder="比例" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('floor-decoration-denominator-4-1')">
                             <select name="floor-decoration-4-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['floor_decoration_option']->value;?>
@@ -1153,7 +1176,7 @@ function content_5d4b0614074e00_03626005 (Smarty_Internal_Template $_smarty_tpl)
                     <td>天花板粉裝</td>
                     <td colspan="2">
                         <div id="ceiling-decoration-1-1">
-                            <input type="text" id="ceiling-decoration-numerator-1-1" name="ceiling-decoration-numerator-1-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="ceiling-decoration-denominator-1-1" name="ceiling-decoration-denominator-1-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                            <input type="text" id="ceiling-decoration-numerator-1-1" name="ceiling-decoration-numerator-1-1" class="tiny-input-size" placeholder="輸入" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('ceiling-decoration-numerator-1-1')">/<input type="text" id="ceiling-decoration-denominator-1-1" name="ceiling-decoration-denominator-1-1" class="tiny-input-size" placeholder="比例" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('ceiling-decoration-denominator-1-1')">
                             <select id="ceiling-decoration-option-1-1" name="ceiling-decoration-option-1-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['ceiling_decoration_option']->value;?>
@@ -1170,7 +1193,7 @@ function content_5d4b0614074e00_03626005 (Smarty_Internal_Template $_smarty_tpl)
 
                     <td colspan="2">
                         <div id="ceiling-decoration-2-1">
-                            <input type="text" id="ceiling-decoration-numerator-2-1" name="ceiling-decoration-numerator-2-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="ceiling-decoration-denominator-2-1" name="ceiling-decoration-denominator-2-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                            <input type="text" id="ceiling-decoration-numerator-2-1" name="ceiling-decoration-numerator-2-1" class="tiny-input-size" placeholder="輸入" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('ceiling-decoration-numerator-2-1')">/<input type="text" id="ceiling-decoration-denominator-2-1" name="ceiling-decoration-denominator-2-1" class="tiny-input-size" placeholder="比例" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('ceiling-decoration-denominator-2-1')">
                             <select id="ceiling-decoration-option-2-1" name="ceiling-decoration-option-2-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['ceiling_decoration_option']->value;?>
@@ -1187,7 +1210,7 @@ function content_5d4b0614074e00_03626005 (Smarty_Internal_Template $_smarty_tpl)
 
                     <td colspan="2">
                         <div id="ceiling-decoration-3-1">
-                            <input type="text" id="ceiling-decoration-numerator-3-1" name="ceiling-decoration-numerator-3-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="ceiling-decoration-denominator-3-1" name="ceiling-decoration-denominator-3-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                            <input type="text" id="ceiling-decoration-numerator-3-1" name="ceiling-decoration-numerator-3-1" class="tiny-input-size" placeholder="輸入" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('ceiling-decoration-numerator-3-1')">/<input type="text" id="ceiling-decoration-denominator-3-1" name="ceiling-decoration-denominator-3-1" class="tiny-input-size" placeholder="比例" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('ceiling-decoration-denominator-3-1')">
                             <select id="ceiling-decoration-option-1-1" name="ceiling-decoration-option-1-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['ceiling_decoration_option']->value;?>
@@ -1204,7 +1227,7 @@ function content_5d4b0614074e00_03626005 (Smarty_Internal_Template $_smarty_tpl)
 
                     <td colspan="2">
                         <div id="ceiling-decoration-4-1">
-                            <input type="text" id="ceiling-decoration-numerator-4-1" name="ceiling-decoration-numerator-4-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">/<input type="text" id="ceiling-decoration-denominator-4-1" name="ceiling-decoration-denominator-4-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)">
+                            <input type="text" id="ceiling-decoration-numerator-4-1" name="ceiling-decoration-numerator-4-1" class="tiny-input-size" placeholder="輸入" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('ceiling-decoration-numerator-4-1')">/<input type="text" id="ceiling-decoration-denominator-4-1" name="ceiling-decoration-denominator-4-1" class="tiny-input-size" placeholder="比例" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('ceiling-decoration-denominator-4-1')">
                             <select name="ceiling-decoration-option-4-1" class="select-menu">
                                 <option value="" style="display:none;">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['ceiling_decoration_option']->value;?>

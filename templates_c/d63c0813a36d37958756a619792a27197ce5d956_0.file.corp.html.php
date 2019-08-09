@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-04 13:46:26
+/* Smarty version 3.1.33, created on 2019-08-08 16:19:31
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\corp.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d46e1b212bdd4_84504722',
+  'unifunc' => 'content_5d4c4b930a5b16_36576347',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'd63c0813a36d37958756a619792a27197ce5d956' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\corp.html',
-      1 => 1564926384,
+      1 => 1565281063,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d46e1b212bdd4_84504722 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d4c4b930a5b16_36576347 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,7 +45,7 @@ function content_5d46e1b212bdd4_84504722 (Smarty_Internal_Template $_smarty_tpl)
 <body>
     <div class="container" align="center">
         <h1>農作物調查表</h1>
-        <form class="" action="" method="post" id="" onkeydown="if(event.keyCode==13)return false;">
+        <form class="" action="corp_submit.php" method="post" id="" onkeydown="if(event.keyCode==13)return false;">
             <table border="1">
                 <tbody>
                     <tr>
@@ -199,7 +199,8 @@ function content_5d46e1b212bdd4_84504722 (Smarty_Internal_Template $_smarty_tpl)
                         <td>
                             <div id="land-owner">
                                 <div id="land-owner-1">
-                                    <input type="text" name="land-owner-1" placeholder="所有權人-1" required><br>
+                                    <input type="text" name="land-owner-1" list="land-owner-list-1" autocomplete="off" placeholder="所有權人-1" oninput="getLandOwnerOption(1)" required><br>
+                                    <datalist id="land-owner-list-1"></datalist>
                                 </div>
                             </div>
                             <input type="hidden" id="land_owner_count" name="land_owner_count">
@@ -210,7 +211,7 @@ function content_5d46e1b212bdd4_84504722 (Smarty_Internal_Template $_smarty_tpl)
                         <td>
                             <div id="hold-id" class="input-align">
                                 <div id="hold-id-1">
-                                    <input type="text" name="hold-id-1" value="" placeholder="所有權人-1" required>
+                                    <input type="text" name="hold-id-1" value="" placeholder="所有權人-1" onchange="checkOwner(1)" required>
                                 </div>
                             </div>
                         </td>

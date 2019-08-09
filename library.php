@@ -8,8 +8,8 @@ function connect_db()
     // $servername = "localhost";
     // $username = "dayicom_jimmy7920";
     // $password = "ji7151618";
-    // $dbname = "dayicom_estate_db";
     // $dbname = "dayicom_test_db";
+    // $dbname = "dayicom_estate_db";
 
     // Create connection
     $conn = new mysqli($servername, $username, $password, $dbname);
@@ -1860,6 +1860,57 @@ function insertNewDoorWindowData($fId,$resultArray,$resultRatio,$main_building){
         }
     }
     $conn->close();
+}
+
+function getLandOwnerOption($str){
+    $conn = connect_db();
+    $sql = "SELECT * FROM landlord WHERE name LIKE '%{$str}%'";
+    $res = $conn->query($sql);
+    if($res->num_rows==0){
+        return "";
+    }
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $land_owner[$i] = $row;
+        $i++;
+    }
+
+    $conn->close();
+
+    $land_owner_option = "";
+
+    for($i=0;$i<count($land_owner);$i++){
+        $land_owner_option = $land_owner_option
+        ."<option value='".$land_owner[$i]["name"]."'>".$land_owner[$i]["name"]."</option>";
+    }
+
+    return $land_owner_option;
+}
+
+function getAutoCompleteOwnerData($section,$subsection,$land_number){
+    $conn = connect_db();
+    $index = 0;
+
+    for($i=0;$i<count($land_number);$i++){
+        $land_id = $section.$subsection.$land_number[$i];
+        $sql = "SELECT * FROM own_land_list NATURAL JOIN landlord WHERE land_id='{$land_id}'";
+        $res = $conn->query($sql);
+        if($res->num_rows==0){
+            return "";
+        }
+        // SELECT * FROM own_land_list NATURAL JOIN landlord WHERE land_id='草漯段0423-0008'
+
+        while($row = $res->fetch_assoc()) {
+            $land_owner["hold_id"][$index] = $row["hold_id"];
+            $land_owner["name"][$index] = $row["name"];
+            $land_owner["address"][$index] = $row["address"];
+            $index++;
+        }
+    }
+    $conn->close();
+
+    return $land_owner;
 }
 
 // function getStructurePoints($house_address){
