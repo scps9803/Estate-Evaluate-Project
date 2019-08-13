@@ -1913,19 +1913,127 @@ function getAutoCompleteOwnerData($section,$subsection,$land_number){
     return $land_owner;
 }
 
-// function getStructurePoints($house_address){
-//     $conn = connect_db();
-//
-//     $sql = "SELECT * FROM floor_info NATURAL JOIN building WHERE address='{$house_address}'";
-//     $res = $conn->query($sql);
-//
-//     $i = 0;
-//     while($row = $res->fetch_assoc()) {
-//         $result[$i] = $row;
-//         $i++;
-//     }
-//
-//     $conn->close();
-//     return $result;
-// }
+function getAutoCalculateArea($corp_category,$corp_item,$corp_type,$corp_num){
+    $conn = connect_db();
+
+    if($corp_type=="none"){
+        $sql = "SELECT unit_area FROM corp WHERE category='{$corp_category}' AND item='{$corp_item}'";
+    }
+    else{
+        $sql = "SELECT unit_area FROM corp WHERE category='{$corp_category}' AND item='{$corp_item}' AND (corp_age='{$corp_type}' OR cm_length='{$corp_type}' OR m_length='{$corp_type}')";
+    }
+
+    $res = $conn->query($sql);
+    if($res->num_rows==0){
+        return "";
+    }
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $unit_area[$i] = $row;
+        $i++;
+    }
+
+    $conn->close();
+
+    if($res->num_rows==1){
+        $corp_plant_area = number_format($corp_num*$unit_area[0]["unit_area"],2,".","");
+    }
+    return $corp_plant_area;
+}
+
+function insertIntoCorpRecordTable($script_number,$KEYIN_ID,$KEYIN_DATETIME){
+    $conn = connect_db();
+
+    $sql = "INSERT INTO corp_record VALUES ('{$script_number}','{$KEYIN_ID}','{$KEYIN_DATETIME}')";
+    if ($conn->query($sql) === TRUE){
+        // echo "New record created successfully";
+    }else{
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+
+    $conn->close();
+}
+
+function insertIntoLandBelongToCorpRecordTable($land_section,$subsection,$land_number,$script_number){
+    $conn = connect_db();
+
+    for($i=0;$i<count($land_section);$i++){
+        for($j=0;$j<count($land_number[$i]);$j++){
+            $land_id = $land_section[$i].$subsection[$i].$land_number[$i][$j];
+            $sql = "INSERT INTO land_belong_to_corp_record VALUES ('{$land_id}','{$script_number}')";
+            if ($conn->query($sql) === TRUE){
+                // echo "New record created successfully";
+            }else{
+                echo "Error: " . $sql . "<br>" . $conn->error;
+            }
+        }
+    }
+
+    $conn->close();
+}
+
+function insertIntoCorpOwnerTable($pId,$owner,$address,$telephone,$cellphone){
+    $conn = connect_db();
+
+    for($i=0;$i<count($pId);$i++){
+        $sql = "INSERT INTO corp_owner VALUES ('{$pId[$i]}','{$owner[$i]}','{$address[$i]}','{$telephone[$i]}','{$cellphone[$i]}')";
+        if ($conn->query($sql) === TRUE){
+            // echo "New record created successfully";
+        }else{
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+    }
+
+    $conn->close();
+}
+
+function insertIntoCorpOwnerBelongToCorpRecordTable($pId,$script_number,$hold_ratio){
+    $conn = connect_db();
+
+    for($i=0;$i<count($pId);$i++){
+        $sql = "INSERT INTO corp_owner_belong_to_corp_record VALUES('$pId[$i]','{$script_number}','{$hold_ratio[$i]}')";
+        if ($conn->query($sql) === TRUE){
+            // echo "New record created successfully";
+        }else{
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+    }
+
+    $conn->close();
+}
+
+function insertIntoLandOwnerTable($hold_id,$land_pId,$land_owner,$land_telephone,$land_cellphone,$landAddressText){
+    $conn = connect_db();
+
+    for($i=0;$i<count($hold_id);$i++){
+        $sql = "INSERT INTO land_owner VALUES('{$hold_id[$i]}','{$land_pId[$i]}','{$land_owner[$i]}','{$land_telephone[$i]}','{$land_cellphone[$i]}','{$landAddressText[$i]}')";
+
+        if ($conn->query($sql) === TRUE){
+            // echo "New record created successfully";
+        }else{
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+    }
+    $conn->close();
+}
+
+function insertIntoLandOwnerBelongToCorpRecordTable($hold_id,$script_number){
+    $conn = connect_db();
+
+    for($i=0;$i<count($hold_id);$i++){
+        $sql = "INSERT INTO land_owner_belong_to_corp_record VALUES('{$hold_id[$i]}','{$script_number}')";
+
+        if ($conn->query($sql) === TRUE){
+            // echo "New record created successfully";
+        }else{
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+    }
+    $conn->close();
+}
+
+function insertIntoPlantingTable($land_section,$subsection,$land_number,$corp){
+
+}
 ?>

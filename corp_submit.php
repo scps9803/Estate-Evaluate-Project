@@ -99,5 +99,11 @@ for($i=0;$i<$corp_count;$i++){
     echo "<br>";
 }
 
-
+insertIntoCorpRecordTable($script_number,$KEYIN_ID,$KEYIN_DATETIME);
+insertIntoLandBelongToCorpRecordTable($land_section,$subsection,$land_number,$script_number);
+insertIntoCorpOwnerTable($pId,$owner,$address,$telephone,$cellphone);
+insertIntoCorpOwnerBelongToCorpRecordTable($pId,$script_number,$hold_ratio);
+insertIntoLandOwnerTable($hold_id,$land_pId,$land_owner,$land_telephone,$land_cellphone,$landAddressText);
+insertIntoLandOwnerBelongToCorpRecordTable($hold_id,$script_number);
+insertIntoPlantingTable($land_section,$subsection,$land_number,$corp);
 ?>

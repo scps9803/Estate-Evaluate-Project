@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-08 16:19:31
+/* Smarty version 3.1.33, created on 2019-08-11 07:31:12
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\corp.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d4c4b930a5b16_36576347',
+  'unifunc' => 'content_5d4fc44047c859_76267898',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'd63c0813a36d37958756a619792a27197ce5d956' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\corp.html',
-      1 => 1565281063,
+      1 => 1565507396,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d4c4b930a5b16_36576347 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d4fc44047c859_76267898 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -57,7 +57,7 @@ function content_5d4c4b930a5b16_36576347 (Smarty_Internal_Template $_smarty_tpl)
                         <!-- <td colspan="2"><span class="required">(*)</span>面積(m<sup>2</sup>)</td> -->
                         <td rowspan="2"><span class="required">(*)</span><br>查估手稿編號</td>
                         <td rowspan="2">
-                            <input type="radio" name="legal-status" value="農合" required>農合
+                            <input type="radio" name="legal-status" value="農合" checked required>農合
                             <input type="radio" name="legal-status" value="農非">農非
                             <input type="text" name="script-number" value="" placeholder="輸入手稿編號" required><br>
                         </td>
@@ -65,7 +65,7 @@ function content_5d4c4b930a5b16_36576347 (Smarty_Internal_Template $_smarty_tpl)
 
                     <tr>
                         <td>
-                            <input type="text" id="district" name="district" list="district-list" autocomplete="off" required>
+                            <!-- <input type="text" id="district" name="district" list="district-list" autocomplete="off" required>
                             <datalist id="district-list">
                                 <option value="觀音區">觀音區</option>
                                 <option value="蘆竹區">蘆竹區</option>
@@ -80,13 +80,34 @@ function content_5d4c4b930a5b16_36576347 (Smarty_Internal_Template $_smarty_tpl)
                                 <option value="桃園區">桃園區</option>
                                 <option value="大溪區">大溪區</option>
                                 <option value="龍潭區">龍潭區</option>
-                            </datalist>
+                            </datalist> -->
+                            <select id="district" name="district" class="median-select-menu" required>
+                                <option value="觀音區">觀音區</option>
+                                <option value="蘆竹區">蘆竹區</option>
+                                <option value="楊梅區">楊梅區</option>
+                                <option value="大園區">大園區</option>
+                                <option value="中壢區">中壢區</option>
+                                <option value="平鎮區">平鎮區</option>
+                                <option value="復興區">復興區</option>
+                                <option value="新屋區">新屋區</option>
+                                <option value="龜山區">龜山區</option>
+                                <option value="八德區">八德區</option>
+                                <option value="桃園區">桃園區</option>
+                                <option value="大溪區">大溪區</option>
+                                <option value="龍潭區">龍潭區</option>
+                            </select>
                         </td>
                         <td>
                             <div id="land-section">
                                 <div id="land-section-1">
-                                    <input type="text" id="section-1" name="land-section-1" list="land-section-list-1" autocomplete="off" oninput="getLandSectionOption(1)" required><br>
-                                    <datalist id="land-section-list-1"></datalist>
+                                    <!-- <input type="text" id="section-1" name="land-section-1" list="land-section-list-1" autocomplete="off" oninput="getLandSectionOption(1)" required><br>
+                                    <datalist id="land-section-list-1"></datalist> -->
+                                    <select id="section-1" name="land-section-1" class="median-select-menu" required>
+                                        <option value="塔腳段">塔腳段</option>
+                                        <option value="新坡段">新坡段</option>
+                                        <option value="樹林子段">樹林子段</option>
+                                        <option value="草漯段">草漯段</option>
+                                    </select>
                                 </div>
                             </div>
                             <input type="hidden" id="land_section_count" name="land_section_count">
@@ -109,7 +130,7 @@ function content_5d4c4b930a5b16_36576347 (Smarty_Internal_Template $_smarty_tpl)
                         <td colspan="3">
                             <div id="land-number" class="input-align">
                                 <div id="land-number-1">
-                                    <input type="text" id="land-num-1" name="land-number-1" placeholder="多個地號請用'、'分隔" onchange="isLandNumExist(1)" required><br>
+                                    <input type="text" id="land-num-1" name="land-number-1" placeholder="多個地號請用'、'分隔" onchange="isLandNumExist('corp',1)" required><br>
                                 </div>
                             </div>
                         </td>
@@ -133,7 +154,11 @@ function content_5d4c4b930a5b16_36576347 (Smarty_Internal_Template $_smarty_tpl)
                         <td rowspan="2">
                             <div id="corp-owner">
                                 <div id="corp-owner-1">
-                                    <input type="text" name="corp-owner-1" placeholder="所有權人-1" required><br>
+                                    <!-- <input type="text" name="corp-owner-1" placeholder="所有權人-1" required><br> -->
+                                    <input type="text" class="median-input-size" name="corp-owner-1" autocomplete="off" placeholder="手動新增" required>
+                                    <select id="corp-owner-select-1" name="corp-owner-select-1" onchange="autoFillInOwnerName('corp-owner',1)">
+                                        <option value="" style="display:none">請選擇項目</option>
+                                    </select>
                                 </div>
                             </div>
                             <input type="hidden" id="owner_count" name="owner_count">
@@ -199,8 +224,12 @@ function content_5d4c4b930a5b16_36576347 (Smarty_Internal_Template $_smarty_tpl)
                         <td>
                             <div id="land-owner">
                                 <div id="land-owner-1">
-                                    <input type="text" name="land-owner-1" list="land-owner-list-1" autocomplete="off" placeholder="所有權人-1" oninput="getLandOwnerOption(1)" required><br>
-                                    <datalist id="land-owner-list-1"></datalist>
+                                    <!-- <input type="text" name="land-owner-1" list="land-owner-list-1" autocomplete="off" placeholder="所有權人-1" oninput="getLandOwnerOption(1)" required><br>
+                                    <datalist id="land-owner-list-1"></datalist> -->
+                                    <input type="text" class="median-input-size" name="land-owner-1" autocomplete="off" placeholder="手動新增" required>
+                                    <select id="land-owner-select-1" name="land-owner-select-1" onchange="autoFillInOwnerName('land-owner',1)">
+                                        <option value="" style="display:none">請選擇項目</option>
+                                    </select>
                                 </div>
                             </div>
                             <input type="hidden" id="land_owner_count" name="land_owner_count">
@@ -211,7 +240,7 @@ function content_5d4c4b930a5b16_36576347 (Smarty_Internal_Template $_smarty_tpl)
                         <td>
                             <div id="hold-id" class="input-align">
                                 <div id="hold-id-1">
-                                    <input type="text" name="hold-id-1" value="" placeholder="所有權人-1" onchange="checkOwner(1)" required>
+                                    <input type="text" name="hold-id-1" value="" placeholder="所有權人-1" required>
                                 </div>
                             </div>
                         </td>
@@ -299,7 +328,7 @@ function content_5d4c4b930a5b16_36576347 (Smarty_Internal_Template $_smarty_tpl)
                         <td>
                             <div id="corp-num" style="margin-bottom:18px">
                                 <div id="corp-num-1">
-                                    <input type="text" name="corp-num-1" pattern="[0-9]{1,5}" title="只能輸入5位以下數字" placeholder="請輸入數量" required>
+                                    <input type="text" name="corp-num-1" pattern="[0-9]{1,5}" title="只能輸入5位以下數字" placeholder="請輸入數量" onchange="autoCalculateArea(1)" required>
                                 </div>
                             </div>
                         </td>
@@ -317,7 +346,7 @@ function content_5d4c4b930a5b16_36576347 (Smarty_Internal_Template $_smarty_tpl)
                         <td colspan="3">
                             <div id="corp-area" style="margin-bottom:18px">
                                 <div id="corp-area-1">
-                                    <input type="text" name="corp-area-1" class="large-input-size" placeholder="請輸入種植面積" required>
+                                    <input type="text" name="corp-area-1" class="large-input-size" placeholder="點擊後自動計算面積" required>
                                 </div>
                             </div>
                         </td>
@@ -339,10 +368,19 @@ function content_5d4c4b930a5b16_36576347 (Smarty_Internal_Template $_smarty_tpl)
             <!-- <input type="hidden" id="action" name="action" value="">
             <input type="submit" value="儲存" onclick="saveDialog()">
             <input type="submit" value="繼續輸入下一頁" onclick="continueInput()"> -->
-            <input type="submit" value="儲存" onclick="window.alert('測試用介面，資料不儲存')">
+            <input type="submit" value="儲存" onclick="corpClick()">
         </form>
     </div>
 </body>
+<?php echo '<script'; ?>
+ type="text/javascript">
+    function corpClick(){
+        // var item = "input[name='legal-status']";
+        window.alert('測試用介面，資料不儲存');
+        // window.alert($(item).val());
+    }
+<?php echo '</script'; ?>
+>
 </html>
 <?php }
 }

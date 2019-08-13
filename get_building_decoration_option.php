@@ -114,6 +114,14 @@ switch ($category) {
         echo json_encode(array('hold_id' => $result_option["hold_id"],
         'name' => $result_option["name"],'address' => $result_option["address"]));
         return;
+
+    case 'auto_calculate_area':
+        $corp_category = $_POST['corp_category'];
+        $corp_item = $_POST['corp_item'];
+        $corp_type = $_POST['corp_type'];
+        $corp_num = $_POST['corp_num'];
+        $result_option = getAutoCalculateArea($corp_category,$corp_item,$corp_type,$corp_num);
+        break;
 }
 // $item_type = $_POST['item_type'];
 //
