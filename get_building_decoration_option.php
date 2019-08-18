@@ -112,7 +112,8 @@ switch ($category) {
         $land_number = $_POST['land_number'];
         $result_option = getAutoCompleteOwnerData($section,$subsection,$land_number);
         echo json_encode(array('hold_id' => $result_option["hold_id"],
-        'name' => $result_option["name"],'address' => $result_option["address"]));
+        'name' => $result_option["name"],'address' => $result_option["address"],
+        'numerator' => $result_option["numerator"],'denominator' => $result_option["denominator"]));
         return;
 
     case 'auto_calculate_area':

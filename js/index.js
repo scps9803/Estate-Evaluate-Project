@@ -393,10 +393,10 @@ function addInfoItemOnclick(id){
             text =
             '<div id="land-section-'+land_section_count+'">'+
                 '<select id="section-'+land_section_count+'" name="land-section-'+land_section_count+'" class="median-select-menu" style="margin-top:6px;" required>'+
+                    '<option value="草漯段">草漯段</option>'+
                     '<option value="塔腳段">塔腳段</option>'+
                     '<option value="新坡段">新坡段</option>'+
                     '<option value="樹林子段">樹林子段</option>'+
-                    '<option value="草漯段">草漯段</option>'+
                 '</select>'+
             '</div>';
             getLandSectionCount();
@@ -421,7 +421,7 @@ function addInfoItemOnclick(id){
 
             text =
             '<div id="land-number-'+land_number_count+'">'+
-                '<input type="text" id="land-num-'+land_number_count+'" name="land-number-'+land_number_count+'" placeholder="多個地號請用\'、\'分隔" onchange="isLandNumExist('+land_number_count+')" required><br>'+
+                '<input type="text" id="land-num-'+land_number_count+'" name="land-number-'+land_number_count+'" placeholder="多個地號請用\'、\'分隔" onchange="isLandNumExist(\'corp\','+land_number_count+')" required><br>'+
             '</div>';
             break;
 
@@ -496,8 +496,8 @@ function addInfoItemOnclick(id){
 
             text =
             '<div id="hold-ratio-'+hold_ratio_count+'">'+
-                '<input type="text" name="hold-numerator-'+hold_ratio_count+'" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)" required>'+
-                '&nbsp;/&nbsp;<input type="text" name="hold-denominator-'+hold_ratio_count+'" class="tiny-input-size" placeholder="比例" pattern="[1-9]{1,5}" title="請輸入比例數字(不可為0)" required>'+
+                '<input type="text" id="hold-numerator-'+hold_ratio_count+'" name="hold-numerator-'+hold_ratio_count+'" class="tiny-input-size" placeholder="輸入" pattern="[0-9]{1,10}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput(\'hold-numerator-'+hold_ratio_count+'\')" required>'+
+                '&nbsp;/&nbsp;<input type="text" id="hold-denominator-'+hold_ratio_count+'" name="hold-denominator-'+hold_ratio_count+'" class="tiny-input-size" placeholder="比例" pattern="[0-9]{1,10}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput(\'hold-denominator-'+hold_ratio_count+'\')" required>'+
             '</div>';
             break;
 
@@ -506,7 +506,7 @@ function addInfoItemOnclick(id){
 
             text =
             '<div id="pId-'+pId_count+'">'+
-                '<input type="text" name="pId-'+pId_count+'" value="" placeholder="所有權人-'+pId_count+'" required>'+
+                '<input type="text" name="pId-'+pId_count+'" value="" placeholder="所有權人-'+pId_count+'" onchange="checkpId(\'pId\','+pId_count+')" required>'+
                 // '<input type="text" id="hold-id-'+pId_count+'" name="hold-id-'+pId_count+'" value="" placeholder="歸戶號" class="small-input-size" onchange="checkOwner('+pId_count+')" required>'+
             '</div>';
             break;
@@ -571,7 +571,7 @@ function addInfoItemOnclick(id){
 
             text =
             '<div id="land-pId-'+land_pId_count+'">'+
-                '<input type="text" name="land-pId-'+land_pId_count+'" value="" placeholder="所有權人-'+land_pId_count+'" required>'+
+                '<input type="text" name="land-pId-'+land_pId_count+'" value="" placeholder="所有權人-'+land_pId_count+'" onchange="checkpId(\'land-pId\','+land_pId_count+')" required>'+
             '</div>';
             break;
 
@@ -1485,6 +1485,20 @@ function exportExcel(script_number,house_address){
     // });
 }
 
+function exportCorpExcel(script_number){
+    $("#msg").html("<h1>Excel報表正在匯出中...<br>請勿關閉視窗...</h1>");
+    $.post("export_corp_excel.php", {'script_number':script_number},
+    function(){
+        window.alert("Excel匯出成功!");
+    }).done(function() {
+        alert("請點擊繼續!");
+        location.href = "homepage.php";
+      })
+      .fail(function() {
+        alert("Excel匯出失敗!");
+    });
+}
+
 function continueInput(){
     $("#action").val("continue");
     // window.alert($("#action").val());
@@ -1864,7 +1878,15 @@ function autoCompleteIndoorWallType(column,num){
 
 var response_json = "";
 var name_option = "";
+var name_option_array = [];
+var hold_id_array = [];
+var address_array = [];
+var numerator_array = [];
+var denominator_array = [];
+var option_index = 0;
 function autoCompleteOwnerData(page,num,numArray,section,subsection){
+    // response_json = "";
+    // name_option = "";
     // var item = "#land-owner-list-"+num;
     // var response_json = "";
     // var name_option = "";
@@ -1884,15 +1906,43 @@ function autoCompleteOwnerData(page,num,numArray,section,subsection){
          success: function(data){
              response_json = data;
              for(var i=0;i<response_json.name.length;i++){
-                 name_option += "<option value='"+response_json.name[i]+"'>"+response_json.name[i]+"</option>";
+                 if(!name_option_array.includes(response_json.name[i]) && response_json.name[i]!=""){
+                     name_option_array.push(response_json.name[i]);
+                     hold_id_array.push(response_json.hold_id[i]);
+                     address_array.push(response_json.address[i]);
+                     numerator_array.push(response_json.numerator[i]);
+                     denominator_array.push(response_json.denominator[i]);
+                     name_option += "<option value='"+response_json.name[i]+"'>"+response_json.name[i]+"</option>";
+                 }
+                 // name_option += "<option value='"+response_json.name[i]+"'>"+response_json.name[i]+"</option>";
              }
-             if(page=="building"){
-                 loadOwnerData("land-owner",num);
-                 loadOwnerData("owner",num);
+             // if(page=="building"){
+             //     for(var i=0;i<num;i++){
+             //         loadOwnerData("land-owner",i+1);
+             //         loadOwnerData("owner",i+1);
+             //     }
+             // }
+             // else{
+             //     for(var i=0;i<num;i++){
+             //         loadOwnerData("owner",i+1);
+             //         loadOwnerData("land-owner",i+1);
+             //         loadOwnerData("corp-owner",i+1);
+             //     }
+             // }
+             var corp_owner = "input[name='corp-owner-1']";
+             if(!$(corp_owner).val() && $(corp_owner).val()!= ""){
+                 // window.alert("1");
+                 for(var i=0;i<num;i++){
+                     loadOwnerData("land-owner",i+1);
+                     loadOwnerData("owner",i+1);
+                 }
              }
              else{
-                 loadOwnerData("land-owner",num);
-                 loadOwnerData("corp-owner",num);
+                 // window.alert("2");
+                 for(var i=0;i<num;i++){
+                     loadOwnerData("land-owner",i+1);
+                     loadOwnerData("corp-owner",i+1);
+                 }
              }
          },
          error:function(err){
@@ -1903,24 +1953,53 @@ function autoCompleteOwnerData(page,num,numArray,section,subsection){
 
 function loadOwnerData(id,num){
     // window.alert(name_option);
+    // window.alert(id);
     if(id == "land-owner"){
-        $("#land-owner-select-"+num).html(name_option);
-        document.getElementById("land-owner-select-"+num).selectedIndex = num-1;
-        $("input[name='land-owner-"+num+"']").val(response_json.name[num-1]);
-        $("input[name='hold-id-"+num+"']").val(response_json.hold_id[num-1]);
-        $("#landAddressText-"+num).val(response_json.address[num-1]);
+        // $("#land-owner-select-"+num).html(name_option);
+        // document.getElementById("land-owner-select-"+num).selectedIndex = num-1;
+        // $("input[name='land-owner-"+num+"']").val(response_json.name[num-1]);
+        // $("input[name='hold-id-"+num+"']").val(response_json.hold_id[num-1]);
+        // $("#landAddressText-"+num).val(response_json.address[num-1]);
+        for(var i=1;i<=num;i++){
+            $("#land-owner-select-"+i).html(name_option);
+            document.getElementById("land-owner-select-"+i).selectedIndex = i-1;
+            // $("input[name='land-owner-"+i+"']").val(response_json.name[0]);
+            // $("input[name='hold-id-"+i+"']").val(response_json.hold_id[0]);
+            // $("#landAddressText-"+i).val(response_json.address[0]);
+            $("input[name='land-owner-"+i+"']").val(name_option_array[i-1]);
+            $("input[name='hold-id-"+i+"']").val(hold_id_array[i-1]);
+            $("#landAddressText-"+i).val(address_array[i-1]);
+            $("input[name='hold-numerator-"+i+"']").val(numerator_array[i-1]);
+            $("input[name='hold-denominator-"+i+"']").val(denominator_array[i-1]);
+        }
     }
     else if(id == "owner"){
-        $("#owner-select-"+num).html(name_option);
-        document.getElementById("owner-select-"+num).selectedIndex = num-1;
-        $("input[name='owner-"+num+"']").val(response_json.name[num-1]);
-        $("#addressText-"+num).val(response_json.address[num-1]);
+        // $("#owner-select-"+num).html(name_option);
+        // document.getElementById("owner-select-"+num).selectedIndex = num-1;
+        // $("input[name='owner-"+num+"']").val(response_json.name[num-1]);
+        // $("#addressText-"+num).val(response_json.address[num-1]);
+        for(var i=1;i<=num;i++){
+            $("#owner-select-"+i).html(name_option);
+            document.getElementById("owner-select-"+i).selectedIndex = i-1;
+            $("input[name='owner-"+i+"']").val(name_option_array[i-1]);
+            $("#addressText-"+i).val(address_array[i-1]);
+            $("input[name='hold-numerator-"+i+"']").val(numerator_array[i-1]);
+            $("input[name='hold-denominator-"+i+"']").val(denominator_array[i-1]);
+        }
     }
     else{
-        $("#corp-owner-select-"+num).html(name_option);
-        document.getElementById("corp-owner-select-"+num).selectedIndex = num-1;
-        $("input[name='corp-owner-"+num+"']").val(response_json.name[num-1]);
-        $("#addressText-"+num).val(response_json.address[num-1]);
+        // $("#corp-owner-select-"+num).html(name_option);
+        // document.getElementById("corp-owner-select-"+num).selectedIndex = num-1;
+        // $("input[name='corp-owner-"+num+"']").val(response_json.name[num-1]);
+        // $("#addressText-"+num).val(response_json.address[num-1]);
+        for(i=1;i<=num;i++){
+            $("#corp-owner-select-"+i).html(name_option);
+            document.getElementById("corp-owner-select-"+i).selectedIndex = i-1;
+            $("input[name='corp-owner-"+i+"']").val(name_option_array[i-1]);
+            $("#addressText-"+i).val(address_array[i-1]);
+            $("input[name='hold-numerator-"+i+"']").val(numerator_array[i-1]);
+            $("input[name='hold-denominator-"+i+"']").val(denominator_array[i-1]);
+        }
     }
 }
 
@@ -1936,19 +2015,27 @@ function autoFillInOwnerName(id,num){
         var item = "#owner-select-"+num;
         var name = "input[name='owner-"+num+"']";
         var address = "#addressText-"+num;
+        var hold_numerator = "input[name='hold-numerator-"+num+"']";
+        var hold_denominator = "input[name='hold-denominator-"+num+"']";
         var selected = document.getElementById("owner-select-"+num).selectedIndex;
     }
     else{
         var item = "#corp-owner-select-"+num;
         var name = "input[name='corp-owner-"+num+"']";
         var address = "#addressText-"+num;
+        var hold_numerator = "input[name='hold-numerator-"+num+"']";
+        var hold_denominator = "input[name='hold-denominator-"+num+"']";
         var selected = document.getElementById("corp-owner-select-"+num).selectedIndex;
     }
 
     $(name).text($(item).val());
     $(name).val($(item).val());
-    $(hold_id).val(response_json.hold_id[selected]);
-    $(address).val(response_json.address[selected]);
+    // $(hold_id).val(response_json.hold_id[selected]);
+    // $(address).val(response_json.address[selected]);
+    $(hold_id).val(hold_id_array[selected]);
+    $(address).val(address_array[selected]);
+    $(hold_numerator).val(numerator_array[selected]);
+    $(hold_denominator).val(denominator_array[selected]);
 }
 
 function autoCalculateArea(num){
@@ -1982,6 +2069,47 @@ function autoCalculateArea(num){
              window.alert(err.statusText);
          }
     });
+}
+
+function checkpId(id,num){
+    var item = "input[name='"+id+"-"+num+ "']";
+    if($(item).val().length!=10){
+        window.alert("身分證字號限定10碼!");
+        $(item).val("");
+    }
+}
+
+function emptyAddress(){
+    if(document.getElementById("noneAddress").checked){
+        if(document.getElementById("legal").checked){
+            if($("#script-number").val() == ""){
+                window.alert("請先輸入手稿編號!");
+                document.getElementById("noneAddress").checked = false;
+            }
+            else{
+                var value = "建合-"+$("#script-number").val()+"無門牌";
+                $("#houseAddress").val(value);
+            }
+        }
+        else if(document.getElementById("illegal").checked){
+            if($("#script-number").val() == ""){
+                window.alert("請先輸入手稿編號!");
+                document.getElementById("noneAddress").checked = false;
+            }
+            else{
+                var value = "建非-"+$("#script-number").val()+"無門牌";
+                $("#houseAddress").val(value);
+            }
+        }
+        else{
+            window.alert("請先選擇建物合非法狀態!");
+            document.getElementById("noneAddress").checked = false;
+        }
+    }
+    else{
+        document.getElementById("noneAddress").checked = false;
+        $("#houseAddress").val("");
+    }
 }
 
 $(document).ready(function(){

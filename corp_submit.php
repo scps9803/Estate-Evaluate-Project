@@ -33,9 +33,10 @@ for($i=0;$i<count($land_section_count);$i++){
     echo "<br>";
 }
 
-// 合法狀態、手稿編號
+// 合法狀態、手稿編號、土地使用權屬
 $legal_status = $_POST['legal-status'];
 $script_number = $_POST['legal-status']."-".$_POST['script-number'];
+$land_use = $_POST['land-use'];
 echo "---------------------<br>";
 echo $script_number."<br>";
 
@@ -91,6 +92,7 @@ for($i=0;$i<$corp_count;$i++){
     $corp[$i]["num"] = $_POST['corp-num-'.($i+1)];
     $corp[$i]["unit"] = $_POST['corp-unit-'.($i+1)];
     $corp[$i]["area"] = $_POST['corp-area-'.($i+1)];
+    $corp[$i]["note"] = $_POST['corp-note-'.($i+1)];
 }
 echo "---------------------<br>";
 echo "農作物:"."<br>";
@@ -99,11 +101,14 @@ for($i=0;$i<$corp_count;$i++){
     echo "<br>";
 }
 
-insertIntoCorpRecordTable($script_number,$KEYIN_ID,$KEYIN_DATETIME);
+insertIntoCorpRecordTable($script_number,$district,$land_use,$KEYIN_ID,$KEYIN_DATETIME);
 insertIntoLandBelongToCorpRecordTable($land_section,$subsection,$land_number,$script_number);
 insertIntoCorpOwnerTable($pId,$owner,$address,$telephone,$cellphone);
 insertIntoCorpOwnerBelongToCorpRecordTable($pId,$script_number,$hold_ratio);
 insertIntoLandOwnerTable($hold_id,$land_pId,$land_owner,$land_telephone,$land_cellphone,$landAddressText);
 insertIntoLandOwnerBelongToCorpRecordTable($hold_id,$script_number);
-insertIntoPlantingTable($land_section,$subsection,$land_number,$corp);
+insertIntoPlantingTable($land_section,$subsection,$land_number,$corp,$script_number);
+
+$smarty->assign("script_number",$script_number);
+$smarty->display("corp_submit.html");
 ?>

@@ -24,8 +24,8 @@
                         <td>小段</td>
                         <td colspan="3"><span class="required">(*)</span>地號</td>
                         <!-- <td colspan="2"><span class="required">(*)</span>面積(m<sup>2</sup>)</td> -->
-                        <td rowspan="2"><span class="required">(*)</span><br>查估手稿編號</td>
-                        <td rowspan="2">
+                        <td rowspan=""><span class="required">(*)</span><br>查估手稿編號</td>
+                        <td rowspan="">
                             <input type="radio" name="legal-status" value="農合" checked required>農合
                             <input type="radio" name="legal-status" value="農非">農非
                             <input type="text" name="script-number" value="" placeholder="輸入手稿編號" required><br>
@@ -72,10 +72,10 @@
                                     <!-- <input type="text" id="section-1" name="land-section-1" list="land-section-list-1" autocomplete="off" oninput="getLandSectionOption(1)" required><br>
                                     <datalist id="land-section-list-1"></datalist> -->
                                     <select id="section-1" name="land-section-1" class="median-select-menu" required>
+                                        <option value="草漯段">草漯段</option>
                                         <option value="塔腳段">塔腳段</option>
                                         <option value="新坡段">新坡段</option>
                                         <option value="樹林子段">樹林子段</option>
-                                        <option value="草漯段">草漯段</option>
                                     </select>
                                 </div>
                             </div>
@@ -102,6 +102,16 @@
                                     <input type="text" id="land-num-1" name="land-number-1" placeholder="多個地號請用'、'分隔" onchange="isLandNumExist('corp',1)" required><br>
                                 </div>
                             </div>
+                        </td>
+
+                        <td>土地使用權屬</td>
+                        <td>
+                            <select class="select-menu" name="land-use" required>
+                                <option value="" style="display:none;">請選擇項目</option>
+                                <option value="自用">自用</option>
+                                <option value="承租">承租</option>
+                                <option value="不明">不明</option>
+                            </select>
                         </td>
                     </tr>
 
@@ -138,8 +148,8 @@
                         <td rowspan="2">
                             <div id="hold-ratio" class="input-align">
                                 <div id="hold-ratio-1">
-                                    <input type="text" name="hold-numerator-1" class="tiny-input-size" placeholder="輸入" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)" required>
-                                    /&nbsp;<input type="text" name="hold-denominator-1" class="tiny-input-size" placeholder="比例" pattern="[1-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)" required>
+                                    <input type="text" id="hold-numerator-1" name="hold-numerator-1" class="tiny-input-size" placeholder="輸入" pattern="[0-9]{literal}{1,10}{/literal}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('hold-numerator-1')" required>
+                                    /&nbsp;<input type="text" id="hold-denominator-1" name="hold-denominator-1" class="tiny-input-size" placeholder="比例" pattern="[0-9]{literal}{1,10}{/literal}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('hold-denominator-1')" required>
                                 </div>
                             </div>
                         </td>
@@ -343,7 +353,7 @@
 <script type="text/javascript">
     function corpClick(){
         // var item = "input[name='legal-status']";
-        window.alert('測試用介面，資料不儲存');
+        // window.alert('測試用介面，資料不儲存');
         // window.alert($(item).val());
     }
 </script>

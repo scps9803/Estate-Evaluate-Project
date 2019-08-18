@@ -1501,7 +1501,7 @@ function getResidentData($house_address){
     $conn = connect_db();
 
     // $sql = "SELECT * FROM resident NATURAL JOIN migration_fee WHERE address='{$house_address}'";
-    $sql = "SELECT * FROM resident AS r LEFT JOIN migration_fee AS m ON r.mId=m.mId WHERE address='{$house_address}'";
+    $sql = "SELECT captain_id,captain_name,household_number,set_household_date,r.family_num,move_status,fee FROM resident AS r LEFT JOIN migration_fee AS m ON r.mId=m.mId WHERE address='{$house_address}'";
     $res = $conn->query($sql);
     if($res->num_rows==0){
         return;
@@ -1690,7 +1690,7 @@ function getBuildingDecorationData($house_address,$category,$nth_floor){
     return $result;
 }
 
-function insertFileData($script_number,$savePath,$fileNo,$filename,$file_type){
+function insertFileData($script_number,$savePath,$fileNo,$filename,$file_type,$table){
     $conn = connect_db();
     $size = filesize($savePath.$filename.$file_type);
     $all_filename = $filename.$file_type;
@@ -1702,7 +1702,7 @@ function insertFileData($script_number,$savePath,$fileNo,$filename,$file_type){
         $content_type = "text/plain";
     }
 
-    $sql = "INSERT INTO file_table VALUES('{$fileNo}','{$savePath}','{$all_filename}','{$size}','{$content_type}','{$script_number}')";
+    $sql = "INSERT INTO {$table} VALUES('{$fileNo}','{$savePath}','{$all_filename}','{$size}','{$content_type}','{$script_number}')";
 
     if ($conn->query($sql) === TRUE){
         // echo "New record created successfully";
@@ -1712,10 +1712,10 @@ function insertFileData($script_number,$savePath,$fileNo,$filename,$file_type){
     $conn->close();
 }
 
-function getFileInfo($recordNo){
+function getFileInfo($recordNo,$fileTable,$recordTable){
     $conn = connect_db();
 
-    $sql = "SELECT * FROM file_table NATURAL JOIN record WHERE rId='{$recordNo}'";
+    $sql = "SELECT * FROM {$fileTable} NATURAL JOIN {$recordTable} WHERE rId='{$recordNo}'";
     $res = $conn->query($sql);
     if($res->num_rows==0) return null;
 
@@ -1905,6 +1905,8 @@ function getAutoCompleteOwnerData($section,$subsection,$land_number){
             $land_owner["hold_id"][$index] = $row["hold_id"];
             $land_owner["name"][$index] = $row["name"];
             $land_owner["address"][$index] = $row["address"];
+            $land_owner["numerator"][$index] = $row["numerator"];
+            $land_owner["denominator"][$index] = $row["denominator"];
             $index++;
         }
     }
@@ -1942,10 +1944,10 @@ function getAutoCalculateArea($corp_category,$corp_item,$corp_type,$corp_num){
     return $corp_plant_area;
 }
 
-function insertIntoCorpRecordTable($script_number,$KEYIN_ID,$KEYIN_DATETIME){
+function insertIntoCorpRecordTable($script_number,$district,$land_use,$KEYIN_ID,$KEYIN_DATETIME){
     $conn = connect_db();
 
-    $sql = "INSERT INTO corp_record VALUES ('{$script_number}','{$KEYIN_ID}','{$KEYIN_DATETIME}')";
+    $sql = "INSERT INTO corp_record VALUES ('{$script_number}','{$district}','{$land_use}','{$KEYIN_ID}','{$KEYIN_DATETIME}')";
     if ($conn->query($sql) === TRUE){
         // echo "New record created successfully";
     }else{
@@ -2033,7 +2035,95 @@ function insertIntoLandOwnerBelongToCorpRecordTable($hold_id,$script_number){
     $conn->close();
 }
 
-function insertIntoPlantingTable($land_section,$subsection,$land_number,$corp){
+function insertIntoPlantingTable($land_section,$subsection,$land_number,$corp,$script_number){
+    $conn = connect_db();
 
+    $land_id = $land_section[0].$subsection[0].$land_number[0][0];
+    for($i=0;$i<count($corp);$i++){
+        if($corp[$i]["type"]=="none"){
+            $sql = "SELECT cId FROM corp WHERE category='{$corp[$i]["category"]}' AND item='{$corp[$i]["item"]}'";
+        }
+        else{
+            $sql = "SELECT cId FROM corp WHERE category='{$corp[$i]["category"]}' AND item='{$corp[$i]["item"]}' AND (corp_age='{$corp[$i]["type"]}' OR cm_length='{$corp[$i]["type"]}' OR m_length='{$corp[$i]["type"]}')";
+        }
+        $res = $conn->query($sql);
+        if($res->num_rows==0){
+            return "";
+        }
+        $row = $res->fetch_assoc();
+        $cId = $row["cId"];
+
+        $sql = "INSERT INTO planting VALUES ('{$land_id}','{$cId}','{$corp[$i]["num"]}','{$corp[$i]["area"]}','{$corp[$i]["area"]}','{$corp[$i]["note"]}','{$script_number}')";
+        if ($conn->query($sql) === TRUE){
+            // echo "New record created successfully";
+        }else{
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+    }
+    $conn->close();
+}
+
+function getCorpOwnerData($script_number){
+    $conn = connect_db();
+
+    $sql = "SELECT * FROM corp_owner_belong_to_corp_record NATURAL JOIN corp_record NATURAL JOIN corp_owner WHERE rid='{$script_number}'";
+    $res = $conn->query($sql);
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $corp_owner[$i] = $row;
+        $i++;
+    }
+    $conn->close();
+
+    return $corp_owner;
+}
+
+function getCorpLandOwnerData($script_number){
+    $conn = connect_db();
+
+    $sql = "SELECT * FROM land_owner_belong_to_corp_record NATURAL JOIN corp_record NATURAL JOIN land_owner WHERE rid='{$script_number}'";
+    $res = $conn->query($sql);
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $corp_land_owner[$i] = $row;
+        $i++;
+    }
+    $conn->close();
+
+    return $corp_land_owner;
+}
+
+function getCorpLandData($script_number){
+    $conn = connect_db();
+
+    $sql = "SELECT * FROM land_belong_to_corp_record AS a NATURAL JOIN land JOIN corp_record AS b ON a.rId=b.rId AND a.rId='{$script_number}'";
+    $res = $conn->query($sql);
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $corp_land[$i] = $row;
+        $i++;
+    }
+    $conn->close();
+
+    return $corp_land;
+}
+
+function getCorpData($script_number){
+    $conn = connect_db();
+
+    $sql = "SELECT * from corp_record NATURAL JOIN land_belong_to_corp_record NATURAL JOIN planting NATURAL JOIN corp WHERE rId='{$script_number}' AND checkId='{$script_number}'";
+    $res = $conn->query($sql);
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $corp[$i] = $row;
+        $i++;
+    }
+    $conn->close();
+
+    return $corp;
 }
 ?>

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-06 16:00:06
+/* Smarty version 3.1.33, created on 2019-08-18 17:19:32
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\homepage.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d49a406790307_73264904',
+  'unifunc' => 'content_5d5988a4d4b838_20772457',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'f09525c5e2821ed62d4675de052364d18e201daa' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\homepage.html',
-      1 => 1565107187,
+      1 => 1566148769,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d49a406790307_73264904 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d5988a4d4b838_20772457 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -119,11 +119,12 @@ function content_5d49a406790307_73264904 (Smarty_Internal_Template $_smarty_tpl)
     <div class="container-fluid">
         <div class="row content">
             <div class="col-sm-3 sidenav">
-                <h4>我的帳戶</h4>
+                <h4>功能選單</h4>
 
                 <ul class="nav nav-pills nav-stacked">
-                    <li id="accountBtn"><a href="#">個人資料</a></li>
-                    <li id="transBtn"><a href="#">紀錄查詢</a></li>
+                    <!-- <li id="accountBtn"><a href="#">個人資料</a></li> -->
+                    <li id="transBtn"><a href="#">建物紀錄查詢</a></li>
+                    <li id="corpBtn"><a href="#">農作物紀錄查詢</a></li>
                     <li id="walletBtn"><a href="index.php" target="_blank">新增建物查案</a></li>
                     <li id="investBtn"><a href="corp.php" target="_blank">新增農作物、水產、禽畜查案</a></li>
                     <li id=""><a href="#">新增機械搬遷查案</a></li>
@@ -140,7 +141,7 @@ function content_5d49a406790307_73264904 (Smarty_Internal_Template $_smarty_tpl)
             </div>
 
             <div class="col-sm-9">
-                <h2>編輯個人資料</h2>
+                <!-- <h2>編輯個人資料</h2>
                 <form action="/action_page.php">
                     <div class="form-group">
                         <label for="email">Email:</label>
@@ -162,14 +163,71 @@ function content_5d49a406790307_73264904 (Smarty_Internal_Template $_smarty_tpl)
                         <label><input type="checkbox" name="remember"> Remember me</label>
                     </div>
                     <button type="submit" class="btn btn-default">送出修改</button>
-                </form>
+                </form> -->
+
+                <h2>建物歷史紀錄</h2>
+                <p>以下為您過去所建立的查估清單</p>
+                <table class='table table-striped'>
+
+                <thead>
+                    <tr>
+                        <th>調查表編號</th>
+                        <th>地段地號</th>
+                        <th>地址</th>
+                        <th>查看/編輯</th>
+                        <th>建立時間</th>
+                        <th>下載報表/刪除</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['record']->value, 'row', false, 'k');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['k']->value => $_smarty_tpl->tpl_vars['row']->value) {
+?>
+                    <tr>
+                        <td><?php echo $_smarty_tpl->tpl_vars['row']->value['rId'];?>
+</td>
+                        <td><?php echo $_smarty_tpl->tpl_vars['row']->value['land_id'];?>
+</td>
+                        <td><?php echo $_smarty_tpl->tpl_vars['row']->value['address'];?>
+</td>
+                        <td></td>
+                        <!-- <td><button class='btn btn-default'>查看</button>&nbsp;<button class='btn btn-default'>編輯</button></td> -->
+                        <td><?php echo $_smarty_tpl->tpl_vars['row']->value['keyin_datetime'];?>
+</td>
+                        <td><button class='btn btn-default'><a href='getFile.php?recordNo=<?php echo $_smarty_tpl->tpl_vars['row']->value['rId'];?>
+'>下載報表</a></button>
+                        <button class='btn btn-default' style='margin-left:2px;' onclick=deleteAlert('<?php echo $_smarty_tpl->tpl_vars['row']->value['rId'];?>
+','<?php echo $_smarty_tpl->tpl_vars['row']->value['address'];?>
+')>刪除</button>
+                        </td>
+                    </tr>
+                    <?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+                </tbody>
+
+                </table>
+
+                <div class='align_center'>
+                    <ul class='pagination'>
+                        <li><a href='#'>1</a></li>
+                        <li><a href='#'>2</a></li>
+                        <li><a href='#'>3</a></li>
+                        <li><a href='#'>4</a></li>
+                        <li><a href='#'>5</a></li>
+                    </ul>
+                </div>
             </div>
 
         </div>
     </div>
 
     <footer class="container-fluid align_center">
-        <p>Game-Online-Store Copyright by Wei-Cheng Shih 2018</p>
+        <p>Online-Estate-Evaluate-System Copyright by Wei-Cheng Shih 2019</p>
     </footer>
 
 </body>
@@ -201,7 +259,7 @@ function content_5d49a406790307_73264904 (Smarty_Internal_Template $_smarty_tpl)
             "<button type='submit' class='btn btn-default'>送出修改</button>"+
         "</form>";
     var trans_record =
-        "<h2>歷史紀錄</h2>" +
+        "<h2>建物歷史紀錄</h2>" +
         "<p>以下為您過去所建立的查估清單</p>" +
         "<table class='table table-striped'>" +
 
@@ -229,13 +287,67 @@ foreach ($_from as $_smarty_tpl->tpl_vars['k']->value => $_smarty_tpl->tpl_vars[
 </td>" +
         "<td><?php echo $_smarty_tpl->tpl_vars['row']->value['address'];?>
 </td>" +
+        // "<td><button class='btn btn-default'>查看</button>&nbsp;<button class='btn btn-default'>編輯</button></td>" +
+        "<td></td>" +
+        "<td><?php echo $_smarty_tpl->tpl_vars['row']->value['keyin_datetime'];?>
+</td>" +
+        "<td><button class='btn btn-default'><a href='getFile.php?recordNo=<?php echo $_smarty_tpl->tpl_vars['row']->value['rId'];?>
+'>下載報表</a></button>" +
+        "<button class='btn btn-default' style='margin-left:5px;' onclick=deleteAlert('<?php echo $_smarty_tpl->tpl_vars['row']->value['rId'];?>
+','<?php echo $_smarty_tpl->tpl_vars['row']->value['address'];?>
+')>刪除</button>" +
+        "</td>" +
+        "</tr>" +
+        "<?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>" +
+        "</tbody>" +
+
+        "</table>" +
+
+        "<div class='align_center'>" +
+        "<ul class='pagination'>" +
+        "<li><a href='#'>1</a></li>" +
+        "<li><a href='#'>2</a></li>" +
+        "<li><a href='#'>3</a></li>" +
+        "<li><a href='#'>4</a></li>" +
+        "<li><a href='#'>5</a></li>" +
+        "</ul>" +
+        "</div>";
+
+    var corp_record =
+        "<h2>農作物歷史紀錄</h2>"+
+        "<p>以下為您過去所建立的查估清單</p>" +
+        "<table class='table table-striped'>" +
+
+        "<thead>" +
+        "<tr>" +
+        "<th>調查表編號</th>" +
+        "<th>地段地號</th>" +
+        "<th>查看/編輯</th>" +
+        "<th>建立時間</th>" +
+        "<th>下載報表/刪除</th>" +
+        "</tr>" +
+        "</thead>" +
+
+        "<tbody>" +
+        "<?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['corp_record']->value, 'row', false, 'k');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['k']->value => $_smarty_tpl->tpl_vars['row']->value) {
+?>"+
+        "<tr>" +
+        "<td><?php echo $_smarty_tpl->tpl_vars['row']->value['rId'];?>
+</td>" +
+        "<td><?php echo $_smarty_tpl->tpl_vars['row']->value['land_id'];?>
+</td>" +
         "<td><button class='btn btn-default'>查看</button>&nbsp;<button class='btn btn-default'>編輯</button></td>" +
         "<td><?php echo $_smarty_tpl->tpl_vars['row']->value['keyin_datetime'];?>
 </td>" +
         "<td><button class='btn btn-default'><a href='getFile.php?recordNo=<?php echo $_smarty_tpl->tpl_vars['row']->value['rId'];?>
-'>一鍵下載</a></button>&nbsp;" +
-        "<button class='btn btn-default' onclick=deleteAlert('<?php echo $_smarty_tpl->tpl_vars['row']->value['rId'];?>
-','<?php echo $_smarty_tpl->tpl_vars['row']->value['address'];?>
+'>下載報表</a></button>" +
+        // "<button class='btn btn-default' style='margin-left:5px;' onclick=deleteCorp('<?php echo $_smarty_tpl->tpl_vars['row']->value['rId'];?>
 ')>刪除</button>" +
         "</td>" +
         "</tr>" +
@@ -272,6 +384,12 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>" +
             $(".col-sm-9").append(trans_record);
         });
 
+        $("#corpBtn").click(function() {
+            $("#accountBtn").css("background-color","");
+            $(".col-sm-9 >").remove();
+            $(".col-sm-9").append(corp_record);
+        });
+
         $("#walletBtn").click(function() {
             // $("#accountBtn").css("background-color","");
             // $(".col-sm-9 >").remove();
@@ -295,6 +413,29 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>" +
                  data:{
                     recordNo: rId,
                     address: address
+                 },
+                 cache:false,
+                 dataType: "json",
+                 // contentType: 'application/json; charset=utf-8',
+                 success: function(data){
+                     window.alert(data.status);
+                     location.reload();
+                 },
+                 error:function(err){
+                     window.alert(err.statusText);
+                     location.reload();
+                 }
+            });
+        }
+    }
+
+    function deleteCorp(rId){
+        if(confirm("確定刪除此筆資料?")){
+            $.ajax({
+                 url: "deleteCorpRecord.php",
+                 type: "GET",
+                 data:{
+                    recordNo: rId
                  },
                  cache:false,
                  dataType: "json",
