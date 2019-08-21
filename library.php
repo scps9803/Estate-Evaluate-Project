@@ -2126,4 +2126,15 @@ function getCorpData($script_number){
 
     return $corp;
 }
+
+function getBuildingMaterialOption(){
+    $house_construct = load_building_decoration_Data('房屋構造體(別)');
+    $house_construct_option = "<option style=\"display:none;\">請選擇構造</option>";
+
+    for($i=0;$i<count($house_construct);$i++){
+        $house_construct_option = $house_construct_option
+        ."<option value='".$house_construct[$i]["item_name"]."'>".$house_construct[$i]["item_name"]."</option>";
+    }
+    return $house_construct_option;
+}
 ?>

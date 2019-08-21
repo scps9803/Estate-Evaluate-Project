@@ -1,11 +1,12 @@
 <?php
 include "library.php";
+include "export_building_hold_ratio_excel.php";
 // $script_number = $_POST['script_number'];
 // $house_address = $_POST["house_address"];
 //
 // $data = getRecordData($house_address);
-$script_number = $_POST["script_number"];
-$house_address = $_POST["house_address"];
+$script_number = $_REQUEST["script_number"];
+$house_address = $_REQUEST["house_address"];
 // $script_number = "建合-007";
 // $house_address = "測試用";
 // $script_number = "建合-001";
@@ -141,11 +142,11 @@ if($land_owner_data[0]["cellphone"] == ""){
     $land_phone = $land_owner_data[0]["telephone"];
 }
 
-if($land_data[0]["land_use"]=="自用"){
-    $rent_text = "無";
+if($land_data[0]["land_use"]=="承租"){
+    $rent_text = "有";
 }
 else{
-    $rent_text = "有";
+    $rent_text = "無";
 }
 $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue( 'AH3', $script_number)
@@ -956,6 +957,7 @@ $file_type = ".xls";
 echo $savePath;
 $objWriter->save($savePath.$filename.$file_type);
 insertFileData($script_number,$savePath,$fileNo,$filename,$file_type,"file_table");
+exportBuildingHoldRatioExcel($script_number,$owner_data,$land_owner_data,$building_data,$land_data);
 
 // 輸出文字檔
 // $fileNo = $script_number."-2";

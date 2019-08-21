@@ -123,6 +123,10 @@ switch ($category) {
         $corp_num = $_POST['corp_num'];
         $result_option = getAutoCalculateArea($corp_category,$corp_item,$corp_type,$corp_num);
         break;
+
+    case 'building_material':
+        $result_option = getBuildingMaterialOption();
+        break;
 }
 // $item_type = $_POST['item_type'];
 //

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-17 04:08:51
+/* Smarty version 3.1.33, created on 2019-08-20 15:36:33
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\index.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d577dd3251e72_21994342',
+  'unifunc' => 'content_5d5c1381101b33_93625952',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8c5734ee732081c4a28e016fd1e3245b00b0a0f9' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\index.html',
-      1 => 1566014837,
+      1 => 1566315389,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d577dd3251e72_21994342 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d5c1381101b33_93625952 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -459,52 +459,83 @@ function content_5d577dd3251e72_21994342 (Smarty_Internal_Template $_smarty_tpl)
                 </tr>
 
                 <tr>
-                    <td rowspan="" colspan="2"><span class="required">(*)</span><br>房屋構造<br>及層別</td>
-                    <td>
-                        <select class="median-select-menu" id="building-material-1" name="building-material-1" onchange="load_floor_type_data(1)">
-                            <option value="" style="display:none;">請選擇構造</option>
-                            <?php echo $_smarty_tpl->tpl_vars['house_construct_option']->value;?>
+                    <td rowspan="2" colspan="2"><span class="required">(*)</span><br>房屋構造<br>及層別</td>
+                    <td colspan="2">
+                        <div id="building-material-container-1-1">
+                            <input type="text" id="building-material-numerator-1-1" name="building-material-numerator-1-1" class="tiny-input-size" placeholder="輸入" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('building-material-numerator-1-1')" value="1">/<input type="text" id="building-material-denominator-1-1" name="building-material-denominator-1-1" class="tiny-input-size" placeholder="比例" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('building-material-denominator-1-1')" value="1">
+                            <select style="width:35%;" id="building-material-1-1" name="building-material-1-1" onchange="load_floor_type_data(1,1)">
+                                <option value="" style="display:none;">請選擇構造</option>
+                                <?php echo $_smarty_tpl->tpl_vars['house_construct_option']->value;?>
 
-                        </select><br>
-                        <select class="median-select-menu" id="floor-type-1" name="floor-type-1" style="margin-top:10px;" onchange="checkFloorType(1)">
-                            <option value="" style="display:none;">請選擇層別</option>
-                        </select>
+                            </select>
+                            <select style="width:30%;" id="floor-type-1-1" name="floor-type-1-1" style="margin-top:10px;" onchange="checkFloorType(1)">
+                                <option value="" style="display:none;">請選擇層別</option>
+                            </select>
+                        </div>
+                        <input type="hidden" id="building-material-count-1" name="building-material-count-1">
+                        <button type="button" onclick="addItemOnclick('building-material-container-','1','1')">+</button>
+                        <button type="button" onclick="removeItemOnclick('building-material-container-','1')">-</button>
                     </td>
-                    <td>(<input type="number" min="0" class="small-input-size" id="nth-floor-1" name="nth-floor-1">F/共<input type="number" min="0" class="small-input-size" id="total-floor-1" name="total-floor-1">F)</td>
-                    <td>
-                        <select class="median-select-menu" id="building-material-2" name="building-material-2" onchange="load_floor_type_data(2)">
-                            <option value="" style="display:none;">請選擇構造</option>
-                            <?php echo $_smarty_tpl->tpl_vars['house_construct_option']->value;?>
+                    <!-- <td>(<input type="number" min="0" class="small-input-size" id="nth-floor-1" name="nth-floor-1">F/共<input type="number" min="0" class="small-input-size" id="total-floor-1" name="total-floor-1">F)</td> -->
+                    <td colspan="2">
+                        <div id="building-material-container-2-1">
+                            <input type="text" id="building-material-numerator-2-1" name="building-material-numerator-2-1" class="tiny-input-size" placeholder="輸入" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('building-material-numerator-2-1')" value="1">/<input type="text" id="building-material-denominator-2-1" name="building-material-denominator-2-1" class="tiny-input-size" placeholder="比例" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('building-material-denominator-2-1')" value="1">
+                            <select style="width:35%;" id="building-material-2-1" name="building-material-2-1" onchange="load_floor_type_data(2,1)">
+                                <option value="" style="display:none;">請選擇構造</option>
+                                <?php echo $_smarty_tpl->tpl_vars['house_construct_option']->value;?>
 
-                        </select><br>
-                        <select class="median-select-menu" id="floor-type-2" name="floor-type-2" style="margin-top:10px;">
-                            <option value="" style="display:none;">請選擇層別</option>
-                        </select>
+                            </select>
+                            <select style="width:30%;" id="floor-type-2-1" name="floor-type-2-1" style="margin-top:10px;" onchange="checkFloorType(2)">
+                                <option value="" style="display:none;">請選擇層別</option>
+                            </select>
+                        </div>
+                        <input type="hidden" id="building-material-count-2" name="building-material-count-2">
+                        <button type="button" onclick="addItemOnclick('building-material-container-','2','1')">+</button>
+                        <button type="button" onclick="removeItemOnclick('building-material-container-','2')">-</button>
                     </td>
-                    <td>(<input type="number" min="0" class="small-input-size" id="nth-floor-2" name="nth-floor-2">F/共<input type="number" min="0" class="small-input-size" id="total-floor-2" name="total-floor-2">F)</td>
-                    <td>
-                        <select class="median-select-menu" id="building-material-3" name="building-material-3" onchange="load_floor_type_data(3)">
-                            <option value="" style="display:none;">請選擇構造</option>
-                            <?php echo $_smarty_tpl->tpl_vars['house_construct_option']->value;?>
+                    <!-- <td>(<input type="number" min="0" class="small-input-size" id="nth-floor-2" name="nth-floor-2">F/共<input type="number" min="0" class="small-input-size" id="total-floor-2" name="total-floor-2">F)</td> -->
+                    <td colspan="2">
+                        <div id="building-material-container-3-1">
+                            <input type="text" id="building-material-numerator-3-1" name="building-material-numerator-3-1" class="tiny-input-size" placeholder="輸入" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('building-material-numerator-3-1')" value="1">/<input type="text" id="building-material-denominator-3-1" name="building-material-denominator-3-1" class="tiny-input-size" placeholder="比例" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('building-material-denominator-3-1')" value="1">
+                            <select style="width:35%;" id="building-material-3-1" name="building-material-3-1" onchange="load_floor_type_data(3,1)">
+                                <option value="" style="display:none;">請選擇構造</option>
+                                <?php echo $_smarty_tpl->tpl_vars['house_construct_option']->value;?>
 
-                        </select><br>
-                        <select class="median-select-menu" id="floor-type-3" name="floor-type-3" style="margin-top:10px;">
-                            <option value="" style="display:none;">請選擇層別</option>
-                        </select>
+                            </select>
+                            <select style="width:30%;" id="floor-type-3-1" name="floor-type-3-1" style="margin-top:10px;" onchange="checkFloorType(3)">
+                                <option value="" style="display:none;">請選擇層別</option>
+                            </select>
+                        </div>
+                        <input type="hidden" id="building-material-count-3" name="building-material-count-3">
+                        <button type="button" onclick="addItemOnclick('building-material-container-','3','1')">+</button>
+                        <button type="button" onclick="removeItemOnclick('building-material-container-','3')">-</button>
                     </td>
-                    <td>(<input type="number" min="0" class="small-input-size" id="nth-floor-3" name="nth-floor-3">F/共<input type="number" min="0" class="small-input-size" id="total-floor-3" name="total-floor-3">F)</td>
-                    <td>
-                        <select class="median-select-menu" id="building-material-4" name="building-material-4" onchange="load_floor_type_data(4)">
-                            <option value="" style="display:none;">請選擇構造</option>
-                            <?php echo $_smarty_tpl->tpl_vars['house_construct_option']->value;?>
+                    <!-- <td>(<input type="number" min="0" class="small-input-size" id="nth-floor-3" name="nth-floor-3">F/共<input type="number" min="0" class="small-input-size" id="total-floor-3" name="total-floor-3">F)</td> -->
+                    <td colspan="2">
+                        <div id="building-material-container-4-1">
+                            <input type="text" id="building-material-numerator-4-1" name="building-material-numerator-4-1" class="tiny-input-size" placeholder="輸入" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('building-material-numerator-4-1')" value="1">/<input type="text" id="building-material-denominator-4-1" name="building-material-denominator-4-1" class="tiny-input-size" placeholder="比例" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('building-material-denominator-4-1')" value="1">
+                            <select style="width:35%;" id="building-material-4-1" name="building-material-4-1" onchange="load_floor_type_data(4,1)">
+                                <option value="" style="display:none;">請選擇構造</option>
+                                <?php echo $_smarty_tpl->tpl_vars['house_construct_option']->value;?>
 
-                        </select><br>
-                        <select class="median-select-menu" id="floor-type-4" name="floor-type-4" style="margin-top:10px;">
-                            <option value="" style="display:none;">請選擇層別</option>
-                        </select>
+                            </select>
+                            <select style="width:30%;" id="floor-type-4-1" name="floor-type-4-1" style="margin-top:10px;" onchange="checkFloorType(4)">
+                                <option value="" style="display:none;">請選擇層別</option>
+                            </select>
+                        </div>
+                        <input type="hidden" id="building-material-count-4" name="building-material-count-4">
+                        <button type="button" onclick="addItemOnclick('building-material-container-','4','1')">+</button>
+                        <button type="button" onclick="removeItemOnclick('building-material-container-','4')">-</button>
                     </td>
-                    <td>(<input type="number" min="0" class="small-input-size" id="nth-floor-4" name="nth-floor-4">F/共<input type="number" min="0" class="small-input-size" id="total-floor-4" name="total-floor-4">F)</td>
+                    <!-- <td>(<input type="number" min="0" class="small-input-size" id="nth-floor-4" name="nth-floor-4">F/共<input type="number" min="0" class="small-input-size" id="total-floor-4" name="total-floor-4">F)</td> -->
 
+                </tr>
+
+                <tr>
+                    <td colspan="2">(<input type="number" min="0" class="small-input-size" id="nth-floor-1" name="nth-floor-1">F/共<input type="number" min="0" class="small-input-size" id="total-floor-1" name="total-floor-1">F)</td>
+                    <td colspan="2">(<input type="number" min="0" class="small-input-size" id="nth-floor-2" name="nth-floor-2">F/共<input type="number" min="0" class="small-input-size" id="total-floor-2" name="total-floor-2">F)</td>
+                    <td colspan="2">(<input type="number" min="0" class="small-input-size" id="nth-floor-3" name="nth-floor-3">F/共<input type="number" min="0" class="small-input-size" id="total-floor-3" name="total-floor-3">F)</td>
+                    <td colspan="2">(<input type="number" min="0" class="small-input-size" id="nth-floor-4" name="nth-floor-4">F/共<input type="number" min="0" class="small-input-size" id="total-floor-4" name="total-floor-4">F)</td>
                 </tr>
 
                 <tr>
@@ -563,10 +594,10 @@ function content_5d577dd3251e72_21994342 (Smarty_Internal_Template $_smarty_tpl)
                 </tr>
 
                 <tr>
-                    <td colspan="2">層高:<input type="number" name="layer-height-1" value="3.0" min="0" step="0.01" oninput="if(value.length>4)value=value.slice(0,4)" class="median-input-size">(m)</td>
-                    <td colspan="2">層高:<input type="number" name="layer-height-2" value="3.0" min="0" step="0.01" oninput="if(value.length>4)value=value.slice(0,4)" class="median-input-size">(m)</td>
-                    <td colspan="2">層高:<input type="number" name="layer-height-3" value="3.0" min="0" step="0.01" oninput="if(value.length>4)value=value.slice(0,4)" class="median-input-size">(m)</td>
-                    <td colspan="2">層高:<input type="number" name="layer-height-4" value="3.0" min="0" step="0.01" oninput="if(value.length>4)value=value.slice(0,4)" class="median-input-size">(m)</td>
+                    <td colspan="2">層高:<input type="number" name="layer-height-1" value="3.0" min="0" step="0.01" oninput="if(value.length>4)value=value.slice(0,5)" class="median-input-size">(m)</td>
+                    <td colspan="2">層高:<input type="number" name="layer-height-2" value="3.0" min="0" step="0.01" oninput="if(value.length>4)value=value.slice(0,5)" class="median-input-size">(m)</td>
+                    <td colspan="2">層高:<input type="number" name="layer-height-3" value="3.0" min="0" step="0.01" oninput="if(value.length>4)value=value.slice(0,5)" class="median-input-size">(m)</td>
+                    <td colspan="2">層高:<input type="number" name="layer-height-4" value="3.0" min="0" step="0.01" oninput="if(value.length>4)value=value.slice(0,5)" class="median-input-size">(m)</td>
                 </tr>
 
                 <tr>

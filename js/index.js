@@ -7,6 +7,7 @@ var roof_decoration_count = [1,1,1,1];
 var floor_decoration_count = [1,1,1,1];
 var ceiling_decoration_count = [1,1,1,1];
 var toilet_equipment_count = [1,1,1,1];
+var building_material_count = [1,1,1,1];
 
 var land_section_count = 1;
 var subsection_count = 1;
@@ -268,6 +269,26 @@ function addItemOnclick(id,column,num){
             get_building_decoration_option('toilet-type-', column, toilet_equipment_count[column-1], 'toilet_equipment');
             getToiletEquipmentCount(column-1);
             break;
+        case 'building-material-container-':
+            // itemId = "#"+id+column;
+            if(building_material_count[column-1] > 1){
+                itemId = "#"+id+column+"-"+building_material_count[column-1];
+            }
+            building_material_count[column-1] += 1;
+
+            text =
+            '<div id="building-material-container-'+column+'-'+building_material_count[column-1]+'">'+
+                '<input type="text" id="building-material-numerator-'+column+'-'+building_material_count[column-1]+'" name="building-material-numerator-'+column+'-'+building_material_count[column-1]+'" class="tiny-input-size" placeholder="輸入" pattern="[0-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput(\'building-material-numerator-'+column+'-'+building_material_count[column-1]+'\')" value="1">/<input type="text" id="building-material-denominator-'+column+'-'+building_material_count[column-1]+'" name="building-material-denominator-'+column+'-'+building_material_count[column-1]+'" class="tiny-input-size" placeholder="比例" pattern="[0-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput(\'building-material-denominator-'+column+'-'+building_material_count[column-1]+'\')" value="1">&nbsp;'+
+                '<select style="width:35%;margin-top:6px;" id="building-material-'+column+'-'+building_material_count[column-1]+'" name="building-material-'+column+'-'+building_material_count[column-1]+'" onchange="load_floor_type_data('+column+','+building_material_count[column-1]+')" required>'+
+                    '<option value="" style="display:none;">請選擇構造</option>'+
+                '</select>&nbsp;'+
+                '<select style="width:30%;margin-top:6px;" id="floor-type-'+column+'-'+building_material_count[column-1]+'" name="floor-type-'+column+'-'+building_material_count[column-1]+'" style="margin-top:10px;" onchange="checkFloorType('+column+')">'+
+                    '<option value="" style="display:none;">請選擇層別</option>'+
+                '</select>'+
+            '</div>';
+            $(text).insertAfter($(itemId));
+            getBuildingMaterialOption(column,building_material_count[column-1]);
+            getBuildingMaterialCount(column-1);
     }
     // $(itemId).append(text);
     // $(text).insertAfter($(itemId));
@@ -319,6 +340,10 @@ function removeItemOnclick(id,column){
             toilet_equipment_count[column-1] = removeItem(id+column , toilet_equipment_count[column-1]);
             getToiletEquipmentCount(column-1);
             break;
+        case 'building-material-container-':
+            building_material_count[column-1] = removeItem(id+column , building_material_count[column-1]);
+            getBuildingMaterialCount(column-1);
+            break;
     }
 }
 
@@ -326,6 +351,17 @@ function removeItem(id,count){
     // var countVar = id.replace(/-/g,"_") + "count";
     // var itemId = "#"+id+count;
     var itemId = "#"+id+"-"+count;
+
+    if (count > 1) {
+        $(itemId).remove();
+        count -= 1;
+    }
+    return count;
+}
+
+function removeItem2(id,count){
+    var itemId = "#"+id;
+    window.alert(itemId);
 
     if (count > 1) {
         $(itemId).remove();
@@ -1120,9 +1156,9 @@ function load_electric_data(num){
     });
 }
 
-function load_floor_type_data(num){
-    var item = "#floor-type-"+num;
-    var material = $("#building-material-"+num).val();
+function load_floor_type_data(num,column){
+    var item = "#floor-type-"+num+"-"+column;
+    var material = $("#building-material-"+num+"-"+column).val();
     var building_type_radio = $("input[name='house-type-"+num+"']");
     var building_type = "";
 
@@ -1152,7 +1188,7 @@ function load_floor_type_data(num){
              // window.alert(err.statusText);
              window.alert("戶別選擇錯誤!請重新選擇!");
              // $(item).html('<option value="" style="display:none;">請選擇層別</option>');
-             document.getElementById("building-material-"+num).selectedIndex = "0";
+             document.getElementById("building-material-"+num+"-"+column).selectedIndex = "0";
          }
     });
 }
@@ -1363,6 +1399,7 @@ function writeDataToOneRow(itemId,writeToId,countId){
 
 function changeColumnStatus(column,status){
     var itemId = ["#house-type-","#discard-status-","#pay-form-","#building-material-","#nth-floor-","#total-floor-","#floor-area-","#house-usage-"]
+    var newItem = "#building-material-";
 
     switch (status) {
         case 'focus':
@@ -1370,11 +1407,13 @@ function changeColumnStatus(column,status){
                 for(var i=0;i<itemId.length;i++){
                     $(itemId[i]+column).attr("required","");
                 }
+                $(newItem+column+"-1").attr("required","");
             }
             else if($("#floor-id-"+column).val()==""){
                 for(var i=0;i<itemId.length;i++){
                     $(itemId[i]+column).removeAttr("required");
                 }
+                $(newItem+column+"-1").removeAttr("required");
             }
             break;
     }
@@ -1438,6 +1477,10 @@ function getOtherItemCount(){
 
 function getCorpCount(){
     $("#corp-count").val(corp_count);
+}
+
+function getBuildingMaterialCount(num){
+    $("#building-material-count-"+(num+1)).val(building_material_count[num]);
 }
 
 // function setRequired(id){
@@ -2112,6 +2155,27 @@ function emptyAddress(){
     }
 }
 
+function getBuildingMaterialOption(column,num){
+    var item = "#building-material-"+column+"-"+num;
+
+    $.ajax({
+         url: "get_building_decoration_option.php",
+         type: "POST",
+         data:{
+            category: 'building_material'
+         },
+         cache:false,
+         dataType: "json",
+         // contentType: 'application/json; charset=utf-8',
+         success: function(data){
+             $(item).html(data.item_name);
+         },
+         error:function(err){
+             window.alert(err.statusText);
+         }
+    });
+}
+
 $(document).ready(function(){
     getOwnerCount();
     getLandOwnerCount();
@@ -2129,5 +2193,6 @@ $(document).ready(function(){
         getFloorDecorationCount(i);
         getCeilingDecorationCount(i);
         getToiletEquipmentCount(i);
+        getBuildingMaterialCount(i);
     }
 });
