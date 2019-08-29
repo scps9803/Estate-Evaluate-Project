@@ -2,6 +2,7 @@
 include("library.php");
 ob_clean();
 $recordNo = $_GET["recordNo"];
+$returnFile = $_GET["file"];
 $recordType = explode("-",$recordNo);
 if($recordType[0] == "建合" || $recordType[0] == "建非"){
     $fileTable = "file_table";
@@ -11,7 +12,14 @@ else{
     $fileTable = "corp_file_table";
     $recordTable = "corp_record";
 }
-$file_info = getFileInfo($recordNo,$fileTable,$recordTable);
+
+if($returnFile == "1"){
+    $fileType = "調查表";
+}
+else{
+    $fileType = "持分表";
+}
+$file_info = getFileInfo($recordNo,$returnFile,$fileTable,$recordTable);
 for($i=0;$i<count($file_info);$i++){
     $filepath = $file_info[$i]["filepath"].$file_info[$i]["filename"];
     if(!file_exists($filepath)){
@@ -22,7 +30,7 @@ for($i=0;$i<count($file_info);$i++){
     header("Content-type: ".$file_info[$i]["content_type"]."; charset=utf-8");
     header("Accept-Ranges: bytes");
     header("Accept-Length: ".$file_info[$i]["size"]);
-    header("Content-Disposition: attachment; filename=".$file_info[$i]["rId"]);
+    header("Content-Disposition: attachment; filename=".$file_info[$i]["rId"]."-".$fileType);
     ob_clean();
     flush();
     $buffer=1024;

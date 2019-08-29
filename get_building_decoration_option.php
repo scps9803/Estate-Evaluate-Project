@@ -124,8 +124,15 @@ switch ($category) {
         $result_option = getAutoCalculateArea($corp_category,$corp_item,$corp_type,$corp_num);
         break;
 
-    case 'building_material':
-        $result_option = getBuildingMaterialOption();
+    case 'check_script_No':
+        $script_number = $_POST['script_number'];
+        $table = $_POST['table'];
+        $result_option = checkScriptNo($script_number,$table);
+        break;
+
+    case 'check_address':
+        $address = $_POST['address'];
+        $result_option = checkAddress($address);
         break;
 }
 // $item_type = $_POST['item_type'];

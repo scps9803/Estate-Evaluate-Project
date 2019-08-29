@@ -153,6 +153,7 @@ function get_building_decoration_option($category){
 }
 
 function getAppendSelectData($id,$total_floor){
+    $value_array = array();
     for($i=0;$i<$total_floor;$i++){
         $count = $_POST[$id.($i+1)];
 
@@ -1448,6 +1449,22 @@ function getOwnerData($house_address){
     return $result;
 }
 
+function getOwnerData2($house_address){
+    $conn = connect_db();
+
+    $sql = "SELECT * FROM owner NATURAL JOIN own_building WHERE address='{$house_address}'";
+    $res = $conn->query($sql);
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $result[$i] = $row;
+        $i++;
+    }
+
+    $conn->close();
+    return $result;
+}
+
 function getLandOwnerData($house_address){
     $conn = connect_db();
 
@@ -1576,7 +1593,7 @@ function getSubbuildingCategory(){
 
     $conn->close();
 
-    $category_option = "";
+    $category_option = "<option value=''>請選擇種類</option>";
 
     for($i=0;$i<count($category);$i++){
         $category_option = $category_option
@@ -1712,10 +1729,11 @@ function insertFileData($script_number,$savePath,$fileNo,$filename,$file_type,$t
     $conn->close();
 }
 
-function getFileInfo($recordNo,$fileTable,$recordTable){
+function getFileInfo($recordNo,$returnFile,$fileTable,$recordTable){
     $conn = connect_db();
+    $filename = base64_encode($recordNo."-".$returnFile).".xls";
 
-    $sql = "SELECT * FROM {$fileTable} NATURAL JOIN {$recordTable} WHERE rId='{$recordNo}'";
+    $sql = "SELECT * FROM {$fileTable} NATURAL JOIN {$recordTable} WHERE rId='{$recordNo}' AND filename='{$filename}'";
     $res = $conn->query($sql);
     if($res->num_rows==0) return null;
 
@@ -2127,14 +2145,33 @@ function getCorpData($script_number){
     return $corp;
 }
 
-function getBuildingMaterialOption(){
-    $house_construct = load_building_decoration_Data('房屋構造體(別)');
-    $house_construct_option = "<option style=\"display:none;\">請選擇構造</option>";
+function checkScriptNo($script_number,$table){
+    $conn = connect_db();
 
-    for($i=0;$i<count($house_construct);$i++){
-        $house_construct_option = $house_construct_option
-        ."<option value='".$house_construct[$i]["item_name"]."'>".$house_construct[$i]["item_name"]."</option>";
+    $sql = "SELECT * FROM {$table} WHERE rId='{$script_number}'";
+    $res = $conn->query($sql);
+    $conn->close();
+
+    if($res->num_rows == 0){
+        return true;
     }
-    return $house_construct_option;
+    else{
+        return false;
+    }
+}
+
+function checkAddress($address){
+    $conn = connect_db();
+
+    $sql = "SELECT * FROM record WHERE address='{$address}'";
+    $res = $conn->query($sql);
+    $conn->close();
+
+    if($res->num_rows == 0){
+        return true;
+    }
+    else{
+        return false;
+    }
 }
 ?>

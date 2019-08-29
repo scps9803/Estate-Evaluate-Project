@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-06 22:31:53
+/* Smarty version 3.1.33, created on 2019-08-26 23:33:08
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\sub_building.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d498f598f9865_55348320',
+  'unifunc' => 'content_5d63fbb41a0224_38871332',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b05ba50e74ffc12085b95e292d15feee33505b3e' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\sub_building.html',
-      1 => 1565100869,
+      1 => 1566821487,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d498f598f9865_55348320 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d63fbb41a0224_38871332 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head>
@@ -60,7 +60,7 @@ function content_5d498f598f9865_55348320 (Smarty_Internal_Template $_smarty_tpl)
                                         <option value="" style="display:none;">請選擇項目</option>
                                     </select>
 
-                                    <select class="small-select-menu" name="other-item-type-1" required>
+                                    <select class="small-select-menu" id="other-item-type-1" name="other-item-type-1" required>
                                         <option value="" style="display:none;">請選擇室內外</option>
                                         <option value="室內">室內</option>
                                         <option value="室外">室外</option>
@@ -93,6 +93,14 @@ function content_5d498f598f9865_55348320 (Smarty_Internal_Template $_smarty_tpl)
                 <input type="hidden" name="script_number" value="<?php echo $_smarty_tpl->tpl_vars['script_number']->value;?>
 ">
                 <input type="submit" value="儲存">
+            </form><br>
+
+            <form class="" action="finish.php" method="post">
+                <input type="hidden" name="house_address" value="<?php echo $_smarty_tpl->tpl_vars['house_address']->value;?>
+">
+                <input type="hidden" name="script_number" value="<?php echo $_smarty_tpl->tpl_vars['script_number']->value;?>
+">
+                <input type="submit" value="略過(無雜項物)">
             </form>
         </div>
     </body>

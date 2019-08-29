@@ -33,7 +33,7 @@
                                         <option value="" style="display:none;">請選擇項目</option>
                                     </select>
 
-                                    <select class="small-select-menu" name="other-item-type-1" required>
+                                    <select class="small-select-menu" id="other-item-type-1" name="other-item-type-1" required>
                                         <option value="" style="display:none;">請選擇室內外</option>
                                         <option value="室內">室內</option>
                                         <option value="室外">室外</option>
@@ -64,6 +64,12 @@
                 <input type="hidden" name="house_address" value="{$house_address}">
                 <input type="hidden" name="script_number" value="{$script_number}">
                 <input type="submit" value="儲存">
+            </form><br>
+
+            <form class="" action="finish.php" method="post">
+                <input type="hidden" name="house_address" value="{$house_address}">
+                <input type="hidden" name="script_number" value="{$script_number}">
+                <input type="submit" value="略過(無雜項物)">
             </form>
         </div>
     </body>

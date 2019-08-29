@@ -9,170 +9,29 @@ $smarty = new Smarty;
 $KEYIN_ID = "DEMO1234";
 date_default_timezone_set('Asia/Taipei');
 $KEYIN_DATETIME = date("Y-m-d/H:i:s");
+// $house_address = $_POST['house_address'];
+// $script_number = $_POST['script_number'];
+$house_address = $_SESSION["house_address"];
+$script_number = $_SESSION["script_number"];
+$action = $_POST["action"];
 
-$house_address = $_POST['houseAddress'];
-$script_number = $_POST['legal-status']."-".$_POST['script-number'];
-$_SESSION["house_address"] = $house_address;
-$_SESSION["script_number"] = $script_number;
-
-// 程式動作設定
-$action = $_POST['action'];
-switch ($action) {
-    case 'continue':
-        // $house_address = $_POST['houseAddress'];
-        // $script_number = $_POST['legal-status']."-".$_POST['script-number'];
-        // $smarty->assign("house_address",$house_address);
-        // $smarty->assign("script_number",$script_number);
-        // $smarty->display("building_continue.html");
-        header("Location: building_continue.php");
-        break;
-
-    case 'sub_building':
-        // $house_address = $_POST['houseAddress'];
-        // $script_number = $_POST['legal-status']."-".$_POST['script-number'];
-        $smarty->assign("house_address",$house_address);
-        $smarty->assign("script_number",$script_number);
-        $smarty->display("sub_building.html");
-        break;
-
-    case 'submit':
-        // $house_address = $_POST['houseAddress'];
-        // $script_number = $_POST['legal-status']."-".$_POST['script-number'];
-        $smarty->assign("house_address",$house_address);
-        $smarty->assign("script_number",$script_number);
-        $smarty->display("finish.html");
-        break;
+if($action == "submit"){
+    $smarty->assign("house_address",$house_address);
+    $smarty->assign("script_number",$script_number);
+    $smarty->display("sub_building.html");
 }
-
-// 行政區
-$district = $_POST['district'];
-
-// 地段、小段、地號
-$land_section_count = $_POST['land_section_count'];
-for($i=0;$i<$land_section_count;$i++){
-    if($_POST['land-section-'.($i+1)]=="") break;
-    $land_section[$i] = $_POST['land-section-'.($i+1)];
-    $subsection[$i] = $_POST['subsection-'.($i+1)];
-    // $land_number[$i] = $_POST['land-number-'.($i+1)];
-    $temp_land = explode ("、",$_POST['land-number-'.($i+1)]);
-    for($j=0;$j<count($temp_land);$j++){
-        $land_number[$i][$j] = $temp_land[$j];
-    }
+else if($action == "continue"){
+    header("Location: building_continue.php");
 }
-// 土地總面積
-// $land_total_area = $_POST['land-total-area'];
-
-// 合法狀態、手稿編號、廢棄狀態
-$legal_status = $_POST['legal-status'];
-$script_number = $_POST['legal-status']."-".$_POST['script-number'];
-// $discard_status = $_POST['discard-status'];
-// echo "廢棄: ".$discard_status;
-
-// 建物所有人、持分、身分證字號、住址、電話等個人資料
-$owner_count = $_POST['owner_count'];
-for($i=0;$i<$owner_count;$i++){
-    $owner[$i] = $_POST['owner-'.($i+1)];
-    $hold_ratio[$i] = $_POST['hold-numerator-'.($i+1)] / $_POST['hold-denominator-'.($i+1)];
-    $pId[$i] = $_POST['pId-'.($i+1)];
-    $address[$i] = $_POST['addressText-'.($i+1)];
-    $cellphone[$i] = $_POST['cellphone-'.($i+1)];
-    $telephone[$i] = $_POST['telephone-'.($i+1)];
-}
-// 土地所有人、歸戶號、身分證字號、住址、電話等個人資料
-$land_owner_count = $_POST['land_owner_count'];
-for($i=0;$i<$land_owner_count;$i++){
-    $land_owner[$i] = $_POST['land-owner-'.($i+1)];
-    $hold_id[$i] = $_POST['hold-id-'.($i+1)];
-    $land_pId[$i] = $_POST['land-pId-'.($i+1)];
-    $landAddressText[$i] = $_POST['landAddressText-'.($i+1)];
-    $land_cellphone[$i] = $_POST['land-cellphone-'.($i+1)];
-    $land_telephone[$i] = $_POST['land-telephone-'.($i+1)];
-}
-print_r($land_owner);
-
-// 房屋門牌
-$house_address = $_POST['houseAddress'];
-// 拆除情形
-$remove_condition = $_POST['remove_condition'];
-// 合法證明文件
-$legal_certificate = $_POST['legal_certificate'];
-// 建號
-$build_number = $_POST['build-number'];
-// 座落土地使用權屬
-$land_use = $_POST['land-use'];
-// 起造證明文件
-$build_certificate = $_POST['build-certificate'];
-// 稅籍編號
-$tax_number = $_POST['tax_number'];
-// 出口數
-$exit_num = $_POST['exit-num'];
-
-// 現住人資料
-$captain_count = $_POST['captain_count'];
-$total_people = 0;
-// if(isset($_POST['cohabit-judge'])){
-//     $cohabit = explode (",",$_POST['cohabit-judge']);
-// }
-
-if($captain_count>=1){
-    for($i=0;$i<$captain_count;$i++){
-        $captain[$i]['name'] = $_POST['captain-'.($i+1)];
-        $captain[$i]['exitNo'] = $_POST['exit-No-'.($i+1)];
-        // $captain[$i]['cohabit'] = $cohabit[$i];
-        $captain[$i]['id'] = $_POST['captain-id-'.($i+1)];
-        $captain[$i]['household_number'] = $_POST['household-number-'.($i+1)];
-        $captain[$i]['set_household_date'] = $_POST['set-household-date-'.($i+1)];
-        $captain[$i]['family_num'] = $_POST['family-num-'.($i+1)];
-        $total_people += $_POST['family-num-'.($i+1)];;
-        $smarty->assign("captain",$captain);
-    }
-}
-
-// 租賃關係
-if($land_use=="承租"){
-    $rent_relation = "有";
-}
-else{
-    $rent_relation = "無";
-}
-// ------------------------------以上為調查表個資部分----------------------------------
 // ------------------------------以下為建物查估部分----------------------------------
-$legal_number = $_POST['build-number']."<br>".$_POST['tax_number'];
-// $location = "桃園市、".$_POST['district']."、".$_POST['land-section-1']."，".$_POST['land-number-1']."，"
-// ."標示面積 ".$_POST['land-total-area']." m<sup>2</sup>";
-$location = "";
-
-
-
-if($telephone[0]==""){
-    $phone = $cellphone[0];
-}
-else if($cellphone[0]==""){
-    $phone = $telephone[0];
-}
-else{
-    $phone = $cellphone[0]."，".$telephone[0];
-}
-
-
+$total_floor = $_POST['floor-count'];
 // 每層樓詳細資訊、粉裝評點等細項資料
-$total_floor = $_POST["floor-count"];
-echo "floor:".$total_floor."<br>";
-// for($i=0;$i<$total_floor;$i++){
     for($i=0;$i<$total_floor;$i++){
-        // echo "hi<br>";
         $main_building[$i]["floor_id"] = $_POST['floor-id-'.($i+1)];
         $fId[$i] = $script_number."-".$main_building[$i]["floor_id"];
         $main_building[$i]["house_type"] = $_POST['house-type-'.($i+1)];
         $discard_status[$i] = $_POST['discard-status-'.($i+1)];
         $main_building[$i]["compensate_form"] = $_POST['compensate-form-'.($i+1)];
-
-        // if($main_building[$i]["compensate_form"]=="主建物"){
-        //     $main_building[$i]["sub_compensate_form"] = $_POST['sub-compensate-form-'.($i+1)];
-        // }else{
-        //     $main_building[$i]["sub_compensate_form"] = "";
-        // }
-        // echo $main_building[$i]["compensate_form"].","."\n";
         $main_building[$i]["material"] = $_POST['building-material-'.($i+1)];
         $main_building[$i]["floor_type"] = $_POST['floor-type-'.($i+1)];
         $main_building[$i]["nth_floor"] = $_POST['nth-floor-'.($i+1)];
@@ -194,10 +53,6 @@ echo "floor:".$total_floor."<br>";
         $objPHPExcel = PHPExcel_IOFactory::load($calAreaTool);
         $area = $objPHPExcel->getActiveSheet()->getCell('A1')->getCalculatedValue();
         $main_building[$i]["floor_area"] = $area;
-        // print_r($main_building[$i]["points"]);
-        // echo "<br>";
-        // print_r($main_building[$i]["floor_area"]);
-        // echo "<br>";
 
         if($_POST['house-usage-'.($i+1)]=="none"){
             $main_building[$i]["usage"] = $_POST['other-house-usage-'.($i+1)];
@@ -206,11 +61,6 @@ echo "floor:".$total_floor."<br>";
         }
 
         $main_building[$i]["layer-height"] = $_POST['layer-height-'.($i+1)];
-        // print_r($main_building)."<br>";
-        // $points = getMainBuildingPoint($main_building[$i]["material"],$main_building[$i]["nth_floor"],$main_building[$i]["house_type"]);
-        // for($j=0;$j<count($points);$j++){
-        //     print_r($points)."<br>";
-        // }
     }
 
     // 減牆
@@ -439,22 +289,22 @@ echo "floor:".$total_floor."<br>";
     echo "<br>---------------------------<br>";
     // $bdId = insertIndoorDivideData($fId,$indoor_divide_numerator,$indoor_divide_denominator,$indoor_divide_option);
     echo "BDID: <br>";
-    // print_r($indoor_divide_option);
+    print_r($indoor_divide_option);
     // echo "<br>";
     // print_r($bdId);
     echo "<br>";
-    // print_r($fId);
+    print_r($fId);
 // }
 
-$date = date("Y/m/d");
-
-$smarty->assign("script_number",$script_number);
-if($owner_count<=1){
-    $smarty->assign("owner",$owner[0]);
-}else{
-    $smarty->assign("owner",$owner[0]."等".$owner_count."人");
-}
-
+// $date = date("Y/m/d");
+//
+// $smarty->assign("script_number",$script_number);
+// if($owner_count<=1){
+//     $smarty->assign("owner",$owner[0]);
+// }else{
+//     $smarty->assign("owner",$owner[0]."等".$owner_count."人");
+// }
+//
 // $smarty->assign("pId",$pId[0]);
 // $smarty->assign("address",$address[0]);
 // $smarty->assign("phone",$phone);
@@ -465,7 +315,7 @@ if($owner_count<=1){
 // $smarty->assign("legal_number",$legal_number);
 // $smarty->assign("location",$location);
 // $smarty->assign("remove_condition",$remove_condition);
-// // $smarty->assign("captain",$captain);
+// $smarty->assign("captain",$captain);
 // $smarty->assign("captain_count",$captain_count);
 // $smarty->assign("total_people",$total_people);
 // $smarty->assign("rent_relation",$rent_relation);
@@ -475,21 +325,7 @@ if($owner_count<=1){
 
 // $smarty->display("house_submit_preview.html");
 
-// 儲存基本資料
-insertBuildingData($house_address,$legal_status,$build_number,$tax_number,
-    $legal_certificate,$build_certificate,$captain_count,$exit_num,
-    $total_floor,$remove_condition);
-insertLandData($district,$land_section,$subsection,$land_number,$house_address,$land_use);
-insertRecordData($script_number,$house_address,$KEYIN_ID,$KEYIN_DATETIME);
-insertOwnerData($owner,$hold_ratio,$pId,$house_address,$address,$telephone,$cellphone);
-insertLandOwnerData($land_owner,$hold_id,$land_pId,$landAddressText,$land_telephone,$land_cellphone,$house_address);
-// insertBuildingData($house_address,$legal_status,$build_number,$tax_number,
-//     $legal_certificate,$build_certificate,$captain_count,$exit_num,
-//     $total_floor,$remove_condition);
-insertOwnBuildingData($pId,$house_address,$hold_ratio);
-if($captain[0]["name"]!=""){
-    insertResidentData($captain,$total_people,$house_address,$exit_num,$remove_condition);
-}
+// 儲存樓層資料
 insertFloorData($script_number,$main_building,$house_address,$discard_status);
 
 // 儲存粉裝資料
@@ -650,5 +486,4 @@ if($balcony[0] != ""){
     echo "<br>";
     print_r($fId);
 }
-
 ?>

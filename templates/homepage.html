@@ -146,7 +146,8 @@
                         <th>地址</th>
                         <th>查看/編輯</th>
                         <th>建立時間</th>
-                        <th>下載報表/刪除</th>
+                        <th>下載報表</th>
+                        <th>刪除</th>
                     </tr>
                 </thead>
 
@@ -159,9 +160,11 @@
                         <td></td>
                         <!-- <td><button class='btn btn-default'>查看</button>&nbsp;<button class='btn btn-default'>編輯</button></td> -->
                         <td>{$row.keyin_datetime}</td>
-                        <td><button class='btn btn-default'><a href='getFile.php?recordNo={$row.rId}'>下載報表</a></button>
-                        <button class='btn btn-default' style='margin-left:2px;' onclick=deleteAlert('{$row.rId}','{$row.address}')>刪除</button>
+                        <td>
+                            <button class='btn btn-default'><a href='getFile.php?recordNo={$row.rId}&file=1'>下載調查表</a></button><br>
+                            <button class='btn btn-default' style="margin-top:5px";><a href='getFile.php?recordNo={$row.rId}&file=2'>下載持分表</a></button>
                         </td>
+                        <td><button class='btn btn-default' onclick=deleteAlert('{$row.rId}','{$row.address}')>刪除</button></td>
                     </tr>
                     {/foreach}
                 </tbody>
@@ -225,7 +228,8 @@
         "<th>地址</th>" +
         "<th>查看/編輯</th>" +
         "<th>建立時間</th>" +
-        "<th>下載報表/刪除</th>" +
+        "<th>下載報表</th>" +
+        "<th>刪除</th>" +
         "</tr>" +
         "</thead>" +
 
@@ -238,9 +242,11 @@
         // "<td><button class='btn btn-default'>查看</button>&nbsp;<button class='btn btn-default'>編輯</button></td>" +
         "<td></td>" +
         "<td>{$row.keyin_datetime}</td>" +
-        "<td><button class='btn btn-default'><a href='getFile.php?recordNo={$row.rId}'>下載報表</a></button>" +
-        "<button class='btn btn-default' style='margin-left:5px;' onclick=deleteAlert('{$row.rId}','{$row.address}')>刪除</button>" +
+        "<td>" +
+            "<button class='btn btn-default'><a href='getFile.php?recordNo={$row.rId}&file=1'>下載調查表</a></button><br>" +
+            "<button class='btn btn-default' style='margin-top:5px';><a href='getFile.php?recordNo={$row.rId}&file=2'>下載持分表</a></button>" +
         "</td>" +
+        "<td><button class='btn btn-default' onclick=deleteAlert('{$row.rId}','{$row.address}')>刪除</button></td>" +
         "</tr>" +
         "{/foreach}" +
         "</tbody>" +
@@ -268,7 +274,8 @@
         "<th>地段地號</th>" +
         "<th>查看/編輯</th>" +
         "<th>建立時間</th>" +
-        "<th>下載報表/刪除</th>" +
+        "<th>下載報表</th>" +
+        "<th>刪除</th>" +
         "</tr>" +
         "</thead>" +
 
@@ -279,7 +286,9 @@
         "<td>{$row.land_id}</td>" +
         "<td><button class='btn btn-default'>查看</button>&nbsp;<button class='btn btn-default'>編輯</button></td>" +
         "<td>{$row.keyin_datetime}</td>" +
-        "<td><button class='btn btn-default'><a href='getFile.php?recordNo={$row.rId}'>下載報表</a></button>" +
+        "<td>" +
+        "<button class='btn btn-default'><a href='getFile.php?recordNo={$row.rId}&file=1'>下載調查表</a></button><br>" +
+        "<button class='btn btn-default' style='margin-top:5px';><a href='getFile.php?recordNo={$row.rId}&file=2'>下載持分表</a></button>" +
         // "<button class='btn btn-default' style='margin-left:5px;' onclick=deleteCorp('{$row.rId}')>刪除</button>" +
         "</td>" +
         "</tr>" +

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-18 08:17:34
+/* Smarty version 3.1.33, created on 2019-08-26 14:32:00
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\corp.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d59099e47c896_44919859',
+  'unifunc' => 'content_5d63ed6015db07_62681137',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'd63c0813a36d37958756a619792a27197ce5d956' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\corp.html',
-      1 => 1566116250,
+      1 => 1566829917,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d59099e47c896_44919859 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d63ed6015db07_62681137 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -57,9 +57,9 @@ function content_5d59099e47c896_44919859 (Smarty_Internal_Template $_smarty_tpl)
                         <!-- <td colspan="2"><span class="required">(*)</span>面積(m<sup>2</sup>)</td> -->
                         <td rowspan=""><span class="required">(*)</span><br>查估手稿編號</td>
                         <td rowspan="">
-                            <input type="radio" name="legal-status" value="農合" checked required>農合
-                            <input type="radio" name="legal-status" value="農非">農非
-                            <input type="text" name="script-number" value="" placeholder="輸入手稿編號" required><br>
+                            <input type="radio" id="legal" name="legal-status" value="農合" checked required>農合
+                            <input type="radio" id="illegal" name="legal-status" value="農非">農非
+                            <input type="text" id="script-number" name="script-number" value="" placeholder="輸入手稿編號" onchange="checkScriptNo()" required><br>
                         </td>
                     </tr>
 
@@ -338,7 +338,7 @@ function content_5d59099e47c896_44919859 (Smarty_Internal_Template $_smarty_tpl)
                         <td>
                             <div id="corp-num" style="margin-bottom:18px">
                                 <div id="corp-num-1">
-                                    <input type="text" name="corp-num-1" pattern="[0-9]{1,5}" title="只能輸入5位以下數字" placeholder="請輸入數量" onchange="autoCalculateArea(1)" required>
+                                    <input type="text" name="corp-num-1" title="只能輸入10位以下數字(含小數點)" placeholder="請輸入數量" onchange="autoCalculateArea(1)" required>
                                 </div>
                             </div>
                         </td>

@@ -14,389 +14,12 @@
 <body>
     <div class="container" align="center">
         <h1>建物調查表</h1>
-        <form class="" action="house_submit_preview.php" method="post" id="house_form" onkeydown="if(event.keyCode==13)return false;">
-            <table border="1">
-                <tbody>
-                    <tr>
-                        <td rowspan="2">基地標示</td>
-                        <td><span class="required">(*)</span>鄉鎮市</td>
-                        <td><span class="required">(*)</span>段</td>
-                        <td>小段</td>
-                        <td colspan="3"><span class="required">(*)</span>地號</td>
-                        <!-- <td colspan="2"><span class="required">(*)</span>面積(m<sup>2</sup>)</td> -->
-                        <td rowspan="2"><span class="required">(*)</span><br>查估手稿編號</td>
-                        <td rowspan="2">
-                            <input type="radio" id="legal" name="legal-status" value="建合" required>建合
-                            <input type="radio" id="illegal" name="legal-status" value="建非">建非
-                            <input type="text" id="script-number" name="script-number" value="" placeholder="輸入手稿編號" onchange="checkScriptNo()" required><br>
-                            <!-- 是否廢棄
-                            <input type="radio" name="discard-status" value="yes" required>是
-                            <input type="radio" name="discard-status" value="no">否 -->
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <!-- <input type="text" id="district" name="district" list="district-list" autocomplete="off" required>
-                            <datalist id="district-list">
-                                <option value="觀音區">觀音區</option>
-                                <option value="蘆竹區">蘆竹區</option>
-                                <option value="楊梅區">楊梅區</option>
-                                <option value="大園區">大園區</option>
-                                <option value="中壢區">中壢區</option>
-                                <option value="平鎮區">平鎮區</option>
-                                <option value="復興區">復興區</option>
-                                <option value="新屋區">新屋區</option>
-                                <option value="龜山區">龜山區</option>
-                                <option value="八德區">八德區</option>
-                                <option value="桃園區">桃園區</option>
-                                <option value="大溪區">大溪區</option>
-                                <option value="龍潭區">龍潭區</option>
-                            </datalist> -->
-                            <select id="district" name="district" class="median-select-menu" required>
-                                <option value="觀音區">觀音區</option>
-                                <option value="蘆竹區">蘆竹區</option>
-                                <option value="楊梅區">楊梅區</option>
-                                <option value="大園區">大園區</option>
-                                <option value="中壢區">中壢區</option>
-                                <option value="平鎮區">平鎮區</option>
-                                <option value="復興區">復興區</option>
-                                <option value="新屋區">新屋區</option>
-                                <option value="龜山區">龜山區</option>
-                                <option value="八德區">八德區</option>
-                                <option value="桃園區">桃園區</option>
-                                <option value="大溪區">大溪區</option>
-                                <option value="龍潭區">龍潭區</option>
-                            </select>
-                        </td>
-                        <td>
-                            <div id="land-section">
-                                <div id="land-section-1">
-                                    <!-- <input type="text" id="section-1" name="land-section-1" list="land-section-list-1" autocomplete="off" oninput="getLandSectionOption(1)" required><br>
-                                    <datalist id="land-section-list-1"></datalist> -->
-                                    <select id="section-1" name="land-section-1" class="median-select-menu" required>
-                                        <option value="草漯段">草漯段</option>
-                                        <option value="塔腳段">塔腳段</option>
-                                        <option value="新坡段">新坡段</option>
-                                        <option value="樹林子段">樹林子段</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <input type="hidden" id="land_section_count" name="land_section_count">
-                            <button type="button" onclick="addInfoItemOnclick('land-section')">+</button>
-                            <button type="button" onclick="removeInfoItemOnclick('land-section')">-</button>
-                        </td>
-
-                        <td>
-                            <div id="subsection" class="input-align">
-                                <div id="subsection-1">
-                                    <!-- <input type="text" name="subsection-1"><br> -->
-                                    <select id="sub_section-1" name="subsection-1">
-                                        <option value="">無</option>
-                                        <option value="新坡小段">新坡小段</option>
-                                        <option value="過溪子小段">過溪子小段</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <!-- <button type="button" onclick="addInfoItemOnclick('subsection')">+</button>
-                            <button type="button" onclick="removeInfoItemOnclick('subsection')">-</button> -->
-                        </td>
-
-                        <td colspan="3">
-                            <div id="land-number" class="input-align">
-                                <div id="land-number-1">
-                                    <input type="text" id="land-num-1" name="land-number-1" placeholder="多個地號請用'、'分隔" onchange="isLandNumExist('building',1)" required><br>
-                                </div>
-                            </div>
-                            <!-- <button type="button" onclick="addInfoItemOnclick('land-number')">+</button>
-                            <button type="button" onclick="removeInfoItemOnclick('land-number')">-</button> -->
-                        </td>
-                        <!-- <td colspan="2"><input type="text" name="land-total-area" value="" required></td> -->
-                    </tr>
-
-                    <tr>
-                        <td><span class="required">(*)</span>建物所有權人<br>或權利人姓名</td>
-                        <td><span class="required">(*)</span>持分比例</td>
-                        <!-- <td><span class="required">(*)</span>身分證字號/歸戶號</td> -->
-                        <td><span class="required">(*)</span>身分證字號</td>
-                        <td><span class="required">(*)</span>房屋門牌</td>
-                        <td colspan="3">
-                            <input type="text" id="houseAddress" name="houseAddress" value="" class="larger-input-size" onchange="checkAddress()" required>
-                            <input type="checkbox" id="noneAddress" name="noneAddress" onclick="emptyAddress()">無門牌號碼
-                        </td>
-                        <td><span class="required">(*)</span><br>拆除情形</td>
-                        <td>
-                            <input type="radio" name="remove_condition" value="" checked required>無
-                            <input type="radio" name="remove_condition" value="全拆">全拆
-                            <input type="radio" name="remove_condition" value="半拆">半拆
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td rowspan="2">
-                            <div id="owner">
-                                <div id="owner-1">
-                                    <input type="text" class="median-input-size" name="owner-1" autocomplete="off" placeholder="手動新增" required>
-                                    <select id="owner-select-1" name="owner-select-1" onchange="autoFillInOwnerName('owner',1)">
-                                        <option value="" style="display:none">請選擇項目</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <input type="hidden" id="owner_count" name="owner_count">
-                            <button type="button" onclick="addInfoItemOnclick('owner')">+</button>
-                            <button type="button" onclick="removeInfoItemOnclick('owner')">-</button>
-                        </td>
-
-                        <td rowspan="2">
-                            <div id="hold-ratio" class="input-align">
-                                <div id="hold-ratio-1">
-                                    <input type="text" id="hold-numerator-1" name="hold-numerator-1" class="tiny-input-size" placeholder="輸入" pattern="[0-9]{literal}{1,10}{/literal}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('hold-numerator-1')" required>
-                                    /&nbsp;<input type="text" id="hold-denominator-1" name="hold-denominator-1" class="tiny-input-size" placeholder="比例" pattern="[0-9]{literal}{1,10}{/literal}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('hold-denominator-1')" required>
-                                </div>
-                            </div>
-                        </td>
-
-                        <td rowspan="2">
-                            <div id="pId" class="input-align">
-                                <div id="pId-1">
-                                    <input type="text" name="pId-1" value="" maxlength="10" placeholder="所有權人-1" required>
-                                    <!-- <input type="text" id="hold-id-1" name="hold-id-1" value="" placeholder="歸戶號" class="small-input-size" onchange="checkOwner(1)" required> -->
-                                </div>
-                            </div>
-                        </td>
-
-                        <td>通訊住址</td>
-                        <td colspan="5">
-                            <div id="address">
-                                <div id="address-1">
-                                    <input type="checkbox" id="sameAddressBox-1" onclick="checkSameAddressBox('1')">同房屋門牌<input type="text" id="addressText-1" name="addressText-1" value="" class="large-input-size" placeholder="所有權人-1">
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>聯絡電話</td>
-                        <td colspan="2">
-                            <div id="telephone">
-                                <div id="telephone-1">
-                                    <input type="tel" name="telephone-1" value="" placeholder="所有權人-1">
-                                </div>
-                            </div>
-                        </td>
-                        <td>聯絡手機</td>
-                        <td colspan="2">
-                            <div id="cellphone">
-                                <div id="cellphone-1">
-                                    <input type="tel" name="cellphone-1" value="" placeholder="所有權人-1" oninput="cellphoneListen('1')" maxlength="11">
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td><span class="required">(*)</span>土地所有權人</td>
-                        <td><span class="required">(*)</span>歸戶號</td>
-                        <td><span class="required">(*)</span>身分證字號</td>
-                        <td>通訊住址</td>
-                        <td colspan="5">
-                            <div id="land-address">
-                                <div id="land-address-1">
-                                    <input type="text" id="landAddressText-1" name="landAddressText-1" value="" class="large-input-size" placeholder="所有權人-1">
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <div id="land-owner">
-                                <div id="land-owner-1" class="dropdown">
-                                    <!-- <input type="text" name="land-owner-1" list="land-owner-list-1" autocomplete="off" placeholder="所有權人-1" oninput="getLandOwnerOption(1)" required><br> -->
-                                    <input type="text" class="median-input-size" name="land-owner-1" autocomplete="off" placeholder="手動新增" required>
-                                    <select id="land-owner-select-1" name="land-owner-select-1" onchange="autoFillInOwnerName('land-owner',1)">
-                                        <option value="" style="display:none">請選擇項目</option>
-                                    </select>
-
-                                    <!-- <datalist id="land-owner-list-1">
-                                    </datalist> -->
-                                </div>
-                            </div>
-                            <input type="hidden" id="land_owner_count" name="land_owner_count">
-                            <button type="button" onclick="addInfoItemOnclick('land-owner')">+</button>
-                            <button type="button" onclick="removeInfoItemOnclick('land-owner')">-</button>
-                        </td>
-
-                        <td>
-                            <div id="hold-id" class="input-align">
-                                <div id="hold-id-1">
-                                    <input type="text" name="hold-id-1" value="" placeholder="所有權人-1" required>
-                                    <!-- <input type="text" name="hold-id-1" value="" placeholder="所有權人-1" onchange="checkOwner(1)" required> -->
-                                    <!-- <input type="text" id="hold-id-1" name="hold-id-1" value="" placeholder="歸戶號" class="small-input-size" onchange="checkOwner(1)" required> -->
-                                </div>
-                            </div>
-                        </td>
-
-                        <td>
-                            <div id="land-pId" class="input-align">
-                                <div id="land-pId-1">
-                                    <input type="text" name="land-pId-1" value="" placeholder="所有權人-1" required>
-                                    <!-- <input type="text" id="hold-id-1" name="hold-id-1" value="" placeholder="歸戶號" class="small-input-size" onchange="checkOwner(1)" required> -->
-                                </div>
-                            </div>
-                        </td>
-
-                        <td>聯絡電話</td>
-                        <td colspan="2">
-                            <div id="land-telephone">
-                                <div id="land-telephone-1">
-                                    <input type="tel" name="land-telephone-1" value="" placeholder="所有權人-1">
-                                </div>
-                            </div>
-                        </td>
-                        <td>聯絡手機</td>
-                        <td colspan="2">
-                            <div id="land-cellphone">
-                                <div id="land-cellphone-1">
-                                    <input type="tel" name="land-cellphone-1" value="" placeholder="所有權人-1" maxlength="11">
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td><span class="required">(*)</span>合法證明文件</td>
-
-                        <td colspan="6">
-                            <input type="radio" name="legal_certificate" value="建物所有權狀" required onclick="changeRequired(['build-number'],true)">建物所有權狀(建號:<input type="text" id="build-number" name="build-number" style="width:80px">)
-                            <input type="radio" name="legal_certificate" value="建物登記謄本" onclick="changeRequired(['build-number'],false)">建物登記謄本
-                            <input type="radio" name="legal_certificate" value="使用執照" onclick="changeRequired(['build-number'],false)">使用執照
-                            <input type="radio" name="legal_certificate" value="無" onclick="changeRequired(['build-number'],false)">無
-                        </td>
-                        <td><span class="required">(*)</span><br>座落土地<br>使用權屬</td>
-                        <td colspan="3">
-                            <!-- <input type="radio" name="household_registration" value="" onclick="changeRequired(['household_count','household_count_lack'],true)">共
-                            <input type="number" id="household_count" name="household_count" min="0" class="small-input-size">戶;缺<input type="number" id="household_count_lack" name="household_count_lack" min="0" class="small-input-size">戶
-                            <input type="radio" name="household_registration" value="" onclick="changeRequired(['household_count','household_count_lack'],false)">無 -->
-                            <select class="select-menu" name="land-use" required>
-                                <option value="" style="display:none;">請選擇項目</option>
-                                <option value="自用">自用</option>
-                                <option value="承租">承租</option>
-                                <option value="不明">不明</option>
-                            </select>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td><span class="required">(*)</span>起造證明文件</td>
-                        <td colspan="8">
-                            <input type="radio" name="build-certificate" value="房屋稅籍證明書" onclick="changeRequired(['tax_number'],true)" required>房屋稅籍證明書(稅籍編號:<input type="text" id="tax_number" name="tax_number">)
-                            <input type="radio" name="build-certificate" value="門牌整編證明" onclick="changeRequired(['tax_number'],false)">門牌整編證明
-                            <input type="radio" name="build-certificate" value="用電證明" onclick="changeRequired(['tax_number'],false)">用電證明
-                            <input type="radio" name="build-certificate" value="用水證明" onclick="changeRequired(['tax_number'],false)">用水證明
-                            <input type="radio" name="build-certificate" value="無" onclick="changeRequired(['tax_number'],false)">無
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td><span class="required">(*)</span>出口數</td>
-                        <td>戶長姓名</td>
-                        <td>出口編號</td>
-                        <td>戶長身份證字號</td>
-                        <td>戶口名簿號碼</td>
-                        <td colspan="3">設籍日期</td>
-                        <td>該戶人數</td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <select class="select-menu" id="exit-num" name="exit-num" required>
-                                <option value="" style="display:none;">請選擇項目</option>
-                                <option value="0">0</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <!-- <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option> -->
-                            </select>
-                        </td>
-                        <td>
-                            <div id="captain">
-                                <div id="captain-1">
-                                    <input type="text" name="captain-1">
-                                    <!-- <input type="checkbox" id="cohabit-1" name="cohabit-1">共同生活戶
-                                    <input type="hidden" id="cohabit-judge" name="cohabit-judge"> -->
-                                </div>
-                            </div>
-                            <input type="hidden" id="captain_count" name="captain_count">
-                            <button type="button" onclick="addInfoItemOnclick('captain')">+</button>
-                            <button type="button" onclick="removeInfoItemOnclick('captain')">-</button>
-                        </td>
-                        <td>
-                            <div id="exit-No" class="input-align">
-                                <div id="exit-No-1">
-                                    <input type="text" name="exit-No-1" pattern="[0-9]{literal}{1}{/literal}" title="共同出口戶請填相同數字，例如A、B共用出口都填1，C有單獨出口請填2" placeholder="共同出口戶請填相同數字，例如A、B共用出口都填1，C有單獨出口請填2" onclick="cohabitRemind()" onchange="checkExitNoCorrect()">
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div id="captain-id" class="input-align">
-                                <div id="captain-id-1">
-                                    <input type="text" name="captain-id-1">
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div id="household-number" class="input-align">
-                                <div id="household-number-1">
-                                    <input type="text" name="household-number-1">
-                                </div>
-                            </div>
-                        </td>
-                        <td colspan="3">
-                            <div id="set-household-date" class="input-align">
-                                <div id="set-household-date-1">
-                                    <input type="date" name="set-household-date-1">
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div id="family-num" class="input-select-align">
-                                <div id="family-num-1">
-                                    <select class="select-menu" name="family-num-1">
-                                        <option value="" style="display:none;">請選擇項目</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                        <option value="6">6</option>
-                                        <option value="7">7</option>
-                                        <option value="8">8</option>
-                                        <option value="9">9</option>
-                                        <option value="10">10</option>
-                                        <option value="11">11</option>
-                                        <option value="12">12</option>
-                                        <option value="13">13</option>
-                                        <option value="14">14</option>
-                                        <option value="15">15</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <br><br>
+        <form class="" action="continue.php" method="post" id="house_form" onkeydown="if(event.keyCode==13)return false;" onsubmit="return checkSubmit()">
         <div class="container" align="center">
             <table border="1">
                 <tr>
                     <td colspan="2"><span class="required">(*)</span>編號</td>
-                    <td colspan="2">編號:<input type="text" id="floor-id-1" name="floor-id-1" oninput="changeColumnStatus(1,'focus')"><br><input type="radio" id="house-type-1" name="house-type-1" value="獨立戶">獨立戶<input type="radio" name="house-type-1" value="連棟式邊戶">連棟式邊戶<input type="radio" name="house-type-1" value="連棟式中間戶">連棟式中間戶</td>
+                    <td colspan="2">編號:<input type="text" id="floor-id-1" name="floor-id-1" required><br><input type="radio" id="house-type-1" name="house-type-1" value="獨立戶" required>獨立戶<input type="radio" name="house-type-1" value="連棟式邊戶">連棟式邊戶<input type="radio" name="house-type-1" value="連棟式中間戶">連棟式中間戶</td>
                     <td colspan="2">編號:<input type="text" id="floor-id-2" name="floor-id-2" oninput="changeColumnStatus(2,'focus')"><br><input type="radio" id="house-type-2" name="house-type-2" value="獨立戶">獨立戶<input type="radio" name="house-type-2" value="連棟式邊戶">連棟式邊戶<input type="radio" name="house-type-2" value="連棟式中間戶">連棟式中間戶</td>
                     <td colspan="2">編號:<input type="text" id="floor-id-3" name="floor-id-3" oninput="changeColumnStatus(3,'focus')"><br><input type="radio" id="house-type-3" name="house-type-3" value="獨立戶">獨立戶<input type="radio" name="house-type-3" value="連棟式邊戶">連棟式邊戶<input type="radio" name="house-type-3" value="連棟式中間戶">連棟式中間戶</td>
                     <td colspan="2">編號:<input type="text" id="floor-id-4" name="floor-id-4" oninput="changeColumnStatus(4,'focus')"><br><input type="radio" id="house-type-4" name="house-type-4" value="獨立戶">獨立戶<input type="radio" name="house-type-4" value="連棟式邊戶">連棟式邊戶<input type="radio" name="house-type-4" value="連棟式中間戶">連棟式中間戶</td>
@@ -433,7 +56,7 @@
                 <tr>
                     <td rowspan="" colspan="2"><span class="required">(*)</span><br>房屋構造<br>及層別</td>
                     <td>
-                        <select class="median-select-menu" id="building-material-1" name="building-material-1" onchange="load_floor_type_data(1)">
+                        <select class="median-select-menu" id="building-material-1" name="building-material-1" onchange="load_floor_type_data(1)" required>
                             <option value="">請選擇構造</option>
                             {$house_construct_option}
                         </select><br>
@@ -441,7 +64,7 @@
                             <option value="" style="display:none;">請選擇層別</option>
                         </select>
                     </td>
-                    <td>(<input type="number" min="0" class="small-input-size" id="nth-floor-1" name="nth-floor-1">F/共<input type="number" min="0" class="small-input-size" id="total-floor-1" name="total-floor-1">F)</td>
+                    <td>(<input type="number" min="0" class="small-input-size" id="nth-floor-1" name="nth-floor-1" required>F/共<input type="number" min="0" class="small-input-size" id="total-floor-1" name="total-floor-1" required>F)</td>
                     <td>
                         <select class="median-select-menu" id="building-material-2" name="building-material-2" onchange="load_floor_type_data(2)">
                             <option value="">請選擇構造</option>
@@ -484,7 +107,7 @@
 
                 <tr>
                     <td colspan="2"><span class="required">(*)</span><br>樓層面積<br>計算式</td>
-                    <td colspan="2"><input type="text" class="larger-input-size" id="floor-area-1" name="floor-area-1" onchange="checkAreaCalText(1)"></td>
+                    <td colspan="2"><input type="text" class="larger-input-size" id="floor-area-1" name="floor-area-1" onchange="checkAreaCalText(1)" required></td>
                     <td colspan="2"><input type="text" class="larger-input-size" id="floor-area-2" name="floor-area-2" onchange="checkAreaCalText(2)"></td>
                     <td colspan="2"><input type="text" class="larger-input-size" id="floor-area-3" name="floor-area-3" onchange="checkAreaCalText(3)"></td>
                     <td colspan="2"><input type="text" class="larger-input-size" id="floor-area-4" name="floor-area-4" onchange="checkAreaCalText(4)"></td>
@@ -1564,11 +1187,9 @@
             <input type="hidden" id="floor-count" name="floor-count" value="">
             <!-- <input type="submit" value="儲存" onclick="saveDialog()"> -->
             <!-- <input type="submit" value="繼續輸入下一頁" onclick="continueInput()"> -->
-            <input type="submit" id="submitBtn" value="儲存" style="display:none;">
-            <input type="submit" id="continueBtn" value="繼續輸入下一頁" style="display:none;">
+            <input type="submit" id="submitBtn" value="儲存" onclick="buildingContinue(false)">
+            <input type="submit" id="continueBtn" value="繼續輸入下一頁" onclick="buildingContinue(true)">
         </form>
-        <button id="" onclick="saveDialog()">儲存</button>
-        <button id="" onclick="continueInput()">繼續輸入下一頁</button>
     </div>
 </body>
 </html>

@@ -1,5 +1,6 @@
 <?php
 include "library.php";
+include "export_corp_hold_ratio_excel.php";
 error_reporting(E_ALL);
 // ini_set('display_errors', TRUE);
 ini_set('display_startup_errors', TRUE);
@@ -130,6 +131,9 @@ for($i=0;$i<count($corp_data);$i++){
                 ->setCellValue( 'E'.(8+$i+(int)($i/14)*10), $corp_data[$i]["cm_length"])
                 ->setCellValue( 'G'.(8+$i+(int)($i/14)*10), $corp_data[$i]["m_length"])
                 ->setCellValue( 'J'.(8+$i+(int)($i/14)*10), $corp_data[$i]["num"].$corp_data[$i]["unit"])
+                // ->setCellValue( 'J'.(8+$i+(int)($i/14)*10), $corp_data[$i]["plant_area"])
+                // ->setCellValue( 'K'.(8+$i+(int)($i/14)*10), $corp_data[$i]["num"])
+                // ->setCellValue( 'L'.(8+$i+(int)($i/14)*10), $corp_data[$i]["unit"])
                 ->setCellValue( 'L'.(8+$i+(int)($i/14)*10), $corp_data[$i]["plant_area"])
                 ->setCellValue( 'M'.(8+$i+(int)($i/14)*10), $corp_data[$i]["unit_price"])
                 ->setCellValue( 'N'.(8+$i+(int)($i/14)*10), number_format($corp_data[$i]["num"]*$corp_data[$i]["unit_price"],0))
@@ -141,7 +145,7 @@ $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue( 'N'.(21+($pages-1)*24), $total_price);
 
 $objActSheet = $objPHPExcel->getActiveSheet();
-$objActSheet->setTitle('default');
+$objActSheet->setTitle($script_number);
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
 
 $saveType = explode("-",$script_number);
@@ -161,4 +165,6 @@ $filename = base64_encode($fileNo);
 $file_type = ".xls";
 $objWriter->save($savePath.$filename.$file_type);
 insertFileData($script_number,$savePath,$fileNo,$filename,$file_type,"corp_file_table");
+exportCorpHoldRatioExcel($script_number,$corp_owner_data,$corp_land_owner_data,$corp_land_data,
+$corp_data,$creator,$land_section,$land_number,$total_land_area,$actual_use_area,$total_price);
 ?>

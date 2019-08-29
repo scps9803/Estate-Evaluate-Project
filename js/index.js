@@ -7,7 +7,6 @@ var roof_decoration_count = [1,1,1,1];
 var floor_decoration_count = [1,1,1,1];
 var ceiling_decoration_count = [1,1,1,1];
 var toilet_equipment_count = [1,1,1,1];
-var building_material_count = [1,1,1,1];
 
 var land_section_count = 1;
 var subsection_count = 1;
@@ -38,6 +37,7 @@ var family_num_count = 1;
 var independent_count = 0;
 
 var corp_count = 1;
+var submitCheck = false;
 
 function addItemOnclick(id,column,num){
     var itemId = "#"+id+column+"-"+num;
@@ -269,26 +269,6 @@ function addItemOnclick(id,column,num){
             get_building_decoration_option('toilet-type-', column, toilet_equipment_count[column-1], 'toilet_equipment');
             getToiletEquipmentCount(column-1);
             break;
-        case 'building-material-container-':
-            // itemId = "#"+id+column;
-            if(building_material_count[column-1] > 1){
-                itemId = "#"+id+column+"-"+building_material_count[column-1];
-            }
-            building_material_count[column-1] += 1;
-
-            text =
-            '<div id="building-material-container-'+column+'-'+building_material_count[column-1]+'">'+
-                '<input type="text" id="building-material-numerator-'+column+'-'+building_material_count[column-1]+'" name="building-material-numerator-'+column+'-'+building_material_count[column-1]+'" class="tiny-input-size" placeholder="輸入" pattern="[0-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput(\'building-material-numerator-'+column+'-'+building_material_count[column-1]+'\')" value="1">/<input type="text" id="building-material-denominator-'+column+'-'+building_material_count[column-1]+'" name="building-material-denominator-'+column+'-'+building_material_count[column-1]+'" class="tiny-input-size" placeholder="比例" pattern="[0-9]{literal}{1,5}{/literal}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput(\'building-material-denominator-'+column+'-'+building_material_count[column-1]+'\')" value="1">&nbsp;'+
-                '<select style="width:35%;margin-top:6px;" id="building-material-'+column+'-'+building_material_count[column-1]+'" name="building-material-'+column+'-'+building_material_count[column-1]+'" onchange="load_floor_type_data('+column+','+building_material_count[column-1]+')" required>'+
-                    '<option value="" style="display:none;">請選擇構造</option>'+
-                '</select>&nbsp;'+
-                '<select style="width:30%;margin-top:6px;" id="floor-type-'+column+'-'+building_material_count[column-1]+'" name="floor-type-'+column+'-'+building_material_count[column-1]+'" style="margin-top:10px;" onchange="checkFloorType('+column+')">'+
-                    '<option value="" style="display:none;">請選擇層別</option>'+
-                '</select>'+
-            '</div>';
-            $(text).insertAfter($(itemId));
-            getBuildingMaterialOption(column,building_material_count[column-1]);
-            getBuildingMaterialCount(column-1);
     }
     // $(itemId).append(text);
     // $(text).insertAfter($(itemId));
@@ -340,10 +320,6 @@ function removeItemOnclick(id,column){
             toilet_equipment_count[column-1] = removeItem(id+column , toilet_equipment_count[column-1]);
             getToiletEquipmentCount(column-1);
             break;
-        case 'building-material-container-':
-            building_material_count[column-1] = removeItem(id+column , building_material_count[column-1]);
-            getBuildingMaterialCount(column-1);
-            break;
     }
 }
 
@@ -351,17 +327,6 @@ function removeItem(id,count){
     // var countVar = id.replace(/-/g,"_") + "count";
     // var itemId = "#"+id+count;
     var itemId = "#"+id+"-"+count;
-
-    if (count > 1) {
-        $(itemId).remove();
-        count -= 1;
-    }
-    return count;
-}
-
-function removeItem2(id,count){
-    var itemId = "#"+id;
-    window.alert(itemId);
 
     if (count > 1) {
         $(itemId).remove();
@@ -542,7 +507,7 @@ function addInfoItemOnclick(id){
 
             text =
             '<div id="pId-'+pId_count+'">'+
-                '<input type="text" name="pId-'+pId_count+'" value="" placeholder="所有權人-'+pId_count+'" onchange="checkpId(\'pId\','+pId_count+')" required>'+
+                '<input type="text" name="pId-'+pId_count+'" value="" placeholder="所有權人-'+pId_count+'" required>'+
                 // '<input type="text" id="hold-id-'+pId_count+'" name="hold-id-'+pId_count+'" value="" placeholder="歸戶號" class="small-input-size" onchange="checkOwner('+pId_count+')" required>'+
             '</div>';
             break;
@@ -607,7 +572,7 @@ function addInfoItemOnclick(id){
 
             text =
             '<div id="land-pId-'+land_pId_count+'">'+
-                '<input type="text" name="land-pId-'+land_pId_count+'" value="" placeholder="所有權人-'+land_pId_count+'" onchange="checkpId(\'land-pId\','+land_pId_count+')" required>'+
+                '<input type="text" name="land-pId-'+land_pId_count+'" value="" placeholder="所有權人-'+land_pId_count+'" required>'+
             '</div>';
             break;
 
@@ -807,7 +772,7 @@ function addInfoItemOnclick(id){
         case 'corp-num':
             text =
             '<div id="corp-num-'+corp_count+'" style="margin-top:-2px">'+
-                '<input type="text" name="corp-num-'+corp_count+'" pattern="[0-9]{literal}{1,5}{/literal}" title="只能輸入5位以下數字" placeholder="請輸入數量" onchange="autoCalculateArea('+corp_count+')" required>'+
+                '<input type="text" name="corp-num-'+corp_count+'" title="只能輸入10位以下數字(含小數點)" placeholder="請輸入數量" onchange="autoCalculateArea('+corp_count+')" required>'+
             '</div>';
             break;
 
@@ -1134,6 +1099,11 @@ function load_electric_data(num){
     var item = "#electric-usage-"+num;
     var item_type = $(item).val();
 
+    if(item_type == ""){
+        $("#electric-type-"+num).html("<option value='' style='display:none;'>請選擇種類</option>");
+        return;
+    }
+
     $.ajax({
          url: "get_building_decoration_option.php",
          type: "POST",
@@ -1157,8 +1127,8 @@ function load_electric_data(num){
 }
 
 function load_floor_type_data(num,column){
-    var item = "#floor-type-"+num+"-"+column;
-    var material = $("#building-material-"+num+"-"+column).val();
+    var item = "#floor-type-"+num;
+    var material = $("#building-material-"+num).val();
     var building_type_radio = $("input[name='house-type-"+num+"']");
     var building_type = "";
 
@@ -1168,6 +1138,14 @@ function load_floor_type_data(num,column){
 
     if(building_type == ""){
         window.alert("請先選擇戶別!");
+        document.getElementById("building-material-"+num).selectedIndex = "0";
+        return;
+    }
+
+    if(material == ""){
+        document.getElementById("building-material-"+num).selectedIndex = "0";
+        $("#floor-type-"+num).html("<option style=\"display:none;\">請選擇層別</option>")
+        return;
     }
 
     $.ajax({
@@ -1188,7 +1166,8 @@ function load_floor_type_data(num,column){
              // window.alert(err.statusText);
              window.alert("戶別選擇錯誤!請重新選擇!");
              // $(item).html('<option value="" style="display:none;">請選擇層別</option>');
-             document.getElementById("building-material-"+num+"-"+column).selectedIndex = "0";
+             document.getElementById("building-material-"+num).selectedIndex = "0";
+             $("#floor-type-"+num).html("<option style=\"display:none;\">請選擇層別</option>")
          }
     });
 }
@@ -1196,6 +1175,12 @@ function load_floor_type_data(num,column){
 function load_toilet_data(column,nth){
     var item = "#toilet-type-"+column+"-"+nth;
     var item_name = $(item).val();
+
+    if(item_name == ""){
+        // document.getElementById("toilet-product-"+column+"-"+nth).selectedIndex = "0";
+        $("#toilet-product-"+column+"-"+nth).html("<option value='' style='display:none';>請選擇種類</option>");
+        return;
+    }
 
     $.ajax({
          url: "get_building_decoration_option.php",
@@ -1323,16 +1308,32 @@ function saveDialog(){
     //     '</tr>'+
     // '</table>';
     checkExitNo();
-    var isContinue = window.confirm("是否繼續輸入雜項設施?");
+    var isContinue = window.confirm("是否確定儲存?");
+    var form = document.getElementById('house_form');
+    var submitButton = document.getElementById('submitBtn');
+    var sendButton = document.getElementById('sendBtn');
+    var floorCount = 0;
+
     if(isContinue==true){
         // $("#house_form").attr("action","sub_building.php");
         // $("#sub-building").append(text);
         $("#action").val("sub_building");
         // window.alert($("#action").val());
         // window.alert($("#section-1").val());
+        // sendButton.addEventListener('click', function(){
+        //     submitButton.click();
+        // });
+        for(var i=0;i<4;i++){
+            if($("#floor-id-"+(i+1)).val() != ""){
+                floorCount++;
+            }
+        }
+        $("#floor-count").val(floorCount);
+
+        $("#submitBtn").click();
     }
     else{
-        $("#action").val("submit");
+        // $("#action").val("submit");
         // window.alert($("#action").val());
     }
 
@@ -1399,7 +1400,6 @@ function writeDataToOneRow(itemId,writeToId,countId){
 
 function changeColumnStatus(column,status){
     var itemId = ["#house-type-","#discard-status-","#pay-form-","#building-material-","#nth-floor-","#total-floor-","#floor-area-","#house-usage-"]
-    var newItem = "#building-material-";
 
     switch (status) {
         case 'focus':
@@ -1407,13 +1407,11 @@ function changeColumnStatus(column,status){
                 for(var i=0;i<itemId.length;i++){
                     $(itemId[i]+column).attr("required","");
                 }
-                $(newItem+column+"-1").attr("required","");
             }
             else if($("#floor-id-"+column).val()==""){
                 for(var i=0;i<itemId.length;i++){
                     $(itemId[i]+column).removeAttr("required");
                 }
-                $(newItem+column+"-1").removeAttr("required");
             }
             break;
     }
@@ -1479,10 +1477,6 @@ function getCorpCount(){
     $("#corp-count").val(corp_count);
 }
 
-function getBuildingMaterialCount(num){
-    $("#building-material-count-"+(num+1)).val(building_material_count[num]);
-}
-
 // function setRequired(id){
 //     var item = id+"1-2";
 //     window.alert(item);
@@ -1543,7 +1537,21 @@ function exportCorpExcel(script_number){
 }
 
 function continueInput(){
+    var floorCount = 0;
+
+    for(var i=0;i<4;i++){
+        if($("#floor-id-"+(i+1)).val() == ""){
+            window.alert("建物表格尚有欄位可填寫\n無法繼續輸入下一頁!");
+            return;
+        }
+        else{
+            floorCount++;
+        }
+    }
+    $("#floor-count").val(floorCount);
     $("#action").val("continue");
+    // $("#house_form").attr("action","building_continue.php");
+    $("#continueBtn").click();
     // window.alert($("#action").val());
 }
 
@@ -1658,6 +1666,12 @@ function getSubbuildingCategory(num){
 function getSubbuildingOption(num){
     var item = "#other-item-option-"+num;
     var application = $("#other-item-category-"+num).val();
+
+    if(application == ""){
+        $(item).html("<option value='' style='display:none;'>請選擇項目</option>");
+        document.getElementById("other-item-type-"+num).selectedIndex = "0";
+        return;
+    }
 
     $.ajax({
          url: "get_building_decoration_option.php",
@@ -1915,8 +1929,21 @@ function checkFloorType(num){
 }
 
 function autoCompleteIndoorWallType(column,num){
+    var indoor_divide = "#indoor-divide-option-"+column+"-1";
     var item = "indoor-wall-type-"+column+"-"+num;
-    document.getElementById(item).selectedIndex = "1";
+    var indoor_wall = "#indoor-wall-decoration-option-"+column+"-"+num;
+
+    if($(indoor_wall).val() == ""){
+        document.getElementById(item).selectedIndex = "0";
+    }
+    else{
+        if($(indoor_divide).val() == ""){
+            document.getElementById(item).selectedIndex = "1";
+        }
+        else{
+            document.getElementById(item).selectedIndex = "2";
+        }
+    }
 }
 
 var response_json = "";
@@ -2087,6 +2114,13 @@ function autoCalculateArea(num){
     var corp_type = "select[name='corp-type-"+num+"']";
     var corp_num = "input[name='corp-num-"+num+"']";
 
+    if(!checkCorpArea(num)){
+        window.alert("數量格式輸入錯誤!");
+        $(corp_num).val("");
+        $("input[name='corp-area-"+num+"']").val("");
+        return;
+    }
+
     $.ajax({
          url: "get_building_decoration_option.php",
          type: "POST",
@@ -2112,6 +2146,24 @@ function autoCalculateArea(num){
              window.alert(err.statusText);
          }
     });
+}
+
+function checkCorpArea(num){
+    var item = "input[name='corp-num-"+num+"']";
+
+    if($(item).val().length > 10){
+        return false;
+    }
+
+    str = $(item).val();
+    for(var i=0;i<str.length;i++){
+        if(str[i].charCodeAt()>58 || str[i].charCodeAt()<48){
+            if(str[i].charCodeAt() != 46){
+                return false;
+            }
+        }
+    }
+    return true;
 }
 
 function checkpId(id,num){
@@ -2176,6 +2228,140 @@ function getBuildingMaterialOption(column,num){
     });
 }
 
+function setDefaultOption(select,clear,num){
+    if($("#"+select+"-"+num).val() == ""){
+        document.getElementById(clear+"-"+num).selectedIndex = "0";
+    }
+}
+
+function checkScriptNo(){
+    var legal = document.getElementById("legal");
+    var illegal = document.getElementById("illegal");
+    var script_number = "";
+    var table = "";
+
+    if(legal.checked && $("#script-number").val() != ""){
+        // window.alert(legal.value);
+        if(legal.value == "建合"){
+            table = "record";
+        }
+        else{
+            table = "corp_record";
+        }
+        script_number += legal.value+"-"+$("#script-number").val();
+    }
+    else if(illegal.checked && $("#script-number").val() != ""){
+        // window.alert(illegal.value);
+        if(illegal.value == "建非"){
+            table = "record";
+        }
+        else{
+            table = "corp_record";
+        }
+        script_number += illegal.value+"-"+$("#script-number").val();
+    }
+    else{
+        window.alert("請先選擇合非法狀態!");
+        $("#script-number").val("");
+        return;
+    }
+
+    $.ajax({
+         url: "get_building_decoration_option.php",
+         type: "POST",
+         data:{
+            category: 'check_script_No',
+            script_number: script_number,
+            table: table
+         },
+         cache:false,
+         dataType: "json",
+         // contentType: 'application/json; charset=utf-8',
+         success: function(data){
+             if(data.item_name == false){
+                 window.alert("此手稿編號已存在!\n請重新輸入!");
+                 $("#script-number").val("");
+             }
+         },
+         error:function(err){
+             window.alert(err.statusText);
+         }
+    });
+}
+
+function checkAddress(){
+    var address = $("#houseAddress").val();
+
+    $.ajax({
+         url: "get_building_decoration_option.php",
+         type: "POST",
+         data:{
+            category: 'check_address',
+            address: address
+         },
+         cache:false,
+         dataType: "json",
+         // contentType: 'application/json; charset=utf-8',
+         success: function(data){
+             if(data.item_name == false){
+                 window.alert("此地址已存在!\n請重新輸入!");
+                 $("#houseAddress").val("");
+             }
+         },
+         error:function(err){
+             window.alert(err.statusText);
+         }
+    });
+}
+
+function checkSubmit(){
+    // var isContinue = window.confirm("是否確定儲存?");
+    var floorCount = 0;
+
+    if(inputNextPage){
+        // $("#house_form").attr("action","building_continue.php");
+
+        for(var i=0;i<4;i++){
+            if($("#floor-id-"+(i+1)).val() == ""){
+                window.alert("建物表格尚有欄位可填寫\n無法繼續輸入下一頁!");
+                return false;
+            }
+            else{
+                floorCount++;
+            }
+        }
+        $("#floor-count").val(floorCount);
+        $("#action").val("continue");
+        // $("#house_form").attr("action","building_continue.php");
+        return true;
+    }
+    else{
+        var isContinue = window.confirm("是否確定儲存?");
+        if(isContinue==true){
+            for(var i=0;i<4;i++){
+                if($("#floor-id-"+(i+1)).val() != ""){
+                    floorCount++;
+                }
+            }
+            $("#floor-count").val(floorCount);
+            $("#action").val("submit");
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+}
+
+function buildingContinue(isContinue){
+    if(isContinue){
+        inputNextPage = true;
+    }
+    else{
+        inputNextPage = false;
+    }
+}
+
 $(document).ready(function(){
     getOwnerCount();
     getLandOwnerCount();
@@ -2193,6 +2379,5 @@ $(document).ready(function(){
         getFloorDecorationCount(i);
         getCeilingDecorationCount(i);
         getToiletEquipmentCount(i);
-        getBuildingMaterialCount(i);
     }
 });
