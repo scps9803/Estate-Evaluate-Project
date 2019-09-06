@@ -35,6 +35,7 @@ $total_floor = $_POST['floor-count'];
         $main_building[$i]["material"] = $_POST['building-material-'.($i+1)];
         $main_building[$i]["floor_type"] = $_POST['floor-type-'.($i+1)];
         $main_building[$i]["nth_floor"] = $_POST['nth-floor-'.($i+1)];
+        $main_building[$i]["total_floor"] = $_POST['total-floor-'.($i+1)];
         $main_building[$i]["points"] = getMainBuildingPoint($main_building[$i]["material"],$main_building[$i]["floor_type"],$main_building[$i]["house_type"]);
         $main_building[$i]["floor_area_calculate_text"] = $_POST['floor-area-'.($i+1)];
 

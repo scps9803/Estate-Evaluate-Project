@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-26 14:32:00
+/* Smarty version 3.1.33, created on 2019-09-05 05:43:00
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\corp.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d63ed6015db07_62681137',
+  'unifunc' => 'content_5d70a0640f24c5_07331286',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'd63c0813a36d37958756a619792a27197ce5d956' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\corp.html',
-      1 => 1566829917,
+      1 => 1567651009,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d63ed6015db07_62681137 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d70a0640f24c5_07331286 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,22 +45,28 @@ function content_5d63ed6015db07_62681137 (Smarty_Internal_Template $_smarty_tpl)
 <body>
     <div class="container" align="center">
         <h1>農作物調查表</h1>
+        <h3 style="color:red;">(*)表示必填項目</h3>
         <form class="" action="corp_submit.php" method="post" id="" onkeydown="if(event.keyCode==13)return false;">
             <table border="1">
                 <tbody>
                     <tr>
-                        <td rowspan="2">基地標示</td>
-                        <td><span class="required">(*)</span>鄉鎮市</td>
-                        <td><span class="required">(*)</span>段</td>
-                        <td>小段</td>
-                        <td colspan="3"><span class="required">(*)</span>地號</td>
+                        <td rowspan="3">基地標示</td>
+                        <td rowspan="2"><span class="required">(*)</span>鄉鎮市</td>
+                        <td rowspan="2"><span class="required">(*)</span>段</td>
+                        <td rowspan="2">小段</td>
+                        <td colspan="3" rowspan="2"><span class="required">(*)</span>地號</td>
                         <!-- <td colspan="2"><span class="required">(*)</span>面積(m<sup>2</sup>)</td> -->
                         <td rowspan=""><span class="required">(*)</span><br>查估手稿編號</td>
                         <td rowspan="">
-                            <input type="radio" id="legal" name="legal-status" value="農合" checked required>農合
-                            <input type="radio" id="illegal" name="legal-status" value="農非">農非
+                            <input type="radio" id="legal" name="legal-status" value="農" checked required>農
+                            <!-- <input type="radio" id="illegal" name="legal-status" value="農非">農非 -->
                             <input type="text" id="script-number" name="script-number" value="" placeholder="輸入手稿編號" onchange="checkScriptNo()" required><br>
                         </td>
+                    </tr>
+
+                    <tr>
+                        <td><span class="required">(*)</span><br>查估日期</td>
+                        <td><input type="date" id="survey-date" name="survey-date" onchange="checkDate('survey-date')" required></td>
                     </tr>
 
                     <tr>
@@ -135,7 +141,7 @@ function content_5d63ed6015db07_62681137 (Smarty_Internal_Template $_smarty_tpl)
                             </div>
                         </td>
 
-                        <td>土地使用權屬</td>
+                        <td><span class="required">(*)</span><br>土地使用權屬</td>
                         <td>
                             <select class="select-menu" name="land-use" required>
                                 <option value="" style="display:none;">請選擇項目</option>
@@ -149,7 +155,7 @@ function content_5d63ed6015db07_62681137 (Smarty_Internal_Template $_smarty_tpl)
                     <tr>
                         <td><span class="required">(*)</span>農林漁牧作物所有人</td>
                         <td><span class="required">(*)</span>持分比例</td>
-                        <td><span class="required">(*)</span>身分證字號</td>
+                        <td>身分證字號</td>
                         <td>通訊住址</td>
                         <td colspan="5">
                             <div id="corp-address">
@@ -183,12 +189,15 @@ function content_5d63ed6015db07_62681137 (Smarty_Internal_Template $_smarty_tpl)
                                     /&nbsp;<input type="text" id="hold-denominator-1" name="hold-denominator-1" class="tiny-input-size" placeholder="比例" pattern="[0-9]{1,10}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('hold-denominator-1')" required>
                                 </div>
                             </div>
+                            <div>
+                                <input type="checkbox" id="shared" name="shared" value="">將全部所有人列為公同共有
+                            </div>
                         </td>
 
                         <td rowspan="2">
                             <div id="pId" class="input-align">
                                 <div id="pId-1">
-                                    <input type="text" name="pId-1" value="" placeholder="所有權人-1" required>
+                                    <input type="text" name="pId-1" value="" placeholder="所有權人-1">
                                     <!-- <input type="text" id="hold-id-1" name="hold-id-1" value="" placeholder="歸戶號" class="small-input-size" onchange="checkOwner(1)" required> -->
                                 </div>
                             </div>
@@ -219,7 +228,7 @@ function content_5d63ed6015db07_62681137 (Smarty_Internal_Template $_smarty_tpl)
                     <tr>
                         <td><span class="required">(*)</span>土地所有權人</td>
                         <td><span class="required">(*)</span>歸戶號</td>
-                        <td><span class="required">(*)</span>身分證字號</td>
+                        <td>身分證字號</td>
                         <td>通訊住址</td>
                         <td colspan="5">
                             <div id="land-address">
@@ -243,8 +252,8 @@ function content_5d63ed6015db07_62681137 (Smarty_Internal_Template $_smarty_tpl)
                                 </div>
                             </div>
                             <input type="hidden" id="land_owner_count" name="land_owner_count">
-                            <button type="button" onclick="addInfoItemOnclick('land-owner')">+</button>
-                            <button type="button" onclick="removeInfoItemOnclick('land-owner')">-</button>
+                            <!-- <button type="button" onclick="addInfoItemOnclick('land-owner')">+</button>
+                            <button type="button" onclick="removeInfoItemOnclick('land-owner')">-</button> -->
                         </td>
 
                         <td>
@@ -258,7 +267,7 @@ function content_5d63ed6015db07_62681137 (Smarty_Internal_Template $_smarty_tpl)
                         <td>
                             <div id="land-pId" class="input-align">
                                 <div id="land-pId-1">
-                                    <input type="text" name="land-pId-1" value="" placeholder="所有權人-1" required>
+                                    <input type="text" name="land-pId-1" value="" placeholder="所有權人-1">
                                 </div>
                             </div>
                         </td>
@@ -378,7 +387,7 @@ function content_5d63ed6015db07_62681137 (Smarty_Internal_Template $_smarty_tpl)
             <!-- <input type="hidden" id="action" name="action" value="">
             <input type="submit" value="儲存" onclick="saveDialog()">
             <input type="submit" value="繼續輸入下一頁" onclick="continueInput()"> -->
-            <input type="submit" value="儲存" onclick="corpClick()">
+            <input type="submit" value="儲存" onclick="corpSubmit()">
         </form>
     </div>
 </body>

@@ -284,9 +284,9 @@ function insertLandData($district,$land_section,$subsection,$land_number,$house_
     $conn->close();
 }
 
-function insertRecordData($script_number,$house_address,$KEYIN_ID,$KEYIN_DATETIME){
+function insertRecordData($script_number,$house_address,$KEYIN_ID,$KEYIN_DATETIME,$survey_date){
     $conn = connect_db();
-    $sql = "INSERT INTO record VALUES('{$script_number}','{$house_address}','{$KEYIN_ID}','{$KEYIN_DATETIME}')";
+    $sql = "INSERT INTO record VALUES('{$script_number}','{$house_address}','{$KEYIN_ID}','{$KEYIN_DATETIME}','{$survey_date}')";
 
     if ($conn->query($sql) === TRUE){
         // echo "New record created successfully";
@@ -328,11 +328,11 @@ function insertBuildingData($house_address,$legal_status,$build_number,$tax_numb
         $conn->close();
     }
 
-function insertOwnBuildingData($pId,$house_address,$hold_ratio){
+function insertOwnBuildingData($pId,$house_address,$hold_ratio,$hold_numerator,$hold_denominator,$shared){
     $conn = connect_db();
 
     for($i=0;$i<count($pId);$i++){
-        $sql = "INSERT INTO own_building VALUES('{$pId[$i]}','{$house_address}','{$hold_ratio[$i]}')";
+        $sql = "INSERT INTO own_building VALUES('{$pId[$i]}','{$house_address}','{$hold_ratio[$i]}','{$hold_numerator[$i]}','{$hold_denominator[$i]}','{$shared}')";
 
         if ($conn->query($sql) === TRUE){
             // echo "New record created successfully";
@@ -578,7 +578,7 @@ function insertFloorData($script_number,$main_building,$house_address,$discard_s
         $sql = "INSERT INTO floor_info VALUES('{$fId}','{$main_building[$i]["house_type"]}',
             '{$discard_status[$i]}','{$main_building[$i]["compensate_form"]}',
             '{$main_building[$i]["material"]}','{$main_building[$i]["floor_type"]}',
-            '{$main_building[$i]["nth_floor"]}','{$main_building[$i]["floor_area_calculate_text"]}',
+            '{$main_building[$i]["nth_floor"]}','{$main_building[$i]["total_floor"]}','{$main_building[$i]["floor_area_calculate_text"]}',
             '{$main_building[$i]["floor_area"]}','{$main_building[$i]["usage"]}',
             '{$main_building[$i]["layer-height"]}','{$house_address}')";
 
@@ -1436,7 +1436,8 @@ function insertBalconyData($fId,$balcony){
 function getOwnerData($house_address){
     $conn = connect_db();
 
-    $sql = "SELECT * FROM owner WHERE address='{$house_address}'";
+    // $sql = "SELECT * FROM owner WHERE address='{$house_address}'";
+    $sql = "SELECT * FROM owner AS a JOIN landlord AS b ON a.name=b.name WHERE a.address='{$house_address}'";
     $res = $conn->query($sql);
 
     $i = 0;
@@ -1537,8 +1538,11 @@ function getResidentData($house_address){
 function getMainBuildingData($house_address){
     $conn = connect_db();
 
-    $sql = "SELECT * FROM (floor_info NATURAL JOIN has_building_decoration) NATURAL JOIN building_decoration WHERE address='{$house_address}' AND category='房屋構造體(別)'";
+    $sql = "SELECT * FROM (floor_info NATURAL JOIN has_building_decoration) NATURAL JOIN building_decoration WHERE address='{$house_address}' AND category='房屋構造體(別)' ORDER BY SUBSTRING_INDEX('fId', '-', 2)";
     $res = $conn->query($sql);
+    if($res->num_rows==0){
+        return;
+    }
 
     $i = 0;
     while($row = $res->fetch_assoc()) {
@@ -1606,7 +1610,40 @@ function getSubbuildingCategory(){
 function getSubbuildingOption($application){
     $conn = connect_db();
 
-    $sql = "SELECT item_name FROM sub_building WHERE application='{$application}'";
+    $sql = "SELECT * FROM sub_building WHERE application='{$application}'";
+    $res = $conn->query($sql);
+    if($res->num_rows==0){
+        return "";
+    }
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $sub_building[$i] = $row;
+        $i++;
+    }
+    // while($row = $res->fetch_assoc()) {
+    //     $sub_building["item_name"][$i] = $row["item_name"];
+    //     $sub_building["unit"][$i] = $row["unit"];
+    //     $i++;
+    // }
+
+    $conn->close();
+
+    $sub_building_option = "";
+
+    for($i=0;$i<count($sub_building);$i++){
+        $sub_building_option = $sub_building_option
+        ."<option value='".$sub_building[$i]["item_name"]."'>".$sub_building[$i]["item_name"]."</option>";
+    }
+
+    return $sub_building_option;
+    // return $sub_building;
+}
+
+function getSubbuildingUnit($application,$item_name){
+    $conn = connect_db();
+
+    $sql = "SELECT * FROM sub_building WHERE application='{$application}' AND item_name='{$item_name}'";
     $res = $conn->query($sql);
     if($res->num_rows==0){
         return "";
@@ -1620,14 +1657,14 @@ function getSubbuildingOption($application){
 
     $conn->close();
 
-    $sub_building_option = "";
+    $sub_building_unit = "";
 
     for($i=0;$i<count($sub_building);$i++){
-        $sub_building_option = $sub_building_option
-        ."<option value='".$sub_building[$i]["item_name"]."'>".$sub_building[$i]["item_name"]."</option>";
+        $sub_building_unit = $sub_building_unit
+        ."<option value='".$sub_building[$i]["unit"]."'>".$sub_building[$i]["unit"]."</option>";
     }
 
-    return $sub_building_option;
+    return $sub_building_unit;
 }
 
 function insertSubbuildingData($house_address,$sub_building){
@@ -1676,7 +1713,7 @@ function getSubbuildingData($house_address,$item_type){
 function getDecorationData($house_address,$category){
     $conn = connect_db();
 
-    $sql = "SELECT * FROM has_building_decoration AS a LEFT JOIN floor_info AS b ON a.fId=b.fId LEFT JOIN building_decoration AS c ON a.bdId=c.bdId WHERE address='{$house_address}' AND category='{$category}' ORDER BY nth_floor";
+    $sql = "SELECT * FROM has_building_decoration AS a LEFT JOIN floor_info AS b ON a.fId=b.fId LEFT JOIN building_decoration AS c ON a.bdId=c.bdId WHERE address='{$house_address}' AND category='{$category}' ORDER BY SUBSTRING_INDEX('fId', '-', 2)";
     $res = $conn->query($sql);
     if($res->num_rows==0) return null;
 
@@ -1770,7 +1807,7 @@ function insertLandOwnerData($land_owner,$hold_id,$land_pId,$landAddressText,$la
     $conn = connect_db();
 
     for($i=0;$i<count($land_owner);$i++){
-        $sql = "INSERT INTO land_owner VALUES('{$hold_id[$i]}','{$land_pId[$i]}','{$land_owner[$i]}','{$land_telephone[$i]}','{$land_cellphone[$i]}','{$landAddressText[$i]}')";
+        $sql = "INSERT INTO land_owner VALUES('{$hold_id[$i]}','{$land_pId[$i]}','{$land_owner[$i]}','{$land_telephone[$i]}','{$land_cellphone[$i]}','{$landAddressText[$i]}') ON DUPLICATE KEY UPDATE hold_id='{$hold_id[$i]}', pId='{$land_pId[$i]}', name='{$land_owner[$i]}', telephone='{$land_telephone[$i]}', cellphone='{$land_cellphone[$i]}', current_address='{$landAddressText[$i]}'";
 
         if ($conn->query($sql) === TRUE){
             // echo "New record created successfully";
@@ -1962,10 +1999,10 @@ function getAutoCalculateArea($corp_category,$corp_item,$corp_type,$corp_num){
     return $corp_plant_area;
 }
 
-function insertIntoCorpRecordTable($script_number,$district,$land_use,$KEYIN_ID,$KEYIN_DATETIME){
+function insertIntoCorpRecordTable($script_number,$district,$land_use,$KEYIN_ID,$KEYIN_DATETIME,$SURVEY_DATE){
     $conn = connect_db();
 
-    $sql = "INSERT INTO corp_record VALUES ('{$script_number}','{$district}','{$land_use}','{$KEYIN_ID}','{$KEYIN_DATETIME}')";
+    $sql = "INSERT INTO corp_record VALUES ('{$script_number}','{$district}','{$land_use}','{$KEYIN_ID}','{$KEYIN_DATETIME}','{$SURVEY_DATE}')";
     if ($conn->query($sql) === TRUE){
         // echo "New record created successfully";
     }else{
@@ -1997,7 +2034,7 @@ function insertIntoCorpOwnerTable($pId,$owner,$address,$telephone,$cellphone){
     $conn = connect_db();
 
     for($i=0;$i<count($pId);$i++){
-        $sql = "INSERT INTO corp_owner VALUES ('{$pId[$i]}','{$owner[$i]}','{$address[$i]}','{$telephone[$i]}','{$cellphone[$i]}')";
+        $sql = "INSERT INTO corp_owner VALUES ('{$pId[$i]}','{$owner[$i]}','{$address[$i]}','{$telephone[$i]}','{$cellphone[$i]}') ON DUPLICATE KEY UPDATE pId='{$pId[$i]}', name='{$owner[$i]}', current_address='{$address[$i]}', telephone='{$telephone[$i]}', cellphone='{$cellphone[$i]}'";
         if ($conn->query($sql) === TRUE){
             // echo "New record created successfully";
         }else{
@@ -2008,11 +2045,11 @@ function insertIntoCorpOwnerTable($pId,$owner,$address,$telephone,$cellphone){
     $conn->close();
 }
 
-function insertIntoCorpOwnerBelongToCorpRecordTable($pId,$script_number,$hold_ratio){
+function insertIntoCorpOwnerBelongToCorpRecordTable($pId,$script_number,$hold_ratio,$hold_numerator,$hold_denominator,$shared){
     $conn = connect_db();
 
     for($i=0;$i<count($pId);$i++){
-        $sql = "INSERT INTO corp_owner_belong_to_corp_record VALUES('$pId[$i]','{$script_number}','{$hold_ratio[$i]}')";
+        $sql = "INSERT INTO corp_owner_belong_to_corp_record VALUES('$pId[$i]','{$script_number}','{$hold_ratio[$i]}','{$hold_numerator[$i]}','{$hold_denominator[$i]}','{$shared}')";
         if ($conn->query($sql) === TRUE){
             // echo "New record created successfully";
         }else{
@@ -2027,7 +2064,7 @@ function insertIntoLandOwnerTable($hold_id,$land_pId,$land_owner,$land_telephone
     $conn = connect_db();
 
     for($i=0;$i<count($hold_id);$i++){
-        $sql = "INSERT INTO land_owner VALUES('{$hold_id[$i]}','{$land_pId[$i]}','{$land_owner[$i]}','{$land_telephone[$i]}','{$land_cellphone[$i]}','{$landAddressText[$i]}')";
+        $sql = "INSERT INTO land_owner VALUES('{$hold_id[$i]}','{$land_pId[$i]}','{$land_owner[$i]}','{$land_telephone[$i]}','{$land_cellphone[$i]}','{$landAddressText[$i]}') ON DUPLICATE KEY UPDATE hold_id='{$hold_id[$i]}', pId='{$land_pId[$i]}', name='{$land_owner[$i]}', telephone='{$land_telephone[$i]}', cellphone='{$land_cellphone[$i]}', current_address='{$landAddressText[$i]}'";
 
         if ($conn->query($sql) === TRUE){
             // echo "New record created successfully";
@@ -2071,7 +2108,7 @@ function insertIntoPlantingTable($land_section,$subsection,$land_number,$corp,$s
         $row = $res->fetch_assoc();
         $cId = $row["cId"];
 
-        $sql = "INSERT INTO planting VALUES ('{$land_id}','{$cId}','{$corp[$i]["num"]}','{$corp[$i]["area"]}','{$corp[$i]["area"]}','{$corp[$i]["note"]}','{$script_number}')";
+        $sql = "INSERT INTO planting VALUES ('{$land_id}','{$cId}','{$corp[$i]["num"]}','{$corp[$i]["area"]}','{$corp[$i]["area"]}','{$corp[$i]["note"]}','{$script_number}','{$corp[$i]["keyin_order"]}')";
         if ($conn->query($sql) === TRUE){
             // echo "New record created successfully";
         }else{
@@ -2084,7 +2121,8 @@ function insertIntoPlantingTable($land_section,$subsection,$land_number,$corp,$s
 function getCorpOwnerData($script_number){
     $conn = connect_db();
 
-    $sql = "SELECT * FROM corp_owner_belong_to_corp_record NATURAL JOIN corp_record NATURAL JOIN corp_owner WHERE rid='{$script_number}'";
+    // $sql = "SELECT * FROM corp_owner_belong_to_corp_record NATURAL JOIN corp_record NATURAL JOIN corp_owner WHERE rid='{$script_number}'";
+    $sql = "SELECT * FROM corp_owner_belong_to_corp_record NATURAL JOIN corp_record NATURAL JOIN corp_owner as a JOIN landlord as b ON a.name=b.name WHERE rid='$script_number'";
     $res = $conn->query($sql);
 
     $i = 0;
@@ -2113,6 +2151,41 @@ function getCorpLandOwnerData($script_number){
     return $corp_land_owner;
 }
 
+function getCorpLandOwnerData2($first_id,$land_section,$subsection,$land_number){
+    $conn = connect_db();
+    $temp_array;
+    $land_owner;
+    $index = 0;
+    $temp_array[0] = $first_id;
+
+    for($i=0;$i<count($land_section);$i++){
+        for($j=0;$j<count($land_number[$i]);$j++){
+            $land_id = $land_section[$i].$subsection[$i].$land_number[$i][$j];
+            $sql = "SELECT * FROM own_land_list NATURAL JOIN landlord WHERE land_id='{$land_id}'";
+            $res = $conn->query($sql);
+            if($res->num_rows==0){
+                return "";
+            }
+            // SELECT * FROM own_land_list NATURAL JOIN landlord WHERE land_id='草漯段0423-0008'
+
+            while($row = $res->fetch_assoc()) {
+                if(!in_array($row["hold_id"],$temp_array)){
+                    $temp_array[$index] = $row["hold_id"];
+                    $land_owner["hold_id"][$index] = $row["hold_id"];
+                    $land_owner["name"][$index] = $row["name"];
+                    $land_owner["address"][$index] = $row["address"];
+                    $land_owner["numerator"][$index] = $row["numerator"];
+                    $land_owner["denominator"][$index] = $row["denominator"];
+                    $index++;
+                }
+            }
+        }
+    }
+    $conn->close();
+
+    return $land_owner;
+}
+
 function getCorpLandData($script_number){
     $conn = connect_db();
 
@@ -2132,7 +2205,7 @@ function getCorpLandData($script_number){
 function getCorpData($script_number){
     $conn = connect_db();
 
-    $sql = "SELECT * from corp_record NATURAL JOIN land_belong_to_corp_record NATURAL JOIN planting NATURAL JOIN corp WHERE rId='{$script_number}' AND checkId='{$script_number}'";
+    $sql = "SELECT * from corp_record NATURAL JOIN land_belong_to_corp_record NATURAL JOIN planting NATURAL JOIN corp WHERE rId='{$script_number}' AND checkId='{$script_number}' ORDER BY keyin_order";
     $res = $conn->query($sql);
 
     $i = 0;
@@ -2173,5 +2246,15 @@ function checkAddress($address){
     else{
         return false;
     }
+}
+
+function getSurveyDate($table,$script_number){
+    $conn = connect_db();
+    $sql = "SELECT * FROM {$table} WHERE rId='{$script_number}'";
+    $res = $conn->query($sql);
+    $row = $res->fetch_assoc();
+    $conn->close();
+
+    return $row["survey_date"];
 }
 ?>

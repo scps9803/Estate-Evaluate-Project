@@ -9,6 +9,13 @@ $smarty = new Smarty;
 $KEYIN_ID = "DEMO1234";
 date_default_timezone_set('Asia/Taipei');
 $KEYIN_DATETIME = date("Y-m-d/H:i:s");
+$survey_date = $_POST['survey-date'];
+if(isset($_POST['shared'])){
+    $shared = $_POST['shared'];
+}
+else{
+    $shared = "個別持分";
+}
 
 $house_address = $_POST['houseAddress'];
 $script_number = $_POST['legal-status']."-".$_POST['script-number'];
@@ -73,22 +80,53 @@ $owner_count = $_POST['owner_count'];
 for($i=0;$i<$owner_count;$i++){
     $owner[$i] = $_POST['owner-'.($i+1)];
     $hold_ratio[$i] = $_POST['hold-numerator-'.($i+1)] / $_POST['hold-denominator-'.($i+1)];
-    $pId[$i] = $_POST['pId-'.($i+1)];
+    $hold_numerator[$i] = $_POST['hold-numerator-'.($i+1)];
+    $hold_denominator[$i] = $_POST['hold-denominator-'.($i+1)];
+    if($_POST['pId-'.($i+1)] == ""){
+        $pId[$i] = "NA".$script_number."-".($i+1);
+    }
+    else{
+        $pId[$i] = $_POST['pId-'.($i+1)];
+    }
     $address[$i] = $_POST['addressText-'.($i+1)];
     $cellphone[$i] = $_POST['cellphone-'.($i+1)];
     $telephone[$i] = $_POST['telephone-'.($i+1)];
 }
 // 土地所有人、歸戶號、身分證字號、住址、電話等個人資料
-$land_owner_count = $_POST['land_owner_count'];
-for($i=0;$i<$land_owner_count;$i++){
-    $land_owner[$i] = $_POST['land-owner-'.($i+1)];
-    $hold_id[$i] = $_POST['hold-id-'.($i+1)];
-    $land_pId[$i] = $_POST['land-pId-'.($i+1)];
-    $landAddressText[$i] = $_POST['landAddressText-'.($i+1)];
-    $land_cellphone[$i] = $_POST['land-cellphone-'.($i+1)];
-    $land_telephone[$i] = $_POST['land-telephone-'.($i+1)];
+// $land_owner_count = $_POST['land_owner_count'];
+
+$land_owner[0] = $_POST['land-owner-1'];
+$hold_id[0] = $_POST['hold-id-1'];
+if($_POST['land-pId-1'] == ""){
+    $land_pId[0] = "NA".$script_number."-1";
+}
+else{
+    $land_pId[0] = $_POST['land-pId-1'];
+}
+$landAddressText[0] = $_POST['landAddressText-1'];
+$land_cellphone[0] = $_POST['land-cellphone-1'];
+$land_telephone[0] = $_POST['land-telephone-1'];
+
+$first_id = $_POST['hold-id-1'];
+$land_owner_data = getCorpLandOwnerData2($first_id,$land_section,$subsection,$land_number);
+
+for($i=1;$i<=count($land_owner_data["hold_id"]);$i++){
+    // $land_owner[$i] = $_POST['land-owner-'.($i+1)];
+    // $hold_id[$i] = $_POST['hold-id-'.($i+1)];
+    // $land_pId[$i] = $_POST['land-pId-'.($i+1)];
+    // $landAddressText[$i] = $_POST['landAddressText-'.($i+1)];
+    // $land_cellphone[$i] = $_POST['land-cellphone-'.($i+1)];
+    // $land_telephone[$i] = $_POST['land-telephone-'.($i+1)];
+    $land_owner[$i] = $land_owner_data["name"][$i-1];
+    $hold_id[$i] = $land_owner_data["hold_id"][$i-1];
+    $land_pId[$i] = "NA".$script_number."-".($i+1);
+    $landAddressText[$i] = $land_owner_data["address"][$i-1];
+    $land_cellphone[$i] = '';
+    $land_telephone[$i] = '';
 }
 print_r($land_owner);
+echo "<br>----------------------<br>";
+print_r(count($land_owner_data["hold_id"]));
 
 // 房屋門牌
 $house_address = $_POST['houseAddress'];
@@ -176,6 +214,7 @@ echo "floor:".$total_floor."<br>";
         $main_building[$i]["material"] = $_POST['building-material-'.($i+1)];
         $main_building[$i]["floor_type"] = $_POST['floor-type-'.($i+1)];
         $main_building[$i]["nth_floor"] = $_POST['nth-floor-'.($i+1)];
+        $main_building[$i]["total_floor"] = $_POST['total-floor-'.($i+1)];
         $main_building[$i]["points"] = getMainBuildingPoint($main_building[$i]["material"],$main_building[$i]["floor_type"],$main_building[$i]["house_type"]);
         $main_building[$i]["floor_area_calculate_text"] = $_POST['floor-area-'.($i+1)];
 
@@ -480,13 +519,13 @@ insertBuildingData($house_address,$legal_status,$build_number,$tax_number,
     $legal_certificate,$build_certificate,$captain_count,$exit_num,
     $total_floor,$remove_condition);
 insertLandData($district,$land_section,$subsection,$land_number,$house_address,$land_use);
-insertRecordData($script_number,$house_address,$KEYIN_ID,$KEYIN_DATETIME);
+insertRecordData($script_number,$house_address,$KEYIN_ID,$KEYIN_DATETIME,$survey_date);
 insertOwnerData($owner,$hold_ratio,$pId,$house_address,$address,$telephone,$cellphone);
 insertLandOwnerData($land_owner,$hold_id,$land_pId,$landAddressText,$land_telephone,$land_cellphone,$house_address);
 // insertBuildingData($house_address,$legal_status,$build_number,$tax_number,
 //     $legal_certificate,$build_certificate,$captain_count,$exit_num,
 //     $total_floor,$remove_condition);
-insertOwnBuildingData($pId,$house_address,$hold_ratio);
+insertOwnBuildingData($pId,$house_address,$hold_ratio,$hold_numerator,$hold_denominator,$shared);
 if($captain[0]["name"]!=""){
     insertResidentData($captain,$total_people,$house_address,$exit_num,$remove_condition);
 }

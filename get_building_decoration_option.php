@@ -75,6 +75,13 @@ switch ($category) {
         $application = $_POST['application'];
         $result_option = getSubbuildingOption($application);
         break;
+        // echo json_encode(array('item_name' => $result_option["item_name"], 'unit' => $result_option["unit"]));
+        // return;
+    case 'sub_building_unit':
+        $application = $_POST['application'];
+        $item_name = $_POST['item_name'];
+        $result_option = getSubbuildingUnit($application,$item_name);
+        break;
 
     case 'land_lord':
         $name = $_POST['name'];

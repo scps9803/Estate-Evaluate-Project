@@ -289,7 +289,9 @@
         "<td>" +
         "<button class='btn btn-default'><a href='getFile.php?recordNo={$row.rId}&file=1'>下載調查表</a></button><br>" +
         "<button class='btn btn-default' style='margin-top:5px';><a href='getFile.php?recordNo={$row.rId}&file=2'>下載持分表</a></button>" +
-        // "<button class='btn btn-default' style='margin-left:5px;' onclick=deleteCorp('{$row.rId}')>刪除</button>" +
+        "</td>" +
+        "<td>" +
+        "<button class='btn btn-default' onclick=deleteCorp('{$row.rId}')>刪除</button>" +
         "</td>" +
         "</tr>" +
         "{/foreach}" +

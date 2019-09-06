@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-27 14:58:01
+/* Smarty version 3.1.33, created on 2019-09-05 05:40:00
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\index.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d6544f9646a36_33740641',
+  'unifunc' => 'content_5d709fb0578828_52823557',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8c5734ee732081c4a28e016fd1e3245b00b0a0f9' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\index.html',
-      1 => 1566917691,
+      1 => 1567661840,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d6544f9646a36_33740641 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d709fb0578828_52823557 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,6 +45,7 @@ function content_5d6544f9646a36_33740641 (Smarty_Internal_Template $_smarty_tpl)
 <body>
     <div class="container" align="center">
         <h1>建物調查表</h1>
+        <h3 style="color:red;">(*)表示必填項目</h3>
         <form class="" action="house_submit_preview.php" method="post" id="house_form" onkeydown="if(event.keyCode==13)return false;">
             <table border="1">
                 <tbody>
@@ -55,8 +56,8 @@ function content_5d6544f9646a36_33740641 (Smarty_Internal_Template $_smarty_tpl)
                         <td>小段</td>
                         <td colspan="3"><span class="required">(*)</span>地號</td>
                         <!-- <td colspan="2"><span class="required">(*)</span>面積(m<sup>2</sup>)</td> -->
-                        <td rowspan="2"><span class="required">(*)</span><br>查估手稿編號</td>
-                        <td rowspan="2">
+                        <td rowspan=""><span class="required">(*)</span><br>查估手稿編號</td>
+                        <td rowspan="">
                             <input type="radio" id="legal" name="legal-status" value="建合" required>建合
                             <input type="radio" id="illegal" name="legal-status" value="建非">建非
                             <input type="text" id="script-number" name="script-number" value="" placeholder="輸入手稿編號" onchange="checkScriptNo()" required><br>
@@ -143,13 +144,15 @@ function content_5d6544f9646a36_33740641 (Smarty_Internal_Template $_smarty_tpl)
                             <button type="button" onclick="removeInfoItemOnclick('land-number')">-</button> -->
                         </td>
                         <!-- <td colspan="2"><input type="text" name="land-total-area" value="" required></td> -->
+                        <td><span class="required">(*)</span><br>查估日期</td>
+                        <td><input type="date" id="survey-date" name="survey-date" onchange="checkDate('survey-date')" required></td>
                     </tr>
 
                     <tr>
                         <td><span class="required">(*)</span>建物所有權人<br>或權利人姓名</td>
                         <td><span class="required">(*)</span>持分比例</td>
                         <!-- <td><span class="required">(*)</span>身分證字號/歸戶號</td> -->
-                        <td><span class="required">(*)</span>身分證字號</td>
+                        <td>身分證字號</td>
                         <td><span class="required">(*)</span>房屋門牌</td>
                         <td colspan="3">
                             <input type="text" id="houseAddress" name="houseAddress" value="" class="larger-input-size" onchange="checkAddress()" required>
@@ -185,12 +188,15 @@ function content_5d6544f9646a36_33740641 (Smarty_Internal_Template $_smarty_tpl)
                                     /&nbsp;<input type="text" id="hold-denominator-1" name="hold-denominator-1" class="tiny-input-size" placeholder="比例" pattern="[0-9]{1,10}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('hold-denominator-1')" required>
                                 </div>
                             </div>
+                            <div>
+                                <input type="checkbox" id="shared" name="shared" value="">將全部所有人<br>&nbsp;&nbsp;列為公同共有
+                            </div>
                         </td>
 
                         <td rowspan="2">
                             <div id="pId" class="input-align">
                                 <div id="pId-1">
-                                    <input type="text" name="pId-1" value="" maxlength="10" placeholder="所有權人-1" required>
+                                    <input type="text" name="pId-1" value="" placeholder="所有權人-1">
                                     <!-- <input type="text" id="hold-id-1" name="hold-id-1" value="" placeholder="歸戶號" class="small-input-size" onchange="checkOwner(1)" required> -->
                                 </div>
                             </div>
@@ -228,7 +234,7 @@ function content_5d6544f9646a36_33740641 (Smarty_Internal_Template $_smarty_tpl)
                     <tr>
                         <td><span class="required">(*)</span>土地所有權人</td>
                         <td><span class="required">(*)</span>歸戶號</td>
-                        <td><span class="required">(*)</span>身分證字號</td>
+                        <td>身分證字號</td>
                         <td>通訊住址</td>
                         <td colspan="5">
                             <div id="land-address">
@@ -254,8 +260,8 @@ function content_5d6544f9646a36_33740641 (Smarty_Internal_Template $_smarty_tpl)
                                 </div>
                             </div>
                             <input type="hidden" id="land_owner_count" name="land_owner_count">
-                            <button type="button" onclick="addInfoItemOnclick('land-owner')">+</button>
-                            <button type="button" onclick="removeInfoItemOnclick('land-owner')">-</button>
+                            <!-- <button type="button" onclick="addInfoItemOnclick('land-owner')">+</button>
+                            <button type="button" onclick="removeInfoItemOnclick('land-owner')">-</button> -->
                         </td>
 
                         <td>
@@ -271,7 +277,7 @@ function content_5d6544f9646a36_33740641 (Smarty_Internal_Template $_smarty_tpl)
                         <td>
                             <div id="land-pId" class="input-align">
                                 <div id="land-pId-1">
-                                    <input type="text" name="land-pId-1" value="" placeholder="所有權人-1" required>
+                                    <input type="text" name="land-pId-1" value="" placeholder="所有權人-1">
                                     <!-- <input type="text" id="hold-id-1" name="hold-id-1" value="" placeholder="歸戶號" class="small-input-size" onchange="checkOwner(1)" required> -->
                                 </div>
                             </div>
@@ -342,7 +348,7 @@ function content_5d6544f9646a36_33740641 (Smarty_Internal_Template $_smarty_tpl)
                     <tr>
                         <td>
                             <select class="select-menu" id="exit-num" name="exit-num" required>
-                                <option value="" style="display:none;">請選擇項目</option>
+                                <!-- <option value="" style="display:none;">請選擇項目</option> -->
                                 <option value="0">0</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -390,7 +396,7 @@ function content_5d6544f9646a36_33740641 (Smarty_Internal_Template $_smarty_tpl)
                         <td colspan="3">
                             <div id="set-household-date" class="input-align">
                                 <div id="set-household-date-1">
-                                    <input type="date" name="set-household-date-1">
+                                    <input type="date" id="household-date-1" name="set-household-date-1" onchange="checkDate('household-date-1')">
                                 </div>
                             </div>
                         </td>

@@ -30,7 +30,7 @@ for($i=0;$i<count($file_info);$i++){
     header("Content-type: ".$file_info[$i]["content_type"]."; charset=utf-8");
     header("Accept-Ranges: bytes");
     header("Accept-Length: ".$file_info[$i]["size"]);
-    header("Content-Disposition: attachment; filename=".$file_info[$i]["rId"]."-".$fileType);
+    header("Content-Disposition: attachment; filename=".str_replace("-", "", $file_info[$i]["rId"])."-".$fileType);
     ob_clean();
     flush();
     $buffer=1024;

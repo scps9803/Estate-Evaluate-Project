@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-26 23:33:08
+/* Smarty version 3.1.33, created on 2019-09-04 03:12:59
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\sub_building.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d63fbb41a0224_38871332',
+  'unifunc' => 'content_5d6f2bbbefdd10_84208973',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b05ba50e74ffc12085b95e292d15feee33505b3e' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\sub_building.html',
-      1 => 1566821487,
+      1 => 1567566776,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d63fbb41a0224_38871332 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d6f2bbbefdd10_84208973 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head>
@@ -45,6 +45,7 @@ function content_5d63fbb41a0224_38871332 (Smarty_Internal_Template $_smarty_tpl)
                     <tr>
                         <td>項目</td>
                         <td>面積/數量</td>
+                        <td>單位</td>
                         <td>是否自拆</td>
                     </tr>
 
@@ -56,7 +57,7 @@ function content_5d63fbb41a0224_38871332 (Smarty_Internal_Template $_smarty_tpl)
                                         <option value="" style="display:none;">請選擇種類</option>
                                     </select>
 
-                                    <select class="select-menu" id="other-item-option-1" name="other-item-1" required>
+                                    <select class="select-menu" id="other-item-option-1" name="other-item-1" onchange="loadSubbuildingUnit(1)" required>
                                         <option value="" style="display:none;">請選擇項目</option>
                                     </select>
 
@@ -79,8 +80,17 @@ function content_5d63fbb41a0224_38871332 (Smarty_Internal_Template $_smarty_tpl)
                             </div>
                         </td>
                         <td>
+                            <div id="unit">
+                                <div id="unit-1">
+                                    <select id="unit-option-1" name="unit-1">
+                                        <option value="">請選擇單位</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
                             <div id="auto-remove">
-                                <div id="auto-remove-1">
+                                <div id="auto-remove-1" style="height:22px;">
                                     <input type="radio" name="auto-remove-1" value="是">是<input type="radio" name="auto-remove-1" value="否" required>否
                                 </div>
                             </div>

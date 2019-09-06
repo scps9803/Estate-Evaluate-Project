@@ -7,6 +7,8 @@ include "export_building_hold_ratio_excel.php";
 // $data = getRecordData($house_address);
 $script_number = $_REQUEST["script_number"];
 $house_address = $_REQUEST["house_address"];
+$survey_date = getSurveyDate("record",$script_number);
+$survey_date_split = explode("-",$survey_date);
 // $script_number = "建合-007";
 // $house_address = "測試用";
 // $script_number = "建合-001";
@@ -46,17 +48,24 @@ $section_index = 0;
 $total_land_area = 0;
 for($i=0;$i<count($land_data);$i++){
     if(!in_array($land_data[$i]["land_section"],$section_array)){
-        $section_array[$section_index] = $land_data[$i]["land_section"];
-        $land_section = $land_section.$land_data[$i]["land_section"].$land_data[$i]["subsection"];
-        if($i!=count($land_data)-1) {
-            $land_section = $land_section."、";
-        }
+        $section_array[$section_index] = $land_data[$i]["land_section"].$land_data[$i]["subsection"];
+        // $land_section = $land_section.$land_data[$i]["land_section"].$land_data[$i]["subsection"];
+        // if($i!=count($land_data)-1) {
+        //     $land_section = $land_section."、";
+        // }
     }
     $land_number = $land_number.$land_data[$i]["land_number"];
     if($i!=count($land_data)-1) {
         $land_number = $land_number."、";
     }
     $total_land_area += $land_data[$i]["area"];
+}
+
+for($i=0;$i<count($section_array);$i++){
+    $land_section = $land_section.$section_array[$i];
+    if($i!=count($section_array)-1) {
+        $land_section = $land_section."、";
+    }
 }
 
 // $points = getStructurePoints($house_address);
@@ -109,11 +118,19 @@ $objPHPExcel = PHPExcel_IOFactory::load($excelTemplate);
 //             ->setCellValue( 'D4', '=SUM(C1:D2)' );//公式
 
 // 建物所有人
+$hold_id = "";
 if(count($owner_data)>1){
     $text = '等'.count($owner_data).'人';
+    for($i=0;$i<count($owner_data);$i++){
+        $hold_id = $hold_id . $owner_data[$i]["hold_id"];
+        if($i!=count($owner_data)-1){
+            $hold_id = $hold_id  . "、";
+        }
+    }
 }
 else{
     $text = "";
+    $hold_id = $owner_data[0]["hold_id"];
 }
 
 $phone = $owner_data[0]["cellphone"];
@@ -122,19 +139,19 @@ if($owner_data[0]["cellphone"] == ""){
 }
 
 // 土地所有人
-$hold_id = "";
+// $hold_id = "";
 if(count($land_owner_data)>1){
     $land_text = '等'.count($land_owner_data).'人';
-    for($i=0;$i<count($land_owner_data);$i++){
-        $hold_id = $hold_id . $land_owner_data[$i]["hold_id"];
-        if($i!=count($land_owner_data)-1){
-            $hold_id = $hold_id  . "、";
-        }
-    }
+    // for($i=0;$i<count($land_owner_data);$i++){
+    //     $hold_id = $hold_id . $land_owner_data[$i]["hold_id"];
+    //     if($i!=count($land_owner_data)-1){
+    //         $hold_id = $hold_id  . "、";
+    //     }
+    // }
 }
 else{
     $land_text = "";
-    $hold_id = $land_owner_data[0]["hold_id"];
+    // $hold_id = $land_owner_data[0]["hold_id"];
 }
 
 $land_phone = $land_owner_data[0]["cellphone"];
@@ -147,6 +164,21 @@ if($land_data[0]["land_use"]=="承租"){
 }
 else{
     $rent_text = "無";
+}
+
+// 建物所有人身份證字號空值不顯示
+if(substr($owner_data[0]["pId"],0,2) == "NA"){
+    $pIdText = "";
+}
+else{
+    $pIdText = $owner_data[0]["pId"];
+}
+// 地主身份證字號空值不顯示
+if(substr($land_owner_data[0]["pId"],0,2) == "NA"){
+    $landPIdText = "";
+}
+else{
+    $landPIdText = $land_owner_data[0]["pId"];
 }
 
 // $add_minus_wall_points = array();
@@ -179,40 +211,47 @@ for($i=0;$i<count($main_decoration_data);$i++){
         }
     }
 }
+// 輸出基本個資
+date_default_timezone_set('Asia/Taipei');
+echo "日期<br>";
+echo date("Y-m-d H:i:s");
+for($i=0;$i<$floor_count;$i++){
+    $objPHPExcel->setActiveSheetIndex(0)
+                ->setCellValue( 'AH'.(3+$i*34), str_replace("-", "", $script_number))
+                ->setCellValue( 'R'.(3+$i*34), $title)
+                ->setCellValue( 'C'.(3+$i*34), $hold_id)
+                ->setCellValue( 'AB'.(11+$i*34), $building_text)
+                ->setCellValue( 'L'.(21+$i*34), $sub_building_text)
+                ->setCellValue( 'AE'.(21+$i*34), $sub_building_text)
+                ->setCellValue( 'C'.(4+$i*34), $owner_data[0]["name"].$text)
+                ->setCellValue( 'G'.(4+$i*34), $pIdText)
+                ->setCellValue( 'L'.(4+$i*34), $owner_data[0]["current_address"])
+                ->setCellValue( 'X'.(4+$i*34), $owner_data[0]["telephone"]."\n".$owner_data[0]["cellphone"])
+                // 地主資料待更新，暫時與建物相同
 
-$objPHPExcel->setActiveSheetIndex(0)
-            ->setCellValue( 'AH3', $script_number)
-            ->setCellValue( 'R3', $title)
-            ->setCellValue( 'C3', $hold_id)
-            ->setCellValue( 'AB11', $building_text)
-            ->setCellValue( 'L21', $sub_building_text)
-            ->setCellValue( 'AE21', $sub_building_text)
-            ->setCellValue( 'C4', $owner_data[0]["name"].$text)
-            ->setCellValue( 'G4', $owner_data[0]["pId"])
-            ->setCellValue( 'L4', $owner_data[0]["current_address"])
-            ->setCellValue( 'X4', $owner_data[0]["telephone"]."\n".$owner_data[0]["cellphone"])
-            // 地主資料待更新，暫時與建物相同
+                ->setCellValue( 'C'.(5+$i*34), $land_owner_data[0]["name"].$land_text)
+                ->setCellValue( 'G'.(5+$i*34), $landPIdText)
+                ->setCellValue( 'L'.(5+$i*34), $land_owner_data[0]["current_address"])
+                ->setCellValue( 'X'.(5+$i*34), $land_owner_data[0]["telephone"]."\n".$land_owner_data[0]["cellphone"])
 
-            ->setCellValue( 'C5', $land_owner_data[0]["name"].$land_text)
-            ->setCellValue( 'G5', $land_owner_data[0]["pId"])
-            ->setCellValue( 'L5', $land_owner_data[0]["current_address"])
-            ->setCellValue( 'X5', $land_phone)
+                ->setCellValue( 'AE'.(4+$i*34), $legal_text)
+                ->setCellValue( 'AE'.(5+$i*34), $building_data[0]["legal_certificate"])
+                ->setCellValue( 'AE'.(7+$i*34), $building_data[0]["remove_condition"])
+                ->setCellValue( 'C'.(6+$i*34), $building_data[0]["address"])
+                ->setCellValue( 'O'.(6+$i*34), $building_data[0]["build_number"]."\n".$building_data[0]["tax_number"])
+                ->setCellValue( 'X'.(6+$i*34), $land_data[0]["land_use"])
+                ->setCellValue( 'AE'.(6+$i*34), $rent_text)
+                ->setCellValue( 'C'.(7+$i*34), '桃園市')
+                // 行政區尚未設定
+                ->setCellValue( 'E'.(7+$i*34), $land_data[0]["dist"])
+                ->setCellValue( 'G'.(7+$i*34), $land_section)
+                // ->setCellValue( 'K7', $land_data[0]['land_number'])
+                ->setCellValue( 'K'.(7+$i*34), $land_number)
+                // ->setCellValue( 'X7', $land_data[0]['area']);
+                ->setCellValue( 'X'.(7+$i*34), $total_land_area)
+                ->setCellValue( 'C'.(33+$i*34), $survey_date_split[0]."年".$survey_date_split[1]."月".$survey_date_split[2]."日");
+}
 
-            ->setCellValue( 'AE4', $legal_text)
-            ->setCellValue( 'AE5', $building_data[0]["legal_certificate"])
-            ->setCellValue( 'AE7', $building_data[0]["remove_condition"])
-            ->setCellValue( 'C6', $building_data[0]["address"])
-            ->setCellValue( 'O6', $building_data[0]["build_number"]."\n".$building_data[0]["tax_number"])
-            ->setCellValue( 'X6', $land_data[0]["land_use"])
-            ->setCellValue( 'AE6', $rent_text)
-            ->setCellValue( 'C7', '桃園市')
-            // 行政區尚未設定
-            ->setCellValue( 'E7', $land_data[0]["dist"])
-            ->setCellValue( 'G7', $land_section)
-            // ->setCellValue( 'K7', $land_data[0]['land_number'])
-            ->setCellValue( 'K7', $land_number)
-            // ->setCellValue( 'X7', $land_data[0]['area']);
-            ->setCellValue( 'X7', $total_land_area);
 $total_people = 0;
 $total_migration_fee = 0;
 $migration_fee = [];
@@ -249,18 +288,26 @@ for($i=0;$i<count($resident_data);$i++){
                 ->setCellValue( 'X10', $total_people)
                 ->setCellValue( 'AE10', $total_migration_fee);
 }
-
+// 輸出主建物資料
 $total_area = 0;
 $total_price = 0;
 $total_fee = 0;
 $total_auto = 0;
 for($i=0;$i<count($main_building_data);$i++){
+    $fId = "";
     $fee = number_format(($main_building_data[$i]["points"]+$add_minus_wall_points[$i])*$main_building_data[$i]["floor_area"]*$price,0,"","");
+    $fId_split = explode('-', $main_building_data[$i]["fId"]);
+    for($j=2;$j<count($fId_split);$j++){
+        $fId = $fId.$fId_split[$j];
+        if($j != count($fId_split)-1){
+            $fId = $fId."-";
+        }
+    }
     if($i<7){
         $objPHPExcel->setActiveSheetIndex(0)
-                    ->setCellValue( 'A'.($i+13), $i+1)
+                    ->setCellValue( 'A'.($i+13), $fId)
                     ->setCellValue( 'C'.($i+13), $main_building_data[$i]["structure"].$main_building_data[$i]["floor_type"].$add_minus_wall_text[$i])
-                    ->setCellValue( 'I'.($i+13), $main_building_data[$i]["nth_floor"]."/".count($main_building_data))
+                    ->setCellValue( 'I'.($i+13), $main_building_data[$i]["nth_floor"]."/".$main_building_data[$i]["total_floor"])
                     ->setCellValue( 'J'.($i+13), $main_building_data[$i]["use_type"])
                     ->setCellValue( 'L'.($i+13), $main_building_data[$i]["points"]+$add_minus_wall_points[$i])
                     ->setCellValue( 'O'.($i+13), $main_building_data[$i]["points"]+$add_minus_wall_points[$i])
@@ -385,24 +432,40 @@ for($i=0;$i<count($sub_building_data);$i++){
         $auto_remove_fee = 0;
     }
 
-    if(($i+1)%7==0){
+    if(($i+1)%8==0){
         $page_item_index = $page_item_index+40-6;
         $page_fee_index = $page_fee_index+40-6;
+
+        if(($i+1)!=count($sub_building_data)){
+            $nth_row = $i/7;
+
+            $objPHPExcel->getActiveSheet()->unmergeCells('A'.(30+($nth_row-1)*34).':'.'B'.(30+($nth_row-1)*34));
+            $objPHPExcel->getActiveSheet()->unmergeCells('C'.(30+($nth_row-1)*34).':'.'E'.(30+($nth_row-1)*34));
+            $objPHPExcel->getActiveSheet()->unmergeCells('G'.(30+($nth_row-1)*34).':'.'H'.(30+($nth_row-1)*34));
+            $objPHPExcel->getActiveSheet()->unmergeCells('J'.(30+($nth_row-1)*34).':'.'K'.(30+($nth_row-1)*34));
+            $objPHPExcel->getActiveSheet()->unmergeCells('L'.(30+($nth_row-1)*34).':'.'N'.(30+($nth_row-1)*34));
+            $objPHPExcel->getActiveSheet()->unmergeCells('O'.(30+($nth_row-1)*34).':'.'P'.(30+($nth_row-1)*34));
+            $objPHPExcel->getActiveSheet()->unmergeCells('Q'.(30+($nth_row-1)*34).':'.'R'.(30+($nth_row-1)*34));
+            $objPHPExcel->getActiveSheet()->mergeCells('A'.(30+($nth_row-1)*34).':'.'R'.(30+($nth_row-1)*34));
+            $objPHPExcel->setActiveSheetIndex(0)
+                        ->setCellValue( 'A'.(30+($nth_row-1)*34), '下頁接續');
+        }
     }
     $objPHPExcel->setActiveSheetIndex(0)
-                ->setCellValue( 'A'.($i+$page_item_index), $i+1)
-                ->setCellValue( 'C'.($i+$page_item_index), $sub_building_data[$i]["item_name"])
-                ->setCellValue( 'F'.($i+$page_item_index), $sub_building_data[$i]["application"])
-                ->setCellValue( 'G'.($i+$page_item_index), $sub_building_data[$i]["unitprice"])
-                ->setCellValue( 'I'.($i+$page_item_index), number_format($sub_building_data[$i]["area"],2,".",",").$sub_building_data[$i]["unit"])
-                ->setCellValue( 'J'.($i+$page_item_index), $init_fee)
-                ->setCellValue( 'L'.($i+$page_item_index), $sub_building_fee)
-                ->setCellValue( 'O'.($i+$page_item_index), $auto_remove_fee);
+                ->setCellValue( 'A'.($i%7+$page_item_index), $i+1)
+                ->setCellValue( 'C'.($i%7+$page_item_index), $sub_building_data[$i]["item_name"])
+                ->setCellValue( 'F'.($i%7+$page_item_index), $sub_building_data[$i]["application"])
+                ->setCellValue( 'G'.($i%7+$page_item_index), $sub_building_data[$i]["unitprice"])
+                ->setCellValue( 'I'.($i%7+$page_item_index), number_format($sub_building_data[$i]["area"],2,".",",").$sub_building_data[$i]["unit"])
+                ->setCellValue( 'J'.($i%7+$page_item_index), $init_fee)
+                ->setCellValue( 'L'.($i%7+$page_item_index), $sub_building_fee)
+                ->setCellValue( 'O'.($i%7+$page_item_index), $auto_remove_fee);
                 $total_init_fee += $init_fee;
                 $total_subbuilding_fee += $sub_building_fee;
                 $total_auto_remove_fee += $auto_remove_fee;
 }
 $objPHPExcel->setActiveSheetIndex(0)
+            ->setCellValue( 'A'.$page_fee_index, '小計')
             ->setCellValue( 'J'.$page_fee_index, $total_init_fee)
             ->setCellValue( 'L'.$page_fee_index, $total_subbuilding_fee)
             ->setCellValue( 'O'.$page_fee_index, $total_auto_remove_fee);
@@ -430,24 +493,37 @@ for($i=0;$i<count($outdoor_sub_building_data);$i++){
         $auto_remove_fee = 0;
     }
 
-    if(($i+1)%7==0){
+    if(($i+1)%8==0){
         $out_page_item_index = $out_page_item_index+40-6;
         $out_page_fee_index = $out_page_fee_index+40-6;
+        if(($i+1)!=count($outdoor_sub_building_data)){
+            $nth_row = $i/7;
+
+            $objPHPExcel->getActiveSheet()->unmergeCells('S'.(30+($nth_row-1)*34).':'.'T'.(30+($nth_row-1)*34));
+            $objPHPExcel->getActiveSheet()->unmergeCells('U'.(30+($nth_row-1)*34).':'.'X'.(30+($nth_row-1)*34));
+            $objPHPExcel->getActiveSheet()->unmergeCells('Z'.(30+($nth_row-1)*34).':'.'AA'.(30+($nth_row-1)*34));
+            $objPHPExcel->getActiveSheet()->unmergeCells('AB'.(30+($nth_row-1)*34).':'.'AC'.(30+($nth_row-1)*34));
+            $objPHPExcel->getActiveSheet()->unmergeCells('AE'.(30+($nth_row-1)*34).':'.'AG'.(30+($nth_row-1)*34));
+            $objPHPExcel->getActiveSheet()->mergeCells('S'.(30+($nth_row-1)*34).':'.'AI'.(30+($nth_row-1)*34));
+            $objPHPExcel->setActiveSheetIndex(0)
+                        ->setCellValue( 'S'.(30+($nth_row-1)*34), '下頁接續');
+        }
     }
     $objPHPExcel->setActiveSheetIndex(0)
-                ->setCellValue( 'S'.($i+$out_page_item_index), $i+1)
-                ->setCellValue( 'U'.($i+$out_page_item_index), $outdoor_sub_building_data[$i]["item_name"])
-                ->setCellValue( 'Y'.($i+$out_page_item_index), $outdoor_sub_building_data[$i]["application"])
-                ->setCellValue( 'Z'.($i+$out_page_item_index), $outdoor_sub_building_data[$i]["unitprice"])
-                ->setCellValue( 'AB'.($i+$out_page_item_index), number_format($outdoor_sub_building_data[$i]["area"],2,".",",").$outdoor_sub_building_data[$i]["unit"])
-                ->setCellValue( 'AD'.($i+$out_page_item_index), $init_fee)
-                ->setCellValue( 'AE'.($i+$out_page_item_index), $sub_building_fee)
-                ->setCellValue( 'AH'.($i+$out_page_item_index), $auto_remove_fee);
+                ->setCellValue( 'S'.($i%7+$out_page_item_index), $i+1)
+                ->setCellValue( 'U'.($i%7+$out_page_item_index), $outdoor_sub_building_data[$i]["item_name"])
+                ->setCellValue( 'Y'.($i%7+$out_page_item_index), $outdoor_sub_building_data[$i]["application"])
+                ->setCellValue( 'Z'.($i%7+$out_page_item_index), $outdoor_sub_building_data[$i]["unitprice"])
+                ->setCellValue( 'AB'.($i%7+$out_page_item_index), number_format($outdoor_sub_building_data[$i]["area"],2,".",",").$outdoor_sub_building_data[$i]["unit"])
+                ->setCellValue( 'AD'.($i%7+$out_page_item_index), $init_fee)
+                ->setCellValue( 'AE'.($i%7+$out_page_item_index), $sub_building_fee)
+                ->setCellValue( 'AH'.($i%7+$out_page_item_index), $auto_remove_fee);
                 $out_total_init_fee += $init_fee;
                 $out_total_subbuilding_fee += $sub_building_fee;
                 $out_total_auto_remove_fee += $auto_remove_fee;
 }
 $objPHPExcel->setActiveSheetIndex(0)
+            ->setCellValue( 'S'.$out_page_fee_index, '小計')
             ->setCellValue( 'AD'.$out_page_fee_index, $out_total_init_fee)
             ->setCellValue( 'AE'.$out_page_fee_index, $out_total_subbuilding_fee)
             ->setCellValue( 'AH'.$out_page_fee_index, $out_total_auto_remove_fee);
@@ -676,13 +752,23 @@ for($i=0;$i<count($main_decoration_data);$i++){
     $door_points+$toilet_points+
     $electric_points+$window_level_points+
     $balcony_points+$daughter_points)/100*(100+$extra_percent),2,".",",");
+
+    $fId = "";
+    $fId_split = explode('-', $main_decoration_data[$i]["fId"]);
+    for($j=2;$j<count($fId_split);$j++){
+        $fId = $fId.$fId_split[$j];
+        if($j != count($fId_split)-1){
+            $fId = $fId."-";
+        }
+    }
+
     switch ($i % 6) {
         case 0:
         $objPHPExcel->setActiveSheetIndex(0)
-                    ->setCellValue( 'AH'.(35+($pages-1)*(40-6)+(int)($i/6)*27), $script_number)
-                    ->setCellValue( 'D'.(37+($pages-1)*(40-6)+(int)($i/6)*27), $i+1)
+                    // ->setCellValue( 'AH'.(35+($pages-1)*(40-6)+(int)($i/6)*27), str_replace("-", "", $script_number))
+                    ->setCellValue( 'D'.(37+($pages-1)*(40-6)+(int)($i/6)*27), $fId)
                     ->setCellValue( 'D'.(38+($pages-1)*(40-6)+(int)($i/6)*27), $main_decoration_data[$i]["use_type"])
-                    ->setCellValue( 'D'.(39+($pages-1)*(40-6)+(int)($i/6)*27), $main_decoration_data[$i]["nth_floor"]."/".count($main_decoration_data))
+                    ->setCellValue( 'D'.(39+($pages-1)*(40-6)+(int)($i/6)*27), $main_decoration_data[$i]["nth_floor"]."/".$main_decoration_data[$i]["total_floor"])
                     ->setCellValue( 'D'.(40+($pages-1)*(40-6)+(int)($i/6)*27), number_format($main_decoration_data[$i]["floor_area"],2,".",","))
                     ->setCellValue( 'D'.(41+($pages-1)*(40-6)+(int)($i/6)*27), $main_decoration_data[$i]["structure"])
                     ->setCellValue( 'D'.(42+($pages-1)*(40-6)+(int)($i/6)*27), $main_decoration_data[$i]["floor_type"])
@@ -721,9 +807,9 @@ for($i=0;$i<count($main_decoration_data);$i++){
                     break;
         case 1:
         $objPHPExcel->setActiveSheetIndex(0)
-                    ->setCellValue( 'H'.(37+($pages-1)*(40-6)+(int)($i/6)*27), $i+1)
+                    ->setCellValue( 'H'.(37+($pages-1)*(40-6)+(int)($i/6)*27), $fId)
                     ->setCellValue( 'H'.(38+($pages-1)*(40-6)+(int)($i/6)*27), $main_decoration_data[$i]["use_type"])
-                    ->setCellValue( 'H'.(39+($pages-1)*(40-6)+(int)($i/6)*27), $main_decoration_data[$i]["nth_floor"]."/".count($main_decoration_data))
+                    ->setCellValue( 'H'.(39+($pages-1)*(40-6)+(int)($i/6)*27), $main_decoration_data[$i]["nth_floor"]."/".$main_decoration_data[$i]["total_floor"])
                     ->setCellValue( 'H'.(40+($pages-1)*(40-6)+(int)($i/6)*27), number_format($main_decoration_data[$i]["floor_area"],2,".",","))
                     ->setCellValue( 'H'.(41+($pages-1)*(40-6)+(int)($i/6)*27), $main_decoration_data[$i]["structure"])
                     ->setCellValue( 'H'.(42+($pages-1)*(40-6)+(int)($i/6)*27), $main_decoration_data[$i]["floor_type"])
@@ -762,9 +848,9 @@ for($i=0;$i<count($main_decoration_data);$i++){
                     break;
         case 2:
         $objPHPExcel->setActiveSheetIndex(0)
-                    ->setCellValue( 'M'.(37+($pages-1)*(40-6)+(int)($i/6)*27), $i+1)
+                    ->setCellValue( 'M'.(37+($pages-1)*(40-6)+(int)($i/6)*27), $fId)
                     ->setCellValue( 'M'.(38+($pages-1)*(40-6)+(int)($i/6)*27), $main_decoration_data[$i]["use_type"])
-                    ->setCellValue( 'M'.(39+($pages-1)*(40-6)+(int)($i/6)*27), $main_decoration_data[$i]["nth_floor"]."/".count($main_decoration_data))
+                    ->setCellValue( 'M'.(39+($pages-1)*(40-6)+(int)($i/6)*27), $main_decoration_data[$i]["nth_floor"]."/".$main_decoration_data[$i]["total_floor"])
                     ->setCellValue( 'M'.(40+($pages-1)*(40-6)+(int)($i/6)*27), number_format($main_decoration_data[$i]["floor_area"],2,".",","))
                     ->setCellValue( 'M'.(41+($pages-1)*(40-6)+(int)($i/6)*27), $main_decoration_data[$i]["structure"])
                     ->setCellValue( 'M'.(42+($pages-1)*(40-6)+(int)($i/6)*27), $main_decoration_data[$i]["floor_type"])
@@ -803,9 +889,9 @@ for($i=0;$i<count($main_decoration_data);$i++){
                     break;
         case 3:
         $objPHPExcel->setActiveSheetIndex(0)
-                    ->setCellValue( 'R'.(37+($pages-1)*(40-6)+(int)($i/6)*27), $i+1)
+                    ->setCellValue( 'R'.(37+($pages-1)*(40-6)+(int)($i/6)*27), $fId)
                     ->setCellValue( 'R'.(38+($pages-1)*(40-6)+(int)($i/6)*27), $main_decoration_data[$i]["use_type"])
-                    ->setCellValue( 'R'.(39+($pages-1)*(40-6)+(int)($i/6)*27), $main_decoration_data[$i]["nth_floor"]."/".count($main_decoration_data))
+                    ->setCellValue( 'R'.(39+($pages-1)*(40-6)+(int)($i/6)*27), $main_decoration_data[$i]["nth_floor"]."/".$main_decoration_data[$i]["total_floor"])
                     ->setCellValue( 'R'.(40+($pages-1)*(40-6)+(int)($i/6)*27), number_format($main_decoration_data[$i]["floor_area"],2,".",","))
                     ->setCellValue( 'R'.(41+($pages-1)*(40-6)+(int)($i/6)*27), $main_decoration_data[$i]["structure"])
                     ->setCellValue( 'R'.(42+($pages-1)*(40-6)+(int)($i/6)*27), $main_decoration_data[$i]["floor_type"])
@@ -844,9 +930,9 @@ for($i=0;$i<count($main_decoration_data);$i++){
                     break;
         case 4:
         $objPHPExcel->setActiveSheetIndex(0)
-                    ->setCellValue( 'W'.(37+($pages-1)*(40-6)+(int)($i/6)*27), $i+1)
+                    ->setCellValue( 'W'.(37+($pages-1)*(40-6)+(int)($i/6)*27), $fId)
                     ->setCellValue( 'W'.(38+($pages-1)*(40-6)+(int)($i/6)*27), $main_decoration_data[$i]["use_type"])
-                    ->setCellValue( 'W'.(39+($pages-1)*(40-6)+(int)($i/6)*27), $main_decoration_data[$i]["nth_floor"]."/".count($main_decoration_data))
+                    ->setCellValue( 'W'.(39+($pages-1)*(40-6)+(int)($i/6)*27), $main_decoration_data[$i]["nth_floor"]."/".$main_decoration_data[$i]["total_floor"])
                     ->setCellValue( 'W'.(40+($pages-1)*(40-6)+(int)($i/6)*27), number_format($main_decoration_data[$i]["floor_area"],2,".",","))
                     ->setCellValue( 'W'.(41+($pages-1)*(40-6)+(int)($i/6)*27), $main_decoration_data[$i]["structure"])
                     ->setCellValue( 'W'.(42+($pages-1)*(40-6)+(int)($i/6)*27), $main_decoration_data[$i]["floor_type"])
@@ -885,9 +971,9 @@ for($i=0;$i<count($main_decoration_data);$i++){
                     break;
         case 5:
         $objPHPExcel->setActiveSheetIndex(0)
-                    ->setCellValue( 'AC'.(37+($pages-1)*(40-6)+(int)($i/6)*27), $i+1)
+                    ->setCellValue( 'AC'.(37+($pages-1)*(40-6)+(int)($i/6)*27), $fId)
                     ->setCellValue( 'AC'.(38+($pages-1)*(40-6)+(int)($i/6)*27), $main_decoration_data[$i]["use_type"])
-                    ->setCellValue( 'AC'.(39+($pages-1)*(40-6)+(int)($i/6)*27), $main_decoration_data[$i]["nth_floor"]."/".count($main_decoration_data))
+                    ->setCellValue( 'AC'.(39+($pages-1)*(40-6)+(int)($i/6)*27), $main_decoration_data[$i]["nth_floor"]."/".$main_decoration_data[$i]["total_floor"])
                     ->setCellValue( 'AC'.(40+($pages-1)*(40-6)+(int)($i/6)*27), number_format($main_decoration_data[$i]["floor_area"],2,".",","))
                     ->setCellValue( 'AC'.(41+($pages-1)*(40-6)+(int)($i/6)*27), $main_decoration_data[$i]["structure"])
                     ->setCellValue( 'AC'.(42+($pages-1)*(40-6)+(int)($i/6)*27), $main_decoration_data[$i]["floor_type"])
@@ -926,6 +1012,9 @@ for($i=0;$i<count($main_decoration_data);$i++){
                     break;
     }
 }
+$objPHPExcel->setActiveSheetIndex(0)
+->setCellValue( 'AH'.(35+($pages-1)*(40-6)), str_replace("-", "", $script_number))
+->setCellValue( 'C'.(60+($pages-1)*(40-6)), str_replace("-", "", $survey_date_split[0]."年".$survey_date_split[1]."月".$survey_date_split[2]."日"));
 // 雜項物計算式
 $subText = array('','','','');
 $lineCount = 1;
@@ -933,7 +1022,7 @@ $lineCount = 1;
 $subText[(int)($lineCount/37)]  = $subText[(int)($lineCount/37)]."◆主要結構部份\n";
 $lineCount++;
 for($i=0;$i<count($main_building_data);$i++){
-    $subText[(int)($lineCount/37)] = $subText[(int)($lineCount/37)].($i+1).". ".$main_building_data[$i]["structure"]." ".$main_building_data[$i]["nth_floor"]."/".count($main_building_data)."樓\n   面積 : ".$main_building_data[$i]["floor_area"]."=".$main_building_data[$i]["floor_area"]."㎡\n";
+    $subText[(int)($lineCount/37)] = $subText[(int)($lineCount/37)].($i+1).". ".$main_building_data[$i]["structure"]." ".$main_building_data[$i]["nth_floor"]."/".$main_building_data[$i]["total_floor"]."樓\n   面積 : ".number_format($main_building_data[$i]["floor_area"],2,".",",")."=".number_format($main_building_data[$i]["floor_area"],2,".",",")."㎡\n";
     $lineCount += 2;
 }
 $subText[(int)($lineCount/37)] = $subText[(int)($lineCount/37)]."◆雜項工作物部份(室內)\n";
@@ -947,7 +1036,7 @@ for($i=0;$i<count($sub_building_data);$i++){
     else{
         $text = "面積 : ";
     }
-    $subText[(int)($lineCount/37)] = $subText[(int)($lineCount/37)].$text.$sub_building_data[$i]["area_calculate_text"]."=".$sub_building_data[$i]["area"].$sub_building_data[$i]["unit"]."\n   ".$sub_building_data[$i]["area"]."*".number_format($sub_building_data[$i]["unitprice"],0,".",",")."=".number_format($sub_building_data[$i]["area"]*$sub_building_data[$i]["unitprice"],0,".",",")."元\n";
+    $subText[(int)($lineCount/37)] = $subText[(int)($lineCount/37)].$text.$sub_building_data[$i]["area_calculate_text"]."=".number_format($sub_building_data[$i]["area"],0,".",",").$sub_building_data[$i]["unit"]."\n   ".$sub_building_data[$i]["area"]."*".number_format($sub_building_data[$i]["unitprice"],0,".",",")."=".number_format($sub_building_data[$i]["area"]*$sub_building_data[$i]["unitprice"],0,".",",")."元\n";
     $lineCount += 2;
 }
 $subText[(int)($lineCount/37)] = $subText[(int)($lineCount/37)]."◆雜項工作物部份(室外)\n";
@@ -961,7 +1050,7 @@ for($i=0;$i<count($outdoor_sub_building_data);$i++){
     else{
         $text = "面積 : ";
     }
-    $subText[(int)($lineCount/37)] = $subText[(int)($lineCount/37)].$text.$outdoor_sub_building_data[$i]["area_calculate_text"]."=".$outdoor_sub_building_data[$i]["area"].$outdoor_sub_building_data[$i]["unit"]."\n   ".$outdoor_sub_building_data[$i]["area"]."*".number_format($outdoor_sub_building_data[$i]["unitprice"],0,".",",")."=".number_format($outdoor_sub_building_data[$i]["area"]*$outdoor_sub_building_data[$i]["unitprice"],0,".",",")."元\n";
+    $subText[(int)($lineCount/37)] = $subText[(int)($lineCount/37)].$text.$outdoor_sub_building_data[$i]["area_calculate_text"]."=".number_format($outdoor_sub_building_data[$i]["area"],0,".",",").$outdoor_sub_building_data[$i]["unit"]."\n   ".$outdoor_sub_building_data[$i]["area"]."*".number_format($outdoor_sub_building_data[$i]["unitprice"],0,".",",")."=".number_format($outdoor_sub_building_data[$i]["area"]*$outdoor_sub_building_data[$i]["unitprice"],0,".",",")."元\n";
     $lineCount += 2;
 }
 for($i=0;$i<count($subText);$i++){
@@ -971,7 +1060,7 @@ for($i=0;$i<count($subText);$i++){
 
 
 $objActSheet = $objPHPExcel->getActiveSheet();
-$objActSheet->setTitle($script_number);
+$objActSheet->setTitle(str_replace("-", "", $script_number));
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
 if($compensate_type == "補償"){
     $savePath = "file/building/legal/".substr($script_number,strlen($script_number)-3,strlen($script_number))."/";
@@ -991,7 +1080,7 @@ echo $savePath;
 $objWriter->save($savePath.$filename.$file_type);
 insertFileData($script_number,$savePath,$fileNo,$filename,$file_type,"file_table");
 $total_pay = $total_fee+$total_subbuilding_fee+$out_total_subbuilding_fee+$total_auto+$total_auto_remove_fee+$out_total_auto_remove_fee;
-exportBuildingHoldRatioExcel($script_number,$land_owner_data,$building_data,$land_data,$total_pay);
+exportBuildingHoldRatioExcel($script_number,$land_owner_data,$building_data,$land_data,$total_pay,$survey_date_split);
 
 // 輸出文字檔
 // $fileNo = $script_number."-2";
@@ -1032,12 +1121,11 @@ exportBuildingHoldRatioExcel($script_number,$land_owner_data,$building_data,$lan
 // fclose($file);
 // insertFileData($script_number,$savePath,$fileNo,$filename,$file_type);
 // $objWriter->save('file/myexchel.xls');
-date_default_timezone_set('Asia/Taipei');
+// date_default_timezone_set('Asia/Taipei');
 // $objWriter->save('file/'.date("YmdHis").'.xls');
 
-echo json_encode(array('status' => 'completed','tt' => $balcony_text));
+echo json_encode(array('status' => 'completed','tt' => ''));
 echo "<br>";
-echo "hi: ".$daughter_text;
 
 // function processDecorationText($data){
 //     $text = "";

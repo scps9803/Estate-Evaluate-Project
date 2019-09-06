@@ -18,6 +18,7 @@
                     <tr>
                         <td>項目</td>
                         <td>面積/數量</td>
+                        <td>單位</td>
                         <td>是否自拆</td>
                     </tr>
 
@@ -29,7 +30,7 @@
                                         <option value="" style="display:none;">請選擇種類</option>
                                     </select>
 
-                                    <select class="select-menu" id="other-item-option-1" name="other-item-1" required>
+                                    <select class="select-menu" id="other-item-option-1" name="other-item-1" onchange="loadSubbuildingUnit(1)" required>
                                         <option value="" style="display:none;">請選擇項目</option>
                                     </select>
 
@@ -52,8 +53,17 @@
                             </div>
                         </td>
                         <td>
+                            <div id="unit">
+                                <div id="unit-1">
+                                    <select id="unit-option-1" name="unit-1">
+                                        <option value="">請選擇單位</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
                             <div id="auto-remove">
-                                <div id="auto-remove-1">
+                                <div id="auto-remove-1" style="height:22px;">
                                     <input type="radio" name="auto-remove-1" value="是">是<input type="radio" name="auto-remove-1" value="否" required>否
                                 </div>
                             </div>

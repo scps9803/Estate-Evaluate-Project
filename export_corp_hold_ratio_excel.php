@@ -1,6 +1,6 @@
 <?php
 function exportCorpHoldRatioExcel($script_number,$corp_owner_data,$corp_land_owner_data,$corp_land_data,
-$corp_data,$creator,$land_section,$land_number,$total_land_area,$actual_use_area,$total_pay){
+$corp_data,$creator,$land_section,$land_number,$total_land_area,$actual_use_area,$total_pay,$survey_date_split){
     $saveType = explode("-",$script_number);
     $holdRatioMod = $total_pay % count($corp_owner_data);
 
@@ -28,6 +28,24 @@ $corp_data,$creator,$land_section,$land_number,$total_land_area,$actual_use_area
         $hold_id = $corp_land_owner_data[0]["hold_id"];
     }
 
+    // 農作物身份證字號空值不顯示
+    for($i=0;$i<count($corp_owner_data);$i++){
+        if(substr($corp_owner_data[$i]["pId"],0,2) == "NA"){
+            $corp_owner_data[$i]["pId"] = "";
+        }
+        // 若非公同共有則不顯示
+        if($corp_owner_data[$i]["hold_status"] != "公同共有"){
+            $corp_owner_data[$i]["hold_status"] = "";
+        }
+    }
+    // 地主身份證字號空值不顯示
+    if(substr($corp_land_owner_data[0]["pId"],0,2) == "NA"){
+        $landPIdText = "";
+    }
+    else{
+        $landPIdText = $corp_land_owner_data[0]["pId"];
+    }
+
     $objPHPExcel  = new PHPExcel();
     // 自行建立的 Excel 版型檔名
     $excelTemplate = './excel_templates/corp_hold_ratio_template.xls';
@@ -47,7 +65,7 @@ $corp_data,$creator,$land_section,$land_number,$total_land_area,$actual_use_area
                 ->setCellValue( 'R53', $corp_owner_data[0]["cellphone"])
 
                 ->setCellValue( 'B54', $corp_land_owner_data[0]["name"].$land_text)
-                ->setCellValue( 'D55', $corp_land_owner_data[0]["pId"])
+                ->setCellValue( 'D55', $landPIdText)
                 ->setCellValue( 'G54', $corp_land_owner_data[0]["current_address"])
                 ->setCellValue( 'R54', $corp_land_owner_data[0]["telephone"])
                 ->setCellValue( 'R55', $corp_land_owner_data[0]["cellphone"])
@@ -62,6 +80,7 @@ $corp_data,$creator,$land_section,$land_number,$total_land_area,$actual_use_area
                     ->setCellValue( 'A'.(57+$i*2), '農林漁牧作物所有人')
                     ->setCellValue( 'B'.(57+$i*2), $corp_owner_data[$i]["name"])
                     ->setCellValue( 'D'.(57+$i*2), '歸戶號')
+                    ->setCellValue( 'D'.(58+$i*2), $corp_owner_data[$i]["hold_id"])
                     ->setCellValue( 'F'.(57+$i*2), '住所')
                     ->setCellValue( 'F'.(58+$i*2), '聯絡電話')
                     ->setCellValue( 'G'.(57+$i*2), $corp_owner_data[$i]["current_address"])
@@ -69,7 +88,7 @@ $corp_data,$creator,$land_section,$land_number,$total_land_area,$actual_use_area
                     ->setCellValue( 'J'.(58+$i*2), '連絡手機')
                     ->setCellValue( 'K'.(58+$i*2), $corp_owner_data[$i]["cellphone"])
                     ->setCellValue( 'M'.(57+$i*2), '持分比例')
-                    ->setCellValue( 'M'.(58+$i*2), $corp_owner_data[$i]["hold_ratio"])
+                    ->setCellValue( 'M'.(58+$i*2), $corp_owner_data[$i]["hold_numerator"]."/".$corp_owner_data[$i]["hold_denominator"].$corp_owner_data[$i]["hold_status"])
                     ->setCellValue( 'O'.(57+$i*2), '身分證字號')
                     ->setCellValue( 'O'.(58+$i*2), '持分補償金額')
                     ->setCellValue( 'R'.(57+$i*2), $corp_owner_data[$i]["pId"]);
@@ -85,21 +104,21 @@ $corp_data,$creator,$land_section,$land_number,$total_land_area,$actual_use_area
         }
     }
     $objPHPExcel->setActiveSheetIndex(0)
-                ->setCellValue( 'A85', "調查日期： ".date("Y")." 年 ".date("m")." 月 ".date("d")." 日")
+                ->setCellValue( 'A85', "調查日期： ".$survey_date_split[0]." 年 ".$survey_date_split[1]." 月 ".$survey_date_split[2]." 日")
                 ->setCellValue( 'A86', "製表日期： ".date("Y")." 年 ".date("m")." 月 ".date("d")." 日")
-                ->setCellValue( 'Q85', "調查表編號：".$script_number)
+                ->setCellValue( 'Q85', "調查表編號：".str_replace("-", "", $script_number))
                 ->setCellValue( 'J86', "製表人員：".$creator."　複核人員：".$creator);
 
     $objActSheet = $objPHPExcel->getActiveSheet();
-    $objActSheet->setTitle($script_number);
+    $objActSheet->setTitle(str_replace("-", "", $script_number));
     $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
 
-    if($saveType[0] == "農合"){
-        $savePath = "file/corp/legal/".substr($script_number,strlen($script_number)-3,strlen($script_number))."/";
+    if($saveType[0] == "農"){
+        $savePath = "file/corp/legal/".$saveType[1]."/";
     }
-    else{
-        $savePath = "file/corp/illegal/".substr($script_number,strlen($script_number)-3,strlen($script_number))."/";
-    }
+    // else{
+    //     $savePath = "file/corp/illegal/".substr($script_number,strlen($script_number)-3,strlen($script_number))."/";
+    // }
 
     if(!file_exists($savePath)){
         mkdir($savePath);

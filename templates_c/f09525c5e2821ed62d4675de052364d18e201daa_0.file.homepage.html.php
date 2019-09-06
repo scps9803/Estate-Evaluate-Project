@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-24 16:17:05
+/* Smarty version 3.1.33, created on 2019-09-01 03:31:35
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\homepage.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d6163017bc7f5_71802840',
+  'unifunc' => 'content_5d6b3b97257231_30369174',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'f09525c5e2821ed62d4675de052364d18e201daa' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\homepage.html',
-      1 => 1566663423,
+      1 => 1567308693,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d6163017bc7f5_71802840 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d6b3b97257231_30369174 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -359,7 +359,9 @@ foreach ($_from as $_smarty_tpl->tpl_vars['k']->value => $_smarty_tpl->tpl_vars[
 &file=1'>下載調查表</a></button><br>" +
         "<button class='btn btn-default' style='margin-top:5px';><a href='getFile.php?recordNo=<?php echo $_smarty_tpl->tpl_vars['row']->value['rId'];?>
 &file=2'>下載持分表</a></button>" +
-        // "<button class='btn btn-default' style='margin-left:5px;' onclick=deleteCorp('<?php echo $_smarty_tpl->tpl_vars['row']->value['rId'];?>
+        "</td>" +
+        "<td>" +
+        "<button class='btn btn-default' onclick=deleteCorp('<?php echo $_smarty_tpl->tpl_vars['row']->value['rId'];?>
 ')>刪除</button>" +
         "</td>" +
         "</tr>" +
