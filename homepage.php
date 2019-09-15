@@ -6,7 +6,7 @@ $smarty = new Smarty;
 
 //顯示建物歷史紀錄
 $conn = connect_db();
-$sql = "SELECT * FROM record NATURAL JOIN building NATURAL JOIN building_locate";
+$sql = "SELECT * FROM record NATURAL JOIN building NATURAL JOIN building_locate ORDER BY keyin_datetime";
 $res = $conn->query($sql);
 
 // $i=0;
@@ -38,7 +38,7 @@ while($row=$res->fetch_assoc()){
 }
 
 // 顯示農作物歷史紀錄
-$sql = "SELECT * FROM corp_record NATURAL JOIN land_belong_to_corp_record";
+$sql = "SELECT * FROM corp_record NATURAL JOIN land_belong_to_corp_record ORDER BY keyin_datetime";
 $res = $conn->query($sql);
 
 $index=0;

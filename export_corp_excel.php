@@ -131,6 +131,21 @@ if(substr($corp_land_owner_data[0]["pId"],0,2) == "NA"){
 else{
     $landPIdText = $corp_land_owner_data[0]["pId"];
 }
+// 若有比照則顯示比照項目
+for($i=0;$i<count($corp_data);$i++){
+    if($corp_data[$i]["equal"] == "比照"){
+        // $str = explode("比照",$corp_data[$i]["note"]);
+        // if(count($str)>1){
+        //     $corp_data[$i]["item"] = $str[1];
+        // }
+        // else{
+        //     $corp_data[$i]["item"] = $corp_data[$i]["note"];
+        // }
+        $equal_item = $corp_data[$i]["item"];
+        $corp_data[$i]["item"] = $corp_data[$i]["note"];
+        $corp_data[$i]["note"] = "比照".$equal_item;
+    }
+}
 
 // 載入 Excel
 $objPHPExcel = PHPExcel_IOFactory::load($excelTemplate);
@@ -163,8 +178,8 @@ $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue( 'B'.(22+($i-1)*24), $overPlantMsg);
 
             if($overPlantMsg != ""){
-                $objPHPExcel->getActiveSheet()->getStyle('B'.(22+($i-1)*24).':'.'T'.(22+($i-1)*24))->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID);
-                $objPHPExcel->getActiveSheet()->getStyle('B'.(22+($i-1)*24).':'.'T'.(22+($i-1)*24))->getFill()->getStartColor()->setARGB('FFFFFF00');
+                // $objPHPExcel->getActiveSheet()->getStyle('B'.(22+($i-1)*24).':'.'T'.(22+($i-1)*24))->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID);
+                // $objPHPExcel->getActiveSheet()->getStyle('B'.(22+($i-1)*24).':'.'T'.(22+($i-1)*24))->getFill()->getStartColor()->setARGB('FFFFFF00');
                 $objPHPExcel->getActiveSheet()->getStyle('B'.(22+($i-1)*24).':'.'T'.(22+($i-1)*24))->getFont()->setSize(20)->setBold(true);
             }
 }

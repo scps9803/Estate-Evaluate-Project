@@ -1,7 +1,7 @@
 <?php
 function exportBuildingHoldRatioExcel($script_number,$land_owner_data,$building_data,$land_data,$total_pay,$survey_date_split){
     $saveType = explode("-",$script_number);
-    $owner_data = getOwnerData2($building_data[0]["address"]);
+    $owner_data = getOwnerData($building_data[0]["address"]);
     $holdRatioMod = $total_pay % count($owner_data);
 
     // 地段、地號
@@ -87,7 +87,7 @@ function exportBuildingHoldRatioExcel($script_number,$land_owner_data,$building_
     $objPHPExcel = PHPExcel_IOFactory::load($excelTemplate);
     $objPHPExcel->setActiveSheetIndex(0)
                 ->setCellValue( 'N63', $title)
-                ->setCellValue( 'AH63', $script_number)
+                ->setCellValue( 'AH63', str_replace("-", "", $script_number))
                 ->setCellValue( 'C64', $owner_data[0]["name"].$owner_text)
                 ->setCellValue( 'G64', $owner_data[0]["pId"])
                 ->setCellValue( 'L64', $owner_data[0]["current_address"])
@@ -98,7 +98,7 @@ function exportBuildingHoldRatioExcel($script_number,$land_owner_data,$building_
                 ->setCellValue( 'L65', $land_owner_data[0]["current_address"])
                 ->setCellValue( 'X65', $land_owner_data[0]["telephone"]."\n".$land_owner_data[0]["cellphone"])
                 ->setCellValue( 'AE65', $document_text)
-                ->setCellValue( 'C66', $building_data[0]["address"])
+                ->setCellValue( 'C66', $building_data[0]["real_address"])
                 ->setCellValue( 'O66', $building_data[0]["tax_number"])
                 ->setCellValue( 'X66', $land_data[0]["land_use"])
                 ->setCellValue( 'AE66', $rent_text)
@@ -130,14 +130,14 @@ function exportBuildingHoldRatioExcel($script_number,$land_owner_data,$building_
                 ->setCellValue( 'C98', $survey_date_split[0]." 年 ".$survey_date_split[1]." 月 ".$survey_date_split[2]." 日");
 
     $objActSheet = $objPHPExcel->getActiveSheet();
-    $objActSheet->setTitle($script_number);
+    $objActSheet->setTitle(str_replace("-", "", $script_number));
     $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
 
     if($saveType[0] == "建合"){
-        $savePath = "file/building/legal/".substr($script_number,strlen($script_number)-3,strlen($script_number))."/";
+        $savePath = "file/building/legal/".$saveType[1]."/";
     }
     else{
-        $savePath = "file/building/illegal/".substr($script_number,strlen($script_number)-3,strlen($script_number))."/";
+        $savePath = "file/building/illegal/".$saveType[1]."/";
     }
 
     if(!file_exists($savePath)){

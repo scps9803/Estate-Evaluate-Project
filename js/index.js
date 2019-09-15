@@ -55,7 +55,7 @@ function addItemOnclick(id,column,num){
             '<div id="minus-wall-'+column+"-"+minus_wall_count[column-1]+'">'+
                 '<span>減牆:&nbsp;</span>'+
                 '<select id="minus-wall-num-'+column+"-"+minus_wall_count[column-1]+'" name="minus-wall-num-'+column+"-"+ minus_wall_count[column-1] +'" required="required">'+
-                    '<option value="" style="display:none;">請選擇面數</option>'+
+                    '<option value="">請選擇面數</option>'+
                     '<option value="1">1</option>'+
                     '<option value="2">2</option>'+
                     '<option value="3">3</option>'+
@@ -87,7 +87,7 @@ function addItemOnclick(id,column,num){
             '<div id="add-wall-'+column+"-"+ add_wall_count[column-1]+'">'+
                 '<span>加牆:&nbsp;</span>'+
                 '<select id="add-wall-num-'+column+"-"+add_wall_count[column-1]+'" name="add-wall-num-'+column+"-"+ add_wall_count[column-1] +'" required="required">'+
-                    '<option value="" style="display:none;">請選擇面數</option>'+
+                    '<option value="">請選擇面數</option>'+
                     '<option value="1">1</option>'+
                     '<option value="2">2</option>'+
                     '<option value="3">3</option>'+
@@ -482,8 +482,8 @@ function addInfoItemOnclick(id){
             text =
             '<div id="corp-owner-'+owner_count+'">'+
                 // '<input type="text" name="corp-owner-'+owner_count+'" placeholder="所有權人-'+owner_count+'" required><br>'+
-                '<input type="text" class="median-input-size" name="corp-owner-'+owner_count+'" autocomplete="off" placeholder="手動新增" required>&nbsp;'+
-                '<select id="corp-owner-select-'+owner_count+'" name="corp-owner-select-'+owner_count+'" onchange="autoFillInOwnerName(\'corp-owner\','+owner_count+')">'+
+                '<input type="text" style="width:90px;" name="corp-owner-'+owner_count+'" autocomplete="off" placeholder="手動新增" required>&nbsp;'+
+                '<select id="corp-owner-select-'+owner_count+'" name="corp-owner-select-'+owner_count+'" style="width:90px;" onchange="autoFillInOwnerName(\'corp-owner\','+owner_count+')">'+
                     '<option value="" style="display:none">請選擇項目</option>'+
                 '</select>'+
             '</div>';
@@ -753,13 +753,16 @@ function addInfoItemOnclick(id){
             addInfoItemOnclick('corp-num');
             addInfoItemOnclick('corp-unit');
             addInfoItemOnclick('corp-area');
+            addInfoItemOnclick('corp-equal');
             addInfoItemOnclick('corp-note');
             text =
             '<div id="corp-category-'+corp_count+'" style="margin-top:4px">'+
-                '<select name="corp-category-'+corp_count+'" onchange="load_corp_item_Data('+corp_count+')" required>'+
+                '<select id="corp-category-option-'+corp_count+'" name="corp-category-'+corp_count+'" style="width:140px;" onchange="load_corp_item_Data('+corp_count+')" required>'+
                     '<option value="" style="display:none;">請選擇種類</option>'+
                 '</select>'+
             '</div>';
+            isAppend = true;
+            $(itemId).append(text);
             getCorpCount();
             load_corp_category_Data(corp_count);
             break;
@@ -767,7 +770,7 @@ function addInfoItemOnclick(id){
         case 'corp-item':
             text =
             '<div id="corp-item-'+corp_count+'" style="margin-top:4px">'+
-                '<select name="corp-item-'+corp_count+'" style="" onchange="load_corp_type_Data('+corp_count+')" required>'+
+                '<select id="corp-item-option-'+corp_count+'" name="corp-item-'+corp_count+'" style="width:140px;" onchange="load_corp_type_Data('+corp_count+')" required>'+
                     '<option value="">請選擇項目</option>'+
                 '</select>'+
             '</div>';
@@ -776,7 +779,7 @@ function addInfoItemOnclick(id){
         case 'corp-type':
             text =
             '<div id="corp-type-'+corp_count+'" style="margin-top:4px">'+
-                '<select name="corp-type-'+corp_count+'" required>'+
+                '<select id="corp-type-option-'+corp_count+'" name="corp-type-'+corp_count+'" style="width:140px;" required>'+
                     '<option value="">請選擇規格</option>'+
                 '</select>'+
             '</div>';
@@ -805,10 +808,17 @@ function addInfoItemOnclick(id){
             '</div>';
             break;
 
+        case 'corp-equal':
+            text =
+            '<div id="corp-equal-'+corp_count+'" style="margin-top:5px">'+
+                '<input type="checkbox" value="" id="corp-equal-check-'+corp_count+'" name="corp-equal-'+corp_count+'" onchange="corpEqual('+corp_count+')">比照備註項目'+
+            '</div>';
+            break;
+
         case 'corp-note':
             text =
             '<div id="corp-note-'+corp_count+'" style="margin-top:-2px">'+
-                '<input type="text" name="corp-note-'+corp_count+'" class="large-input-size">'+
+                '<input type="text" name="corp-note-'+corp_count+'" class="large-input-size" placeholder="輸入比照物 ex.樹葡萄">'+
             '</div>';
             break;
     }
@@ -939,6 +949,7 @@ function removeInfoItemOnclick(id){
             removeInfoItemOnclick('corp-num');
             removeInfoItemOnclick('corp-unit');
             removeInfoItemOnclick('corp-area');
+            removeInfoItemOnclick('corp-equal');
             removeInfoItemOnclick('corp-note');
             corp_count = removeItem(id, corp_count);
             getCorpCount();
@@ -948,6 +959,7 @@ function removeInfoItemOnclick(id){
         case 'corp-num':
         case 'corp-unit':
         case 'corp-area':
+        case 'corp-equal':
         case 'corp-note':
             removeItem(id, corp_count);
             break;
@@ -1455,6 +1467,7 @@ function getCorpCount(){
 
 function exportExcel(script_number,house_address){
     $("#msg").html("<h1>Excel報表正在匯出中...<br>請勿關閉視窗...</h1>");
+    $("#exportBtn").html("");
     $.post("export_excel.php", {'script_number':script_number, 'house_address':house_address},
     function(){
         window.alert("Excel匯出成功!");
@@ -1487,6 +1500,7 @@ function exportExcel(script_number,house_address){
 
 function exportCorpExcel(script_number){
     $("#msg").html("<h1>Excel報表正在匯出中...<br>請勿關閉視窗...</h1>");
+    $("#exportBtn").html("");
     $.post("export_corp_excel.php", {'script_number':script_number},
     function(){
         window.alert("Excel匯出成功!");
@@ -1511,11 +1525,14 @@ function continueInput(){
             floorCount++;
         }
     }
-    $("#floor-count").val(floorCount);
-    $("#action").val("continue");
-    // $("#house_form").attr("action","building_continue.php");
-    $("#continueBtn").click();
-    // window.alert($("#action").val());
+    var isContinue = window.confirm("是否繼續輸入建物?");
+    if(isContinue == true){
+        $("#floor-count").val(floorCount);
+        $("#action").val("continue");
+        // $("#house_form").attr("action","building_continue.php");
+        $("#continueBtn").click();
+        // window.alert($("#action").val());
+    }
 }
 
 function setCohabit(num){
@@ -1755,8 +1772,10 @@ function load_corp_category_Data(num){
          },
          cache:false,
          dataType: "json",
+         async: false,
          // contentType: 'application/json; charset=utf-8',
          success: function(data){
+             console.log("load category "+(num-1));
              $(item).html(data.item_name);
              load_corp_item_Data(num);
          },
@@ -1778,8 +1797,10 @@ function load_corp_item_Data(num){
          },
          cache:false,
          dataType: "json",
+         async: false,
          // contentType: 'application/json; charset=utf-8',
          success: function(data){
+             console.log("load corp item "+(num-1));
              $(corp_item).html(data.item_name);
              load_corp_type_Data(num);
          },
@@ -1804,8 +1825,10 @@ function load_corp_type_Data(num){
          },
          cache:false,
          dataType: "json",
+         async: false,
          // contentType: 'application/json; charset=utf-8',
          success: function(data){
+             console.log("load corp type "+(num-1));
              $(corp_type).html(data.item_name);
              load_corp_unit_Data(num);
          },
@@ -1832,8 +1855,10 @@ function load_corp_unit_Data(num){
          },
          cache:false,
          dataType: "json",
+         async: false,
          // contentType: 'application/json; charset=utf-8',
          success: function(data){
+             console.log("load corp unit "+(num-1));
              $(corp_unit).html(data.item_name);
          },
          error:function(err){
@@ -1970,6 +1995,7 @@ function autoCompleteOwnerData(page,num,numArray,section,subsection){
          },
          cache:false,
          dataType: "json",
+         async: false,
          // contentType: 'application/json; charset=utf-8',
          success: function(data){
              response_json = data;
@@ -2030,7 +2056,9 @@ function loadOwnerData(id,num){
         // $("#landAddressText-"+num).val(response_json.address[num-1]);
         for(var i=1;i<=num;i++){
             $("#land-owner-select-"+i).html(name_option);
+            console.log("SELECT "+i);
             document.getElementById("land-owner-select-"+i).selectedIndex = i-1;
+            console.log("SELECT "+i+" OK!");
             // $("input[name='land-owner-"+i+"']").val(response_json.name[0]);
             // $("input[name='hold-id-"+i+"']").val(response_json.hold_id[0]);
             // $("#landAddressText-"+i).val(response_json.address[0]);
@@ -2046,7 +2074,7 @@ function loadOwnerData(id,num){
         // document.getElementById("owner-select-"+num).selectedIndex = num-1;
         // $("input[name='owner-"+num+"']").val(response_json.name[num-1]);
         // $("#addressText-"+num).val(response_json.address[num-1]);
-        for(var i=1;i<=num;i++){
+        for(var i=num;i<=num;i++){
             $("#owner-select-"+i).html(name_option);
             document.getElementById("owner-select-"+i).selectedIndex = i-1;
             $("input[name='owner-"+i+"']").val(name_option_array[i-1]);
@@ -2060,7 +2088,7 @@ function loadOwnerData(id,num){
         // document.getElementById("corp-owner-select-"+num).selectedIndex = num-1;
         // $("input[name='corp-owner-"+num+"']").val(response_json.name[num-1]);
         // $("#addressText-"+num).val(response_json.address[num-1]);
-        for(i=1;i<=num;i++){
+        for(i=num;i<=num;i++){
             $("#corp-owner-select-"+i).html(name_option);
             document.getElementById("corp-owner-select-"+i).selectedIndex = i-1;
             $("input[name='corp-owner-"+i+"']").val(name_option_array[i-1]);
@@ -2290,27 +2318,27 @@ function checkScriptNo(){
 function checkAddress(){
     var address = $("#houseAddress").val();
 
-    $.ajax({
-         url: "get_building_decoration_option.php",
-         type: "POST",
-         data:{
-            category: 'check_address',
-            address: address
-         },
-         cache:false,
-         dataType: "json",
-         // contentType: 'application/json; charset=utf-8',
-         success: function(data){
-             if(data.item_name == false){
-                 window.alert("此地址已存在!\n請重新輸入!");
-                 $("#houseAddress").val("");
-                 document.getElementById("noneAddress").checked = false;
-             }
-         },
-         error:function(err){
-             window.alert(err.statusText);
-         }
-    });
+    // $.ajax({
+    //      url: "get_building_decoration_option.php",
+    //      type: "POST",
+    //      data:{
+    //         category: 'check_address',
+    //         address: address
+    //      },
+    //      cache:false,
+    //      dataType: "json",
+    //      // contentType: 'application/json; charset=utf-8',
+    //      success: function(data){
+    //          if(data.item_name == false){
+    //              window.alert("此地址已存在!\n請重新輸入!");
+    //              $("#houseAddress").val("");
+    //              document.getElementById("noneAddress").checked = false;
+    //          }
+    //      },
+    //      error:function(err){
+    //          window.alert(err.statusText);
+    //      }
+    // });
 }
 
 function checkSubmit(){
@@ -2376,14 +2404,387 @@ function checkDate(id){
 }
 
 function corpSubmit(){
-    var shared = document.getElementById("shared");
+    var isContinue = window.confirm("是否確定儲存?");
 
-    if(shared.checked){
-        shared.value = "公同共有";
+    if(isContinue==true){
+        var shared = document.getElementById("shared");
+
+        if(shared.checked){
+            shared.value = "公同共有";
+        }
+        else{
+            shared.value = "個別持分";
+        }
+        $("#corp-submit-btn").click();
+    }
+}
+
+function corpEqual(num){
+    // 紀錄比照
+    var item = document.getElementById("corp-equal-check-"+num);
+
+    if(item.checked){
+        $("#corp-equal-check-"+num).val("比照");
     }
     else{
-        shared.value = "個別持分";
+        $("#corp-equal-check-"+num).val("");
     }
+    // window.alert($("#corp-equal-check-"+num).val());
+    // for(var i=1;i<=corp_count;i++){
+    //     var isChecked = document.getElementById("corp-equal-check-"+corp_count).checked;
+    //     if(isChecked){
+    //         $("#corp-equal-check-"+corp_count).val("比照");
+    //     }
+    //     else{
+    //         $("#corp-equal-check-"+corp_count).val("NA");
+    //     }
+    // }
+}
+
+function subBuildingSubmit(){
+    var isContinue = window.confirm("是否確定儲存?");
+
+    if(isContinue==true){
+        $("#sub-building-submit-btn").click();
+    }
+}
+
+function subBuildingSkip(){
+    var isContinue = window.confirm("是否確定略過雜項物?");
+
+    if(isContinue==true){
+        $("#sub-building-skip-btn").click();
+    }
+}
+
+function getCorpUpdateData(script_number,rId){
+    $("#script-number").val(rId);
+    getCorpLandData(script_number);
+    getCorpOwnerData(script_number);
+    getCorpLandOwnerData(script_number);
+    // getCorpLandData(script_number);
+    getCorpData(script_number);
+}
+
+function getCorpOwnerData(script_number){
+    $.when($.ajax({
+         url: "get_building_decoration_option.php",
+         type: "POST",
+         data:{
+            category: 'get_corp_owner_data',
+            script_number: script_number
+         },
+         cache:false,
+         dataType: "json",
+         async:false,
+         success: function(data){
+             response_json = data;
+             for(var i=0;i<data.name.length;i++){
+                 if(i>0){
+                     addInfoItemOnclick('corp-owner');
+                 }
+             }
+         },
+         error:function(err){
+             window.alert(err.statusText);
+         }
+    })).then(function(){
+        for(var i=0;i<response_json.name.length;i++){
+            $("input[name='corp-owner-"+(i+1)+"']").val(response_json.name[i]);
+            $("#corp-owner-select-"+(i+1)).val(response_json.name[i]);
+            $("#hold-numerator-"+(i+1)).val(response_json.hold_numerator[i]);
+            $("#hold-denominator-"+(i+1)).val(response_json.hold_denominator[i]);
+            if(response_json.pId[i].substr(0,2) != "NA"){
+                $("input[name='pId-"+(i+1)+"']").val(response_json.pId[i]);
+            }
+            $("input[name='telephone-"+(i+1)+"']").val(response_json.telephone[i]);
+            $("input[name='cellphone-"+(i+1)+"']").val(response_json.cellphone[i]);
+            $("#addressText-"+(i+1)).val(response_json.current_address[i]);
+        }
+    });
+}
+
+function getCorpLandOwnerData(script_number){
+    $.ajax({
+         url: "get_building_decoration_option.php",
+         type: "POST",
+         data:{
+            category: 'get_corp_land_owner_data',
+            script_number: script_number
+         },
+         cache:false,
+         dataType: "json",
+         async:false,
+         success: function(data){
+             $("input[name='land-owner-1']").val(data.name[0]);
+             $("#land-owner-select-1").val(data.name[0]);
+             $("input[name='hold-id-1']").val(data.hold_id[0]);
+             if(data.pId[0].substr(0,2) != "NA"){
+                 $("input[name='land-pId-1']").val(data.pId[0]);
+             }
+             $("#landAddressText-1").val(data.current_address[0]);
+             $("input[name='land-telephone-1']").val(data.telephone[0]);
+             $("input[name='land-cellphone-1']").val(data.cellphone[0]);
+         },
+         error:function(err){
+             window.alert(err.statusText);
+         }
+    });
+}
+
+function getCorpLandData(script_number){
+    // var land_section_array = [];
+    var land_section_array = {"land_section":[]};
+    var land_num_array = [];
+    // var land_num_array = {"id":[]};
+    var index = 0;
+    var section_data = ["草漯段","塔腳段","新坡段","樹林子段"];
+    var response_json = "";
+
+    $.ajax({
+         url: "get_building_decoration_option.php",
+         type: "POST",
+         data:{
+            category: 'get_corp_land_data',
+            script_number: script_number
+         },
+         cache:false,
+         dataType: "json",
+         async:false,
+         success: function(data){
+             console.log(data.land_section);
+             console.log(data.subsection);
+             console.log(data.land_number);
+             response_json = data;
+             for(var i=0;i<data.land_section.length;i++){
+                 var land_number_text = "";
+                 if(i>0){
+                     addInfoItemOnclick('land-section');
+                 }
+
+                 $("#section-"+(i+1)).val(data.land_section[i]);
+                 if(data.subsection[i] != ""){
+                     $("#sub_section-"+(i+1)).val(data.subsection[i]);
+                 }
+                 for(var j=0;j<data.land_number[i].length;j++){
+                     land_number_text += data.land_number[i][j]
+                     if(j != data.land_number[i].length-1){
+                         land_number_text += "、";
+                     }
+                 }
+                 $("#land-num-"+(i+1)).val(land_number_text);
+                 console.log("loadCorpOwnerData() ",i+1);
+                 // isLandNumExist('corp',i+1);
+                 loadCorpOwnerData('corp',i+1);
+             }
+             $("#survey-date").val(data.survey_date[0]);
+             $("#district").val(data.district[0]);
+             $("#land-use").val(data.land_use[0]);
+
+             // window.alert(data.land_number);
+             // $("#land-num-1").val(data.land_number[0]);
+             // for(var i=0;i<data.land_number.length;i++){
+             //     if(!land_section_array["land_section"].includes(data.land_section[i]) && data.land_section[i]!=""){
+             //         land_section_array["land_section"].push(data.land_section[i]);
+             //         // land_num_array[index] = data.land_number[i];
+             //         // land_num_array.id[index] = data.land_number[i];
+             //         // index++;
+             //     }
+             //     else{
+             //         // for(var j=0;j<land_section_array.length;j++){
+             //         //     if(data.land_section[i] == land_section_array[j]){
+             //         //         land_num_array[j] = data.land_number[i];
+             //         //     }
+             //         // }
+             //     }
+             // }
+
+             // window.alert(land_section_array);
+             // console.log(land_section_array);
+             // var count = 0;
+             // var isFind = false;
+
+             // for(var k=0;k<land_section_array.length;k++){
+             //     var isFind = false;
+             //     if(k>0){
+             //         addInfoItemOnclick('land-section');
+             //     }
+             //
+             //     for(var i=0;i<section_data.length;i++){
+             //         if(!isFind){
+             //             for(var j=0;j<land_section_array.length;j++){
+             //                 // window.alert(j+" : "+land_section_array[j]);
+             //                 if(section_data[i] == land_section_array[j]){
+             //                     console.log(section_data[k]);
+             //                     // document.getElementById("section-"+(k+1)).selectedIndex = i;
+             //                     $("#section-"+(k+1)).val(section_data[i]);
+             //                     // window.alert("相同、"+i+" : "+j+" : "+section_data[i]);
+             //                     count++;
+             //                     isFind = true;
+             //                     // window.alert(k+" : "+section_data[i]);
+             //                     break;
+             //                 }
+             //             }
+             //         }
+             //     }
+             // }
+
+             // $("#survey-date").val(data.survey_date[0]);
+             // $("#district").val(data.district[0]);
+             // $("#land-use").val(data.land_use[0]);
+         },
+         error:function(err){
+             window.alert(err.statusText);
+         }
+    });
+}
+
+function loadCorpOwnerData(page,num){
+    var item = "#land-num-"+num;
+    var section = "#section-"+num;
+    var subsection = "#sub_section-"+num;
+
+    numArray = $(item).val().split("、");
+    for(var i=0;i<numArray.length;i++){
+        autoCompleteOwnerData(page,num,numArray,$(section).val(),$(subsection).val());
+    }
+}
+
+function getCorpData(script_number){
+    var json = "";
+    var category_array = ["短期作物","果樹","茶竹","藥用","椰子","柏木","喬木","灌木","蔓性","整型","草本","其他"];
+
+    $.when($.ajax({
+         url: "get_building_decoration_option.php",
+         type: "POST",
+         data:{
+            category: 'get_corp_data',
+            script_number: script_number
+         },
+         cache:false,
+         dataType: "json",
+         async:false,
+         success: function(data){
+             json = data;
+             for(var i=0;i<data.category.length;i++){
+                 if(i>0){
+                     addInfoItemOnclick('corp-category');
+                 }
+
+                 for(var j=0;j<category_array.length;j++){
+                     if(data.category[i] == category_array[j]){
+                         // 不alert會有bug
+                         // window.alert(data.category[i]);
+                         // console.log(data.category[i]);
+
+                         if(i==0){
+                             document.getElementById("corp-category-option-"+(i+1)).selectedIndex = j+1;
+                             console.log("select category "+i);
+                         }
+                         else{
+                             document.getElementById("corp-category-option-"+(i+1)).selectedIndex = j;
+                             console.log("select category "+i);
+                         }
+                         load_corp_item_Data(i+1);
+                         getCorpItem(data,i);
+                         getCorpType(data,i);
+                         $("input[name='corp-num-"+(i+1)+"']").val(data.num[i]);
+                         $("input[name='corp-area-"+(i+1)+"']").val(data.plant_area_text[i]);
+                         if(data.equal[i] == "比照"){
+                             document.getElementById("corp-equal-check-"+(i+1)).checked = true;
+                         }
+                         $("input[name='corp-note-"+(i+1)+"']").val(data.note[i]);
+                         break;
+                     }
+                 }
+             }
+         },
+         error:function(err){
+             window.alert(err.statusText);
+         }
+    })).then(function(){
+
+    });
+}
+
+function getCorpItem(json,index){
+    var response_json = "";
+
+    $.when($.ajax({
+         url: "get_building_decoration_option.php",
+         type: "POST",
+         data:{
+            category: 'get_corp_item',
+            classfication: json.category[index]
+         },
+         cache:false,
+         dataType: "json",
+         async:false,
+         success: function(data){
+             response_json = data;
+             // for(var i=0;i<json.item.length;i++){
+             //     for(var j=0;j<data.item.length;j++){
+             //         if(json.item[i] == data.item[j]){
+             //             document.getElementById("corp-item-option-"+(i+1)).selectedIndex = j;
+             //             window.alert(i+":"+j);
+             //             load_corp_type_Data(i+1);
+             //             break;
+             //         }
+             //     }
+             // }
+         },
+         error:function(err){
+             window.alert(err.statusText);
+         }
+    })).then(function(){
+        for(var i=0;i<json.item.length;i++){
+            for(var j=0;j<response_json.item.length;j++){
+                if(json.item[i] == response_json.item[j]){
+                    document.getElementById("corp-item-option-"+(i+1)).selectedIndex = j;
+                    // window.alert(i+":"+j);
+                    load_corp_type_Data(i+1);
+                    break;
+                }
+            }
+        }
+    });
+}
+
+function getCorpType(json,index){
+    var response_json = "";
+
+    $.when($.ajax({
+         url: "get_building_decoration_option.php",
+         type: "POST",
+         data:{
+            category: 'get_corp_type',
+            item: json.item[index]
+         },
+         cache:false,
+         dataType: "json",
+         async:false,
+         success: function(data){
+             response_json = data;
+             // 資料庫中原本資料的crop_type
+             // console.log(json.corp_type);
+             // console.log(response_json.corp_type);
+         },
+         error:function(err){
+             window.alert(err.statusText);
+         }
+    })).then(function(){
+        console.log(json.corp_type);
+        console.log(response_json.corp_type);
+        for(var i=0;i<json.corp_type.length;i++){
+            for(var j=0;j<response_json.corp_type.length;j++){
+                if(json.corp_type[i] == response_json.corp_type[j] && i==index){
+                    console.log(json.corp_type[i]+"已選");
+                    document.getElementById("corp-type-option-"+(i+1)).selectedIndex = j;
+                    break;
+                }
+            }
+        }
+    });
 }
 
 $(document).ready(function(){

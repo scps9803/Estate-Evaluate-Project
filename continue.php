@@ -34,6 +34,7 @@ $total_floor = $_POST['floor-count'];
         $main_building[$i]["compensate_form"] = $_POST['compensate-form-'.($i+1)];
         $main_building[$i]["material"] = $_POST['building-material-'.($i+1)];
         $main_building[$i]["floor_type"] = $_POST['floor-type-'.($i+1)];
+        $main_building[$i]["f_order"] = $i+1;
         $main_building[$i]["nth_floor"] = $_POST['nth-floor-'.($i+1)];
         $main_building[$i]["total_floor"] = $_POST['total-floor-'.($i+1)];
         $main_building[$i]["points"] = getMainBuildingPoint($main_building[$i]["material"],$main_building[$i]["floor_type"],$main_building[$i]["house_type"]);
@@ -181,7 +182,11 @@ $total_floor = $_POST['floor-count'];
     echo "<br>---------------------------<br>";
 
     echo "門窗裝置<br>";
-    $isDoorEmpty = false;
+    $isDoorEmpty = true;
+    $resultArray = array(array(''),array(''),array(''),array(''));
+    $resultRatio = array(array(''),array(''),array(''),array(''));
+    $resultNumerator = [];
+    $resultDenominator = [];
     for($i=0;$i<$total_floor;$i++){
         // $door_window_numerator[$i] = $_POST['door-window-numerator-'.($i+1)];
         // $door_window_denominator[$i] = $_POST['door-window-denominator-'.($i+1)];
@@ -194,9 +199,8 @@ $total_floor = $_POST['floor-count'];
             $first_window[$i] = $_POST['first-window-'.($i+1)];
             $second_door[$i] = $_POST['second-door-'.($i+1)];
             $second_window[$i] = $_POST['second-window-'.($i+1)];
-            if($first_door[$i]=="" && $first_window[$i]=="" && $second_door[$i]=="" && $second_window[$i]==""){
-                $isDoorEmpty = true;
-                break;
+            if($first_door[$i]!="" || $first_window[$i]!="" || $second_door[$i]!="" || $second_window[$i]!=""){
+                $isDoorEmpty = false;
             }
 
             $optionArray[0] = $first_door[$i];
@@ -204,25 +208,28 @@ $total_floor = $_POST['floor-count'];
             $optionArray[2] = $second_door[$i];
             $optionArray[3] = $second_window[$i];
             $index = 0;
-            $resultArray = [];
-            $resultRatio = [];
+            // $resultArray = [];
+            // $resultRatio = [];
             echo "第一層門: ".$first_door[$i].", 第一層窗: ".$first_window[$i]."<br>第二層門: ".$second_door[$i].", 第二層窗: ".$second_window[$i]."<br>";
             for($j=0;$j<count($optionArray);$j++){
-                $key = array_search($optionArray[$j], $resultArray);
+                $key = array_search($optionArray[$j], $resultArray[$i]);
                 // echo "key: ".$key."<br>";
                 // echo $optionArray[$j]."<br>";
 
                 if($key===false && $optionArray[$j]!=""){
-                    $resultArray[$index] = $optionArray[$j];
-                    $resultRatio[$index] = 0.5;
+                    $resultArray[$i][$index] = $optionArray[$j];
+                    $resultRatio[$i][$index] = 0.5;
+                    $resultNumerator[$i][$j] = 1;
                     $index++;
                 }
                 else if($key!==false && $optionArray[$j]!=""){
-                    $resultRatio[$key] += 0.5;
+                    $resultRatio[$i][$key] += 0.5;
+                    $resultNumerator[$i][$j] += 1;
                 }
+                $resultDenominator[$i][$j] = 2;
             }
-            print_r($resultArray);
-            print_r($resultRatio);
+            print_r($resultArray[$i]);
+            print_r($resultRatio[$i]);
         }
     }
     echo "<br>---------------------------<br>";
@@ -330,7 +337,7 @@ $total_floor = $_POST['floor-count'];
 insertFloorData($script_number,$main_building,$house_address,$discard_status);
 
 // 儲存粉裝資料
-if($minus_wall_option[0][0] != ""){
+if(!empty($minus_wall_option)){
     $bdId = insertMinusWallData($fId,$minus_wall_count,$minus_wall_option);
     echo "減牆 BDID: <br>";
     echo "數量: ".count($minus_wall_count)."<br>";
@@ -342,7 +349,7 @@ if($minus_wall_option[0][0] != ""){
     print_r($fId);
 }
 
-if($add_wall_option[0][0] != ""){
+if(!empty($add_wall_option)){
     $bdId = insertAddWallData($fId,$add_wall_count,$add_wall_option);
     echo "加牆 BDID: <br>";
     print_r($add_wall_count);
@@ -353,7 +360,7 @@ if($add_wall_option[0][0] != ""){
     print_r($fId);
 }
 
-if($indoor_divide_numerator[0][0] != ""){
+if(!empty($indoor_divide_numerator)){
     $bdId = insertIndoorDivideData($fId,$indoor_divide_numerator,$indoor_divide_denominator,$indoor_divide_option);
     echo "BDID: <br>";
     print_r($indoor_divide_option);
@@ -363,7 +370,7 @@ if($indoor_divide_numerator[0][0] != ""){
     print_r($fId);
 }
 
-if($outdoor_wall_decoration_numerator[0][0] != ""){
+if(!empty($outdoor_wall_decoration_numerator)){
     $bdId = insertOutdoorWallData($fId,$main_building,$outdoor_wall_decoration_numerator,$outdoor_wall_decoration_denominator,$outdoor_wall_decoration_option);
     echo "BDID: <br>";
     print_r($outdoor_wall_decoration_option);
@@ -373,7 +380,7 @@ if($outdoor_wall_decoration_numerator[0][0] != ""){
     print_r($fId);
 }
 
-if($indoor_wall_decoration_numerator[0][0] != ""){
+if(!empty($indoor_wall_decoration_numerator)){
     $bdId = insertIndoorWallData($fId,$indoor_wall_type,$indoor_wall_decoration_numerator,$indoor_wall_decoration_denominator,$indoor_wall_decoration_option);
     echo "BDID: <br>";
     print_r($indoor_wall_decoration_option);
@@ -383,7 +390,7 @@ if($indoor_wall_decoration_numerator[0][0] != ""){
     print_r($fId);
 }
 
-if($roof_decoration_numerator[0][0] != ""){
+if(!empty($roof_decoration_numerator)){
     $bdId = insertRoofData($fId,$roof_decoration_numerator,$roof_decoration_denominator,$roof_decoration_option);
     echo "BDID: <br>";
     print_r($roof_decoration_option);
@@ -393,7 +400,7 @@ if($roof_decoration_numerator[0][0] != ""){
     print_r($fId);
 }
 
-if($floor_decoration_numerator[0][0] != ""){
+if(!empty($floor_decoration_numerator)){
     $bdId = insertFloorDecorData($fId,$floor_decoration_numerator,$floor_decoration_denominator,$floor_decoration_option);
     echo "BDID: <br>";
     print_r($floor_decoration_option);
@@ -403,7 +410,7 @@ if($floor_decoration_numerator[0][0] != ""){
     print_r($fId);
 }
 
-if($ceiling_decoration_numerator[0][0] != ""){
+if(!empty($ceiling_decoration_numerator)){
     $bdId = insertCeilingData($fId,$ceiling_decoration_numerator,$ceiling_decoration_denominator,$ceiling_decoration_option);
     echo "BDID: <br>";
     print_r($ceiling_decoration_option);
@@ -426,10 +433,10 @@ if($ceiling_decoration_numerator[0][0] != ""){
 //     print_r($fId);
 // }
 if(!$isDoorEmpty){
-    insertNewDoorWindowData($fId,$resultArray,$resultRatio,$main_building);
+    insertNewDoorWindowData($fId,$resultArray,$resultRatio,$resultNumerator,$resultDenominator,$main_building);
 }
 
-if($toilet_ratio[0][0] != ""){
+if(!empty($toilet_ratio)){
     $bdId = insertToiletData($fId,$toilet_ratio,$toilet_type,$toilet_product,$toilet_number);
     echo "浴廁 BDID: <br>";
     print_r($toilet_ratio);
@@ -441,7 +448,7 @@ if($toilet_ratio[0][0] != ""){
     print_r($fId);
 }
 
-if($electric_usage[0] != ""){
+if(!empty($electric_usage)){
     $bdId = insertElectricData($fId,$electric_usage,$electric_type);
     echo "<br>";
     echo "電器 BDID: <br>";
@@ -453,7 +460,7 @@ if($electric_usage[0] != ""){
     print_r($fId);
 }
 
-if($window_level[0] != ""){
+if(!empty($window_level)){
     $bdId = insertWindowLevelData($fId,$window_level,$main_building);
     echo "<br>";
     echo "窗型 BDID: <br>";
@@ -464,7 +471,7 @@ if($window_level[0] != ""){
     print_r($fId);
 }
 
-if($daughter_wall[0] != ""){
+if(!empty($daughter_wall)){
     $bdId = insertDaughterWallData($fId,$daughter_wall);
     echo "<br>";
     echo "女兒牆 BDID: <br>";
@@ -476,7 +483,7 @@ if($daughter_wall[0] != ""){
     print_r($fId);
 }
 
-if($balcony[0] != ""){
+if(!empty($balcony)){
     $bdId = insertBalconyData($fId,$balcony);
     echo "<br>";
     echo "陽台 BDID: <br>";

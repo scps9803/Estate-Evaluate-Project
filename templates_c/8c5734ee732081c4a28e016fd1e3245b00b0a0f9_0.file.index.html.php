@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-09-05 05:40:00
+/* Smarty version 3.1.33, created on 2019-09-15 18:18:13
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\index.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d709fb0578828_52823557',
+  'unifunc' => 'content_5d7e806547f5f4_01791827',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8c5734ee732081c4a28e016fd1e3245b00b0a0f9' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\index.html',
-      1 => 1567661840,
+      1 => 1568571490,
       2 => 'file',
     ),
   ),
@@ -20,11 +20,11 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d709fb0578828_52823557 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d7e806547f5f4_01791827 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>新增建物查案</title>
+  <title id="title">新增建物查案</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> -->
@@ -600,7 +600,7 @@ function content_5d709fb0578828_52823557 (Smarty_Internal_Template $_smarty_tpl)
                         <div id="minus-wall-1-1">
                             <span>減牆:</span>
                             <select id="minus-wall-num-1-1" name="minus-wall-num-1-1">
-                                <option value="" style="display:none;">請選擇面數</option>
+                                <option value="">請選擇面數</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -620,7 +620,7 @@ function content_5d709fb0578828_52823557 (Smarty_Internal_Template $_smarty_tpl)
                         <div id="add-wall-1-1">
                             <span>加牆:</span>
                             <select id="add-wall-num-1-1" name="add-wall-num-1-1">
-                                <option value="" style="display:none;">請選擇面數</option>
+                                <option value="">請選擇面數</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -642,7 +642,7 @@ function content_5d709fb0578828_52823557 (Smarty_Internal_Template $_smarty_tpl)
                         <div id="minus-wall-2-1">
                             <span>減牆:</span>
                             <select id="minus-wall-num-2-1" name="minus-wall-num-2-1">
-                                <option value="" style="display:none;">請選擇面數</option>
+                                <option value="">請選擇面數</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -662,7 +662,7 @@ function content_5d709fb0578828_52823557 (Smarty_Internal_Template $_smarty_tpl)
                         <div id="add-wall-2-1">
                             <span>加牆:</span>
                             <select id="add-wall-num-2-1" name="add-wall-num-2-1">
-                                <option value="" style="display:none;">請選擇面數</option>
+                                <option value="">請選擇面數</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -684,7 +684,7 @@ function content_5d709fb0578828_52823557 (Smarty_Internal_Template $_smarty_tpl)
                         <div id="minus-wall-3-1">
                             <span>減牆:</span>
                             <select id="minus-wall-num-3-1" name="minus-wall-num-3-1">
-                                <option value="" style="display:none;">請選擇面數</option>
+                                <option value="">請選擇面數</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -704,7 +704,7 @@ function content_5d709fb0578828_52823557 (Smarty_Internal_Template $_smarty_tpl)
                         <div id="add-wall-3-1">
                             <span>加牆:</span>
                             <select id="add-wall-num-3-1" name="add-wall-num-3-1">
-                                <option value="" style="display:none;">請選擇面數</option>
+                                <option value="">請選擇面數</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -726,7 +726,7 @@ function content_5d709fb0578828_52823557 (Smarty_Internal_Template $_smarty_tpl)
                         <div id="minus-wall-4-1">
                             <span>減牆:</span>
                             <select id="minus-wall-num-4-1" name="minus-wall-num-4-1">
-                                <option value="" style="display:none;">請選擇面數</option>
+                                <option value="">請選擇面數</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -746,7 +746,7 @@ function content_5d709fb0578828_52823557 (Smarty_Internal_Template $_smarty_tpl)
                         <div id="add-wall-4-1">
                             <span>加牆:</span>
                             <select id="add-wall-num-4-1" name="add-wall-num-4-1">
-                                <option value="" style="display:none;">請選擇面數</option>
+                                <option value="">請選擇面數</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -1139,7 +1139,7 @@ function content_5d709fb0578828_52823557 (Smarty_Internal_Template $_smarty_tpl)
                     <td colspan="2">
                         <div id="floor-decoration-4-1">
                             <input type="text" id="floor-decoration-numerator-4-1" name="floor-decoration-numerator-4-1" class="tiny-input-size" placeholder="輸入" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('floor-decoration-numerator-4-1')" value="1">/<input type="text" id="floor-decoration-denominator-4-1" name="floor-decoration-denominator-4-1" class="tiny-input-size" placeholder="比例" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('floor-decoration-denominator-4-1')" value="1">
-                            <select name="floor-decoration-4-1" class="select-menu">
+                            <select id="floor-decoration-option-4-1" name="floor-decoration-option-4-1" class="select-menu">
                                 <option value="">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['floor_decoration_option']->value;?>
 
@@ -1193,7 +1193,7 @@ function content_5d709fb0578828_52823557 (Smarty_Internal_Template $_smarty_tpl)
                     <td colspan="2">
                         <div id="ceiling-decoration-3-1">
                             <input type="text" id="ceiling-decoration-numerator-3-1" name="ceiling-decoration-numerator-3-1" class="tiny-input-size" placeholder="輸入" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('ceiling-decoration-numerator-3-1')" value="1">/<input type="text" id="ceiling-decoration-denominator-3-1" name="ceiling-decoration-denominator-3-1" class="tiny-input-size" placeholder="比例" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('ceiling-decoration-denominator-3-1')" value="1">
-                            <select id="ceiling-decoration-option-1-1" name="ceiling-decoration-option-1-1" class="select-menu">
+                            <select id="ceiling-decoration-option-3-1" name="ceiling-decoration-option-3-1" class="select-menu">
                                 <option value="">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['ceiling_decoration_option']->value;?>
 
@@ -1210,7 +1210,7 @@ function content_5d709fb0578828_52823557 (Smarty_Internal_Template $_smarty_tpl)
                     <td colspan="2">
                         <div id="ceiling-decoration-4-1">
                             <input type="text" id="ceiling-decoration-numerator-4-1" name="ceiling-decoration-numerator-4-1" class="tiny-input-size" placeholder="輸入" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('ceiling-decoration-numerator-4-1')" value="1">/<input type="text" id="ceiling-decoration-denominator-4-1" name="ceiling-decoration-denominator-4-1" class="tiny-input-size" placeholder="比例" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('ceiling-decoration-denominator-4-1')" value="1">
-                            <select name="ceiling-decoration-option-4-1" class="select-menu">
+                            <select id="ceiling-decoration-option-4-1" name="ceiling-decoration-option-4-1" class="select-menu">
                                 <option value="">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['ceiling_decoration_option']->value;?>
 

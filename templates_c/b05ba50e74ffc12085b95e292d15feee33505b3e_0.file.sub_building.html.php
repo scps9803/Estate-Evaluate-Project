@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-09-04 03:12:59
+/* Smarty version 3.1.33, created on 2019-09-09 22:41:52
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\sub_building.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d6f2bbbefdd10_84208973',
+  'unifunc' => 'content_5d7664b0d29724_17421856',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b05ba50e74ffc12085b95e292d15feee33505b3e' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\sub_building.html',
-      1 => 1567566776,
+      1 => 1568039856,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d6f2bbbefdd10_84208973 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d7664b0d29724_17421856 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head>
@@ -102,7 +102,7 @@ function content_5d6f2bbbefdd10_84208973 (Smarty_Internal_Template $_smarty_tpl)
 ">
                 <input type="hidden" name="script_number" value="<?php echo $_smarty_tpl->tpl_vars['script_number']->value;?>
 ">
-                <input type="submit" value="儲存">
+                <input type="submit" id="sub-building-submit-btn" value="儲存" style="display:none;">
             </form><br>
 
             <form class="" action="finish.php" method="post">
@@ -110,8 +110,10 @@ function content_5d6f2bbbefdd10_84208973 (Smarty_Internal_Template $_smarty_tpl)
 ">
                 <input type="hidden" name="script_number" value="<?php echo $_smarty_tpl->tpl_vars['script_number']->value;?>
 ">
-                <input type="submit" value="略過(無雜項物)">
+                <input type="submit" id="sub-building-skip-btn" value="略過(無雜項物)" style="display:none;">
             </form>
+            <button onclick="subBuildingSubmit()">儲存</button>
+            <button onclick="subBuildingSkip()">略過(無雜項物)</button>
         </div>
     </body>
 </html>

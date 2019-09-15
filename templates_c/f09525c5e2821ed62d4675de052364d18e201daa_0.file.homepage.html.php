@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-09-01 03:31:35
+/* Smarty version 3.1.33, created on 2019-09-15 18:07:36
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\homepage.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d6b3b97257231_30369174',
+  'unifunc' => 'content_5d7e7de8ed3360_77267030',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'f09525c5e2821ed62d4675de052364d18e201daa' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\homepage.html',
-      1 => 1567308693,
+      1 => 1568570854,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d6b3b97257231_30369174 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d7e7de8ed3360_77267030 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -174,7 +174,7 @@ function content_5d6b3b97257231_30369174 (Smarty_Internal_Template $_smarty_tpl)
                         <th>調查表編號</th>
                         <th>地段地號</th>
                         <th>地址</th>
-                        <th>查看/編輯</th>
+                        <th>編輯</th>
                         <th>建立時間</th>
                         <th>下載報表</th>
                         <th>刪除</th>
@@ -192,10 +192,12 @@ foreach ($_from as $_smarty_tpl->tpl_vars['k']->value => $_smarty_tpl->tpl_vars[
 </td>
                         <td><?php echo $_smarty_tpl->tpl_vars['row']->value['land_id'];?>
 </td>
-                        <td><?php echo $_smarty_tpl->tpl_vars['row']->value['address'];?>
+                        <td><?php echo $_smarty_tpl->tpl_vars['row']->value['real_address'];?>
 </td>
-                        <td></td>
-                        <!-- <td><button class='btn btn-default'>查看</button>&nbsp;<button class='btn btn-default'>編輯</button></td> -->
+                        <!-- <td><button class='btn btn-default'>查看</button>&nbsp;<button class='btn btn-default'><a href="update_building.php?recordNo=<?php echo $_smarty_tpl->tpl_vars['row']->value['rId'];?>
+" target="_blank">編輯</a></button></td> -->
+                        <td><button class='btn btn-default'><a href="update_building.php?recordNo=<?php echo $_smarty_tpl->tpl_vars['row']->value['rId'];?>
+" target="_blank">編輯</a></button></td>
                         <td><?php echo $_smarty_tpl->tpl_vars['row']->value['keyin_datetime'];?>
 </td>
                         <td>
@@ -272,7 +274,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
         "<th>調查表編號</th>" +
         "<th>地段地號</th>" +
         "<th>地址</th>" +
-        "<th>查看/編輯</th>" +
+        "<th>編輯</th>" +
         "<th>建立時間</th>" +
         "<th>下載報表</th>" +
         "<th>刪除</th>" +
@@ -290,10 +292,11 @@ foreach ($_from as $_smarty_tpl->tpl_vars['k']->value => $_smarty_tpl->tpl_vars[
 </td>" +
         "<td><?php echo $_smarty_tpl->tpl_vars['row']->value['land_id'];?>
 </td>" +
-        "<td><?php echo $_smarty_tpl->tpl_vars['row']->value['address'];?>
+        "<td><?php echo $_smarty_tpl->tpl_vars['row']->value['real_address'];?>
 </td>" +
         // "<td><button class='btn btn-default'>查看</button>&nbsp;<button class='btn btn-default'>編輯</button></td>" +
-        "<td></td>" +
+        "<td><button class='btn btn-default'><a href='update_building.php?recordNo=<?php echo $_smarty_tpl->tpl_vars['row']->value['rId'];?>
+' target='_blank'>編輯</a></button></td>" +
         "<td><?php echo $_smarty_tpl->tpl_vars['row']->value['keyin_datetime'];?>
 </td>" +
         "<td>" +
@@ -333,7 +336,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>" +
         "<tr>" +
         "<th>調查表編號</th>" +
         "<th>地段地號</th>" +
-        "<th>查看/編輯</th>" +
+        "<th>編輯</th>" +
         "<th>建立時間</th>" +
         "<th>下載報表</th>" +
         "<th>刪除</th>" +
@@ -351,7 +354,9 @@ foreach ($_from as $_smarty_tpl->tpl_vars['k']->value => $_smarty_tpl->tpl_vars[
 </td>" +
         "<td><?php echo $_smarty_tpl->tpl_vars['row']->value['land_id'];?>
 </td>" +
-        "<td><button class='btn btn-default'>查看</button>&nbsp;<button class='btn btn-default'>編輯</button></td>" +
+        "<td><button class='btn btn-default'><a href='update_corp.php?recordNo=<?php echo $_smarty_tpl->tpl_vars['row']->value['rId'];?>
+' target='_blank'>編輯</a></button></td>" +
+        // "<td></td>"+
         "<td><?php echo $_smarty_tpl->tpl_vars['row']->value['keyin_datetime'];?>
 </td>" +
         "<td>" +

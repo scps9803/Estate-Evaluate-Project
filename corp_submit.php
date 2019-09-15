@@ -54,6 +54,7 @@ for($i=0;$i<$owner_count;$i++){
     $hold_ratio[$i] = $_POST['hold-numerator-'.($i+1)] / $_POST['hold-denominator-'.($i+1)];
     $hold_numerator[$i] = $_POST['hold-numerator-'.($i+1)];
     $hold_denominator[$i] = $_POST['hold-denominator-'.($i+1)];
+    $owner_order[$i] = $i+1;
     if($_POST['pId-'.($i+1)] == ""){
         $pId[$i] = "NA".$script_number."-".($i+1);
     }
@@ -90,6 +91,7 @@ else{
 $landAddressText[0] = $_POST['landAddressText-1'];
 $land_cellphone[0] = $_POST['land-cellphone-1'];
 $land_telephone[0] = $_POST['land-telephone-1'];
+$land_owner_order[0] = 1;
 
 $first_id = $_POST['hold-id-1'];
 $land_owner_data = getCorpLandOwnerData2($first_id,$land_section,$subsection,$land_number);
@@ -117,6 +119,7 @@ for($i=1;$i<=count($land_owner_data["hold_id"]);$i++){
         $landAddressText[$i] = $land_owner_data["address"][$i-1];
         $land_cellphone[$i] = '';
         $land_telephone[$i] = '';
+        $land_owner_order[$i] = $i+1;
     // }
 }
 // echo "---------------------<br>";
@@ -142,6 +145,12 @@ for($i=0;$i<$corp_count;$i++){
     $corp[$i]["area"] = $_POST['corp-area-'.($i+1)];
     $corp[$i]["note"] = $_POST['corp-note-'.($i+1)];
     $corp[$i]["keyin_order"] = $i+1;
+    if(isset($_POST['corp-equal-'.($i+1)])){
+        $corp[$i]["equal"] = $_POST['corp-equal-'.($i+1)];
+    }
+    else{
+        $corp[$i]["equal"] = "";
+    }
 }
 // echo "---------------------<br>";
 // echo "農作物:"."<br>";
@@ -152,10 +161,10 @@ for($i=0;$i<$corp_count;$i++){
 
 insertIntoCorpRecordTable($script_number,$district,$land_use,$KEYIN_ID,$KEYIN_DATETIME,$SURVEY_DATE);
 insertIntoLandBelongToCorpRecordTable($land_section,$subsection,$land_number,$script_number);
-insertIntoCorpOwnerTable($pId,$owner,$address,$telephone,$cellphone);
-insertIntoCorpOwnerBelongToCorpRecordTable($pId,$script_number,$hold_ratio,$hold_numerator,$hold_denominator,$shared);
+insertIntoCorpOwnerTable($pId,$owner,$address,$telephone,$cellphone,$script_number);
+insertIntoCorpOwnerBelongToCorpRecordTable($pId,$script_number,$hold_ratio,$hold_numerator,$hold_denominator,$shared,$owner_order);
 insertIntoLandOwnerTable($hold_id,$land_pId,$land_owner,$land_telephone,$land_cellphone,$landAddressText);
-insertIntoLandOwnerBelongToCorpRecordTable($hold_id,$script_number);
+insertIntoLandOwnerBelongToCorpRecordTable($hold_id,$script_number,$land_owner_order);
 insertIntoPlantingTable($land_section,$subsection,$land_number,$corp,$script_number);
 
 $smarty->assign("script_number",$script_number);

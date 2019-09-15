@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-18 18:07:24
+/* Smarty version 3.1.33, created on 2019-09-09 11:04:41
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\corp_submit.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d59235c352126_15505108',
+  'unifunc' => 'content_5d75c149ef9f51_79038342',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'c84c207a577810cefbb8ed04cc3e3022fb041f2a' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\corp_submit.html',
-      1 => 1566093223,
+      1 => 1567960654,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d59235c352126_15505108 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d75c149ef9f51_79038342 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head>
@@ -37,7 +37,7 @@ function content_5d59235c352126_15505108 (Smarty_Internal_Template $_smarty_tpl)
         <div align="center">
             <h1>儲存完成!<br>點擊下方按鈕完成調查表存檔!</h1>
             <h1 id="msg"></h1>
-            <button type="button" name="button" onclick="exportCorpExcel('<?php echo $_smarty_tpl->tpl_vars['script_number']->value;?>
+            <button type="button" id="exportBtn" name="button" onclick="exportCorpExcel('<?php echo $_smarty_tpl->tpl_vars['script_number']->value;?>
 ')">存檔</button>
         </div>
     </body>

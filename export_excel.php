@@ -237,7 +237,7 @@ for($i=0;$i<$floor_count;$i++){
                 ->setCellValue( 'AE'.(4+$i*34), $legal_text)
                 ->setCellValue( 'AE'.(5+$i*34), $building_data[0]["legal_certificate"])
                 ->setCellValue( 'AE'.(7+$i*34), $building_data[0]["remove_condition"])
-                ->setCellValue( 'C'.(6+$i*34), $building_data[0]["address"])
+                ->setCellValue( 'C'.(6+$i*34), $building_data[0]["real_address"])
                 ->setCellValue( 'O'.(6+$i*34), $building_data[0]["build_number"]."\n".$building_data[0]["tax_number"])
                 ->setCellValue( 'X'.(6+$i*34), $land_data[0]["land_use"])
                 ->setCellValue( 'AE'.(6+$i*34), $rent_text)
@@ -256,6 +256,7 @@ $total_people = 0;
 $total_migration_fee = 0;
 $migration_fee = [];
 $mf_index = 0;
+$exit_num = getExitNum($script_number);
 for($i=0;$i<count($resident_data);$i++){
     $total_people += $resident_data[$i]["family_num"];
     if($resident_data[$i]["move_status"] == "個別領取"){
@@ -268,6 +269,11 @@ for($i=0;$i<count($resident_data);$i++){
             $mf_index++;
         }
     }
+
+    if($exit_num == 1){
+        $resident_data[$i]["move_status"] = "";
+    }
+
     if($i%2==0){
         $objPHPExcel->setActiveSheetIndex(0)
                     ->setCellValue( 'C'.(floor($i/2+9)), $resident_data[$i]["captain_name"])
@@ -589,72 +595,77 @@ for($i=0;$i<count($main_decoration_data);$i++){
 
     if($indoor_divide_decoration_data!=null){
         for($j=0;$j<count($indoor_divide_decoration_data);$j++){
-            $indoor_divide_text = $indoor_divide_text.$indoor_divide_decoration_data[$j]["ratio"]." ".$indoor_divide_decoration_data[$j]["item_name"]."\n";
+            $indoor_divide_text = $indoor_divide_text.$indoor_divide_decoration_data[$j]["numerator"]."/".$indoor_divide_decoration_data[$j]["denominator"]." ".$indoor_divide_decoration_data[$j]["item_name"]."\n";
             $indoor_divide_points += $indoor_divide_decoration_data[$j]["ratio"]*$indoor_divide_decoration_data[$j]["points"];
         }
         if(count($indoor_divide_decoration_data)==1 && $indoor_divide_decoration_data[0]["ratio"]==1){
-            $indoor_divide_text = substr($indoor_divide_text,1,strlen($indoor_divide_text));
+            $indoor_divide_text = substr($indoor_divide_text,4,strlen($indoor_divide_text));
         }
     }
 
     if($outdoor_wall_decoration_data!=null){
         for($j=0;$j<count($outdoor_wall_decoration_data);$j++){
-            $outdoor_wall_text = $outdoor_wall_text.$outdoor_wall_decoration_data[$j]["ratio"]." ".$outdoor_wall_decoration_data[$j]["item_name"]."\n";
+            $outdoor_wall_text = $outdoor_wall_text.$outdoor_wall_decoration_data[$j]["numerator"]."/".$outdoor_wall_decoration_data[$j]["denominator"]." ".$outdoor_wall_decoration_data[$j]["item_name"]."\n";
             $outdoor_wall_points += $outdoor_wall_decoration_data[$j]["ratio"]*$outdoor_wall_decoration_data[$j]["points"];
         }
         if(count($outdoor_wall_decoration_data)==1 && $outdoor_wall_decoration_data[0]["ratio"]==1){
-            $outdoor_wall_text = substr($outdoor_wall_text,1,strlen($outdoor_wall_text));
+            $outdoor_wall_text = substr($outdoor_wall_text,4,strlen($outdoor_wall_text));
         }
     }
 
     if($indoor_wall_decoration_data!=null){
         for($j=0;$j<count($indoor_wall_decoration_data);$j++){
-            $indoor_wall_text = $indoor_wall_text.$indoor_wall_decoration_data[$j]["ratio"]." ".$indoor_wall_decoration_data[$j]["item_name"]."\n";
+            $indoor_wall_text = $indoor_wall_text.$indoor_wall_decoration_data[$j]["numerator"]."/".$indoor_wall_decoration_data[$j]["denominator"]." ".$indoor_wall_decoration_data[$j]["item_name"]."\n";
             $indoor_wall_points += $indoor_wall_decoration_data[$j]["ratio"]*$indoor_wall_decoration_data[$j]["points"];
         }
         if(count($indoor_wall_decoration_data)==1 && $indoor_wall_decoration_data[0]["ratio"]==1){
-            $indoor_wall_text = substr($indoor_wall_text,1,strlen($indoor_wall_text));
+            $indoor_wall_text = substr($indoor_wall_text,4,strlen($indoor_wall_text));
         }
     }
 
     if($roof_decoration_data!=null){
         for($j=0;$j<count($roof_decoration_data);$j++){
-            $roof_text = $roof_text.$roof_decoration_data[$j]["ratio"]." ".$roof_decoration_data[$j]["item_name"]."\n";
+            $roof_text = $roof_text.$roof_decoration_data[$j]["numerator"]."/".$roof_decoration_data[$j]["denominator"]." ".$roof_decoration_data[$j]["item_name"]."\n";
             $roof_points += $roof_decoration_data[$j]["ratio"]*$roof_decoration_data[$j]["points"];
         }
         if(count($roof_decoration_data)==1 && $roof_decoration_data[0]["ratio"]==1){
-            $roof_text = substr($roof_text,1,strlen($roof_text));
+            $roof_text = substr($roof_text,4,strlen($roof_text));
         }
     }
 
     if($floor_decoration_data!=null){
         for($j=0;$j<count($floor_decoration_data);$j++){
-            $floor_text = $floor_text.$floor_decoration_data[$j]["ratio"]." ".$floor_decoration_data[$j]["item_name"]."\n";
+            $floor_text = $floor_text.$floor_decoration_data[$j]["numerator"]."/".$floor_decoration_data[$j]["denominator"]." ".$floor_decoration_data[$j]["item_name"]."\n";
             $floor_points += $floor_decoration_data[$j]["ratio"]*$floor_decoration_data[$j]["points"];
         }
         if(count($floor_decoration_data)==1 && $floor_decoration_data[0]["ratio"]==1){
-            $floor_text = substr($floor_text,1,strlen($floor_text));
+            $floor_text = substr($floor_text,4,strlen($floor_text));
         }
     }
 
     if($ceiling_decoration_data!=null){
         for($j=0;$j<count($ceiling_decoration_data);$j++){
-            $ceiling_text = $ceiling_text.$ceiling_decoration_data[$j]["ratio"]." ".$ceiling_decoration_data[$j]["item_name"]."\n";
+            $ceiling_text = $ceiling_text.$ceiling_decoration_data[$j]["numerator"]."/".$ceiling_decoration_data[$j]["denominator"]." ".$ceiling_decoration_data[$j]["item_name"]."\n";
             $ceiling_points += $ceiling_decoration_data[$j]["ratio"]*$ceiling_decoration_data[$j]["points"];
         }
         if(count($ceiling_decoration_data)==1 && $ceiling_decoration_data[0]["ratio"]==1){
-            $ceiling_text = substr($ceiling_text,1,strlen($ceiling_text));
+            $ceiling_text = substr($ceiling_text,4,strlen($ceiling_text));
         }
     }
 
     if($door_decoration_data!=null){
         for($j=0;$j<count($door_decoration_data);$j++){
-            $door_text = $door_text.$door_decoration_data[$j]["ratio"]." ".$door_decoration_data[$j]["item_name"]."\n";
+            if($door_decoration_data[$j]["ratio"]==1){
+                $door_text = $door_text.$door_decoration_data[$j]["item_name"]."\n";
+            }
+            else{
+                $door_text = $door_text.$door_decoration_data[$j]["numerator"]."/".$door_decoration_data[$j]["denominator"]." ".$door_decoration_data[$j]["item_name"]."\n";
+            }
             $door_points += $door_decoration_data[$j]["ratio"]*$door_decoration_data[$j]["points"];
         }
-        if(count($door_decoration_data)==1 && $door_decoration_data[0]["ratio"]==1){
-            $door_text = substr($door_text,1,strlen($door_text));
-        }
+        // if(count($door_decoration_data)==1 && $door_decoration_data[0]["ratio"]==1){
+        //     $door_text = substr($door_text,1,strlen($door_text));
+        // }
     }
 
     if($toilet_decoration_data!=null){
@@ -668,11 +679,11 @@ for($i=0;$i<count($main_decoration_data);$i++){
             else if($toilet_text.$toilet_decoration_data[$j]["area"]==3){
                 $note = "(七處以上)";
             }
-            $toilet_text = $toilet_text.$toilet_decoration_data[$j]["ratio"]." ".$toilet_decoration_data[$j]["item_name"].$note."\n";
+            $toilet_text = $toilet_text.$toilet_decoration_data[$j]["numerator"]."/".$toilet_decoration_data[$j]["denominator"]." ".$toilet_decoration_data[$j]["item_name"].$note."\n";
             $toilet_points += $toilet_decoration_data[$j]["ratio"]*$toilet_decoration_data[$j]["points"];
         }
         if(count($toilet_decoration_data)==1 && $toilet_decoration_data[0]["ratio"]==1){
-            $toilet_text = substr($toilet_text,1,strlen($toilet_text));
+            $toilet_text = substr($toilet_text,4,strlen($toilet_text));
         }
     }
 
@@ -1061,12 +1072,13 @@ for($i=0;$i<count($subText);$i++){
 
 $objActSheet = $objPHPExcel->getActiveSheet();
 $objActSheet->setTitle(str_replace("-", "", $script_number));
+$saveType = explode("-",$script_number);
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
 if($compensate_type == "補償"){
-    $savePath = "file/building/legal/".substr($script_number,strlen($script_number)-3,strlen($script_number))."/";
+    $savePath = "file/building/legal/".$saveType[1]."/";
 }
 else{
-    $savePath = "file/building/illegal/".substr($script_number,strlen($script_number)-3,strlen($script_number))."/";
+    $savePath = "file/building/illegal/".$saveType[1]."/";
 }
 
 if(!file_exists($savePath)){
@@ -1124,7 +1136,7 @@ exportBuildingHoldRatioExcel($script_number,$land_owner_data,$building_data,$lan
 // date_default_timezone_set('Asia/Taipei');
 // $objWriter->save('file/'.date("YmdHis").'.xls');
 
-echo json_encode(array('status' => 'completed','tt' => ''));
+echo json_encode(array('$add' => $building_data[0],'tt' => ''));
 echo "<br>";
 
 // function processDecorationText($data){

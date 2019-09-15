@@ -141,6 +141,71 @@ switch ($category) {
         $address = $_POST['address'];
         $result_option = checkAddress($address);
         break;
+
+    case 'get_corp_owner_data':
+        $script_number = $_POST['script_number'];
+        $result_option = getCorpOwnerData2($script_number);
+
+        echo json_encode(array('pId' => $result_option["pId"],
+        'hold_numerator' => $result_option["hold_numerator"],
+        'hold_denominator' => $result_option["hold_denominator"],
+        'name' => $result_option["name"],
+        'current_address' => $result_option["current_address"],
+        'telephone' => $result_option["telephone"],
+        'cellphone' => $result_option["cellphone"],));
+        return;
+
+    case 'get_corp_land_owner_data':
+        $script_number = $_POST['script_number'];
+        $result_option = getCorpLandOwnerData3($script_number);
+
+        echo json_encode(array('pId' => $result_option["pId"],
+        'name' => $result_option["name"],
+        'hold_id' => $result_option["hold_id"],
+        'name' => $result_option["name"],
+        'current_address' => $result_option["current_address"],
+        'telephone' => $result_option["telephone"],
+        'cellphone' => $result_option["cellphone"],));
+        return;
+
+    case 'get_corp_land_data':
+        $script_number = $_POST['script_number'];
+        $result_option = getCorpLandData2($script_number);
+
+        echo json_encode(array('land_section' => $result_option["land_section"],
+        'subsection' => $result_option["subsection"],
+        'land_number' => $result_option["land_number"],
+        'district' => $result_option["district"],
+        'land_use' => $result_option["land_use"],
+        'survey_date' => $result_option["survey_date"],
+        ));
+        return;
+
+    case 'get_corp_data':
+        $script_number = $_POST['script_number'];
+        $result_option = getCorpData2($script_number);
+
+        echo json_encode(array('category' => $result_option["category"],
+        'item' => $result_option["item"],
+        'num' => $result_option["num"],
+        'plant_area_text' => $result_option["plant_area_text"],
+        'equal' => $result_option["equal"],
+        'note' => $result_option["note"],
+        'corp_type' => $result_option["corp_type"]));
+        return;
+
+    case 'get_corp_item':
+        $classfication = $_POST['classfication'];
+        $result_option = getCorpOption2($classfication);
+
+        echo json_encode(array('item' => $result_option["item"]));
+        return;
+
+    case 'get_corp_type':
+        $item = $_POST['item'];
+        $result_option = getCorpTypeOption2($item);
+        echo json_encode(array('corp_type' => $result_option["corp_type"]));
+        return;
 }
 // $item_type = $_POST['item_type'];
 //

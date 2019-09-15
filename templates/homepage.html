@@ -144,7 +144,7 @@
                         <th>調查表編號</th>
                         <th>地段地號</th>
                         <th>地址</th>
-                        <th>查看/編輯</th>
+                        <th>編輯</th>
                         <th>建立時間</th>
                         <th>下載報表</th>
                         <th>刪除</th>
@@ -156,9 +156,9 @@
                     <tr>
                         <td>{$row.rId}</td>
                         <td>{$row.land_id}</td>
-                        <td>{$row.address}</td>
-                        <td></td>
-                        <!-- <td><button class='btn btn-default'>查看</button>&nbsp;<button class='btn btn-default'>編輯</button></td> -->
+                        <td>{$row.real_address}</td>
+                        <!-- <td><button class='btn btn-default'>查看</button>&nbsp;<button class='btn btn-default'><a href="update_building.php?recordNo={$row.rId}" target="_blank">編輯</a></button></td> -->
+                        <td><button class='btn btn-default'><a href="update_building.php?recordNo={$row.rId}" target="_blank">編輯</a></button></td>
                         <td>{$row.keyin_datetime}</td>
                         <td>
                             <button class='btn btn-default'><a href='getFile.php?recordNo={$row.rId}&file=1'>下載調查表</a></button><br>
@@ -226,7 +226,7 @@
         "<th>調查表編號</th>" +
         "<th>地段地號</th>" +
         "<th>地址</th>" +
-        "<th>查看/編輯</th>" +
+        "<th>編輯</th>" +
         "<th>建立時間</th>" +
         "<th>下載報表</th>" +
         "<th>刪除</th>" +
@@ -238,9 +238,9 @@
         "<tr>" +
         "<td>{$row.rId}</td>" +
         "<td>{$row.land_id}</td>" +
-        "<td>{$row.address}</td>" +
+        "<td>{$row.real_address}</td>" +
         // "<td><button class='btn btn-default'>查看</button>&nbsp;<button class='btn btn-default'>編輯</button></td>" +
-        "<td></td>" +
+        "<td><button class='btn btn-default'><a href='update_building.php?recordNo={$row.rId}' target='_blank'>編輯</a></button></td>" +
         "<td>{$row.keyin_datetime}</td>" +
         "<td>" +
             "<button class='btn btn-default'><a href='getFile.php?recordNo={$row.rId}&file=1'>下載調查表</a></button><br>" +
@@ -272,7 +272,7 @@
         "<tr>" +
         "<th>調查表編號</th>" +
         "<th>地段地號</th>" +
-        "<th>查看/編輯</th>" +
+        "<th>編輯</th>" +
         "<th>建立時間</th>" +
         "<th>下載報表</th>" +
         "<th>刪除</th>" +
@@ -284,7 +284,8 @@
         "<tr>" +
         "<td>{$row.rId}</td>" +
         "<td>{$row.land_id}</td>" +
-        "<td><button class='btn btn-default'>查看</button>&nbsp;<button class='btn btn-default'>編輯</button></td>" +
+        "<td><button class='btn btn-default'><a href='update_corp.php?recordNo={$row.rId}' target='_blank'>編輯</a></button></td>" +
+        // "<td></td>"+
         "<td>{$row.keyin_datetime}</td>" +
         "<td>" +
         "<button class='btn btn-default'><a href='getFile.php?recordNo={$row.rId}&file=1'>下載調查表</a></button><br>" +

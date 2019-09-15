@@ -15,6 +15,7 @@ for($i=0;$i<$other_item_count;$i++){
     $sub_building[$i]["item"] = $_POST['other-item-'.($i+1)];
     $sub_building[$i]["item_type"] = $_POST['other-item-type-'.($i+1)];
     $sub_building[$i]["area_calculate_text"] = $_POST['calArea-'.($i+1)];
+    $sub_building[$i]["keyin_order"] = $i+1;
 
     $objPHPExcel  = new PHPExcel();
     $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');

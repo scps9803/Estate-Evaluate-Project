@@ -73,14 +73,16 @@
                 <!-- <input type="button" value="回前一頁" onclick="window.history.back();"> -->
                 <input type="hidden" name="house_address" value="{$house_address}">
                 <input type="hidden" name="script_number" value="{$script_number}">
-                <input type="submit" value="儲存">
+                <input type="submit" id="sub-building-submit-btn" value="儲存" style="display:none;">
             </form><br>
 
             <form class="" action="finish.php" method="post">
                 <input type="hidden" name="house_address" value="{$house_address}">
                 <input type="hidden" name="script_number" value="{$script_number}">
-                <input type="submit" value="略過(無雜項物)">
+                <input type="submit" id="sub-building-skip-btn" value="略過(無雜項物)" style="display:none;">
             </form>
+            <button onclick="subBuildingSubmit()">儲存</button>
+            <button onclick="subBuildingSkip()">略過(無雜項物)</button>
         </div>
     </body>
 </html>
