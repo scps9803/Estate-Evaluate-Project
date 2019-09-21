@@ -99,20 +99,10 @@ echo
 '<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>'.
 '<script type="text/javascript" src="js/index.js"></script>'.
 '<script>
-$(document).ready(function(){
-    $("#title").html("編輯建物查案");
-    getBuildingUpdateData("'.$recordNo.'","'.$rId.'");
-
-    var legal_status = "'.$rId[0].'";
-    if(legal_status == "建合"){
-        document.getElementById("legal").checked = true;
-    }
-    else if(legal_status == "建非"){
-        document.getElementById("illegal").checked = true;
-    }
-    $("#script-number").val("'.$rId[1].'");
-    addInfoItemOnclick("owner");
-});
+    $(document).ready(function(){
+        $("#title").html("編輯建物查案");
+        getBuildingUpdateData("'.$recordNo.'","'.$rId[0].'","'.$rId[1].'",1);
+    });
 </script>';
 
 

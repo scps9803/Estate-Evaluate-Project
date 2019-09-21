@@ -14,14 +14,16 @@ $KEYIN_DATETIME = date("Y-m-d/H:i:s");
 $house_address = $_SESSION["house_address"];
 $script_number = $_SESSION["script_number"];
 $action = $_POST["action"];
+$page = $_POST["page"];
 
 if($action == "submit"){
+    getSubBuildingUpdateData($house_address);
     $smarty->assign("house_address",$house_address);
     $smarty->assign("script_number",$script_number);
     $smarty->display("sub_building.html");
 }
 else if($action == "continue"){
-    header("Location: building_continue.php");
+    header("Location: building_continue.php?page=".$page."&recordNo=".$script_number);
 }
 // ------------------------------以下為建物查估部分----------------------------------
 $total_floor = $_POST['floor-count'];
@@ -34,7 +36,7 @@ $total_floor = $_POST['floor-count'];
         $main_building[$i]["compensate_form"] = $_POST['compensate-form-'.($i+1)];
         $main_building[$i]["material"] = $_POST['building-material-'.($i+1)];
         $main_building[$i]["floor_type"] = $_POST['floor-type-'.($i+1)];
-        $main_building[$i]["f_order"] = $i+1;
+        $main_building[$i]["f_order"] = 4*($page-1)+($i+1);
         $main_building[$i]["nth_floor"] = $_POST['nth-floor-'.($i+1)];
         $main_building[$i]["total_floor"] = $_POST['total-floor-'.($i+1)];
         $main_building[$i]["points"] = getMainBuildingPoint($main_building[$i]["material"],$main_building[$i]["floor_type"],$main_building[$i]["house_type"]);
@@ -332,6 +334,9 @@ $total_floor = $_POST['floor-count'];
 // $smarty->assign("date",$date);
 
 // $smarty->display("house_submit_preview.html");
+
+deleteHasBuildingDecorationData($script_number,$page);
+deleteFloorInfoData($house_address,$page);
 
 // 儲存樓層資料
 insertFloorData($script_number,$main_building,$house_address,$discard_status);

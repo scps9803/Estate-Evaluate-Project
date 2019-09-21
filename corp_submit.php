@@ -167,6 +167,15 @@ insertIntoLandOwnerTable($hold_id,$land_pId,$land_owner,$land_telephone,$land_ce
 insertIntoLandOwnerBelongToCorpRecordTable($hold_id,$script_number,$land_owner_order);
 insertIntoPlantingTable($land_section,$subsection,$land_number,$corp,$script_number);
 
+echo
+'<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>'.
+'<script type="text/javascript" src="js/index.js"></script>'.
+'<script>
+    $(document).ready(function(){
+        exportCorpExcel("'.$script_number.'");
+    });
+</script>';
+
 $smarty->assign("script_number",$script_number);
 $smarty->display("corp_submit.html");
 ?>

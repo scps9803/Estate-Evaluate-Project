@@ -152,7 +152,8 @@ switch ($category) {
         'name' => $result_option["name"],
         'current_address' => $result_option["current_address"],
         'telephone' => $result_option["telephone"],
-        'cellphone' => $result_option["cellphone"],));
+        'cellphone' => $result_option["cellphone"],
+        'hold_status' => $result_option["hold_status"],));
         return;
 
     case 'get_corp_land_owner_data':
@@ -206,6 +207,141 @@ switch ($category) {
         $result_option = getCorpTypeOption2($item);
         echo json_encode(array('corp_type' => $result_option["corp_type"]));
         return;
+
+    case 'get_survey_date':
+        $table = $_POST['table'];
+        $script_number = $_POST['script_number'];
+        $result_option = getSurveyDate($table,$script_number);
+        break;
+
+    case 'get_land_data':
+        $script_number = $_POST['script_number'];
+        $result_option = getLandData2($script_number);
+
+        echo json_encode(array('land_section' => $result_option["land_section"],
+        'subsection' => $result_option["subsection"],
+        'land_number' => $result_option["land_number"],
+        'district' => $result_option["district"],
+        'land_use' => $result_option["land_use"],
+        ));
+        return;
+
+    case 'get_owner_data':
+        $script_number = $_POST['script_number'];
+        $result_option = getOwnerData3($script_number);
+
+        echo json_encode(array('pId' => $result_option["pId"],
+        'hold_numerator' => $result_option["hold_numerator"],
+        'hold_denominator' => $result_option["hold_denominator"],
+        'name' => $result_option["name"],
+        'current_address' => $result_option["current_address"],
+        'telephone' => $result_option["telephone"],
+        'cellphone' => $result_option["cellphone"],
+        'hold_status' => $result_option["hold_status"]));
+        return;
+
+    case 'get_land_owner_data':
+        $script_number = $_POST['script_number'];
+        $result_option = getLandOwnerData2($script_number);
+
+        echo json_encode(array('pId' => $result_option["pId"],
+        'name' => $result_option["name"],
+        'hold_id' => $result_option["hold_id"],
+        'name' => $result_option["name"],
+        'current_address' => $result_option["current_address"],
+        'telephone' => $result_option["telephone"],
+        'cellphone' => $result_option["cellphone"],));
+        return;
+
+    case 'get_building_data':
+        $script_number = $_POST['script_number'];
+        $result_option = getBuildingData2($script_number);
+
+        echo json_encode(array('real_address' => $result_option["real_address"],
+        'build_number' => $result_option["build_number"],
+        'tax_number' => $result_option["tax_number"],
+        'legal_certificate' => $result_option["legal_certificate"],
+        'start_build_certificate' => $result_option["start_build_certificate"],
+        'exit_number' => $result_option["exit_number"],
+        'remove_condition' => $result_option["remove_condition"],));
+        return;
+
+    case 'get_resident_data':
+        $script_number = $_POST['script_number'];
+        $result_option = getResidentData2($script_number);
+
+        echo json_encode(array('captain_id' => $result_option["captain_id"],
+        'captain_name' => $result_option["captain_name"],
+        'household_number' => $result_option["household_number"],
+        'set_household_date' => $result_option["set_household_date"],
+        'family_num' => $result_option["family_num"]));
+        return;
+
+    case 'get_main_building_data':
+        $script_number = $_POST['script_number'];
+        $page = $_POST["page"];
+        $result_option = getMainBuildingData2($script_number,$page);
+
+        echo json_encode(array('building_type' => $result_option["building_type"],
+        'fId' => $result_option["fId"],
+        'discard_status' => $result_option["discard_status"],
+        'compensate_form' => $result_option["compensate_form"],
+        'structure' => $result_option["structure"],
+        'floor_type' => $result_option["floor_type"],
+        'nth_floor' => $result_option["nth_floor"],
+        'total_floor' => $result_option["total_floor"],
+        'floor_area_calculate_text' => $result_option["floor_area_calculate_text"],
+        'use_type' => $result_option["use_type"],
+        'layer_height' => $result_option["layer_height"]));
+        return;
+
+    case 'get_building_decoration_data':
+        $script_number = $_POST['script_number'];
+        $decoration_type = $_POST['decoration_type'];
+        $f_order = $_POST['f_order'];
+        $result_option = getBuildingDecorationData2($script_number,$decoration_type,$f_order);
+
+        echo json_encode(array('numerator' => $result_option["numerator"],
+        'denominator' => $result_option["denominator"],
+        'ratio' => $result_option["ratio"],
+        'item_name' => $result_option["item_name"],
+        'item_type' => $result_option["item_type"],
+        'area' => $result_option["area"]));
+        return;
+
+    case 'check_next_page':
+        $script_number = $_POST['script_number'];
+        $page = $_POST['page'];
+        $result_option = checkNextPage($script_number,$page);
+        break;
+
+    case 'delete_page_data':
+        $script_number = $_POST['script_number'];
+        $page = $_POST['page'];
+        $result_option = deletePageData($script_number,$page);
+        break;
+
+    case 'get_subbuilding_data':
+        $address = $_POST['address'];
+        $result_option = getOldSubbuildingData($address);
+
+        echo json_encode(array('application' => $result_option["application"],
+        'item_name' => $result_option["item_name"],
+        'item_type' => $result_option["item_type"],
+        'area_calculate_text' => $result_option["area_calculate_text"],
+        'unit' => $result_option["unit"],
+        'auto_remove' => $result_option["auto_remove"]));
+        return;
+
+    case 'check_subbuilding':
+        $script_number = $_POST['script_number'];
+        $result_option = checkSubbuilding($script_number);
+        break;
+
+    case 'delete_subbuilding':
+        $script_number = $_POST['script_number'];
+        $result_option = deleteSubbuildingData($script_number);
+        break;
 }
 // $item_type = $_POST['item_type'];
 //

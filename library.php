@@ -1481,6 +1481,29 @@ function getOwnerData2($house_address){
     return $result;
 }
 
+function getOwnerData3($house_address){
+    $conn = connect_db();
+
+    $sql = "SELECT pId,a.address,own_ratio,hold_numerator,hold_denominator,hold_status,keyin_order,b.name,current_address,telephone,cellphone,hold_id FROM own_building AS a NATURAL JOIN owner AS b LEFT JOIN landlord AS c ON b.name=c.name WHERE a.address='{$house_address}' ORDER BY keyin_order";
+    $res = $conn->query($sql);
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $owner["pId"][$i] = $row["pId"];
+        $owner["hold_numerator"][$i] = $row["hold_numerator"];
+        $owner["hold_denominator"][$i] = $row["hold_denominator"];
+        $owner["name"][$i] = $row["name"];
+        $owner["current_address"][$i] = $row["current_address"];
+        $owner["telephone"][$i] = $row["telephone"];
+        $owner["cellphone"][$i] = $row["cellphone"];
+        $owner["hold_status"][$i] = $row["hold_status"];
+        $i++;
+    }
+    $conn->close();
+
+    return $owner;
+}
+
 function getLandOwnerData($house_address){
     $conn = connect_db();
 
@@ -1497,6 +1520,27 @@ function getLandOwnerData($house_address){
     return $result;
 }
 
+function getLandOwnerData2($house_address){
+    $conn = connect_db();
+
+    $sql = "SELECT * FROM land_owner NATURAL JOIN own_land WHERE address='{$house_address}' ORDER BY keyin_order";
+    $res = $conn->query($sql);
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $land_owner["pId"][$i] = $row["pId"];
+        $land_owner["name"][$i] = $row["name"];
+        $land_owner["hold_id"][$i] = $row["hold_id"];
+        $land_owner["current_address"][$i] = $row["current_address"];
+        $land_owner["telephone"][$i] = $row["telephone"];
+        $land_owner["cellphone"][$i] = $row["cellphone"];
+        $i++;
+    }
+    $conn->close();
+
+    return $land_owner;
+}
+
 function getBuildingData($house_address){
     $conn = connect_db();
 
@@ -1506,6 +1550,28 @@ function getBuildingData($house_address){
     $i = 0;
     while($row = $res->fetch_assoc()) {
         $result[$i] = $row;
+        $i++;
+    }
+
+    $conn->close();
+    return $result;
+}
+
+function getBuildingData2($house_address){
+    $conn = connect_db();
+
+    $sql = "SELECT * FROM building WHERE address='{$house_address}'";
+    $res = $conn->query($sql);
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $result["real_address"][$i] = $row["real_address"];
+        $result["build_number"][$i] = $row["build_number"];
+        $result["tax_number"][$i] = $row["tax_number"];
+        $result["legal_certificate"][$i] = $row["legal_certificate"];
+        $result["start_build_certificate"][$i] = $row["start_build_certificate"];
+        $result["exit_number"][$i] = $row["exit_number"];
+        $result["remove_condition"][$i] = $row["remove_condition"];
         $i++;
     }
 
@@ -1530,6 +1596,63 @@ function getLandData($house_address){
     return $result;
 }
 
+function getLandData2($house_address){
+    $conn = connect_db();
+
+    // $sql = "SELECT * FROM building_locate NATURAL JOIN land WHERE address='{$house_address}'";
+    $sql = "SELECT * FROM building_locate AS a LEFT JOIN land AS b ON a.land_id=b.land_id WHERE address='{$house_address}'";
+    $res = $conn->query($sql);
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $result[$i] = $row;
+        $i++;
+    }
+
+    $conn->close();
+    // return $result;
+
+    $conn = connect_db();
+    $section_array = [];
+    $subsection_array = [];
+    $land_number_array = [];
+    $index = 0;
+
+    $sql = "SELECT * FROM building_locate AS a LEFT JOIN land AS b ON a.land_id=b.land_id WHERE address='{$house_address}'";
+    $res = $conn->query($sql);
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $land_data["district"][$i] = $row["dist"];
+        $land_data["land_use"][$i] = $row["land_use"];
+
+        if(!in_array($row["land_section"],$section_array)){
+            $section_array[$index] = $row["land_section"];
+            if($row["subsection"] == ""){
+                $subsection_array[$index] = "";
+            }
+            else{
+                $subsection_array[$index] = $row["subsection"];
+            }
+            $land_number_array[$index][0] = $row["land_number"];
+            $index++;
+        }
+        else{
+            $key = array_search($row["land_section"],$section_array);
+            $land_number_array[$key][count($land_number_array)] = $row["land_number"];
+        }
+        $i++;
+    }
+    for($i=0;$i<count($section_array);$i++){
+        $land_data["land_section"][$i] = $section_array[$i];
+        $land_data["subsection"][$i] = $subsection_array[$i];
+        $land_data["land_number"][$i] = $land_number_array[$i];
+    }
+    $conn->close();
+
+    return $land_data;
+}
+
 function getResidentData($house_address){
     $conn = connect_db();
 
@@ -1550,10 +1673,34 @@ function getResidentData($house_address){
     return $result;
 }
 
+function getResidentData2($house_address){
+    $conn = connect_db();
+
+    $sql = "SELECT * FROM resident WHERE address='{$house_address}'";
+    $res = $conn->query($sql);
+    if($res->num_rows==0){
+        return;
+    }
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $result["captain_id"][$i] = $row["captain_id"];
+        $result["captain_name"][$i] = $row["captain_name"];
+        $result["household_number"][$i] = $row["household_number"];
+        $result["set_household_date"][$i] = $row["set_household_date"];
+        $result["family_num"][$i] = $row["family_num"];
+        $i++;
+    }
+
+    $conn->close();
+    return $result;
+}
+
 function getMainBuildingData($house_address){
     $conn = connect_db();
 
-    $sql = "SELECT * FROM (floor_info NATURAL JOIN has_building_decoration) NATURAL JOIN building_decoration WHERE address='{$house_address}' AND category='房屋構造體(別)' ORDER BY SUBSTRING_INDEX('fId', '-', 2)";
+    // $sql = "SELECT * FROM (floor_info NATURAL JOIN has_building_decoration) NATURAL JOIN building_decoration WHERE address='{$house_address}' AND category='房屋構造體(別)' ORDER BY SUBSTRING_INDEX('fId', '-', 2)";
+    $sql = "SELECT * FROM (floor_info NATURAL JOIN has_building_decoration) NATURAL JOIN building_decoration WHERE address='{$house_address}' AND category='房屋構造體(別)' ORDER BY CAST(f_order AS UNSIGNED)";
     $res = $conn->query($sql);
     if($res->num_rows==0){
         return;
@@ -1564,6 +1711,38 @@ function getMainBuildingData($house_address){
         $row["points"] = number_format($row["points"],2,".","");
         $row["floor_area"] = number_format($row["floor_area"],2,".","");
         $result[$i] = $row;
+        $i++;
+    }
+
+    $conn->close();
+    return $result;
+}
+
+function getMainBuildingData2($house_address,$page){
+    $conn = connect_db();
+    $max = $page*4;
+    $min = ($page-1)*4+1;
+
+    // $sql = "SELECT * FROM (floor_info NATURAL JOIN has_building_decoration) NATURAL JOIN building_decoration WHERE address='{$house_address}' AND category='房屋構造體(別)' ORDER BY SUBSTRING_INDEX('fId', '-', 2)";
+    $sql = "SELECT * FROM (floor_info NATURAL JOIN has_building_decoration) NATURAL JOIN building_decoration WHERE address='{$house_address}' AND category='房屋構造體(別)' AND f_order<='{$max}' AND f_order>='{$min}' ORDER BY CAST(f_order AS UNSIGNED)";
+    $res = $conn->query($sql);
+    if($res->num_rows==0){
+        return;
+    }
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $result["building_type"][$i] = $row["building_type"];
+        $result["fId"][$i] = $row["fId"];
+        $result["discard_status"][$i] = $row["discard_status"];
+        $result["compensate_form"][$i] = $row["compensate_form"];
+        $result["structure"][$i] = $row["structure"];
+        $result["floor_type"][$i] = $row["floor_type"];
+        $result["nth_floor"][$i] = $row["nth_floor"];
+        $result["total_floor"][$i] = $row["total_floor"];
+        $result["floor_area_calculate_text"][$i] = $row["floor_area_calculate_text"];
+        $result["use_type"][$i] = $row["use_type"];
+        $result["layer_height"][$i] = $row["layer_height"];
         $i++;
     }
 
@@ -1683,6 +1862,7 @@ function getSubbuildingUnit($application,$item_name){
 }
 
 function insertSubbuildingData($house_address,$sub_building){
+    deleteOldSubbuildingData($house_address);
     $conn = connect_db();
 
     for($i=0;$i<count($sub_building);$i++){
@@ -1703,6 +1883,13 @@ function insertSubbuildingData($house_address,$sub_building){
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
     }
+    $conn->close();
+}
+
+function deleteOldSubbuildingData($house_address){
+    $conn = connect_db();
+    $sql = "DELETE FROM has_subbuilding WHERE address='{$house_address}'";
+    $conn->query($sql);
     $conn->close();
 }
 
@@ -1729,7 +1916,7 @@ function getDecorationData($house_address,$category){
     $conn = connect_db();
 
     // $sql = "SELECT * FROM has_building_decoration AS a LEFT JOIN floor_info AS b ON a.fId=b.fId LEFT JOIN building_decoration AS c ON a.bdId=c.bdId WHERE address='{$house_address}' AND category='{$category}' ORDER BY SUBSTRING_INDEX('fId', '-', 2)";
-    $sql = "SELECT * FROM has_building_decoration AS a LEFT JOIN floor_info AS b ON a.fId=b.fId LEFT JOIN building_decoration AS c ON a.bdId=c.bdId WHERE address='{$house_address}' AND category='{$category}' ORDER BY f_order";
+    $sql = "SELECT * FROM has_building_decoration AS a LEFT JOIN floor_info AS b ON a.fId=b.fId LEFT JOIN building_decoration AS c ON a.bdId=c.bdId WHERE address='{$house_address}' AND category='{$category}' ORDER BY CAST(f_order AS UNSIGNED)";
     $res = $conn->query($sql);
     if($res->num_rows==0) return null;
 
@@ -1754,6 +1941,36 @@ function getBuildingDecorationData($house_address,$category,$f_order){
     $i = 0;
     while($row = $res->fetch_assoc()) {
         $result[$i] = $row;
+        $i++;
+    }
+
+    $conn->close();
+    return $result;
+}
+
+function getBuildingDecorationData2($house_address,$category,$f_order){
+    $conn = connect_db();
+
+    // $sql = "SELECT * FROM has_building_decoration AS a LEFT JOIN floor_info AS b ON a.fId=b.fId LEFT JOIN building_decoration AS c ON a.bdId=c.bdId WHERE address='{$house_address}' AND category='{$category}' AND nth_floor='{$nth_floor}' ORDER BY nth_floor";
+    $sql = "SELECT * FROM has_building_decoration AS a LEFT JOIN floor_info AS b ON a.fId=b.fId LEFT JOIN building_decoration AS c ON a.bdId=c.bdId WHERE address='{$house_address}' AND category='{$category}' AND f_order='{$f_order}' ORDER BY f_order";
+    $res = $conn->query($sql);
+    if($res->num_rows==0){
+        $result["numerator"] = "";
+        $result["denominator"] = "";
+        $result["ratio"] = "";
+        $result["item_name"] = "";
+        $result["item_type"] = "";
+        $result["area"] = "";
+    }
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $result["numerator"][$i] = $row["numerator"];
+        $result["denominator"][$i] = $row["denominator"];
+        $result["ratio"][$i] = $row["ratio"];
+        $result["item_name"][$i] = $row["item_name"];
+        $result["item_type"][$i] = $row["item_type"];
+        $result["area"][$i] = $row["area"];
         $i++;
     }
 
@@ -2279,6 +2496,7 @@ function getCorpOwnerData2($script_number){
         $corp_owner["current_address"][$i] = $row["current_address"];
         $corp_owner["telephone"][$i] = $row["telephone"];
         $corp_owner["cellphone"][$i] = $row["cellphone"];
+        $corp_owner["hold_status"][$i] = $row["hold_status"];
         $i++;
     }
     $conn->close();
@@ -2528,5 +2746,194 @@ function getExitNum($script_number){
     $conn->close();
 
     return $row["exit_number"];
+}
+
+function deleteResidentData($house_address){
+    $conn = connect_db();
+    $sql = "DELETE FROM resident WHERE address='{$house_address}'";
+    $conn->query($sql);
+    $conn->close();
+}
+
+function deleteOwnBuildingData($house_address){
+    $conn = connect_db();
+    $sql = "DELETE FROM own_building WHERE address='{$house_address}'";
+    $conn->query($sql);
+    $conn->close();
+}
+
+function deleteOwnLandData($house_address){
+    $conn = connect_db();
+    $sql = "DELETE FROM own_land WHERE address='{$house_address}'";
+    $conn->query($sql);
+    $conn->close();
+}
+
+function deleteOwnerData($house_address){
+    $conn = connect_db();
+    $sql = "DELETE FROM owner WHERE address='{$house_address}'";
+    $conn->query($sql);
+    $conn->close();
+}
+
+function deleteHasBuildingDecorationData($script_number,$page){
+    $max = $page*4;
+    $min = ($page-1)*4+1;
+
+    $conn = connect_db();
+    $sql = "SELECT * FROM floor_info WHERE fId LIKE '%{$script_number}%' AND f_order>='{$min}' AND f_order<='{$max}'";
+    $res = $conn->query($sql);
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $fId[$i] = $row["fId"];
+        $i++;
+    }
+
+    for($i=0;$i<count($fId);$i++){
+        $sql = "DELETE FROM has_building_decoration WHERE fId='{$fId[$i]}'";
+        $conn->query($sql);
+    }
+    $conn->close();
+}
+
+function deleteFloorInfoData($house_address,$page){
+    $max = $page*4;
+    $min = ($page-1)*4+1;
+
+    $conn = connect_db();
+    $sql = "DELETE FROM floor_info WHERE f_order>='{$min}' AND f_order<='{$max}' AND address='{$house_address}'";
+    $res = $conn->query($sql);
+    $conn->close();
+}
+
+function deleteBuildingLocateData($house_address){
+    $conn = connect_db();
+    $sql = "DELETE FROM building_locate WHERE address='{$house_address}'";
+    $res = $conn->query($sql);
+    $conn->close();
+}
+
+function deleteFileData($house_address){
+    $conn = connect_db();
+    $sql = "DELETE FROM file_table WHERE rId='{$house_address}'";
+    $res = $conn->query($sql);
+    $conn->close();
+}
+
+function deleteRecordData($house_address){
+    $conn = connect_db();
+    $sql = "DELETE FROM record WHERE address='{$house_address}'";
+    $res = $conn->query($sql);
+    $conn->close();
+}
+
+function deleteBuildingData($house_address){
+    $conn = connect_db();
+    $sql = "DELETE FROM building WHERE address='{$house_address}'";
+    $res = $conn->query($sql);
+    $conn->close();
+}
+
+function checkNextPage($script_number,$page){
+    $max = ($page+1)*4;
+    $min = ($page)*4+1;
+
+    $conn = connect_db();
+    $sql = "SELECT * FROM floor_info WHERE fId LIKE '%{$script_number}%' AND f_order>='{$min}' AND f_order<='{$max}'";
+    $res = $conn->query($sql);
+    if($res->num_rows>0){
+        return true;
+    }
+    else{
+        return false;
+    }
+    $conn->close();
+}
+
+function deletePageData($script_number,$page){
+    $min = ($page)*4+1;
+    $conn = connect_db();
+    $sql = "SELECT * FROM floor_info WHERE fId LIKE '%{$script_number}%' AND f_order>='{$min}'";
+    $res = $conn->query($sql);
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $fId[$i] = $row["fId"];
+        $i++;
+    }
+
+    for($i=0;$i<count($fId);$i++){
+        $sql = "DELETE FROM has_building_decoration WHERE fId='{$fId[$i]}'";
+        $conn->query($sql);
+
+        $sql = "DELETE FROM floor_info WHERE fId='{$fId[$i]}'";
+        $conn->query($sql);
+    }
+    $conn->close();
+    return "";
+}
+
+function getSubBuildingUpdateData($house_address){
+    echo
+    '<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>'.
+    '<script type="text/javascript" src="js/index.js"></script>'.
+    '<script>
+        $(document).ready(function(){
+            getSubBuildingUpdateData("'.$house_address.'");
+        });
+    </script>';
+}
+
+function getOldSubbuildingData($address){
+    $conn = connect_db();
+
+    $sql = "SELECT application,b.item_name,item_type,area_calculate_text,b.unit,a.auto_remove FROM has_subbuilding AS a JOIN sub_building AS b ON a.sId=b.sId WHERE address='{$address}' ORDER BY keyin_order";
+    $res = $conn->query($sql);
+    if($res->num_rows==0){
+        $result["application"][0] = "";
+        $result["item_name"][0] = "";
+        $result["item_type"][0] = "";
+        $result["area_calculate_text"][0] = "";
+        $result["unit"][0] = "";
+        $result["auto_remove"][0] = "";
+    }
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $result["application"][$i] = $row["application"];
+        $result["item_name"][$i] = $row["item_name"];
+        $result["item_type"][$i] = $row["item_type"];
+        $result["area_calculate_text"][$i] = $row["area_calculate_text"];
+        $result["unit"][$i] = $row["unit"];
+        $result["auto_remove"][$i] = $row["auto_remove"];
+        $i++;
+    }
+    $conn->close();
+
+    return $result;
+}
+
+function checkSubbuilding($script_number){
+    $conn = connect_db();
+
+    $sql = "SELECT * FROM has_subbuilding WHERE address='{$script_number}'";
+    $res = $conn->query($sql);
+    $conn->close();
+
+    if($res->num_rows>0){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+function deleteSubbuildingData($script_number){
+    $conn = connect_db();
+    $sql = "DELETE FROM has_subbuilding WHERE address='{$script_number}'";
+    $res = $conn->query($sql);
+    $conn->close();
+    return "";
 }
 ?>

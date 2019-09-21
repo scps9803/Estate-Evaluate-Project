@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-09-15 18:14:48
+/* Smarty version 3.1.33, created on 2019-09-18 19:59:38
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\corp.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d7e7f980d0e71_81579369',
+  'unifunc' => 'content_5d828caa0fbf25_94624462',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'd63c0813a36d37958756a619792a27197ce5d956' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\corp.html',
-      1 => 1568571273,
+      1 => 1568836766,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d7e7f980d0e71_81579369 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d828caa0fbf25_94624462 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,9 +36,9 @@ function content_5d7e7f980d0e71_81579369 (Smarty_Internal_Template $_smarty_tpl)
   <?php echo '<script'; ?>
  type="text/javascript" src="js/index.js"><?php echo '</script'; ?>
 >
-  <?php echo '<script'; ?>
+  <!-- <?php echo '<script'; ?>
  type="text/javascript" src="js/loading.js"><?php echo '</script'; ?>
->
+> -->
   <!-- <?php echo '<script'; ?>
  src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"><?php echo '</script'; ?>
 > -->

@@ -37,6 +37,16 @@ for($i=0;$i<$other_item_count;$i++){
 }
 
 insertSubbuildingData($house_address,$sub_building);
+
+echo
+'<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>'.
+'<script type="text/javascript" src="js/index.js"></script>'.
+'<script>
+    $(document).ready(function(){
+        exportExcel("'.$script_number.'","'.$house_address.'");
+    });
+</script>';
+
 $smarty->assign("script_number",$script_number);
 $smarty->assign("house_address",$house_address);
 $smarty->display("saveData.html");

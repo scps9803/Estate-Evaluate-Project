@@ -92,6 +92,9 @@ for($i=0;$i<count($electric_usage);$i++){
     ."<option value='".$electric_usage[$i]["item_type"]."'>".$electric_usage[$i]["item_type"]."</option>";
 }
 
+$page = $_GET["page"]+1;
+$recordNo = $_GET["recordNo"];
+$rId = explode("-",$recordNo);
 
 $smarty->assign("house_construct_option",$house_construct_option);
 $smarty->assign("add_minus_wall_option",$add_minus_wall_option);
@@ -104,5 +107,17 @@ $smarty->assign("ceiling_decoration_option",$ceiling_decoration_option);
 $smarty->assign("door_window_option",$door_window_option);
 $smarty->assign("toilet_equipment_option",$toilet_equipment_option);
 $smarty->assign("electric_usage_option",$electric_usage_option);
+$smarty->assign("script_number",$recordNo);
+$smarty->assign("page",$page);
 $smarty->display("building_continue.html");
+
+echo
+'<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>'.
+'<script type="text/javascript" src="js/index.js"></script>'.
+'<script>
+    $(document).ready(function(){
+        $("#title").html("編輯建物查案");
+        getBuildingUpdateData("'.$recordNo.'","'.$rId[0].'","'.$rId[1].'","'.$page.'");
+    });
+</script>';
 ?>

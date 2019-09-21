@@ -326,7 +326,7 @@ for($i=0;$i<count($main_building_data);$i++){
         $objPHPExcel->setActiveSheetIndex(0)
                     ->setCellValue( 'A'.($i+40), $i+1)
                     ->setCellValue( 'C'.($i+40), $main_building_data[$i]["structure"].$main_building_data[$i]["floor_type"])
-                    ->setCellValue( 'I'.($i+40), $main_building_data[$i]["nth_floor"]."/".count($main_building_data))
+                    ->setCellValue( 'I'.($i+40), $main_building_data[$i]["nth_floor"]."/".$main_building_data[$i]["total_floor"])
                     ->setCellValue( 'J'.($i+40), $main_building_data[$i]["use_type"])
                     ->setCellValue( 'L'.($i+40), $main_building_data[$i]["points"])
                     ->setCellValue( 'O'.($i+40), $main_building_data[$i]["points"])

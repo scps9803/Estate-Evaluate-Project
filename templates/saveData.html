@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <title></title>
         <!-- <link rel="stylesheet" href="/css/style.css"> -->
+        <link rel="stylesheet" href="css/loading.css">
         <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
     </head>
@@ -13,8 +14,16 @@
             <h1 id="msg"></h1>
             <button type="button" id="exportBtn" name="button" onclick="exportExcel('{$script_number}','{$house_address}')">存檔</button>
         </div>
+
+        <div class="loading hide">
+            <div class="gif" style="width:500px;height:200px;"></div>
+        </div>
+
     </body>
     <script type="text/javascript">
-        $("#msg").val("Excel報表正在匯出中...<br>請勿關閉視窗...");
+        // $("#msg").val("Excel報表正在匯出中...<br>請勿關閉視窗...");
+        $(document).ready(function(){
+            $('div.loading').show();
+        });
     </script>
 </html>

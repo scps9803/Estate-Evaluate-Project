@@ -6,8 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> -->
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/loading.css">
   <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
   <script type="text/javascript" src="js/index.js"></script>
+  <!-- <script type="text/javascript" src="js/loading.js"></script> -->
   <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
   <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> -->
 </head>
@@ -15,7 +17,7 @@
     <div class="container" align="center">
         <h1>建物調查表</h1>
         <h3 style="color:red;">(*)表示必填項目</h3>
-        <form class="" action="house_submit_preview.php" method="post" id="house_form" onkeydown="if(event.keyCode==13)return false;">
+        <form class="" action="house_submit_preview.php" method="post" id="house_form" onkeydown="if(event.keyCode==13)return false;" onsubmit="onSubmit()">
             <table border="1">
                 <tbody>
                     <tr>
@@ -284,7 +286,7 @@
                             <!-- <input type="radio" name="household_registration" value="" onclick="changeRequired(['household_count','household_count_lack'],true)">共
                             <input type="number" id="household_count" name="household_count" min="0" class="small-input-size">戶;缺<input type="number" id="household_count_lack" name="household_count_lack" min="0" class="small-input-size">戶
                             <input type="radio" name="household_registration" value="" onclick="changeRequired(['household_count','household_count_lack'],false)">無 -->
-                            <select class="select-menu" name="land-use" required>
+                            <select class="select-menu" id="land-use" name="land-use" required>
                                 <option value="" style="display:none;">請選擇項目</option>
                                 <option value="自用">自用</option>
                                 <option value="承租">承租</option>
@@ -402,38 +404,38 @@
             <table border="1">
                 <tr>
                     <td colspan="2"><span class="required">(*)</span>編號</td>
-                    <td colspan="2">編號:<input type="text" id="floor-id-1" name="floor-id-1" oninput="changeColumnStatus(1,'focus')"><br><input type="radio" id="house-type-1" name="house-type-1" value="獨立戶">獨立戶<input type="radio" name="house-type-1" value="連棟式邊戶">連棟式邊戶<input type="radio" name="house-type-1" value="連棟式中間戶">連棟式中間戶</td>
-                    <td colspan="2">編號:<input type="text" id="floor-id-2" name="floor-id-2" oninput="changeColumnStatus(2,'focus')"><br><input type="radio" id="house-type-2" name="house-type-2" value="獨立戶">獨立戶<input type="radio" name="house-type-2" value="連棟式邊戶">連棟式邊戶<input type="radio" name="house-type-2" value="連棟式中間戶">連棟式中間戶</td>
-                    <td colspan="2">編號:<input type="text" id="floor-id-3" name="floor-id-3" oninput="changeColumnStatus(3,'focus')"><br><input type="radio" id="house-type-3" name="house-type-3" value="獨立戶">獨立戶<input type="radio" name="house-type-3" value="連棟式邊戶">連棟式邊戶<input type="radio" name="house-type-3" value="連棟式中間戶">連棟式中間戶</td>
-                    <td colspan="2">編號:<input type="text" id="floor-id-4" name="floor-id-4" oninput="changeColumnStatus(4,'focus')"><br><input type="radio" id="house-type-4" name="house-type-4" value="獨立戶">獨立戶<input type="radio" name="house-type-4" value="連棟式邊戶">連棟式邊戶<input type="radio" name="house-type-4" value="連棟式中間戶">連棟式中間戶</td>
+                    <td colspan="2">編號:<input type="text" id="floor-id-1" name="floor-id-1" oninput="changeColumnStatus(1,'focus')"><br><input type="radio" id="house-type-1" name="house-type-1" value="獨立戶">獨立戶<input type="radio" id="house-type-edge-1" name="house-type-1" value="連棟式邊戶">連棟式邊戶<input type="radio" id="house-type-mid-1" name="house-type-1" value="連棟式中間戶">連棟式中間戶</td>
+                    <td colspan="2">編號:<input type="text" id="floor-id-2" name="floor-id-2" oninput="changeColumnStatus(2,'focus')"><br><input type="radio" id="house-type-2" name="house-type-2" value="獨立戶">獨立戶<input type="radio" id="house-type-edge-2" name="house-type-2" value="連棟式邊戶">連棟式邊戶<input type="radio" id="house-type-mid-2" name="house-type-2" value="連棟式中間戶">連棟式中間戶</td>
+                    <td colspan="2">編號:<input type="text" id="floor-id-3" name="floor-id-3" oninput="changeColumnStatus(3,'focus')"><br><input type="radio" id="house-type-3" name="house-type-3" value="獨立戶">獨立戶<input type="radio" id="house-type-edge-3" name="house-type-3" value="連棟式邊戶">連棟式邊戶<input type="radio" id="house-type-mid-3" name="house-type-3" value="連棟式中間戶">連棟式中間戶</td>
+                    <td colspan="2">編號:<input type="text" id="floor-id-4" name="floor-id-4" oninput="changeColumnStatus(4,'focus')"><br><input type="radio" id="house-type-4" name="house-type-4" value="獨立戶">獨立戶<input type="radio" id="house-type-edge-4" name="house-type-4" value="連棟式邊戶">連棟式邊戶<input type="radio" id="house-type-mid-4" name="house-type-4" value="連棟式中間戶">連棟式中間戶</td>
                 </tr>
 
                 <tr>
                     <td colspan="2">是否廢棄</td>
                     <td colspan="2">
                         <input type="radio" id="discard-status-1" name="discard-status-1" value="yes" required>是
-                        <input type="radio" id="discard-status-1" name="discard-status-1" value="no" checked>否
+                        <input type="radio" id="discard-status-no-1" name="discard-status-1" value="no" checked>否
                     </td>
                     <td colspan="2">
                         <input type="radio" id="discard-status-2" name="discard-status-2" value="yes">是
-                        <input type="radio" id="discard-status-2" name="discard-status-2" value="no" checked>否
+                        <input type="radio" id="discard-status-no-2" name="discard-status-2" value="no" checked>否
                     </td>
                     <td colspan="2">
                         <input type="radio" id="discard-status-3" name="discard-status-3" value="yes">是
-                        <input type="radio" id="discard-status-3" name="discard-status-3" value="no" checked>否
+                        <input type="radio" id="discard-status-no-3" name="discard-status-3" value="no" checked>否
                     </td>
                     <td colspan="2">
                         <input type="radio" id="discard-status-4" name="discard-status-4" value="yes">是
-                        <input type="radio" id="discard-status-4" name="discard-status-4" value="no" checked>否
+                        <input type="radio" id="discard-status-no-4" name="discard-status-4" value="no" checked>否
                     </td>
                 </tr>
 
                 <tr>
                     <td colspan="2"><span class="required">(*)</span>補償形式</td>
-                    <td colspan="2" id="compensate-form-1"><input type="radio" id="pay-form-1" name="compensate-form-1" value="主建物" onclick="compensateFormClick('compensate-form-1')" checked>主建物<input type="radio" name="compensate-form-1" value="立面修復" onclick="removeSubCompensateForm('sub-compensate-form-1')">立面修復<br></td>
-                    <td colspan="2" id="compensate-form-2"><input type="radio" id="pay-form-2" name="compensate-form-2" value="主建物" onclick="compensateFormClick('compensate-form-2')" checked>主建物<input type="radio" name="compensate-form-2" value="立面修復" onclick="removeSubCompensateForm('sub-compensate-form-2')">立面修復<br></td>
-                    <td colspan="2" id="compensate-form-3"><input type="radio" id="pay-form-3" name="compensate-form-3" value="主建物" onclick="compensateFormClick('compensate-form-3')" checked>主建物<input type="radio" name="compensate-form-3" value="立面修復" onclick="removeSubCompensateForm('sub-compensate-form-3')">立面修復<br></td>
-                    <td colspan="2" id="compensate-form-4"><input type="radio" id="pay-form-4" name="compensate-form-4" value="主建物" onclick="compensateFormClick('compensate-form-4')" checked>主建物<input type="radio" name="compensate-form-4" value="立面修復" onclick="removeSubCompensateForm('sub-compensate-form-4')">立面修復<br></td>
+                    <td colspan="2" id="compensate-form-1"><input type="radio" id="pay-form-1" name="compensate-form-1" value="主建物" onclick="compensateFormClick('compensate-form-1')" checked>主建物<input type="radio" id="pay-form-fix-1" name="compensate-form-1" value="立面修復" onclick="removeSubCompensateForm('sub-compensate-form-1')">立面修復<br></td>
+                    <td colspan="2" id="compensate-form-2"><input type="radio" id="pay-form-2" name="compensate-form-2" value="主建物" onclick="compensateFormClick('compensate-form-2')" checked>主建物<input type="radio" id="pay-form-fix-2" name="compensate-form-2" value="立面修復" onclick="removeSubCompensateForm('sub-compensate-form-2')">立面修復<br></td>
+                    <td colspan="2" id="compensate-form-3"><input type="radio" id="pay-form-3" name="compensate-form-3" value="主建物" onclick="compensateFormClick('compensate-form-3')" checked>主建物<input type="radio" id="pay-form-fix-3" name="compensate-form-3" value="立面修復" onclick="removeSubCompensateForm('sub-compensate-form-3')">立面修復<br></td>
+                    <td colspan="2" id="compensate-form-4"><input type="radio" id="pay-form-4" name="compensate-form-4" value="主建物" onclick="compensateFormClick('compensate-form-4')" checked>主建物<input type="radio" id="pay-form-fix-4" name="compensate-form-4" value="立面修復" onclick="removeSubCompensateForm('sub-compensate-form-4')">立面修復<br></td>
                 </tr>
 
                 <tr>
@@ -508,37 +510,37 @@
                     <td rowspan="2" colspan="2"><span class="required">(*)</span>用途</td>
                     <td colspan="2">
                         <input type="radio" id="house-usage-1" name="house-usage-1" value="住宅" onclick="changeRequired(['other-house-usage-1'],false)" checked required>住宅
-                        <input type="radio" name="house-usage-1" value="店鋪" onclick="changeRequired(['other-house-usage-1'],false)">店鋪
-                        <input type="radio" name="house-usage-1" value="工廠" onclick="changeRequired(['other-house-usage-1'],false)">工廠
-                        <input type="radio" name="house-usage-1" value="庫房" onclick="changeRequired(['other-house-usage-1'],false)">庫房<br>
-                        <input type="radio" name="house-usage-1" value="none" onclick="changeRequired(['other-house-usage-1'],true)">其他
+                        <input type="radio" id="house-usage-store-1" name="house-usage-1" value="店鋪" onclick="changeRequired(['other-house-usage-1'],false)">店鋪
+                        <input type="radio" id="house-usage-fab-1" name="house-usage-1" value="工廠" onclick="changeRequired(['other-house-usage-1'],false)">工廠
+                        <input type="radio" id="house-usage-warehouse-1" name="house-usage-1" value="庫房" onclick="changeRequired(['other-house-usage-1'],false)">庫房<br>
+                        <input type="radio" id="house-usage-other-1" name="house-usage-1" value="none" onclick="changeRequired(['other-house-usage-1'],true)">其他
                         <input type="text" id="other-house-usage-1" name="other-house-usage-1">
                     </td>
 
                     <td colspan="2">
                         <input type="radio" id="house-usage-2" name="house-usage-2" value="住宅" onclick="changeRequired(['other-house-usage-2'],false)" checked>住宅
-                        <input type="radio" name="house-usage-2" value="店鋪" onclick="changeRequired(['other-house-usage-2'],false)">店鋪
-                        <input type="radio" name="house-usage-2" value="工廠" onclick="changeRequired(['other-house-usage-2'],false)">工廠
-                        <input type="radio" name="house-usage-2" value="庫房" onclick="changeRequired(['other-house-usage-2'],false)">庫房<br>
-                        <input type="radio" name="house-usage-2" value="none" onclick="changeRequired(['other-house-usage-2'],true)">其他
+                        <input type="radio" id="house-usage-store-2" name="house-usage-2" value="店鋪" onclick="changeRequired(['other-house-usage-2'],false)">店鋪
+                        <input type="radio" id="house-usage-fab-2" name="house-usage-2" value="工廠" onclick="changeRequired(['other-house-usage-2'],false)">工廠
+                        <input type="radio" id="house-usage-warehouse-2" name="house-usage-2" value="庫房" onclick="changeRequired(['other-house-usage-2'],false)">庫房<br>
+                        <input type="radio" id="house-usage-other-2" name="house-usage-2" value="none" onclick="changeRequired(['other-house-usage-2'],true)">其他
                         <input type="text" id="other-house-usage-2" name="other-house-usage-2">
                     </td>
 
                     <td colspan="2">
                         <input type="radio" id="house-usage-3" name="house-usage-3" value="住宅" onclick="changeRequired(['other-house-usage-3'],false)" checked>住宅
-                        <input type="radio" name="house-usage-3" value="店鋪" onclick="changeRequired(['other-house-usage-3'],false)">店鋪
-                        <input type="radio" name="house-usage-3" value="工廠" onclick="changeRequired(['other-house-usage-3'],false)">工廠
-                        <input type="radio" name="house-usage-3" value="庫房" onclick="changeRequired(['other-house-usage-3'],false)">庫房<br>
-                        <input type="radio" name="house-usage-3" value="none" onclick="changeRequired(['other-house-usage-3'],true)">其他
+                        <input type="radio" id="house-usage-store-3" name="house-usage-3" value="店鋪" onclick="changeRequired(['other-house-usage-3'],false)">店鋪
+                        <input type="radio" id="house-usage-fab-3" name="house-usage-3" value="工廠" onclick="changeRequired(['other-house-usage-3'],false)">工廠
+                        <input type="radio" id="house-usage-warehouse-3" name="house-usage-3" value="庫房" onclick="changeRequired(['other-house-usage-3'],false)">庫房<br>
+                        <input type="radio" id="house-usage-other-3" name="house-usage-3" value="none" onclick="changeRequired(['other-house-usage-3'],true)">其他
                         <input type="text" id="other-house-usage-3" name="other-house-usage-3">
                     </td>
 
                     <td colspan="2">
                         <input type="radio" id="house-usage-4" name="house-usage-4" value="住宅" onclick="changeRequired(['other-house-usage-4'],false)" checked>住宅
-                        <input type="radio" name="house-usage-4" value="店鋪" onclick="changeRequired(['other-house-usage-4'],false)">店鋪
-                        <input type="radio" name="house-usage-4" value="工廠" onclick="changeRequired(['other-house-usage-4'],false)">工廠
-                        <input type="radio" name="house-usage-4" value="庫房" onclick="changeRequired(['other-house-usage-4'],false)">庫房<br>
-                        <input type="radio" name="house-usage-4" value="none" onclick="changeRequired(['other-house-usage-4'],true)">其他
+                        <input type="radio" id="house-usage-store-4" name="house-usage-4" value="店鋪" onclick="changeRequired(['other-house-usage-4'],false)">店鋪
+                        <input type="radio" id="house-usage-fab-4" name="house-usage-4" value="工廠" onclick="changeRequired(['other-house-usage-4'],false)">工廠
+                        <input type="radio" id="house-usage-warehouse-4" name="house-usage-4" value="庫房" onclick="changeRequired(['other-house-usage-4'],false)">庫房<br>
+                        <input type="radio" id="house-usage-other-4" name="house-usage-4" value="none" onclick="changeRequired(['other-house-usage-4'],true)">其他
                         <input type="text" id="other-house-usage-4" name="other-house-usage-4">
                     </td>
                 </tr>
@@ -1517,10 +1519,10 @@
 
                 <tr>
                     <td>陽台</td>
-                    <td colspan="2"><input type="checkbox" name="balcony-1[]" value="前">前<input type="checkbox" name="balcony-1[]" value="後">後<input type="checkbox" name="balcony-1[]" value="左">左<input type="checkbox" name="balcony-1[]" value="右">右</td>
-                    <td colspan="2"><input type="checkbox" name="balcony-2[]" value="前">前<input type="checkbox" name="balcony-2[]" value="後">後<input type="checkbox" name="balcony-2[]" value="左">左<input type="checkbox" name="balcony-2[]" value="右">右</td>
-                    <td colspan="2"><input type="checkbox" name="balcony-3[]" value="前">前<input type="checkbox" name="balcony-3[]" value="後">後<input type="checkbox" name="balcony-3[]" value="左">左<input type="checkbox" name="balcony-3[]" value="右">右</td>
-                    <td colspan="2"><input type="checkbox" name="balcony-4[]" value="前">前<input type="checkbox" name="balcony-4[]" value="後">後<input type="checkbox" name="balcony-4[]" value="左">左<input type="checkbox" name="balcony-4[]" value="右">右</td>
+                    <td colspan="2"><input type="checkbox" id="front-balcony-1" name="balcony-1[]" value="前">前<input type="checkbox" id="behind-balcony-1" name="balcony-1[]" value="後">後<input type="checkbox" id="left-balcony-1" name="balcony-1[]" value="左">左<input type="checkbox" id="right-balcony-1" name="balcony-1[]" value="右">右</td>
+                    <td colspan="2"><input type="checkbox" id="front-balcony-2" name="balcony-2[]" value="前">前<input type="checkbox" id="behind-balcony-2" name="balcony-2[]" value="後">後<input type="checkbox" id="left-balcony-2" name="balcony-2[]" value="左">左<input type="checkbox" id="right-balcony-2" name="balcony-2[]" value="右">右</td>
+                    <td colspan="2"><input type="checkbox" id="front-balcony-3" name="balcony-3[]" value="前">前<input type="checkbox" id="behind-balcony-3" name="balcony-3[]" value="後">後<input type="checkbox" id="left-balcony-3" name="balcony-3[]" value="左">左<input type="checkbox" id="right-balcony-3" name="balcony-3[]" value="右">右</td>
+                    <td colspan="2"><input type="checkbox" id="front-balcony-4" name="balcony-4[]" value="前">前<input type="checkbox" id="behind-balcony-4" name="balcony-4[]" value="後">後<input type="checkbox" id="left-balcony-4" name="balcony-4[]" value="左">左<input type="checkbox" id="right-balcony-4" name="balcony-4[]" value="右">右</td>
                 </tr>
 
             </table>
@@ -1568,6 +1570,7 @@
 
             <input type="hidden" id="action" name="action" value="">
             <input type="hidden" id="floor-count" name="floor-count" value="">
+            <input type="hidden" id="page" name="page" value="1">
             <!-- <input type="submit" value="儲存" onclick="saveDialog()"> -->
             <!-- <input type="submit" value="繼續輸入下一頁" onclick="continueInput()"> -->
             <input type="submit" id="submitBtn" value="儲存" style="display:none;">
@@ -1575,6 +1578,10 @@
         </form>
         <button id="" onclick="saveDialog()">儲存</button>
         <button id="" onclick="continueInput()">繼續輸入下一頁</button>
+    </div>
+
+    <div class="loading hide">
+        <div class="gif" style="width:500px;height:200px;"></div>
     </div>
 </body>
 </html>

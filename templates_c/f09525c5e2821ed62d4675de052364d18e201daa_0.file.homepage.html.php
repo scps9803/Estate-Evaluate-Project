@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-09-15 18:07:36
+/* Smarty version 3.1.33, created on 2019-09-21 10:23:24
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\homepage.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d7e7de8ed3360_77267030',
+  'unifunc' => 'content_5d85fa1cf29e53_27161111',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'f09525c5e2821ed62d4675de052364d18e201daa' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\homepage.html',
-      1 => 1568570854,
+      1 => 1569061402,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d7e7de8ed3360_77267030 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d85fa1cf29e53_27161111 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -175,7 +175,7 @@ function content_5d7e7de8ed3360_77267030 (Smarty_Internal_Template $_smarty_tpl)
                         <th>地段地號</th>
                         <th>地址</th>
                         <th>編輯</th>
-                        <th>建立時間</th>
+                        <th>最後編輯時間</th>
                         <th>下載報表</th>
                         <th>刪除</th>
                     </tr>
@@ -219,13 +219,42 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                 </table>
 
                 <div class='align_center'>
-                    <ul class='pagination'>
-                        <li><a href='#'>1</a></li>
-                        <li><a href='#'>2</a></li>
-                        <li><a href='#'>3</a></li>
-                        <li><a href='#'>4</a></li>
-                        <li><a href='#'>5</a></li>
-                    </ul>
+                    <?php
+$_smarty_tpl->tpl_vars['i'] = new Smarty_Variable(null, $_smarty_tpl->isRenderingCache);$_smarty_tpl->tpl_vars['i']->step = 1;$_smarty_tpl->tpl_vars['i']->total = (int) ceil(($_smarty_tpl->tpl_vars['i']->step > 0 ? $_smarty_tpl->tpl_vars['menu_count']->value+1 - (1) : 1-($_smarty_tpl->tpl_vars['menu_count']->value)+1)/abs($_smarty_tpl->tpl_vars['i']->step));
+if ($_smarty_tpl->tpl_vars['i']->total > 0) {
+for ($_smarty_tpl->tpl_vars['i']->value = 1, $_smarty_tpl->tpl_vars['i']->iteration = 1;$_smarty_tpl->tpl_vars['i']->iteration <= $_smarty_tpl->tpl_vars['i']->total;$_smarty_tpl->tpl_vars['i']->value += $_smarty_tpl->tpl_vars['i']->step, $_smarty_tpl->tpl_vars['i']->iteration++) {
+$_smarty_tpl->tpl_vars['i']->first = $_smarty_tpl->tpl_vars['i']->iteration === 1;$_smarty_tpl->tpl_vars['i']->last = $_smarty_tpl->tpl_vars['i']->iteration === $_smarty_tpl->tpl_vars['i']->total;?>
+                        <ul class='pagination'>
+                            <?php if ($_smarty_tpl->tpl_vars['i']->value == $_smarty_tpl->tpl_vars['current_page']->value) {?>
+                                <?php if ($_smarty_tpl->tpl_vars['i']->value > 1) {?>
+                                    <li><a href='homepage.php?page=<?php echo ($_smarty_tpl->tpl_vars['i']->value-2)*20+1;?>
+'><<</a></li>
+                                <?php }?>
+
+                                <?php
+$_smarty_tpl->tpl_vars['j'] = new Smarty_Variable(null, $_smarty_tpl->isRenderingCache);$_smarty_tpl->tpl_vars['j']->step = 1;$_smarty_tpl->tpl_vars['j']->total = (int) ceil(($_smarty_tpl->tpl_vars['j']->step > 0 ? $_smarty_tpl->tpl_vars['i']->value*20+1 - (($_smarty_tpl->tpl_vars['i']->value-1)*20+1) : ($_smarty_tpl->tpl_vars['i']->value-1)*20+1-($_smarty_tpl->tpl_vars['i']->value*20)+1)/abs($_smarty_tpl->tpl_vars['j']->step));
+if ($_smarty_tpl->tpl_vars['j']->total > 0) {
+for ($_smarty_tpl->tpl_vars['j']->value = ($_smarty_tpl->tpl_vars['i']->value-1)*20+1, $_smarty_tpl->tpl_vars['j']->iteration = 1;$_smarty_tpl->tpl_vars['j']->iteration <= $_smarty_tpl->tpl_vars['j']->total;$_smarty_tpl->tpl_vars['j']->value += $_smarty_tpl->tpl_vars['j']->step, $_smarty_tpl->tpl_vars['j']->iteration++) {
+$_smarty_tpl->tpl_vars['j']->first = $_smarty_tpl->tpl_vars['j']->iteration === 1;$_smarty_tpl->tpl_vars['j']->last = $_smarty_tpl->tpl_vars['j']->iteration === $_smarty_tpl->tpl_vars['j']->total;?>
+
+                                    <?php if ($_smarty_tpl->tpl_vars['j']->value <= $_smarty_tpl->tpl_vars['page_count']->value) {?>
+                                        <li><a href='homepage.php?page=<?php echo $_smarty_tpl->tpl_vars['j']->value;?>
+'><?php echo $_smarty_tpl->tpl_vars['j']->value;?>
+</a></li>
+                                    <?php }?>
+                                <?php }
+}
+?>
+
+                                <?php if ($_smarty_tpl->tpl_vars['j']->value < $_smarty_tpl->tpl_vars['page_count']->value) {?>
+                                    <li><a href='homepage.php?page=<?php echo $_smarty_tpl->tpl_vars['i']->value*20+1;?>
+'>>></a></li>
+                                <?php }?>
+                            <?php }?>
+                        </ul>
+                    <?php }
+}
+?>
                 </div>
             </div>
 
@@ -275,7 +304,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
         "<th>地段地號</th>" +
         "<th>地址</th>" +
         "<th>編輯</th>" +
-        "<th>建立時間</th>" +
+        "<th>最後編輯時間</th>" +
         "<th>下載報表</th>" +
         "<th>刪除</th>" +
         "</tr>" +
@@ -318,13 +347,42 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>" +
         "</table>" +
 
         "<div class='align_center'>" +
-        "<ul class='pagination'>" +
-        "<li><a href='#'>1</a></li>" +
-        "<li><a href='#'>2</a></li>" +
-        "<li><a href='#'>3</a></li>" +
-        "<li><a href='#'>4</a></li>" +
-        "<li><a href='#'>5</a></li>" +
-        "</ul>" +
+        "<?php
+$_smarty_tpl->tpl_vars['i'] = new Smarty_Variable(null, $_smarty_tpl->isRenderingCache);$_smarty_tpl->tpl_vars['i']->step = 1;$_smarty_tpl->tpl_vars['i']->total = (int) ceil(($_smarty_tpl->tpl_vars['i']->step > 0 ? $_smarty_tpl->tpl_vars['menu_count']->value+1 - (1) : 1-($_smarty_tpl->tpl_vars['menu_count']->value)+1)/abs($_smarty_tpl->tpl_vars['i']->step));
+if ($_smarty_tpl->tpl_vars['i']->total > 0) {
+for ($_smarty_tpl->tpl_vars['i']->value = 1, $_smarty_tpl->tpl_vars['i']->iteration = 1;$_smarty_tpl->tpl_vars['i']->iteration <= $_smarty_tpl->tpl_vars['i']->total;$_smarty_tpl->tpl_vars['i']->value += $_smarty_tpl->tpl_vars['i']->step, $_smarty_tpl->tpl_vars['i']->iteration++) {
+$_smarty_tpl->tpl_vars['i']->first = $_smarty_tpl->tpl_vars['i']->iteration === 1;$_smarty_tpl->tpl_vars['i']->last = $_smarty_tpl->tpl_vars['i']->iteration === $_smarty_tpl->tpl_vars['i']->total;?>" +
+            "<ul class='pagination'>" +
+                "<?php if ($_smarty_tpl->tpl_vars['i']->value == $_smarty_tpl->tpl_vars['current_page']->value) {?>" +
+                    "<?php if ($_smarty_tpl->tpl_vars['i']->value > 1) {?>" +
+                        "<li><a href='homepage.php?page=<?php echo ($_smarty_tpl->tpl_vars['i']->value-2)*20+1;?>
+'><<</a></li>" +
+                    "<?php }?>" +
+
+                    "<?php
+$_smarty_tpl->tpl_vars['j'] = new Smarty_Variable(null, $_smarty_tpl->isRenderingCache);$_smarty_tpl->tpl_vars['j']->step = 1;$_smarty_tpl->tpl_vars['j']->total = (int) ceil(($_smarty_tpl->tpl_vars['j']->step > 0 ? $_smarty_tpl->tpl_vars['i']->value*20+1 - (($_smarty_tpl->tpl_vars['i']->value-1)*20+1) : ($_smarty_tpl->tpl_vars['i']->value-1)*20+1-($_smarty_tpl->tpl_vars['i']->value*20)+1)/abs($_smarty_tpl->tpl_vars['j']->step));
+if ($_smarty_tpl->tpl_vars['j']->total > 0) {
+for ($_smarty_tpl->tpl_vars['j']->value = ($_smarty_tpl->tpl_vars['i']->value-1)*20+1, $_smarty_tpl->tpl_vars['j']->iteration = 1;$_smarty_tpl->tpl_vars['j']->iteration <= $_smarty_tpl->tpl_vars['j']->total;$_smarty_tpl->tpl_vars['j']->value += $_smarty_tpl->tpl_vars['j']->step, $_smarty_tpl->tpl_vars['j']->iteration++) {
+$_smarty_tpl->tpl_vars['j']->first = $_smarty_tpl->tpl_vars['j']->iteration === 1;$_smarty_tpl->tpl_vars['j']->last = $_smarty_tpl->tpl_vars['j']->iteration === $_smarty_tpl->tpl_vars['j']->total;?>" +
+
+                        "<?php if ($_smarty_tpl->tpl_vars['j']->value <= $_smarty_tpl->tpl_vars['page_count']->value) {?>" +
+                            "<li><a href='homepage.php?page=<?php echo $_smarty_tpl->tpl_vars['j']->value;?>
+'><?php echo $_smarty_tpl->tpl_vars['j']->value;?>
+</a></li>" +
+                        "<?php }?>" +
+                    "<?php }
+}
+?>" +
+
+                    "<?php if ($_smarty_tpl->tpl_vars['j']->value < $_smarty_tpl->tpl_vars['page_count']->value) {?>" +
+                        "<li><a href='homepage.php?page=<?php echo $_smarty_tpl->tpl_vars['i']->value*20+1;?>
+'>>></a></li>" +
+                    "<?php }?>" +
+                "<?php }?>" +
+            "</ul>" +
+        "<?php }
+}
+?>" +
         "</div>";
 
     var corp_record =
@@ -337,7 +395,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>" +
         "<th>調查表編號</th>" +
         "<th>地段地號</th>" +
         "<th>編輯</th>" +
-        "<th>建立時間</th>" +
+        "<th>最後編輯時間</th>" +
         "<th>下載報表</th>" +
         "<th>刪除</th>" +
         "</tr>" +

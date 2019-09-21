@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-08-28 15:09:59
+/* Smarty version 3.1.33, created on 2019-09-19 03:06:17
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\building_continue.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d669947856034_72175819',
+  'unifunc' => 'content_5d82f0a97d28e8_84694427',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'c10a27b7c3cfa44c898edc039005567fae642e93' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\building_continue.html',
-      1 => 1567003816,
+      1 => 1568862345,
       2 => 'file',
     ),
   ),
@@ -20,21 +20,25 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d669947856034_72175819 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d82f0a97d28e8_84694427 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>新增建物查案</title>
+  <title id="title">新增建物查案</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> -->
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/loading.css">
   <?php echo '<script'; ?>
  type="text/javascript" src="js/jquery-3.4.1.min.js"><?php echo '</script'; ?>
 >
   <?php echo '<script'; ?>
  type="text/javascript" src="js/index.js"><?php echo '</script'; ?>
 >
+  <!-- <?php echo '<script'; ?>
+ type="text/javascript" src="js/loading.js"><?php echo '</script'; ?>
+> -->
   <!-- <?php echo '<script'; ?>
  src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"><?php echo '</script'; ?>
 > -->
@@ -45,43 +49,44 @@ function content_5d669947856034_72175819 (Smarty_Internal_Template $_smarty_tpl)
 <body>
     <div class="container" align="center">
         <h1>建物調查表</h1>
-        <form class="" action="continue.php" method="post" id="house_form" onkeydown="if(event.keyCode==13)return false;" onsubmit="return checkSubmit()">
+        <form class="" action="continue.php" method="post" id="house_form" onkeydown="if(event.keyCode==13)return false;" onsubmit="return checkSubmit('<?php echo $_smarty_tpl->tpl_vars['script_number']->value;?>
+')">
         <div class="container" align="center">
             <table border="1">
                 <tr>
                     <td colspan="2"><span class="required">(*)</span>編號</td>
-                    <td colspan="2">編號:<input type="text" id="floor-id-1" name="floor-id-1" required><br><input type="radio" id="house-type-1" name="house-type-1" value="獨立戶" required>獨立戶<input type="radio" name="house-type-1" value="連棟式邊戶">連棟式邊戶<input type="radio" name="house-type-1" value="連棟式中間戶">連棟式中間戶</td>
-                    <td colspan="2">編號:<input type="text" id="floor-id-2" name="floor-id-2" oninput="changeColumnStatus(2,'focus')"><br><input type="radio" id="house-type-2" name="house-type-2" value="獨立戶">獨立戶<input type="radio" name="house-type-2" value="連棟式邊戶">連棟式邊戶<input type="radio" name="house-type-2" value="連棟式中間戶">連棟式中間戶</td>
-                    <td colspan="2">編號:<input type="text" id="floor-id-3" name="floor-id-3" oninput="changeColumnStatus(3,'focus')"><br><input type="radio" id="house-type-3" name="house-type-3" value="獨立戶">獨立戶<input type="radio" name="house-type-3" value="連棟式邊戶">連棟式邊戶<input type="radio" name="house-type-3" value="連棟式中間戶">連棟式中間戶</td>
-                    <td colspan="2">編號:<input type="text" id="floor-id-4" name="floor-id-4" oninput="changeColumnStatus(4,'focus')"><br><input type="radio" id="house-type-4" name="house-type-4" value="獨立戶">獨立戶<input type="radio" name="house-type-4" value="連棟式邊戶">連棟式邊戶<input type="radio" name="house-type-4" value="連棟式中間戶">連棟式中間戶</td>
+                    <td colspan="2">編號:<input type="text" id="floor-id-1" name="floor-id-1" required><br><input type="radio" id="house-type-1" name="house-type-1" value="獨立戶" required>獨立戶<input type="radio" id="house-type-edge-1" name="house-type-1" value="連棟式邊戶">連棟式邊戶<input type="radio" id="house-type-mid-1" name="house-type-1" value="連棟式中間戶">連棟式中間戶</td>
+                    <td colspan="2">編號:<input type="text" id="floor-id-2" name="floor-id-2" oninput="changeColumnStatus(2,'focus')"><br><input type="radio" id="house-type-2" name="house-type-2" value="獨立戶">獨立戶<input type="radio" id="house-type-edge-2" name="house-type-2" value="連棟式邊戶">連棟式邊戶<input type="radio" id="house-type-mid-2" name="house-type-2" value="連棟式中間戶">連棟式中間戶</td>
+                    <td colspan="2">編號:<input type="text" id="floor-id-3" name="floor-id-3" oninput="changeColumnStatus(3,'focus')"><br><input type="radio" id="house-type-3" name="house-type-3" value="獨立戶">獨立戶<input type="radio" id="house-type-edge-3" name="house-type-3" value="連棟式邊戶">連棟式邊戶<input type="radio" id="house-type-mid-3" name="house-type-3" value="連棟式中間戶">連棟式中間戶</td>
+                    <td colspan="2">編號:<input type="text" id="floor-id-4" name="floor-id-4" oninput="changeColumnStatus(4,'focus')"><br><input type="radio" id="house-type-4" name="house-type-4" value="獨立戶">獨立戶<input type="radio" id="house-type-edge-4" name="house-type-4" value="連棟式邊戶">連棟式邊戶<input type="radio" id="house-type-mid-4" name="house-type-4" value="連棟式中間戶">連棟式中間戶</td>
                 </tr>
 
                 <tr>
                     <td colspan="2">是否廢棄</td>
                     <td colspan="2">
                         <input type="radio" id="discard-status-1" name="discard-status-1" value="yes" required>是
-                        <input type="radio" id="discard-status-1" name="discard-status-1" value="no" checked>否
+                        <input type="radio" id="discard-status-no-1" name="discard-status-1" value="no" checked>否
                     </td>
                     <td colspan="2">
                         <input type="radio" id="discard-status-2" name="discard-status-2" value="yes">是
-                        <input type="radio" id="discard-status-2" name="discard-status-2" value="no" checked>否
+                        <input type="radio" id="discard-status-no-2" name="discard-status-2" value="no" checked>否
                     </td>
                     <td colspan="2">
                         <input type="radio" id="discard-status-3" name="discard-status-3" value="yes">是
-                        <input type="radio" id="discard-status-3" name="discard-status-3" value="no" checked>否
+                        <input type="radio" id="discard-status-no-3" name="discard-status-3" value="no" checked>否
                     </td>
                     <td colspan="2">
                         <input type="radio" id="discard-status-4" name="discard-status-4" value="yes">是
-                        <input type="radio" id="discard-status-4" name="discard-status-4" value="no" checked>否
+                        <input type="radio" id="discard-status-no-4" name="discard-status-4" value="no" checked>否
                     </td>
                 </tr>
 
                 <tr>
                     <td colspan="2"><span class="required">(*)</span>補償形式</td>
-                    <td colspan="2" id="compensate-form-1"><input type="radio" id="pay-form-1" name="compensate-form-1" value="主建物" onclick="compensateFormClick('compensate-form-1')" checked>主建物<input type="radio" name="compensate-form-1" value="立面修復" onclick="removeSubCompensateForm('sub-compensate-form-1')">立面修復<br></td>
-                    <td colspan="2" id="compensate-form-2"><input type="radio" id="pay-form-2" name="compensate-form-2" value="主建物" onclick="compensateFormClick('compensate-form-2')" checked>主建物<input type="radio" name="compensate-form-2" value="立面修復" onclick="removeSubCompensateForm('sub-compensate-form-2')">立面修復<br></td>
-                    <td colspan="2" id="compensate-form-3"><input type="radio" id="pay-form-3" name="compensate-form-3" value="主建物" onclick="compensateFormClick('compensate-form-3')" checked>主建物<input type="radio" name="compensate-form-3" value="立面修復" onclick="removeSubCompensateForm('sub-compensate-form-3')">立面修復<br></td>
-                    <td colspan="2" id="compensate-form-4"><input type="radio" id="pay-form-4" name="compensate-form-4" value="主建物" onclick="compensateFormClick('compensate-form-4')" checked>主建物<input type="radio" name="compensate-form-4" value="立面修復" onclick="removeSubCompensateForm('sub-compensate-form-4')">立面修復<br></td>
+                    <td colspan="2" id="compensate-form-1"><input type="radio" id="pay-form-1" name="compensate-form-1" value="主建物" onclick="compensateFormClick('compensate-form-1')" checked>主建物<input type="radio" id="pay-form-fix-1" name="compensate-form-1" value="立面修復" onclick="removeSubCompensateForm('sub-compensate-form-1')">立面修復<br></td>
+                    <td colspan="2" id="compensate-form-2"><input type="radio" id="pay-form-2" name="compensate-form-2" value="主建物" onclick="compensateFormClick('compensate-form-2')" checked>主建物<input type="radio" id="pay-form-fix-2" name="compensate-form-2" value="立面修復" onclick="removeSubCompensateForm('sub-compensate-form-2')">立面修復<br></td>
+                    <td colspan="2" id="compensate-form-3"><input type="radio" id="pay-form-3" name="compensate-form-3" value="主建物" onclick="compensateFormClick('compensate-form-3')" checked>主建物<input type="radio" id="pay-form-fix-3" name="compensate-form-3" value="立面修復" onclick="removeSubCompensateForm('sub-compensate-form-3')">立面修復<br></td>
+                    <td colspan="2" id="compensate-form-4"><input type="radio" id="pay-form-4" name="compensate-form-4" value="主建物" onclick="compensateFormClick('compensate-form-4')" checked>主建物<input type="radio" id="pay-form-fix-4" name="compensate-form-4" value="立面修復" onclick="removeSubCompensateForm('sub-compensate-form-4')">立面修復<br></td>
                 </tr>
 
                 <tr>
@@ -160,37 +165,37 @@ function content_5d669947856034_72175819 (Smarty_Internal_Template $_smarty_tpl)
                     <td rowspan="2" colspan="2"><span class="required">(*)</span>用途</td>
                     <td colspan="2">
                         <input type="radio" id="house-usage-1" name="house-usage-1" value="住宅" onclick="changeRequired(['other-house-usage-1'],false)" checked required>住宅
-                        <input type="radio" name="house-usage-1" value="店鋪" onclick="changeRequired(['other-house-usage-1'],false)">店鋪
-                        <input type="radio" name="house-usage-1" value="工廠" onclick="changeRequired(['other-house-usage-1'],false)">工廠
-                        <input type="radio" name="house-usage-1" value="庫房" onclick="changeRequired(['other-house-usage-1'],false)">庫房<br>
-                        <input type="radio" name="house-usage-1" value="none" onclick="changeRequired(['other-house-usage-1'],true)">其他
+                        <input type="radio" id="house-usage-store-1" name="house-usage-1" value="店鋪" onclick="changeRequired(['other-house-usage-1'],false)">店鋪
+                        <input type="radio" id="house-usage-fab-1" name="house-usage-1" value="工廠" onclick="changeRequired(['other-house-usage-1'],false)">工廠
+                        <input type="radio" id="house-usage-warehouse-1" name="house-usage-1" value="庫房" onclick="changeRequired(['other-house-usage-1'],false)">庫房<br>
+                        <input type="radio" id="house-usage-other-1" name="house-usage-1" value="none" onclick="changeRequired(['other-house-usage-1'],true)">其他
                         <input type="text" id="other-house-usage-1" name="other-house-usage-1">
                     </td>
 
                     <td colspan="2">
                         <input type="radio" id="house-usage-2" name="house-usage-2" value="住宅" onclick="changeRequired(['other-house-usage-2'],false)" checked>住宅
-                        <input type="radio" name="house-usage-2" value="店鋪" onclick="changeRequired(['other-house-usage-2'],false)">店鋪
-                        <input type="radio" name="house-usage-2" value="工廠" onclick="changeRequired(['other-house-usage-2'],false)">工廠
-                        <input type="radio" name="house-usage-2" value="庫房" onclick="changeRequired(['other-house-usage-2'],false)">庫房<br>
-                        <input type="radio" name="house-usage-2" value="none" onclick="changeRequired(['other-house-usage-2'],true)">其他
+                        <input type="radio" id="house-usage-store-2" name="house-usage-2" value="店鋪" onclick="changeRequired(['other-house-usage-2'],false)">店鋪
+                        <input type="radio" id="house-usage-fab-2" name="house-usage-2" value="工廠" onclick="changeRequired(['other-house-usage-2'],false)">工廠
+                        <input type="radio" id="house-usage-warehouse-2" name="house-usage-2" value="庫房" onclick="changeRequired(['other-house-usage-2'],false)">庫房<br>
+                        <input type="radio" id="house-usage-other-2" name="house-usage-2" value="none" onclick="changeRequired(['other-house-usage-2'],true)">其他
                         <input type="text" id="other-house-usage-2" name="other-house-usage-2">
                     </td>
 
                     <td colspan="2">
                         <input type="radio" id="house-usage-3" name="house-usage-3" value="住宅" onclick="changeRequired(['other-house-usage-3'],false)" checked>住宅
-                        <input type="radio" name="house-usage-3" value="店鋪" onclick="changeRequired(['other-house-usage-3'],false)">店鋪
-                        <input type="radio" name="house-usage-3" value="工廠" onclick="changeRequired(['other-house-usage-3'],false)">工廠
-                        <input type="radio" name="house-usage-3" value="庫房" onclick="changeRequired(['other-house-usage-3'],false)">庫房<br>
-                        <input type="radio" name="house-usage-3" value="none" onclick="changeRequired(['other-house-usage-3'],true)">其他
+                        <input type="radio" id="house-usage-store-3" name="house-usage-3" value="店鋪" onclick="changeRequired(['other-house-usage-3'],false)">店鋪
+                        <input type="radio" id="house-usage-fab-3" name="house-usage-3" value="工廠" onclick="changeRequired(['other-house-usage-3'],false)">工廠
+                        <input type="radio" id="house-usage-warehouse-3" name="house-usage-3" value="庫房" onclick="changeRequired(['other-house-usage-3'],false)">庫房<br>
+                        <input type="radio" id="house-usage-other-3" name="house-usage-3" value="none" onclick="changeRequired(['other-house-usage-3'],true)">其他
                         <input type="text" id="other-house-usage-3" name="other-house-usage-3">
                     </td>
 
                     <td colspan="2">
                         <input type="radio" id="house-usage-4" name="house-usage-4" value="住宅" onclick="changeRequired(['other-house-usage-4'],false)" checked>住宅
-                        <input type="radio" name="house-usage-4" value="店鋪" onclick="changeRequired(['other-house-usage-4'],false)">店鋪
-                        <input type="radio" name="house-usage-4" value="工廠" onclick="changeRequired(['other-house-usage-4'],false)">工廠
-                        <input type="radio" name="house-usage-4" value="庫房" onclick="changeRequired(['other-house-usage-4'],false)">庫房<br>
-                        <input type="radio" name="house-usage-4" value="none" onclick="changeRequired(['other-house-usage-4'],true)">其他
+                        <input type="radio" id="house-usage-store-4" name="house-usage-4" value="店鋪" onclick="changeRequired(['other-house-usage-4'],false)">店鋪
+                        <input type="radio" id="house-usage-fab-4" name="house-usage-4" value="工廠" onclick="changeRequired(['other-house-usage-4'],false)">工廠
+                        <input type="radio" id="house-usage-warehouse-4" name="house-usage-4" value="庫房" onclick="changeRequired(['other-house-usage-4'],false)">庫房<br>
+                        <input type="radio" id="house-usage-other-4" name="house-usage-4" value="none" onclick="changeRequired(['other-house-usage-4'],true)">其他
                         <input type="text" id="other-house-usage-4" name="other-house-usage-4">
                     </td>
                 </tr>
@@ -217,7 +222,7 @@ function content_5d669947856034_72175819 (Smarty_Internal_Template $_smarty_tpl)
                         <div id="minus-wall-1-1">
                             <span>減牆:</span>
                             <select id="minus-wall-num-1-1" name="minus-wall-num-1-1">
-                                <option value="" style="display:none;">請選擇面數</option>
+                                <option value="">請選擇面數</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -237,7 +242,7 @@ function content_5d669947856034_72175819 (Smarty_Internal_Template $_smarty_tpl)
                         <div id="add-wall-1-1">
                             <span>加牆:</span>
                             <select id="add-wall-num-1-1" name="add-wall-num-1-1">
-                                <option value="" style="display:none;">請選擇面數</option>
+                                <option value="">請選擇面數</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -259,7 +264,7 @@ function content_5d669947856034_72175819 (Smarty_Internal_Template $_smarty_tpl)
                         <div id="minus-wall-2-1">
                             <span>減牆:</span>
                             <select id="minus-wall-num-2-1" name="minus-wall-num-2-1">
-                                <option value="" style="display:none;">請選擇面數</option>
+                                <option value="">請選擇面數</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -279,7 +284,7 @@ function content_5d669947856034_72175819 (Smarty_Internal_Template $_smarty_tpl)
                         <div id="add-wall-2-1">
                             <span>加牆:</span>
                             <select id="add-wall-num-2-1" name="add-wall-num-2-1">
-                                <option value="" style="display:none;">請選擇面數</option>
+                                <option value="">請選擇面數</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -301,7 +306,7 @@ function content_5d669947856034_72175819 (Smarty_Internal_Template $_smarty_tpl)
                         <div id="minus-wall-3-1">
                             <span>減牆:</span>
                             <select id="minus-wall-num-3-1" name="minus-wall-num-3-1">
-                                <option value="" style="display:none;">請選擇面數</option>
+                                <option value="">請選擇面數</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -321,7 +326,7 @@ function content_5d669947856034_72175819 (Smarty_Internal_Template $_smarty_tpl)
                         <div id="add-wall-3-1">
                             <span>加牆:</span>
                             <select id="add-wall-num-3-1" name="add-wall-num-3-1">
-                                <option value="" style="display:none;">請選擇面數</option>
+                                <option value="">請選擇面數</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -343,7 +348,7 @@ function content_5d669947856034_72175819 (Smarty_Internal_Template $_smarty_tpl)
                         <div id="minus-wall-4-1">
                             <span>減牆:</span>
                             <select id="minus-wall-num-4-1" name="minus-wall-num-4-1">
-                                <option value="" style="display:none;">請選擇面數</option>
+                                <option value="">請選擇面數</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -363,7 +368,7 @@ function content_5d669947856034_72175819 (Smarty_Internal_Template $_smarty_tpl)
                         <div id="add-wall-4-1">
                             <span>加牆:</span>
                             <select id="add-wall-num-4-1" name="add-wall-num-4-1">
-                                <option value="" style="display:none;">請選擇面數</option>
+                                <option value="">請選擇面數</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -756,7 +761,7 @@ function content_5d669947856034_72175819 (Smarty_Internal_Template $_smarty_tpl)
                     <td colspan="2">
                         <div id="floor-decoration-4-1">
                             <input type="text" id="floor-decoration-numerator-4-1" name="floor-decoration-numerator-4-1" class="tiny-input-size" placeholder="輸入" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('floor-decoration-numerator-4-1')" value="1">/<input type="text" id="floor-decoration-denominator-4-1" name="floor-decoration-denominator-4-1" class="tiny-input-size" placeholder="比例" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('floor-decoration-denominator-4-1')" value="1">
-                            <select name="floor-decoration-4-1" class="select-menu">
+                            <select id="floor-decoration-option-4-1" name="floor-decoration-option-4-1" class="select-menu">
                                 <option value="">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['floor_decoration_option']->value;?>
 
@@ -810,7 +815,7 @@ function content_5d669947856034_72175819 (Smarty_Internal_Template $_smarty_tpl)
                     <td colspan="2">
                         <div id="ceiling-decoration-3-1">
                             <input type="text" id="ceiling-decoration-numerator-3-1" name="ceiling-decoration-numerator-3-1" class="tiny-input-size" placeholder="輸入" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('ceiling-decoration-numerator-3-1')" value="1">/<input type="text" id="ceiling-decoration-denominator-3-1" name="ceiling-decoration-denominator-3-1" class="tiny-input-size" placeholder="比例" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('ceiling-decoration-denominator-3-1')" value="1">
-                            <select id="ceiling-decoration-option-1-1" name="ceiling-decoration-option-1-1" class="select-menu">
+                            <select id="ceiling-decoration-option-3-1" name="ceiling-decoration-option-3-1" class="select-menu">
                                 <option value="">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['ceiling_decoration_option']->value;?>
 
@@ -827,7 +832,7 @@ function content_5d669947856034_72175819 (Smarty_Internal_Template $_smarty_tpl)
                     <td colspan="2">
                         <div id="ceiling-decoration-4-1">
                             <input type="text" id="ceiling-decoration-numerator-4-1" name="ceiling-decoration-numerator-4-1" class="tiny-input-size" placeholder="輸入" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('ceiling-decoration-numerator-4-1')" value="1">/<input type="text" id="ceiling-decoration-denominator-4-1" name="ceiling-decoration-denominator-4-1" class="tiny-input-size" placeholder="比例" pattern="[0-9]{1,5}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('ceiling-decoration-denominator-4-1')" value="1">
-                            <select name="ceiling-decoration-option-4-1" class="select-menu">
+                            <select id="ceiling-decoration-option-4-1" name="ceiling-decoration-option-4-1" class="select-menu">
                                 <option value="">請選擇材質</option>
                                 <?php echo $_smarty_tpl->tpl_vars['ceiling_decoration_option']->value;?>
 
@@ -1225,10 +1230,10 @@ function content_5d669947856034_72175819 (Smarty_Internal_Template $_smarty_tpl)
 
                 <tr>
                     <td>陽台</td>
-                    <td colspan="2"><input type="checkbox" name="balcony-1[]" value="前">前<input type="checkbox" name="balcony-1[]" value="後">後<input type="checkbox" name="balcony-1[]" value="左">左<input type="checkbox" name="balcony-1[]" value="右">右</td>
-                    <td colspan="2"><input type="checkbox" name="balcony-2[]" value="前">前<input type="checkbox" name="balcony-2[]" value="後">後<input type="checkbox" name="balcony-2[]" value="左">左<input type="checkbox" name="balcony-2[]" value="右">右</td>
-                    <td colspan="2"><input type="checkbox" name="balcony-3[]" value="前">前<input type="checkbox" name="balcony-3[]" value="後">後<input type="checkbox" name="balcony-3[]" value="左">左<input type="checkbox" name="balcony-3[]" value="右">右</td>
-                    <td colspan="2"><input type="checkbox" name="balcony-4[]" value="前">前<input type="checkbox" name="balcony-4[]" value="後">後<input type="checkbox" name="balcony-4[]" value="左">左<input type="checkbox" name="balcony-4[]" value="右">右</td>
+                    <td colspan="2"><input type="checkbox" id="front-balcony-1" name="balcony-1[]" value="前">前<input type="checkbox" id="behind-balcony-1" name="balcony-1[]" value="後">後<input type="checkbox" id="left-balcony-1" name="balcony-1[]" value="左">左<input type="checkbox" id="right-balcony-1" name="balcony-1[]" value="右">右</td>
+                    <td colspan="2"><input type="checkbox" id="front-balcony-2" name="balcony-2[]" value="前">前<input type="checkbox" id="behind-balcony-2" name="balcony-2[]" value="後">後<input type="checkbox" id="left-balcony-2" name="balcony-2[]" value="左">左<input type="checkbox" id="right-balcony-2" name="balcony-2[]" value="右">右</td>
+                    <td colspan="2"><input type="checkbox" id="front-balcony-3" name="balcony-3[]" value="前">前<input type="checkbox" id="behind-balcony-3" name="balcony-3[]" value="後">後<input type="checkbox" id="left-balcony-3" name="balcony-3[]" value="左">左<input type="checkbox" id="right-balcony-3" name="balcony-3[]" value="右">右</td>
+                    <td colspan="2"><input type="checkbox" id="front-balcony-4" name="balcony-4[]" value="前">前<input type="checkbox" id="behind-balcony-4" name="balcony-4[]" value="後">後<input type="checkbox" id="left-balcony-4" name="balcony-4[]" value="左">左<input type="checkbox" id="right-balcony-4" name="balcony-4[]" value="右">右</td>
                 </tr>
 
             </table>
@@ -1276,11 +1281,17 @@ function content_5d669947856034_72175819 (Smarty_Internal_Template $_smarty_tpl)
 
             <input type="hidden" id="action" name="action" value="">
             <input type="hidden" id="floor-count" name="floor-count" value="">
+            <input type="hidden" id="page" name="page" value="<?php echo $_smarty_tpl->tpl_vars['page']->value;?>
+">
             <!-- <input type="submit" value="儲存" onclick="saveDialog()"> -->
             <!-- <input type="submit" value="繼續輸入下一頁" onclick="continueInput()"> -->
             <input type="submit" id="submitBtn" value="儲存" onclick="buildingContinue(false)">
             <input type="submit" id="continueBtn" value="繼續輸入下一頁" onclick="buildingContinue(true)">
         </form>
+    </div>
+
+    <div class="loading hide">
+        <div class="gif" style="width:500px;height:200px;"></div>
     </div>
 </body>
 </html>

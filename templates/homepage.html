@@ -145,7 +145,7 @@
                         <th>地段地號</th>
                         <th>地址</th>
                         <th>編輯</th>
-                        <th>建立時間</th>
+                        <th>最後編輯時間</th>
                         <th>下載報表</th>
                         <th>刪除</th>
                     </tr>
@@ -172,13 +172,26 @@
                 </table>
 
                 <div class='align_center'>
-                    <ul class='pagination'>
-                        <li><a href='#'>1</a></li>
-                        <li><a href='#'>2</a></li>
-                        <li><a href='#'>3</a></li>
-                        <li><a href='#'>4</a></li>
-                        <li><a href='#'>5</a></li>
-                    </ul>
+                    {for $i=1 to $menu_count}
+                        <ul class='pagination'>
+                            {if $i == $current_page}
+                                {if $i > 1}
+                                    <li><a href='homepage.php?page={($i-2)*20+1}'><<</a></li>
+                                {/if}
+
+                                {for $j=($i-1)*20+1 to $i*20}
+
+                                    {if $j <= $page_count}
+                                        <li><a href='homepage.php?page={$j}'>{$j}</a></li>
+                                    {/if}
+                                {/for}
+
+                                {if $j < $page_count}
+                                    <li><a href='homepage.php?page={$i*20+1}'>>></a></li>
+                                {/if}
+                            {/if}
+                        </ul>
+                    {/for}
                 </div>
             </div>
 
@@ -227,7 +240,7 @@
         "<th>地段地號</th>" +
         "<th>地址</th>" +
         "<th>編輯</th>" +
-        "<th>建立時間</th>" +
+        "<th>最後編輯時間</th>" +
         "<th>下載報表</th>" +
         "<th>刪除</th>" +
         "</tr>" +
@@ -254,13 +267,26 @@
         "</table>" +
 
         "<div class='align_center'>" +
-        "<ul class='pagination'>" +
-        "<li><a href='#'>1</a></li>" +
-        "<li><a href='#'>2</a></li>" +
-        "<li><a href='#'>3</a></li>" +
-        "<li><a href='#'>4</a></li>" +
-        "<li><a href='#'>5</a></li>" +
-        "</ul>" +
+        "{for $i=1 to $menu_count}" +
+            "<ul class='pagination'>" +
+                "{if $i == $current_page}" +
+                    "{if $i > 1}" +
+                        "<li><a href='homepage.php?page={($i-2)*20+1}'><<</a></li>" +
+                    "{/if}" +
+
+                    "{for $j=($i-1)*20+1 to $i*20}" +
+
+                        "{if $j <= $page_count}" +
+                            "<li><a href='homepage.php?page={$j}'>{$j}</a></li>" +
+                        "{/if}" +
+                    "{/for}" +
+
+                    "{if $j < $page_count}" +
+                        "<li><a href='homepage.php?page={$i*20+1}'>>></a></li>" +
+                    "{/if}" +
+                "{/if}" +
+            "</ul>" +
+        "{/for}" +
         "</div>";
 
     var corp_record =
@@ -273,7 +299,7 @@
         "<th>調查表編號</th>" +
         "<th>地段地號</th>" +
         "<th>編輯</th>" +
-        "<th>建立時間</th>" +
+        "<th>最後編輯時間</th>" +
         "<th>下載報表</th>" +
         "<th>刪除</th>" +
         "</tr>" +

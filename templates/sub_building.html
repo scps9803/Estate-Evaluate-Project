@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> -->
         <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/loading.css">
         <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
     </head>
@@ -64,7 +65,7 @@
                         <td>
                             <div id="auto-remove">
                                 <div id="auto-remove-1" style="height:22px;">
-                                    <input type="radio" name="auto-remove-1" value="是">是<input type="radio" name="auto-remove-1" value="否" required>否
+                                    <input type="radio" id="auto-remove-yes-1" name="auto-remove-1" value="是">是<input type="radio" id="auto-remove-no-1" name="auto-remove-1" value="否" required>否
                                 </div>
                             </div>
                         </td>
@@ -83,6 +84,10 @@
             </form>
             <button onclick="subBuildingSubmit()">儲存</button>
             <button onclick="subBuildingSkip()">略過(無雜項物)</button>
+        </div>
+
+        <div class="loading hide">
+            <div class="gif" style="width:500px;height:200px;"></div>
         </div>
     </body>
 </html>

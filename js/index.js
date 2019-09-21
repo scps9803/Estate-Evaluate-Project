@@ -39,6 +39,8 @@ var independent_count = 0;
 
 var corp_count = 1;
 var submitCheck = false;
+var script_number = "";
+var deleteNextPage = false;
 
 function addItemOnclick(id,column,num){
     var itemId = "#"+id+column+"-"+num;
@@ -629,7 +631,7 @@ function addInfoItemOnclick(id){
                     '<option value="" style="display:none;">請選擇項目</option>'+
                 '</select>&nbsp;'+
 
-                '<select class="small-select-menu" name="other-item-type-'+other_item_count+'" required>'+
+                '<select class="small-select-menu" id="other-item-type-'+other_item_count+'" name="other-item-type-'+other_item_count+'" required>'+
                     '<option value="" style="display:none;">請選擇室內外</option>'+
                     '<option value="室內">室內</option>'+
                     '<option value="室外">室外</option>'+
@@ -663,7 +665,7 @@ function addInfoItemOnclick(id){
 
             text =
             '<div id="auto-remove-'+auto_remove_count+'" style="margin-top:8px;height:22px;">'+
-                '<input type="radio" name="auto-remove-'+auto_remove_count+'" value="是">是<input type="radio" name="auto-remove-'+auto_remove_count+'" value="否" required>否'+
+                '<input type="radio" id="auto-remove-yes-'+auto_remove_count+'" name="auto-remove-'+auto_remove_count+'" value="是">是<input type="radio" id="auto-remove-no-'+auto_remove_count+'" name="auto-remove-'+auto_remove_count+'" value="否" required>否'+
             '</div>';
             break;
 
@@ -1142,6 +1144,7 @@ function load_electric_data(num){
          },
          cache:false,
          dataType: "json",
+         async: false,
          // contentType: 'application/json; charset=utf-8',
          success: function(data){
              // window.alert("success");
@@ -1186,6 +1189,7 @@ function load_floor_type_data(num,column){
             building_type: building_type
          },
          cache:false,
+         async:false,
          dataType: "json",
          // contentType: 'application/json; charset=utf-8',
          success: function(data){
@@ -1220,6 +1224,7 @@ function load_toilet_data(column,nth){
          },
          cache:false,
          dataType: "json",
+         async:false,
          // contentType: 'application/json; charset=utf-8',
          success: function(data){
              $("#toilet-product-"+column+"-"+nth).html(data.item_name);
@@ -1239,6 +1244,7 @@ function get_building_decoration_option(id,column,count,category){
          },
          cache:false,
          dataType: "json",
+         async:false,
          // contentType: 'application/json; charset=utf-8',
          success: function(data){
              result_option = '<option value="" style="display:none;">請選擇材質</option>'+data.item_name;
@@ -1251,10 +1257,81 @@ function get_building_decoration_option(id,column,count,category){
     });
 }
 
+var checkNextPage = false;
+function checkNextPageData(page){
+    var script_number = "";
+    if(document.getElementById("legal").checked){
+        script_number = $("#legal").val()+"-"+$("#script-number").val();
+    }
+    else{
+        script_number = $("#illegal").val()+"-"+$("#script-number").val();
+    }
+    $.ajax({
+         url: "get_building_decoration_option.php",
+         type: "POST",
+         data:{
+            category: "check_next_page",
+            script_number: script_number,
+            page: page
+         },
+         cache:false,
+         dataType: "json",
+         async:false,
+         // contentType: 'application/json; charset=utf-8',
+         success: function(data){
+             if(data.item_name==true){
+                 checkNextPage = true;
+             }
+             else{
+                 checkNextPage = false;
+             }
+         },
+         error:function(err){
+             window.alert(err.statusText);
+         }
+    });
+}
+
+function checkNextPageData2(page,script_number){
+    $.ajax({
+         url: "get_building_decoration_option.php",
+         type: "POST",
+         data:{
+            category: "check_next_page",
+            script_number: script_number,
+            page: page
+         },
+         cache:false,
+         dataType: "json",
+         async:false,
+         // contentType: 'application/json; charset=utf-8',
+         success: function(data){
+             if(data.item_name==true){
+                 checkNextPage = true;
+             }
+             else{
+                 checkNextPage = false;
+             }
+         },
+         error:function(err){
+             window.alert(err.statusText);
+         }
+    });
+}
+
 function saveDialog(){
     checkExitNo();
-    corpSubmit();
-    var isContinue = window.confirm("是否確定儲存?");
+    // corpSubmit();
+    setShared();
+    var page = $("#page").val();
+    checkNextPageData(page);
+    // var isContinue = window.confirm("是否確定儲存?");
+    if(checkNextPage){
+        var isContinue = window.confirm("下一頁還有建物資料\n若儲存將捨棄後方資料\n是否確定儲存?");
+    }
+    else{
+        var isContinue = window.confirm("是否確定儲存?");
+    }
     var form = document.getElementById('house_form');
     var submitButton = document.getElementById('submitBtn');
     var sendButton = document.getElementById('sendBtn');
@@ -1264,6 +1341,7 @@ function saveDialog(){
         // $("#house_form").attr("action","sub_building.php");
         // $("#sub-building").append(text);
         $("#action").val("sub_building");
+        deleteNextPage = true;
         // window.alert($("#action").val());
         // window.alert($("#section-1").val());
         // sendButton.addEventListener('click', function(){
@@ -1310,6 +1388,7 @@ function saveDialog(){
     else{
         // $("#action").val("submit");
         // window.alert($("#action").val());
+        deleteNextPage = false;
     }
 
     // value_array = [];
@@ -1357,7 +1436,16 @@ function saveDialog(){
     // writeDataToOneRow($toilet_product,$toilet_product, this.toilet_equipment_count);
 }
 
+function onSubmit(){
+    var page = $("#page").val();
+    // 刪除後方剩餘資料
+    if(deleteNextPage){
+        deletePageData(page);
+    }
+}
+
 function writeDataToOneRow(itemId,writeToId,countId){
+    console.log("writeDataToOneRow");
     for(var i=0;i<4;i++){
         temp_array = [];
         for(var j=0;j<countId[i];j++){
@@ -1371,6 +1459,58 @@ function writeDataToOneRow(itemId,writeToId,countId){
             // window.alert(writeToId+(i+1).val());
         }
     }
+}
+
+function deletePageData(page){
+    var script_number = "";
+    if(document.getElementById("legal").checked){
+        script_number = $("#legal").val()+"-"+$("#script-number").val();
+    }
+    else{
+        script_number = $("#illegal").val()+"-"+$("#script-number").val();
+    }
+
+    $.ajax({
+         url: "get_building_decoration_option.php",
+         type: "POST",
+         data:{
+            category: "delete_page_data",
+            script_number: script_number,
+            page: page
+         },
+         cache:false,
+         dataType: "json",
+         async:false,
+         // contentType: 'application/json; charset=utf-8',
+         success: function(data){
+             // window.alert(data.item_name);
+         },
+         error:function(err){
+             window.alert(err.statusText);
+         }
+    });
+}
+
+function deletePageData2(page,script_number){
+    $.ajax({
+         url: "get_building_decoration_option.php",
+         type: "POST",
+         data:{
+            category: "delete_page_data",
+            script_number: script_number,
+            page: page
+         },
+         cache:false,
+         dataType: "json",
+         async:false,
+         // contentType: 'application/json; charset=utf-8',
+         success: function(data){
+             // window.alert(data.item_name);
+         },
+         error:function(err){
+             window.alert(err.statusText);
+         }
+    });
 }
 
 function changeColumnStatus(column,status){
@@ -1466,13 +1606,14 @@ function getCorpCount(){
 // }
 
 function exportExcel(script_number,house_address){
-    $("#msg").html("<h1>Excel報表正在匯出中...<br>請勿關閉視窗...</h1>");
+    // $("#msg").html("<h1>Excel報表正在匯出中...<br>請勿關閉視窗...</h1>");
     $("#exportBtn").html("");
     $.post("export_excel.php", {'script_number':script_number, 'house_address':house_address},
     function(){
+        $('div.loading').hide();
         window.alert("Excel匯出成功!");
     }).done(function() {
-        alert("請點擊繼續!");
+        // alert("請點擊繼續!");
         location.href = "homepage.php";
       })
       .fail(function() {
@@ -1499,13 +1640,14 @@ function exportExcel(script_number,house_address){
 }
 
 function exportCorpExcel(script_number){
-    $("#msg").html("<h1>Excel報表正在匯出中...<br>請勿關閉視窗...</h1>");
+    // $("#msg").html("<h1>Excel報表正在匯出中...<br>請勿關閉視窗...</h1>");
     $("#exportBtn").html("");
     $.post("export_corp_excel.php", {'script_number':script_number},
     function(){
+        $('div.loading').hide();
         window.alert("Excel匯出成功!");
     }).done(function() {
-        alert("請點擊繼續!");
+        // alert("請點擊繼續!");
         location.href = "homepage.php";
       })
       .fail(function() {
@@ -1530,6 +1672,36 @@ function continueInput(){
         $("#floor-count").val(floorCount);
         $("#action").val("continue");
         // $("#house_form").attr("action","building_continue.php");
+
+        // 儲存粉裝資料到陣列
+        itemId = ["#minus-wall-num-","#minus-wall-option-","#add-wall-num-","#add-wall-option-"];
+        writeToId = ["#minus-wall-count-","#minus-wall-option-","#add-wall-count-","#add-wall-option-"];
+        countId = [this.minus_wall_count,this.add_wall_count];
+
+        decoration_itemId = ["#indoor-divide-numerator-","#indoor-divide-denominator-","#indoor-divide-option-","#outdoor-wall-decoration-numerator-","#outdoor-wall-decoration-denominator-","#outdoor-wall-decoration-option-","#indoor-wall-decoration-numerator-","#indoor-wall-decoration-denominator-","#indoor-wall-decoration-option-","#roof-decoration-numerator-","#roof-decoration-denominator-","#roof-decoration-option-","#floor-decoration-numerator-","#floor-decoration-denominator-",
+        "#floor-decoration-option-","#ceiling-decoration-numerator-","#ceiling-decoration-denominator-","#ceiling-decoration-option-","#toilet-ratio-","#toilet-type-","#toilet-number-"];
+        decoration_writeToId = ["#indoor-divide-numerator-","#indoor-divide-denominator-","#indoor-divide-option-","#outdoor-wall-decoration-numerator-","#outdoor-wall-decoration-denominator-","#outdoor-wall-decoration-option-","#indoor-wall-decoration-numerator-","#indoor-wall-decoration-denominator-","#indoor-wall-decoration-option-","#roof-decoration-numerator-","#roof-decoration-denominator-","#roof-decoration-option-","#floor-decoration-numerator-","#floor-decoration-denominator-",
+        "#floor-decoration-option-","#ceiling-decoration-numerator-","#ceiling-decoration-denominator-","#ceiling-decoration-option-","#toilet-ratio-","#toilet-type-","#toilet-number-"];
+        decoration_countId = [this.indoor_divide_count,this.outdoor_wall_decoration_count,this.indoor_wall_decoration_count,this.roof_decoration_count,this.floor_decoration_count,this.ceiling_decoration_count,this.toilet_equipment_count];
+
+        // 新增室內牆型別
+        $indoor_wall_type = "#indoor-wall-type-";
+        // 新增浴廁產地種類
+        $toilet_product = "#toilet-product-";
+
+        for(var i=0;i<itemId.length;i++){
+            writeDataToOneRow(itemId[i],writeToId[i],countId[Math.floor(i/2)]);
+        }
+
+        //粉裝造作
+        for(var i=0;i<decoration_itemId.length;i++){
+            writeDataToOneRow(decoration_itemId[i],decoration_writeToId[i],decoration_countId[Math.floor(i/3)]);
+        }
+
+        writeDataToOneRow($indoor_wall_type,$indoor_wall_type, this.indoor_wall_decoration_count);
+        writeDataToOneRow($toilet_product,$toilet_product, this.toilet_equipment_count);
+
+
         $("#continueBtn").click();
         // window.alert($("#action").val());
     }
@@ -1573,6 +1745,7 @@ function getLandSectionOption(num){
              },
              cache:false,
              dataType: "json",
+             async:false,
              // contentType: 'application/json; charset=utf-8',
              success: function(data){
                  $("#land-section-list-"+num).html(data.item_name);
@@ -1602,6 +1775,7 @@ function isLandNumExist(page,num){
              },
              cache:false,
              dataType: "json",
+             // async:false,
              // contentType: 'application/json; charset=utf-8',
              success: function(data){
                  if(data.item_name==false){
@@ -1632,6 +1806,7 @@ function getSubbuildingCategory(num){
          },
          cache:false,
          dataType: "json",
+         async:false,
          // contentType: 'application/json; charset=utf-8',
          success: function(data){
              // window.alert(data.item_name);
@@ -1665,6 +1840,7 @@ function getSubbuildingOption(num){
          },
          cache:false,
          dataType: "json",
+         async:false,
          // contentType: 'application/json; charset=utf-8',
          success: function(data){
              // for(var i=0;i<data.item_name.length;i++){
@@ -1697,6 +1873,7 @@ function loadSubbuildingUnit(num){
          },
          cache:false,
          dataType: "json",
+         async:false,
          // contentType: 'application/json; charset=utf-8',
          success: function(data){
              $(unit).html(data.item_name);
@@ -1746,6 +1923,7 @@ function checkOwner(num){
          },
          cache:false,
          dataType: "json",
+         async:false,
          // contentType: 'application/json; charset=utf-8',
          success: function(data){
              if(data.item_name==false){
@@ -1927,6 +2105,7 @@ function getLandOwnerOption(num){
              },
              cache:false,
              dataType: "json",
+             async:false,
              // contentType: 'application/json; charset=utf-8',
              success: function(data){
                  $("#land-owner-list-"+num).html(data.item_name);
@@ -2159,6 +2338,7 @@ function autoCalculateArea(num){
          },
          cache:false,
          dataType: "json",
+         async:false,
          // contentType: 'application/json; charset=utf-8',
          success: function(data){
              // response_json = data;
@@ -2244,6 +2424,7 @@ function getBuildingMaterialOption(column,num){
          },
          cache:false,
          dataType: "json",
+         async:false,
          // contentType: 'application/json; charset=utf-8',
          success: function(data){
              $(item).html(data.item_name);
@@ -2302,6 +2483,7 @@ function checkScriptNo(){
          },
          cache:false,
          dataType: "json",
+         async:false,
          // contentType: 'application/json; charset=utf-8',
          success: function(data){
              if(data.item_name == false){
@@ -2341,8 +2523,7 @@ function checkAddress(){
     // });
 }
 
-function checkSubmit(){
-    // var isContinue = window.confirm("是否確定儲存?");
+function checkSubmit(script_number){
     var floorCount = 0;
 
     if(inputNextPage){
@@ -2359,12 +2540,23 @@ function checkSubmit(){
         }
         $("#floor-count").val(floorCount);
         $("#action").val("continue");
-        // $("#house_form").attr("action","building_continue.php");
         return true;
     }
     else{
-        var isContinue = window.confirm("是否確定儲存?");
+        var page = $("#page").val();
+        checkNextPageData2(page,script_number);
+        if(checkNextPage){
+            var isContinue = window.confirm("下一頁還有建物資料\n若儲存將捨棄後方資料\n是否確定儲存?");
+        }
+        else{
+            var isContinue = window.confirm("是否確定儲存?");
+        }
+        // var isContinue = window.confirm("是否確定儲存?");
         if(isContinue==true){
+            if(checkNextPage){
+                deletePageData2(page,script_number);
+            }
+
             for(var i=0;i<4;i++){
                 if($("#floor-id-"+(i+1)).val() != ""){
                     floorCount++;
@@ -2387,6 +2579,40 @@ function buildingContinue(isContinue){
     else{
         inputNextPage = false;
     }
+    // 儲存粉裝資料到陣列
+    itemId = ["#minus-wall-num-","#minus-wall-option-","#add-wall-num-","#add-wall-option-"];
+    writeToId = ["#minus-wall-count-","#minus-wall-option-","#add-wall-count-","#add-wall-option-"];
+    countId = [this.minus_wall_count,this.add_wall_count];
+
+    decoration_itemId = ["#indoor-divide-numerator-","#indoor-divide-denominator-","#indoor-divide-option-","#outdoor-wall-decoration-numerator-","#outdoor-wall-decoration-denominator-","#outdoor-wall-decoration-option-","#indoor-wall-decoration-numerator-","#indoor-wall-decoration-denominator-","#indoor-wall-decoration-option-","#roof-decoration-numerator-","#roof-decoration-denominator-","#roof-decoration-option-","#floor-decoration-numerator-","#floor-decoration-denominator-",
+    "#floor-decoration-option-","#ceiling-decoration-numerator-","#ceiling-decoration-denominator-","#ceiling-decoration-option-","#toilet-ratio-","#toilet-type-","#toilet-number-"];
+    decoration_writeToId = ["#indoor-divide-numerator-","#indoor-divide-denominator-","#indoor-divide-option-","#outdoor-wall-decoration-numerator-","#outdoor-wall-decoration-denominator-","#outdoor-wall-decoration-option-","#indoor-wall-decoration-numerator-","#indoor-wall-decoration-denominator-","#indoor-wall-decoration-option-","#roof-decoration-numerator-","#roof-decoration-denominator-","#roof-decoration-option-","#floor-decoration-numerator-","#floor-decoration-denominator-",
+    "#floor-decoration-option-","#ceiling-decoration-numerator-","#ceiling-decoration-denominator-","#ceiling-decoration-option-","#toilet-ratio-","#toilet-type-","#toilet-number-"];
+    decoration_countId = [this.indoor_divide_count,this.outdoor_wall_decoration_count,this.indoor_wall_decoration_count,this.roof_decoration_count,this.floor_decoration_count,this.ceiling_decoration_count,this.toilet_equipment_count];
+
+    // 新增室內牆型別
+    $indoor_wall_type = "#indoor-wall-type-";
+    // 新增浴廁產地種類
+    $toilet_product = "#toilet-product-";
+
+    for(var i=0;i<itemId.length;i++){
+        writeDataToOneRow(itemId[i],writeToId[i],countId[Math.floor(i/2)]);
+    }
+
+    //粉裝造作
+    for(var i=0;i<decoration_itemId.length;i++){
+        writeDataToOneRow(decoration_itemId[i],decoration_writeToId[i],decoration_countId[Math.floor(i/3)]);
+    }
+
+    writeDataToOneRow($indoor_wall_type,$indoor_wall_type, this.indoor_wall_decoration_count);
+    writeDataToOneRow($toilet_product,$toilet_product, this.toilet_equipment_count);
+    // 紀錄本頁中有多少筆建物
+    for(var i=0;i<4;i++){
+        if($("#floor-id-"+(i+1)).val() != ""){
+            floorCount++;
+        }
+    }
+    $("#floor-count").val(floorCount);
 }
 
 function checkDate(id){
@@ -2407,15 +2633,27 @@ function corpSubmit(){
     var isContinue = window.confirm("是否確定儲存?");
 
     if(isContinue==true){
-        var shared = document.getElementById("shared");
-
-        if(shared.checked){
-            shared.value = "公同共有";
-        }
-        else{
-            shared.value = "個別持分";
-        }
+        // var shared = document.getElementById("shared");
+        //
+        // if(shared.checked){
+        //     shared.value = "公同共有";
+        // }
+        // else{
+        //     shared.value = "個別持分";
+        // }
+        setShared();
         $("#corp-submit-btn").click();
+    }
+}
+
+function setShared(){
+    var shared = document.getElementById("shared");
+
+    if(shared.checked){
+        shared.value = "公同共有";
+    }
+    else{
+        shared.value = "個別持分";
     }
 }
 
@@ -2450,20 +2688,77 @@ function subBuildingSubmit(){
 }
 
 function subBuildingSkip(){
-    var isContinue = window.confirm("是否確定略過雜項物?");
+    checkSub();
+    if(checkSubbuilding){
+        var isContinue = window.confirm("略過將會刪除已儲存的雜項資料\n是否確定略過?");
+    }
+    else{
+        var isContinue = window.confirm("是否確定略過雜項物?");
+    }
 
     if(isContinue==true){
+        deleteSubbuildingData();
         $("#sub-building-skip-btn").click();
     }
 }
 
+var checkSubbuilding = false;
+function checkSub(){
+    $.ajax({
+         url: "get_building_decoration_option.php",
+         type: "POST",
+         data:{
+            category: "check_subbuilding",
+            script_number: script_number
+         },
+         cache:false,
+         dataType: "json",
+         async:false,
+         // contentType: 'application/json; charset=utf-8',
+         success: function(data){
+             if(data.item_name==true){
+                 checkSubbuilding = true;
+             }
+             else{
+                 checkSubbuilding = false;
+             }
+         },
+         error:function(err){
+             window.alert(err.statusText);
+         }
+    });
+}
+
+function deleteSubbuildingData(){
+    $.ajax({
+         url: "get_building_decoration_option.php",
+         type: "POST",
+         data:{
+            category: "delete_subbuilding",
+            script_number: script_number
+         },
+         cache:false,
+         dataType: "json",
+         async:false,
+         // contentType: 'application/json; charset=utf-8',
+         success: function(data){
+
+         },
+         error:function(err){
+             window.alert(err.statusText);
+         }
+    });
+}
+
 function getCorpUpdateData(script_number,rId){
+    $('div.loading').show();
     $("#script-number").val(rId);
     getCorpLandData(script_number);
     getCorpOwnerData(script_number);
     getCorpLandOwnerData(script_number);
     // getCorpLandData(script_number);
     getCorpData(script_number);
+    $('div.loading').hide();
 }
 
 function getCorpOwnerData(script_number){
@@ -2494,6 +2789,9 @@ function getCorpOwnerData(script_number){
             $("#corp-owner-select-"+(i+1)).val(response_json.name[i]);
             $("#hold-numerator-"+(i+1)).val(response_json.hold_numerator[i]);
             $("#hold-denominator-"+(i+1)).val(response_json.hold_denominator[i]);
+            if(response_json.hold_status[0] == "公同共有"){
+                $("#shared")[0].checked = true;
+            }
             if(response_json.pId[i].substr(0,2) != "NA"){
                 $("input[name='pId-"+(i+1)+"']").val(response_json.pId[i]);
             }
@@ -2787,7 +3085,604 @@ function getCorpType(json,index){
     });
 }
 
+function getBuildingUpdateData(script_number,legal_status,rId,page){
+    $('div.loading').show();
+    if(page<=1){
+        if(legal_status == "建合"){
+            document.getElementById("legal").checked = true;
+        }
+        else if(legal_status == "建非"){
+            document.getElementById("illegal").checked = true;
+        }
+        $("#script-number").val(rId);
+
+        getSurveyDate(script_number);
+        getLandData(script_number);
+        getOwnerData(script_number);
+        getLandOwnerData(script_number);
+        getBuildingData(script_number);
+        getResidentData(script_number);
+    }
+    getMainBuildingData(script_number,page);
+}
+
+function getSurveyDate(script_number){
+    $.ajax({
+         url: "get_building_decoration_option.php",
+         type: "POST",
+         data:{
+            category: 'get_survey_date',
+            script_number: script_number,
+            table: 'record'
+         },
+         cache:false,
+         dataType: "json",
+         async:false,
+         success: function(data){
+             $("#survey-date").val(data.item_name);
+         },
+         error:function(err){
+             window.alert(err.statusText);
+         }
+    });
+}
+
+function getLandData(script_number){
+    var section_data = ["草漯段","塔腳段","新坡段","樹林子段"];
+    var response_json = "";
+
+    $.ajax({
+         url: "get_building_decoration_option.php",
+         type: "POST",
+         data:{
+            category: 'get_land_data',
+            script_number: script_number
+         },
+         cache:false,
+         dataType: "json",
+         async:false,
+         success: function(data){
+             console.log(data.land_section);
+             console.log(data.subsection);
+             console.log(data.land_number);
+             response_json = data;
+             for(var i=0;i<data.land_section.length;i++){
+                 var land_number_text = "";
+                 if(i>0){
+                     addInfoItemOnclick('land-section');
+                 }
+
+                 $("#section-"+(i+1)).val(data.land_section[i]);
+                 if(data.subsection[i] != ""){
+                     $("#sub_section-"+(i+1)).val(data.subsection[i]);
+                 }
+                 for(var j=0;j<data.land_number[i].length;j++){
+                     land_number_text += data.land_number[i][j]
+                     if(j != data.land_number[i].length-1){
+                         land_number_text += "、";
+                     }
+                 }
+                 $("#land-num-"+(i+1)).val(land_number_text);
+                 console.log("loadCorpOwnerData() ",i+1);
+                 loadCorpOwnerData('building',i+1);
+             }
+             $("#district").val(data.district[0]);
+             $("#land-use").val(data.land_use[0]);
+         },
+         error:function(err){
+             window.alert(err.statusText);
+         }
+    });
+}
+
+function getOwnerData(script_number){
+    $.when($.ajax({
+         url: "get_building_decoration_option.php",
+         type: "POST",
+         data:{
+            category: 'get_owner_data',
+            script_number: script_number
+         },
+         cache:false,
+         dataType: "json",
+         async:false,
+         success: function(data){
+             response_json = data;
+             for(var i=0;i<data.name.length;i++){
+                 if(i>0){
+                     addInfoItemOnclick('owner');
+                 }
+             }
+         },
+         error:function(err){
+             window.alert(err.statusText);
+         }
+    })).then(function(){
+        for(var i=0;i<response_json.name.length;i++){
+            $("input[name='owner-"+(i+1)+"']").val(response_json.name[i]);
+            $("#owner-select-"+(i+1)).val(response_json.name[i]);
+            $("#hold-numerator-"+(i+1)).val(response_json.hold_numerator[i]);
+            $("#hold-denominator-"+(i+1)).val(response_json.hold_denominator[i]);
+            if(response_json.hold_status[0] == "公同共有"){
+                $("#shared")[0].checked = true;
+            }
+            if(response_json.pId[i].substr(0,2) != "NA"){
+                $("input[name='pId-"+(i+1)+"']").val(response_json.pId[i]);
+            }
+            $("input[name='telephone-"+(i+1)+"']").val(response_json.telephone[i]);
+            $("input[name='cellphone-"+(i+1)+"']").val(response_json.cellphone[i]);
+            $("#addressText-"+(i+1)).val(response_json.current_address[i]);
+        }
+    });
+}
+
+function getLandOwnerData(script_number){
+    $.ajax({
+         url: "get_building_decoration_option.php",
+         type: "POST",
+         data:{
+            category: 'get_land_owner_data',
+            script_number: script_number
+         },
+         cache:false,
+         dataType: "json",
+         async:false,
+         success: function(data){
+             $("input[name='land-owner-1']").val(data.name[0]);
+             $("#land-owner-select-1").val(data.name[0]);
+             $("input[name='hold-id-1']").val(data.hold_id[0]);
+             if(data.pId[0].substr(0,2) != "NA"){
+                 $("input[name='land-pId-1']").val(data.pId[0]);
+             }
+             $("#landAddressText-1").val(data.current_address[0]);
+             $("input[name='land-telephone-1']").val(data.telephone[0]);
+             $("input[name='land-cellphone-1']").val(data.cellphone[0]);
+         },
+         error:function(err){
+             window.alert(err.statusText);
+         }
+    });
+}
+
+function getBuildingData(script_number){
+    $.ajax({
+         url: "get_building_decoration_option.php",
+         type: "POST",
+         data:{
+            category: 'get_building_data',
+            script_number: script_number
+         },
+         cache:false,
+         dataType: "json",
+         async:false,
+         success: function(data){
+             $("#houseAddress").val(data.real_address[0]);
+             if(data.real_address[0].indexOf("無門牌")>=0){
+                 document.getElementById("noneAddress").checked = true;
+             }
+             $("input[name='remove_condition']").val(data.remove_condition);
+             $("input[name='legal_certificate']").val(data.legal_certificate);
+             if(data.build_number != ""){
+                 $("#build-number").val(data.build_number);
+             }
+             $("input[name='build-certificate']").val(data.start_build_certificate);
+             if(data.tax_number != ""){
+                 $("#tax_number").val(data.tax_number);
+             }
+             $("#exit-num").val(data.exit_number);
+         },
+         error:function(err){
+             window.alert(err.statusText);
+         }
+    });
+}
+
+function getResidentData(script_number){
+    $.ajax({
+         url: "get_building_decoration_option.php",
+         type: "POST",
+         data:{
+            category: 'get_resident_data',
+            script_number: script_number
+         },
+         cache:false,
+         dataType: "json",
+         async:false,
+         success: function(data){
+             for(var i=0;i<data.captain_name.length;i++){
+                 if(i>0){
+                     addInfoItemOnclick('captain');
+                 }
+                 $("input[name='captain-"+(i+1)+"']").val(data.captain_name[i]);
+                 $("input[name='captain-id-"+(i+1)+"']").val(data.captain_id[i]);
+                 $("input[name='household-number-"+(i+1)+"']").val(data.household_number[i]);
+                 $("#household-date-"+(i+1)).val(data.set_household_date[i]);
+                 $("select[name='family-num-"+(i+1)+"']").val(data.family_num[i]);
+             }
+         },
+         error:function(err){
+             window.alert(err.statusText);
+         }
+    });
+}
+
+function getMainBuildingData(script_number,page){
+    // $('div.loading').show();
+    $.ajax({
+         url: "get_building_decoration_option.php",
+         type: "POST",
+         data:{
+            category: 'get_main_building_data',
+            script_number: script_number,
+            page: page
+         },
+         cache:false,
+         dataType: "json",
+         async:false,
+         success: function(data){
+             for(var i=0;i<data.fId.length;i++){
+                 var house_type = ["獨立戶","連棟式邊戶","連棟式中間戶"];
+                 var house_usage = ["住宅","店鋪","工廠","庫房","其他"];
+                 var id = ["house-type-","house-type-edge-","house-type-mid-"];
+                 var usage_id = ["house-usage-","house-usage-store-","house-usage-fab-","house-usage-warehouse-","house-usage-other-"];
+                 var isOtherUsage = true;
+                 for(var j=0;j<house_type.length;j++){
+                     if(house_type[j] == data.building_type[i]){
+                         $("#"+id[j]+(i+1))[0].checked = true;
+                     }
+                 }
+                 var floor_id = data.fId[i].split("-");
+                 var fid = "";
+                 for(var j=2;j<floor_id.length;j++){
+                     fid += floor_id[j];
+                     if(j != floor_id.length-1){
+                         fid += "-";
+                     }
+                 }
+                 // $("#floor-id-"+(i+1)).val(data.fId[i].substr(3,data.fId[i].length));
+                 $("#floor-id-"+(i+1)).val(fid);
+                 if(data.discard_status[i] == "yes"){
+                     $("#discard-status-"+(i+1))[0].checked = true;
+                 }
+                 else{
+                     $("#discard-status-no-"+(i+1))[0].checked = true;
+                 }
+
+                 if(data.compensate_form[i] == "主建物"){
+                     $("#pay-form-"+(i+1))[0].checked = true;
+                 }
+                 else{
+                     $("#pay-form-fix-"+(i+1))[0].checked = true;
+                 }
+
+                 for(var j=0;j<house_usage.length;j++){
+                     if(house_usage[j] == data.use_type[i]){
+                         isOtherUsage = false;
+                         $("#"+usage_id[j]+(i+1))[0].checked = true;
+                     }
+                 }
+                 if(isOtherUsage){
+                     $("#"+usage_id[4]+(i+1))[0].checked = true;
+                     $("#other-house-usage-"+(i+1)).val(data.use_type[i]);
+                 }
+
+                 $("#building-material-"+(i+1)).val(data.structure[i]);
+                 console.log("構造: "+data.structure[i]);
+                 load_floor_type_data(i+1);
+                 $("#floor-type-"+(i+1)).val(data.floor_type[i]);
+                 $("#nth-floor-"+(i+1)).val(data.nth_floor[i]);
+                 $("#total-floor-"+(i+1)).val(data.total_floor[i]);
+                 $("#floor-area-"+(i+1)).val(data.floor_area_calculate_text[i]);
+                 $("input[name='layer-height-"+(i+1)+"']").val(data.layer_height[i]);
+                 console.log("PAGE: "+((page-1)*4+(i+1)));
+                 getDecorationData(script_number,"加減牆",((page-1)*4+(i+1)),page);
+                 getDecorationData(script_number,"室內隔牆構造",((page-1)*4+(i+1)),page);
+                 getDecorationData(script_number,"屋外牆粉裝",((page-1)*4+(i+1)),page);
+                 getDecorationData(script_number,"室內牆粉裝",((page-1)*4+(i+1)),page);
+                 getDecorationData(script_number,"屋頂(面)粉裝",((page-1)*4+(i+1)),page);
+                 getDecorationData(script_number,"樓地板粉裝",((page-1)*4+(i+1)),page);
+                 getDecorationData(script_number,"天花板粉裝",((page-1)*4+(i+1)),page);
+                 getDecorationData(script_number,"門窗裝置",((page-1)*4+(i+1)),page);
+                 getDecorationData(script_number,"給水、浴、廁設備",((page-1)*4+(i+1)),page);
+                 getDecorationData(script_number,"電氣設備(包括燈具)",((page-1)*4+(i+1)),page);
+                 getDecorationData(script_number,"其他項目門窗裝置加柵",((page-1)*4+(i+1)),page);
+                 getDecorationData(script_number,"女兒牆",((page-1)*4+(i+1)),page);
+                 getDecorationData(script_number,"陽台",((page-1)*4+(i+1)),page);
+             }
+         },
+         error:function(err){
+             window.alert(err.statusText);
+         }
+    });
+    $('div.loading').hide();
+}
+
+function getDecorationData(script_number,category,f_order,page){
+    console.log("T: "+category);
+    $.ajax({
+         url: "get_building_decoration_option.php",
+         type: "POST",
+         data:{
+            category: 'get_building_decoration_data',
+            script_number: script_number,
+            decoration_type: category,
+            f_order: f_order,
+         },
+         cache:false,
+         dataType: "json",
+         async:false,
+         success: function(data){
+             switch (category) {
+                 case "加減牆":
+                    var minus_count = 0;
+                    var add_count = 0;
+                    for(var i=0;i<data.item_name.length;i++){
+                        if(data.item_type[i] == "減牆"){
+                            minus_count++;
+                            console.log(data.item_type[i]);
+                            console.log(data.item_name[i]);
+                            console.log("order : "+((f_order-1)%4+1)+"-"+minus_count);
+                            if(minus_count>1){
+                                addItemOnclick('minus-wall-',((f_order-1)%4+1),minus_count-1);
+                            }
+                            $("#minus-wall-num-"+((f_order-1)%4+1)+"-"+minus_count).val(data.ratio[i]);
+                            $("#minus-wall-option-"+((f_order-1)%4+1)+"-"+minus_count).val(data.item_name[i]);
+                        }
+                        else if(data.item_type[i] == "加牆"){
+                            add_count++;
+                            console.log(data.item_type[i]);
+                            console.log(data.item_name[i]);
+                            console.log("order : "+((f_order-1)%4+1)+"-"+add_count);
+                            if(add_count>1){
+                                addItemOnclick('add-wall-',((f_order-1)%4+1),add_count-1);
+                            }
+                            $("#add-wall-num-"+((f_order-1)%4+1)+"-"+add_count).val(data.ratio[i]);
+                            $("#add-wall-option-"+((f_order-1)%4+1)+"-"+add_count).val(data.item_name[i]);
+                        }
+                    }
+                    break;
+                case "室內隔牆構造":
+                    var count = 0;
+                    for(var i=0;i<data.item_name.length;i++){
+                        count++;
+                        // console.log(data.item_type[i]);
+                        console.log(data.item_name[i]);
+                        console.log("order : "+((f_order-1)%4+1)+"-"+count);
+                        if(count>1){
+                            addItemOnclick('indoor-divide-',((f_order-1)%4+1),count-1);
+                        }
+                        $("#indoor-divide-numerator-"+((f_order-1)%4+1)+"-"+count).val(data.numerator[i]);
+                        $("#indoor-divide-denominator-"+((f_order-1)%4+1)+"-"+count).val(data.denominator[i]);
+                        $("#indoor-divide-option-"+((f_order-1)%4+1)+"-"+count).val(data.item_name[i]);
+                    }
+                    break;
+                case "屋外牆粉裝":
+                    var count = 0;
+                    for(var i=0;i<data.item_name.length;i++){
+                        count++;
+                        // console.log(data.item_type[i]);
+                        console.log(data.item_name[i]);
+                        console.log("order : "+((f_order-1)%4+1)+"-"+count);
+                        if(count>1){
+                            addItemOnclick('outdoor-wall-decoration-',((f_order-1)%4+1),count-1);
+                        }
+                        $("#outdoor-wall-decoration-numerator-"+((f_order-1)%4+1)+"-"+count).val(data.numerator[i]);
+                        $("#outdoor-wall-decoration-denominator-"+((f_order-1)%4+1)+"-"+count).val(data.denominator[i]);
+                        $("#outdoor-wall-decoration-option-"+((f_order-1)%4+1)+"-"+count).val(data.item_name[i]);
+                    }
+                    break;
+                case "室內牆粉裝":
+                    var count = 0;
+                    for(var i=0;i<data.item_name.length;i++){
+                        count++;
+                        // console.log(data.item_type[i]);
+                        console.log(data.item_name[i]);
+                        console.log("order : "+((f_order-1)%4+1)+"-"+count);
+                        if(count>1){
+                            addItemOnclick('indoor-wall-decoration-',((f_order-1)%4+1),count-1);
+                        }
+                        $("#indoor-wall-decoration-numerator-"+((f_order-1)%4+1)+"-"+count).val(data.numerator[i]);
+                        $("#indoor-wall-decoration-denominator-"+((f_order-1)%4+1)+"-"+count).val(data.denominator[i]);
+                        $("#indoor-wall-decoration-option-"+((f_order-1)%4+1)+"-"+count).val(data.item_name[i]);
+                        $("#indoor-wall-type-"+((f_order-1)%4+1)+"-"+count).val(data.item_type[i]);
+                    }
+                    break;
+                case "屋頂(面)粉裝":
+                    var count = 0;
+                    for(var i=0;i<data.item_name.length;i++){
+                        count++;
+                        // console.log(data.item_type[i]);
+                        console.log(data.item_name[i]);
+                        console.log("order : "+((f_order-1)%4+1)+"-"+count);
+                        if(count>1){
+                            addItemOnclick('roof-decoration-',((f_order-1)%4+1),count-1);
+                        }
+                        $("#roof-decoration-numerator-"+((f_order-1)%4+1)+"-"+count).val(data.numerator[i]);
+                        $("#roof-decoration-denominator-"+((f_order-1)%4+1)+"-"+count).val(data.denominator[i]);
+                        $("#roof-decoration-option-"+((f_order-1)%4+1)+"-"+count).val(data.item_name[i]);
+                    }
+                    break;
+                case "樓地板粉裝":
+                    var count = 0;
+                    for(var i=0;i<data.item_name.length;i++){
+                        count++;
+                        // console.log(data.item_type[i]);
+                        console.log(data.item_name[i]);
+                        console.log("order : "+((f_order-1)%4+1)+"-"+count);
+                        if(count>1){
+                            addItemOnclick('floor-decoration-',((f_order-1)%4+1),count-1);
+                        }
+                        $("#floor-decoration-numerator-"+((f_order-1)%4+1)+"-"+count).val(data.numerator[i]);
+                        $("#floor-decoration-denominator-"+((f_order-1)%4+1)+"-"+count).val(data.denominator[i]);
+                        $("#floor-decoration-option-"+((f_order-1)%4+1)+"-"+count).val(data.item_name[i]);
+                    }
+                    break;
+                case "天花板粉裝":
+                    var count = 0;
+                    for(var i=0;i<data.item_name.length;i++){
+                        count++;
+                        // console.log(data.item_type[i]);
+                        console.log(data.item_name[i]);
+                        console.log("order : "+((f_order-1)%4+1)+"-"+count);
+                        if(count>1){
+                            addItemOnclick('ceiling-decoration-',((f_order-1)%4+1),count-1);
+                        }
+                        $("#ceiling-decoration-numerator-"+((f_order-1)%4+1)+"-"+count).val(data.numerator[i]);
+                        $("#ceiling-decoration-denominator-"+((f_order-1)%4+1)+"-"+count).val(data.denominator[i]);
+                        $("#ceiling-decoration-option-"+((f_order-1)%4+1)+"-"+count).val(data.item_name[i]);
+                    }
+                    break;
+                case "門窗裝置":
+                    var index = 0;
+                    var id = ["first-door-","first-window-","second-door-","second-window-"];
+                    for(var i=0;i<data.item_name.length;i++){
+                        console.log(data.item_name[i]);
+                        while(data.ratio[i]>0 && index<4){
+                            $("select[name='"+id[index]+((f_order-1)%4+1)+"']").val(data.item_name[i]);
+                            data.ratio[i] -= 0.5;
+                            index++;
+                        }
+                    }
+                    break;
+                case "給水、浴、廁設備":
+                    var count = 0;
+                    for(var i=0;i<data.item_name.length;i++){
+                        count++;
+                        // console.log(data.item_type[i]);
+                        console.log(data.item_name[i]);
+                        console.log("order : "+((f_order-1)%4+1)+"-"+count);
+                        if(count>1){
+                            addItemOnclick('toilet-equipment-',((f_order-1)%4+1),count-1);
+                        }
+                        $("#toilet-ratio-"+((f_order-1)%4+1)+"-"+count).val(data.ratio[i]);
+                        $("#toilet-type-"+((f_order-1)%4+1)+"-"+count).val(data.item_name[i]);
+                        load_toilet_data(((f_order-1)%4+1),count);
+                        $("#toilet-product-"+((f_order-1)%4+1)+"-"+count).val(data.item_type[i]);
+                        $("#toilet-number-"+((f_order-1)%4+1)+"-"+count).val(data.area[i]);
+                    }
+                    break;
+                case "電氣設備(包括燈具)":
+                    var count = 0;
+                    for(var i=0;i<data.item_name.length;i++){
+                        count++;
+                        // console.log(data.item_type[i]);
+                        console.log(data.item_name[i]);
+                        console.log("order : "+((f_order-1)%4+1)+"-"+count);
+                        $("#electric-usage-"+((f_order-1)%4+1)).val(data.item_type[i]);
+                        load_electric_data(((f_order-1)%4+1));
+                        $("#electric-type-"+((f_order-1)%4+1)).val(data.item_name[i]);
+                    }
+                    break;
+                case "其他項目門窗裝置加柵":
+                    var count = 0;
+                    var window_level = ["普通型","美術型","豪華型"];
+                    var id = ["normal-window-level","art-window-level","luxury-window-level"];
+                    for(var i=0;i<data.item_name.length;i++){
+                        count++;
+                        // console.log(data.item_type[i]);
+                        console.log(data.item_name[i]);
+                        console.log("order : "+((f_order-1)%4+1)+"-"+count);
+                        for(var j=0;j<window_level.length;j++){
+                            if(window_level[j] == data.item_name[i]){
+                                $("#"+id[j]+"-"+((f_order-1)%4+1))[0].checked = true;
+                                setWindowLevel(id[j],((f_order-1)%4+1));
+                            }
+                        }
+                    }
+                    break;
+                case "女兒牆":
+                    var count = 0;
+                    var type = ["前","後","左","右"];
+                    var type2 = ["front","behind","left","right"];
+
+                    var daughter_wall = ["RC","1B","1/2B"];
+                    var id = ["RC","1B","half_B"];
+                    for(var i=0;i<data.item_name.length;i++){
+                        count++;
+                        // console.log(data.item_type[i]);
+                        console.log(data.item_name[i]);
+                        console.log("order : "+((f_order-1)%4+1)+"-"+count);
+                        for(var j=0;j<type.length;j++){
+                            if(type[j] == data.item_type[i]){
+                                for(var k=0;k<daughter_wall.length;k++){
+                                    if(daughter_wall[k] == data.item_name[i]){
+                                        $("#"+id[k]+"-"+type2[j]+"-"+((f_order-1)%4+1))[0].checked = true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    break;
+                case "陽台":
+                    var count = 0;
+                    var balcony = ["前","後","左","右"];
+                    var id = ["front-balcony","behind-balcony","left-balcony","right-balcony"];
+                    for(var i=0;i<data.item_name.length;i++){
+                        count++;
+                        // console.log(data.item_type[i]);
+                        console.log(data.item_name[i]);
+                        console.log("order : "+((f_order-1)%4+1)+"-"+count);
+                        for(var j=0;j<balcony.length;j++){
+                            if(balcony[j] == data.item_type[i]){
+                                $("#"+id[j]+"-"+((f_order-1)%4+1))[0].checked = true;
+                            }
+                        }
+                    }
+                    break;
+             }
+         },
+         error:function(err){
+             window.alert(err.statusText);
+         }
+    });
+}
+
+function getSubBuildingUpdateData(address){
+    script_number = address;
+    $.ajax({
+         url: "get_building_decoration_option.php",
+         type: "POST",
+         data:{
+            category: 'get_subbuilding_data',
+            address: address
+         },
+         cache:false,
+         dataType: "json",
+         async:false,
+         success: function(data){
+             for(var i=0;i<data.item_name.length;i++){
+                 console.log(data.item_name[i]);
+                 console.log(data.auto_remove[i]);
+                 if(i>0){
+                     addInfoItemOnclick('other-item');
+                 }
+                 getSubbuildingCategory(i+1);
+                 this.onclick=null;
+                 $("#other-item-category-"+(i+1)).val(data.application[i]);
+                 getSubbuildingOption(i+1);
+                 $("#other-item-option-"+(i+1)).val(data.item_name[i]);
+                 loadSubbuildingUnit(i+1);
+                 $("#other-item-type-"+(i+1)).val(data.item_type[i]);
+                 $("input[name='calArea-"+(i+1)+"']").val(data.area_calculate_text[i]);
+                 $("#unit-option-"+(i+1)).val(data.unit[i]);
+                 if(data.auto_remove[i] == "是"){
+                     $("#auto-remove-yes-"+(i+1))[0].checked = true;
+                 }
+                 else{
+                     $("#auto-remove-no-"+(i+1))[0].checked = true;
+                 }
+             }
+             $('div.loading').hide();
+         },
+         error:function(err){
+             $('div.loading').hide();
+             window.alert(err.statusText);
+         }
+    });
+}
+
 $(document).ready(function(){
+    $('div.loading').hide();
     getOwnerCount();
     getLandOwnerCount();
     getCaptainCount();

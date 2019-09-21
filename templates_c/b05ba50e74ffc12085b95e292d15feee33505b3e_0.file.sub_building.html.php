@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-09-09 22:41:52
+/* Smarty version 3.1.33, created on 2019-09-18 20:31:21
   from 'C:\wamp64\www\Estate-Evaluate-Project\templates\sub_building.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d7664b0d29724_17421856',
+  'unifunc' => 'content_5d8223995cdb89_62770678',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b05ba50e74ffc12085b95e292d15feee33505b3e' => 
     array (
       0 => 'C:\\wamp64\\www\\Estate-Evaluate-Project\\templates\\sub_building.html',
-      1 => 1568039856,
+      1 => 1568809868,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d7664b0d29724_17421856 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d8223995cdb89_62770678 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head>
@@ -29,6 +29,7 @@ function content_5d7664b0d29724_17421856 (Smarty_Internal_Template $_smarty_tpl)
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> -->
         <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/loading.css">
         <?php echo '<script'; ?>
  type="text/javascript" src="js/jquery-3.4.1.min.js"><?php echo '</script'; ?>
 >
@@ -91,7 +92,7 @@ function content_5d7664b0d29724_17421856 (Smarty_Internal_Template $_smarty_tpl)
                         <td>
                             <div id="auto-remove">
                                 <div id="auto-remove-1" style="height:22px;">
-                                    <input type="radio" name="auto-remove-1" value="是">是<input type="radio" name="auto-remove-1" value="否" required>否
+                                    <input type="radio" id="auto-remove-yes-1" name="auto-remove-1" value="是">是<input type="radio" id="auto-remove-no-1" name="auto-remove-1" value="否" required>否
                                 </div>
                             </div>
                         </td>
@@ -114,6 +115,10 @@ function content_5d7664b0d29724_17421856 (Smarty_Internal_Template $_smarty_tpl)
             </form>
             <button onclick="subBuildingSubmit()">儲存</button>
             <button onclick="subBuildingSkip()">略過(無雜項物)</button>
+        </div>
+
+        <div class="loading hide">
+            <div class="gif" style="width:500px;height:200px;"></div>
         </div>
     </body>
 </html>
