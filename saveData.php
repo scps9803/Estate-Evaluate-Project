@@ -9,10 +9,16 @@ $smarty = new Smarty;
 $house_address = $_POST['house_address'];
 $script_number = $_POST['script_number'];
 $other_item_count = $_POST['other-item-count'];
+$isFence = false;
 // 儲存雜項物資料
 for($i=0;$i<$other_item_count;$i++){
     $sub_building[$i]["category"] = $_POST['other-item-category-'.($i+1)];
     $sub_building[$i]["item"] = $_POST['other-item-'.($i+1)];
+    if(isset($_POST['fence-paint-'.($i+1)])){
+        $sub_building[$i]["fence_paint"] = $_POST['fence-paint-'.($i+1)];
+        $sub_building[$i]["fence_pillar"] = $_POST['fence-pillar-'.($i+1)];
+        $isFence = true;
+    }
     $sub_building[$i]["item_type"] = $_POST['other-item-type-'.($i+1)];
     $sub_building[$i]["area_calculate_text"] = $_POST['calArea-'.($i+1)];
     $sub_building[$i]["keyin_order"] = $i+1;
@@ -37,6 +43,9 @@ for($i=0;$i<$other_item_count;$i++){
 }
 
 insertSubbuildingData($house_address,$sub_building);
+if($isFence){
+    insertFenceData($house_address,$sub_building);
+}
 
 echo
 '<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>'.

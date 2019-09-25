@@ -3,7 +3,7 @@ function connect_db()
 {
     $servername = "127.0.0.1";
     $username = "root";
-    $password = "860430";
+    $password = "";
     $dbname = "estate_evaluate_project";
     // $servername = "localhost";
     // $username = "dayicom_jimmy7920";
@@ -1278,7 +1278,7 @@ function insertElectricData($fId,$electric_usage,$electric_type){
         // $sql = "SELECT bdId FROM building_decoration WHERE category='電氣設備(包括燈具)' AND item_type='工廠庫房' AND item_name='電泡、普通日光燈露出配線簡單設備'";
         $res = $conn->query($sql);
         if($res->num_rows==0){
-            return;
+            continue;
         }
 
         while($row = $res->fetch_assoc()) {
@@ -1304,7 +1304,7 @@ function insertWindowLevelData($fId,$window_level,$main_building){
         $sql = "SELECT bdId FROM building_decoration WHERE category='其他項目門窗裝置加柵' AND item_name='{$window_level[$i]}' AND building_type='{$main_building[$i]["house_type"]}'";
         $res = $conn->query($sql);
         if($res->num_rows==0){
-            return;
+            continue;
         }
 
         while($row = $res->fetch_assoc()) {
@@ -1597,20 +1597,20 @@ function getLandData($house_address){
 }
 
 function getLandData2($house_address){
-    $conn = connect_db();
+    // $conn = connect_db();
 
-    // $sql = "SELECT * FROM building_locate NATURAL JOIN land WHERE address='{$house_address}'";
-    $sql = "SELECT * FROM building_locate AS a LEFT JOIN land AS b ON a.land_id=b.land_id WHERE address='{$house_address}'";
-    $res = $conn->query($sql);
+    // // $sql = "SELECT * FROM building_locate NATURAL JOIN land WHERE address='{$house_address}'";
+    // $sql = "SELECT * FROM building_locate AS a LEFT JOIN land AS b ON a.land_id=b.land_id WHERE address='{$house_address}'";
+    // $res = $conn->query($sql);
 
-    $i = 0;
-    while($row = $res->fetch_assoc()) {
-        $result[$i] = $row;
-        $i++;
-    }
+    // $i = 0;
+    // while($row = $res->fetch_assoc()) {
+    //     $result[$i] = $row;
+    //     $i++;
+    // }
 
-    $conn->close();
-    // return $result;
+    // $conn->close();
+    // // return $result;
 
     $conn = connect_db();
     $section_array = [];
@@ -1639,7 +1639,7 @@ function getLandData2($house_address){
         }
         else{
             $key = array_search($row["land_section"],$section_array);
-            $land_number_array[$key][count($land_number_array)] = $row["land_number"];
+            $land_number_array[$key][count($land_number_array[$key])] = $row["land_number"];
         }
         $i++;
     }
@@ -1889,6 +1889,61 @@ function insertSubbuildingData($house_address,$sub_building){
 function deleteOldSubbuildingData($house_address){
     $conn = connect_db();
     $sql = "DELETE FROM has_subbuilding WHERE address='{$house_address}'";
+    $conn->query($sql);
+    $conn->close();
+}
+
+function insertFenceData($house_address,$sub_building){
+    deleteOldFenceData($house_address);
+    $conn = connect_db();
+
+    $index = -1;
+    for($i=0;$i<count($sub_building);$i++){
+        $j = -1;
+        $sql = "SELECT sId FROM sub_building WHERE application='圍牆' AND item_name='{$sub_building[$i]["item"]}'";
+        $res = $conn->query($sql);
+        if($res->num_rows==0){
+            continue;
+        }
+        if($sub_building[$i]["fence_paint"] != "" || $sub_building[$i]["fence_pillar"] != ""){
+            $index++;
+            $row = $res->fetch_assoc();
+            $fenceId[$index] = $row["sId"];
+        }
+
+        $sql = "SELECT sId FROM sub_building WHERE application='粉刷' AND item_name='{$sub_building[$i]["fence_paint"]}'";
+        $res = $conn->query($sql);
+        if($res->num_rows!=0){
+            $j++;
+            $row = $res->fetch_assoc();
+            $sId[$index][$j] = $row["sId"];
+        } 
+
+        $sql = "SELECT sId FROM sub_building WHERE application='加強柱' AND item_name='{$sub_building[$i]["fence_pillar"]}'";
+        $res = $conn->query($sql);
+        if($res->num_rows!=0){
+            $j++;
+            $row = $res->fetch_assoc();
+            $sId[$index][$j] = $row["sId"];
+        }
+    }
+
+    for($i=0;$i<count($sId);$i++){
+        for($j=0;$j<count($sId[$i]);$j++){
+            $sql = "INSERT INTO fence VALUES('{$house_address}','{$fenceId[$i]}','{$sId[$i][$j]}')";
+            if ($conn->query($sql) === TRUE){
+                // echo "New record created successfully";
+            }else{
+                echo "Error: " . $sql . "<br>" . $conn->error;
+            }
+        }
+    }
+    $conn->close();
+}
+
+function deleteOldFenceData($house_address){
+    $conn = connect_db();
+    $sql = "DELETE FROM fence WHERE address='{$house_address}'";
     $conn->query($sql);
     $conn->close();
 }
@@ -2888,7 +2943,7 @@ function getSubBuildingUpdateData($house_address){
 function getOldSubbuildingData($address){
     $conn = connect_db();
 
-    $sql = "SELECT application,b.item_name,item_type,area_calculate_text,b.unit,a.auto_remove FROM has_subbuilding AS a JOIN sub_building AS b ON a.sId=b.sId WHERE address='{$address}' ORDER BY keyin_order";
+    $sql = "SELECT b.sId,application,b.item_name,item_type,area_calculate_text,b.unit,a.auto_remove FROM has_subbuilding AS a JOIN sub_building AS b ON a.sId=b.sId WHERE address='{$address}' ORDER BY keyin_order";
     $res = $conn->query($sql);
     if($res->num_rows==0){
         $result["application"][0] = "";
@@ -2897,6 +2952,7 @@ function getOldSubbuildingData($address){
         $result["area_calculate_text"][0] = "";
         $result["unit"][0] = "";
         $result["auto_remove"][0] = "";
+        $result["sId"][0] = "";
     }
 
     $i = 0;
@@ -2907,6 +2963,7 @@ function getOldSubbuildingData($address){
         $result["area_calculate_text"][$i] = $row["area_calculate_text"];
         $result["unit"][$i] = $row["unit"];
         $result["auto_remove"][$i] = $row["auto_remove"];
+        $result["sId"][$i] = $row["sId"];
         $i++;
     }
     $conn->close();
@@ -2935,5 +2992,105 @@ function deleteSubbuildingData($script_number){
     $res = $conn->query($sql);
     $conn->close();
     return "";
+}
+
+function getFenceOption($type){
+    $conn = connect_db();
+
+    $sql = "SELECT * from sub_building WHERE application='{$type}'";
+    $res = $conn->query($sql);
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $fence_option[$i] = $row["item_name"];
+        $i++;
+    }
+
+    $fence_option_text = "<option value=''>請選擇".$type."</option>";
+    for($i=0;$i<count($fence_option);$i++){
+        $fence_option_text = $fence_option_text."<option value='".$fence_option[$i]."'>".$fence_option[$i]."</option>";
+    }
+    $conn->close();
+
+    return $fence_option_text;
+}
+
+function getFenceItemName($data){
+    $conn = connect_db();
+    $item_name = "圍牆：(".$data["item_name"].")";
+
+    $sql = "SELECT * from fence WHERE address='{$data["address"]}' AND sId='{$data["sId"]}'";
+    $res = $conn->query($sql);
+    if($res->num_rows==0){
+        return $item_name;
+    }
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $ssId[$i] = $row["ssId"];
+        $i++;
+    }
+
+    for($i=0;$i<count($ssId);$i++){
+        $sql = "SELECT * FROM sub_building WHERE sId='{$ssId[$i]}'";
+        $res = $conn->query($sql);
+        $row = $res->fetch_assoc();
+        $item_name = $item_name."+(".$row["item_name"].")";
+    }
+    $conn->close();
+    return $item_name;
+}
+
+function getFencePrice($data){
+    $conn = connect_db();
+    $unitprice = $data["unitprice"];
+
+    $sql = "SELECT * from fence WHERE address='{$data["address"]}' AND sId='{$data["sId"]}'";
+    $res = $conn->query($sql);
+    if($res->num_rows==0){
+        return $unitprice;
+    }
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $ssId[$i] = $row["ssId"];
+        $i++;
+    }
+
+    for($i=0;$i<count($ssId);$i++){
+        $sql = "SELECT * FROM sub_building WHERE sId='{$ssId[$i]}'";
+        $res = $conn->query($sql);
+        $row = $res->fetch_assoc();
+        $unitprice += $row["unitprice"];
+    }
+    $conn->close();
+    return $unitprice;
+}
+
+function getFenceData($address,$sId){
+    $conn = connect_db();
+
+    $sql = "SELECT * FROM fence WHERE address='{$address}' AND sId='{$sId}'";
+    $res = $conn->query($sql);
+    if($res->num_rows==0){
+        $result["fence_application"][0] = "";
+        $result["fence_item"][0] = "";
+    }
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $sql = "SELECT * FROM sub_building WHERE sId='{$row["ssId"]}'";
+        $res2 = $conn->query($sql);
+        $j = 0;
+        while($row2 = $res2->fetch_assoc()){
+            $result["fence_application"][$i][$j] = $row2["application"];
+            $result["fence_item"][$i][$j] = $row2["item_name"];
+            $j++;
+        }
+        $i++;
+    }
+    $conn->close();
+
+    return $result;
 }
 ?>

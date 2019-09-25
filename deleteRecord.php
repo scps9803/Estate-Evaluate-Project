@@ -66,6 +66,13 @@ if ($conn->query($sql) === TRUE) {
     echo json_encode(array('status' => "刪除失敗!"));
 }
 
+$sql = "DELETE FROM fence WHERE address='{$address}'";
+if ($conn->query($sql) === TRUE) {
+    // echo "Record deleted successfully";
+} else {
+    echo json_encode(array('status' => "刪除失敗!"));
+}
+
 $sql = "DELETE FROM has_building_decoration WHERE fId LIKE '%{$recordNo}%'";
 if ($conn->query($sql) === TRUE) {
     // echo "Record deleted successfully";

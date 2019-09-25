@@ -1,4 +1,27 @@
-<!DOCTYPE html>
+<?php
+/* Smarty version 3.1.33, created on 2019-09-25 14:30:23
+  from 'C:\xampp\htdocs\Estate-Evaluate-Project\templates\sub_building.html' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '3.1.33',
+  'unifunc' => 'content_5d8b097f6d4b96_49572850',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    '1ee69fed02c406db55532471809a8c320a5d8940' => 
+    array (
+      0 => 'C:\\xampp\\htdocs\\Estate-Evaluate-Project\\templates\\sub_building.html',
+      1 => 1569393022,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+),false)) {
+function content_5d8b097f6d4b96_49572850 (Smarty_Internal_Template $_smarty_tpl) {
+?><!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head>
         <title>線上查估系統</title>
@@ -7,8 +30,12 @@
         <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> -->
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/loading.css">
-        <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
+        <?php echo '<script'; ?>
+ type="text/javascript" src="js/jquery-3.4.1.min.js"><?php echo '</script'; ?>
+>
+        <?php echo '<script'; ?>
+ type="text/javascript" src="js/index.js"><?php echo '</script'; ?>
+>
     </head>
     <body>
         <div class="container" align="center">
@@ -73,14 +100,18 @@
                     </tr>
                 </table>
                 <!-- <input type="button" value="回前一頁" onclick="window.history.back();"> -->
-                <input type="hidden" name="house_address" value="{$house_address}">
-                <input type="hidden" name="script_number" value="{$script_number}">
+                <input type="hidden" name="house_address" value="<?php echo $_smarty_tpl->tpl_vars['house_address']->value;?>
+">
+                <input type="hidden" name="script_number" value="<?php echo $_smarty_tpl->tpl_vars['script_number']->value;?>
+">
                 <input type="submit" id="sub-building-submit-btn" value="儲存" style="display:none;">
             </form><br>
 
             <form class="" action="finish.php" method="post">
-                <input type="hidden" name="house_address" value="{$house_address}">
-                <input type="hidden" name="script_number" value="{$script_number}">
+                <input type="hidden" name="house_address" value="<?php echo $_smarty_tpl->tpl_vars['house_address']->value;?>
+">
+                <input type="hidden" name="script_number" value="<?php echo $_smarty_tpl->tpl_vars['script_number']->value;?>
+">
                 <input type="submit" id="sub-building-skip-btn" value="略過(無雜項物)" style="display:none;">
             </form>
             <button onclick="subBuildingSubmit()">儲存</button>
@@ -92,3 +123,5 @@
         </div>
     </body>
 </html>
+<?php }
+}

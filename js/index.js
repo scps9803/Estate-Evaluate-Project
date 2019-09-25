@@ -623,20 +623,55 @@ function addInfoItemOnclick(id){
             addInfoItemOnclick('auto-remove');
             text =
             '<div id="other-item-'+other_item_count+'">'+
-                '<select class="small-select-menu" id="other-item-category-'+other_item_count+'" name="other-item-category-'+other_item_count+'" onclick="getSubbuildingCategory('+other_item_count+');this.onclick=null;" onchange="getSubbuildingOption('+other_item_count+')" required>'+
+                '<select style="width:150px;" id="other-item-category-'+other_item_count+'" name="other-item-category-'+other_item_count+'" onclick="getSubbuildingCategory('+other_item_count+');this.onclick=null;" onchange="getSubbuildingOption('+other_item_count+')" required>'+
                     '<option value="" style="display:none;">請選擇種類</option>'+
                 '</select>&nbsp;'+
 
-                '<select class="select-menu" id="other-item-option-'+other_item_count+'" name="other-item-'+other_item_count+'" onchange="loadSubbuildingUnit('+other_item_count+')" required>'+
+                '<select style="width:466px;" id="other-item-option-'+other_item_count+'" name="other-item-'+other_item_count+'" onchange="loadSubbuildingUnit('+other_item_count+')" required>'+
                     '<option value="" style="display:none;">請選擇項目</option>'+
                 '</select>&nbsp;'+
 
-                '<select class="small-select-menu" id="other-item-type-'+other_item_count+'" name="other-item-type-'+other_item_count+'" required>'+
+                '<select style="width:150px;" id="other-item-type-'+other_item_count+'" name="other-item-type-'+other_item_count+'" required>'+
                     '<option value="" style="display:none;">請選擇室內外</option>'+
                     '<option value="室內">室內</option>'+
                     '<option value="室外">室外</option>'+
                 '</select>'+
             '</div>';
+            getOtherItemCount();
+            break;
+        
+        case 'fence':
+            other_item_count += 1;
+
+            addInfoItemOnclick('calArea');
+            addInfoItemOnclick('unit');
+            addInfoItemOnclick('auto-remove');
+            text =
+            '<div id="other-item-'+other_item_count+'">'+
+                '<select style="width:150px;" id="other-item-category-'+other_item_count+'" name="other-item-category-'+other_item_count+'" onchange="getSubbuildingOption('+other_item_count+')" required>'+
+                    '<option value="" style="display:none;">請選擇種類</option>'+
+                    '<option value="圍牆">圍牆</option>'+
+                '</select>&nbsp;'+
+
+                '<select style="width:150px;" id="other-item-option-'+other_item_count+'" name="other-item-'+other_item_count+'" onchange="loadSubbuildingUnit('+other_item_count+')" required>'+
+                    '<option value="" style="display:none;">請選擇項目</option>'+
+                '</select>&nbsp;'+
+
+                '<select style="width:150px;" id="fence-paint-'+other_item_count+'" name="fence-paint-'+other_item_count+'" onclick="getFenceOption('+other_item_count+',\'粉刷\');this.onclick=null;" onchange="loadSubbuildingUnit('+other_item_count+')">'+
+                    '<option value="" style="display:none;">請選擇粉刷</option>'+
+                '</select>&nbsp;'+
+
+                '<select style="width:150px;" id="fence-pillar-'+other_item_count+'" name="fence-pillar-'+other_item_count+'" onclick="getFenceOption('+other_item_count+',\'加強柱\');this.onclick=null;" onchange="loadSubbuildingUnit('+other_item_count+')">'+
+                    '<option value="" style="display:none;">請選擇加強柱</option>'+
+                '</select>&nbsp;'+
+
+                '<select style="width:150px;" id="other-item-type-'+other_item_count+'" name="other-item-type-'+other_item_count+'" required>'+
+                    '<option value="" style="display:none;">請選擇室內外</option>'+
+                    '<option value="室內">室內</option>'+
+                    '<option value="室外">室外</option>'+
+                '</select>'+
+            '</div>';
+            itemId = "#other-item";
             getOtherItemCount();
             break;
 
@@ -1858,6 +1893,34 @@ function getSubbuildingOption(num){
     });
 }
 
+function getFenceOption(num,type){
+    console.log("載入 "+type+" "+num);
+    if(type == "粉刷"){
+        var item = "#fence-paint-"+num;
+    }
+    else{
+        var item = "#fence-pillar-"+num;
+    }
+
+    $.ajax({
+         url: "get_building_decoration_option.php",
+         type: "POST",
+         data:{
+            category: 'get_fence_option',
+            type: type
+         },
+         cache:false,
+         dataType: "json",
+         async:false,
+         success: function(data){
+             $(item).html(data.item_name);
+         },
+         error:function(err){
+             window.alert(err.statusText);
+         }
+    });
+}
+
 function loadSubbuildingUnit(num){
     var item = $("#other-item-option-"+num).val();
     var application = $("#other-item-category-"+num).val();
@@ -2953,50 +3016,62 @@ function getCorpData(script_number){
     var category_array = ["短期作物","果樹","茶竹","藥用","椰子","柏木","喬木","灌木","蔓性","整型","草本","其他"];
 
     $.when($.ajax({
-         url: "get_building_decoration_option.php",
-         type: "POST",
-         data:{
+        url: "get_building_decoration_option.php",
+        type: "POST",
+        data:{
             category: 'get_corp_data',
             script_number: script_number
-         },
-         cache:false,
-         dataType: "json",
-         async:false,
-         success: function(data){
-             json = data;
-             for(var i=0;i<data.category.length;i++){
-                 if(i>0){
-                     addInfoItemOnclick('corp-category');
-                 }
+        },
+        cache:false,
+        dataType: "json",
+        async:false,
+        success: function(data){
+            json = data;
+            for(var i=0;i<data.category.length;i++){
+                if(i>0){
+                    addInfoItemOnclick('corp-category');
+                }
+                $("#corp-category-option-"+(i+1)).val(data.category[i]);
+                console.log("select category "+i);
+                load_corp_item_Data(i+1);
+                getCorpItem(data,i);
+                load_corp_type_Data(i+1);
+                getCorpType(data,i);
+                $("input[name='corp-num-"+(i+1)+"']").val(data.num[i]);
+                $("input[name='corp-area-"+(i+1)+"']").val(data.plant_area_text[i]);
+                if(data.equal[i] == "比照"){
+                    document.getElementById("corp-equal-check-"+(i+1)).checked = true;
+                }
+                $("input[name='corp-note-"+(i+1)+"']").val(data.note[i]);
 
-                 for(var j=0;j<category_array.length;j++){
-                     if(data.category[i] == category_array[j]){
-                         // 不alert會有bug
-                         // window.alert(data.category[i]);
-                         // console.log(data.category[i]);
+                //  for(var j=0;j<category_array.length;j++){
+                //      if(data.category[i] == category_array[j]){
+                //          // 不alert會有bug
+                //          // window.alert(data.category[i]);
+                //          // console.log(data.category[i]);
 
-                         if(i==0){
-                             document.getElementById("corp-category-option-"+(i+1)).selectedIndex = j+1;
-                             console.log("select category "+i);
-                         }
-                         else{
-                             document.getElementById("corp-category-option-"+(i+1)).selectedIndex = j;
-                             console.log("select category "+i);
-                         }
-                         load_corp_item_Data(i+1);
-                         getCorpItem(data,i);
-                         getCorpType(data,i);
-                         $("input[name='corp-num-"+(i+1)+"']").val(data.num[i]);
-                         $("input[name='corp-area-"+(i+1)+"']").val(data.plant_area_text[i]);
-                         if(data.equal[i] == "比照"){
-                             document.getElementById("corp-equal-check-"+(i+1)).checked = true;
-                         }
-                         $("input[name='corp-note-"+(i+1)+"']").val(data.note[i]);
-                         break;
-                     }
-                 }
-             }
-         },
+                //          if(i==0){
+                //              document.getElementById("corp-category-option-"+(i+1)).selectedIndex = j+1;
+                //              console.log("select category "+i);
+                //          }
+                //          else{
+                //              document.getElementById("corp-category-option-"+(i+1)).selectedIndex = j;
+                //              console.log("select category "+i);
+                //          }
+                //          load_corp_item_Data(i+1);
+                //          getCorpItem(data,i);
+                //          getCorpType(data,i);
+                //          $("input[name='corp-num-"+(i+1)+"']").val(data.num[i]);
+                //          $("input[name='corp-area-"+(i+1)+"']").val(data.plant_area_text[i]);
+                //          if(data.equal[i] == "比照"){
+                //              document.getElementById("corp-equal-check-"+(i+1)).checked = true;
+                //          }
+                //          $("input[name='corp-note-"+(i+1)+"']").val(data.note[i]);
+                //          break;
+                //      }
+                //  }
+            }
+        },
          error:function(err){
              window.alert(err.statusText);
          }
@@ -3008,44 +3083,37 @@ function getCorpData(script_number){
 function getCorpItem(json,index){
     var response_json = "";
 
-    $.when($.ajax({
-         url: "get_building_decoration_option.php",
-         type: "POST",
-         data:{
-            category: 'get_corp_item',
-            classfication: json.category[index]
-         },
-         cache:false,
-         dataType: "json",
-         async:false,
-         success: function(data){
-             response_json = data;
-             // for(var i=0;i<json.item.length;i++){
-             //     for(var j=0;j<data.item.length;j++){
-             //         if(json.item[i] == data.item[j]){
-             //             document.getElementById("corp-item-option-"+(i+1)).selectedIndex = j;
-             //             window.alert(i+":"+j);
-             //             load_corp_type_Data(i+1);
-             //             break;
-             //         }
-             //     }
-             // }
-         },
-         error:function(err){
-             window.alert(err.statusText);
-         }
-    })).then(function(){
-        for(var i=0;i<json.item.length;i++){
-            for(var j=0;j<response_json.item.length;j++){
-                if(json.item[i] == response_json.item[j]){
-                    document.getElementById("corp-item-option-"+(i+1)).selectedIndex = j;
-                    // window.alert(i+":"+j);
-                    load_corp_type_Data(i+1);
-                    break;
-                }
-            }
-        }
-    });
+    // $.when($.ajax({
+    //      url: "get_building_decoration_option.php",
+    //      type: "POST",
+    //      data:{
+    //         category: 'get_corp_item',
+    //         classfication: json.category[index]
+    //      },
+    //      cache:false,
+    //      dataType: "json",
+    //      async:false,
+    //      success: function(data){
+    //          response_json = data;
+    //      },
+    //      error:function(err){
+    //          window.alert(err.statusText);
+    //      }
+    // })).then(function(){
+    //     for(var i=0;i<json.item.length;i++){
+    //         $("#corp-item-option-"+(i+1)).val(json.item[i]);
+    //         load_corp_type_Data(i+1);
+    //         // for(var j=0;j<response_json.item.length;j++){
+    //         //     if(json.item[i] == response_json.item[j]){
+    //         //         document.getElementById("corp-item-option-"+(i+1)).selectedIndex = j;
+    //         //         // window.alert(i+":"+j);
+    //         //         load_corp_type_Data(i+1);
+    //         //         break;
+    //         //     }
+    //         // }
+    //     }
+    // });
+    $("#corp-item-option-"+(index+1)).val(json.item[index]);
 }
 
 function getCorpType(json,index){
@@ -3638,6 +3706,7 @@ function getDecorationData(script_number,category,f_order,page){
 }
 
 function getSubBuildingUpdateData(address){
+    $('div.loading').show();
     script_number = address;
     $.ajax({
          url: "get_building_decoration_option.php",
@@ -3653,23 +3722,46 @@ function getSubBuildingUpdateData(address){
              for(var i=0;i<data.item_name.length;i++){
                  console.log(data.item_name[i]);
                  console.log(data.auto_remove[i]);
-                 if(i>0){
-                     addInfoItemOnclick('other-item');
+                 if(data.application[i] != "圍牆"){
+                    if(i>0){
+                        addInfoItemOnclick('other-item');
+                    }
+                    getSubbuildingCategory(i+1);
+                    this.onclick=null;
+                    $("#other-item-category-"+(i+1)).val(data.application[i]);
+                    getSubbuildingOption(i+1);
+                    $("#other-item-option-"+(i+1)).val(data.item_name[i]);
+                    loadSubbuildingUnit(i+1);
+                    $("#other-item-type-"+(i+1)).val(data.item_type[i]);
+                    $("input[name='calArea-"+(i+1)+"']").val(data.area_calculate_text[i]);
+                    $("#unit-option-"+(i+1)).val(data.unit[i]);
+                    if(data.auto_remove[i] == "是"){
+                        $("#auto-remove-yes-"+(i+1))[0].checked = true;
+                    }
+                    else{
+                        $("#auto-remove-no-"+(i+1))[0].checked = true;
+                    }
                  }
-                 getSubbuildingCategory(i+1);
-                 this.onclick=null;
-                 $("#other-item-category-"+(i+1)).val(data.application[i]);
-                 getSubbuildingOption(i+1);
-                 $("#other-item-option-"+(i+1)).val(data.item_name[i]);
-                 loadSubbuildingUnit(i+1);
-                 $("#other-item-type-"+(i+1)).val(data.item_type[i]);
-                 $("input[name='calArea-"+(i+1)+"']").val(data.area_calculate_text[i]);
-                 $("#unit-option-"+(i+1)).val(data.unit[i]);
-                 if(data.auto_remove[i] == "是"){
-                     $("#auto-remove-yes-"+(i+1))[0].checked = true;
-                 }
-                 else{
-                     $("#auto-remove-no-"+(i+1))[0].checked = true;
+                 else if(data.application[i] == "圍牆"){
+                    if(i>0){
+                        addInfoItemOnclick('fence');
+                    }
+                    // getSubbuildingCategory(i+1);
+                    // this.onclick=null;
+                    $("#other-item-category-"+(i+1)).val(data.application[i]);
+                    getSubbuildingOption(i+1);
+                    $("#other-item-option-"+(i+1)).val(data.item_name[i]);
+                    loadSubbuildingUnit(i+1);
+                    getFenceData(i+1,address,data.sId[i]);
+                    $("#other-item-type-"+(i+1)).val(data.item_type[i]);
+                    $("input[name='calArea-"+(i+1)+"']").val(data.area_calculate_text[i]);
+                    $("#unit-option-"+(i+1)).val(data.unit[i]);
+                    if(data.auto_remove[i] == "是"){
+                        $("#auto-remove-yes-"+(i+1))[0].checked = true;
+                    }
+                    else{
+                        $("#auto-remove-no-"+(i+1))[0].checked = true;
+                    }
                  }
              }
              $('div.loading').hide();
@@ -3679,6 +3771,42 @@ function getSubBuildingUpdateData(address){
              window.alert(err.statusText);
          }
     });
+}
+
+function getFenceData(num,address,sId){
+    $.ajax({
+        url: "get_building_decoration_option.php",
+        type: "POST",
+        data:{
+           category: 'get_fence_data',
+           address: address,
+           sId: sId
+        },
+        cache:false,
+        dataType: "json",
+        async:false,
+        success: function(data){
+            getFenceOption(num,'粉刷');
+            this.onclick=null;
+            getFenceOption(num,'加強柱');
+            this.onclick=null;
+
+            for(var i=0;i<data.fence_application.length;i++){
+                if(data.fence_application[i] == "粉刷"){
+                    console.log("設定粉刷 "+num);
+                    $("#fence-paint-"+num).val(data.fence_item[i]);
+                }
+                else if(data.fence_application[i] == "加強柱"){
+                    console.log("設定加強柱 "+num);
+                    $("#fence-pillar-"+num).val(data.fence_item[i]);
+                }
+            }
+            console.log(data);
+        },
+        error:function(err){
+            window.alert(err.statusText);
+        }
+   });
 }
 
 $(document).ready(function(){

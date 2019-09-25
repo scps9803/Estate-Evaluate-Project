@@ -117,5 +117,6 @@ $smarty->assign("ceiling_decoration_option",$ceiling_decoration_option);
 $smarty->assign("door_window_option",$door_window_option);
 $smarty->assign("toilet_equipment_option",$toilet_equipment_option);
 $smarty->assign("electric_usage_option",$electric_usage_option);
+$smarty->assign("beforeUpdateNo",$recordNo);
 $smarty->display("index.html");
 ?>

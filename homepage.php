@@ -17,7 +17,7 @@ else{
     $current_page = $_GET["page"];
     $page = ($_GET["page"]-1)*10;
 }
-$sql = "SELECT * FROM record LIMIT {$page},10";
+$sql = "SELECT * FROM record ORDER BY rId LIMIT {$page},10";
 $res = $conn->query($sql);
 
 $index=0;
@@ -76,7 +76,8 @@ $record_count = $res->fetch_assoc();
 // }
 
 // 顯示農作物歷史紀錄
-$sql = "SELECT * FROM corp_record NATURAL JOIN land_belong_to_corp_record ORDER BY keyin_datetime";
+// $sql = "SELECT * FROM corp_record NATURAL JOIN land_belong_to_corp_record ORDER BY keyin_datetime";
+$sql = "SELECT * FROM corp_record ORDER BY keyin_datetime LIMIT {$page},10";
 $res = $conn->query($sql);
 
 $index=0;
@@ -98,11 +99,13 @@ while($row=$res->fetch_assoc()){
 }
 $conn->close();
 
+$page_count = ceil($record_count["record_count"]/10);
 $smarty->assign("record",$record);
-$smarty->assign("page_count",58);
-$smarty->assign("menu_count",ceil(58/20));
+$smarty->assign("page_count",$page_count);
+$smarty->assign("menu_count",ceil($page_count/20));
 $smarty->assign("current_page",ceil($current_page/20));
+$smarty->assign("pageIndex",$current_page);
 // $smarty->assign("page_count",ceil($record_count["record_count"]/10));
-$smarty->assign("corp_record",$corp_record);
+// $smarty->assign("corp_record",$corp_record);
 $smarty->display("homepage.html");
 ?>

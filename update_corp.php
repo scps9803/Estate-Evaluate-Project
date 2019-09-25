@@ -5,7 +5,8 @@ require_once "smarty/libs/Smarty.class.php";
 $smarty = new Smarty;
 
 $recordNo = $_GET["recordNo"];
-$rId = explode("-",$recordNo);
+// $rId = explode("-",$recordNo);
+$rId = substr($recordNo,4,strlen($recordNo)-4);
 
 $corp_category = load_corp_item_Data();
 $corp_category_option = "";
@@ -40,7 +41,7 @@ echo
 '<script>
     $(document).ready(function(){
         $("#title").html("編輯農作物查案");
-        getCorpUpdateData("'.$recordNo.'","'.$rId[1].'");
+        getCorpUpdateData("'.$recordNo.'","'.$rId.'");
     });
 </script>';
 

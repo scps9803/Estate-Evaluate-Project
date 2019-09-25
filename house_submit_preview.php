@@ -18,6 +18,7 @@ else{
 }
 
 // $house_address = $_POST['houseAddress'];
+$beforeUpdateNo = $_POST['beforeUpdateNo'];
 $script_number = $_POST['legal-status']."-".$_POST['script-number'];
 $house_address = $script_number;
 $real_address = $_POST['houseAddress'];
@@ -1220,16 +1221,16 @@ if($owner_count<=1){
 // $smarty->display("house_submit_preview.html");
 
 // 儲存基本資料
-deleteResidentData($house_address);
-deleteOwnBuildingData($house_address);
-deleteOwnLandData($house_address);
-deleteOwnerData($house_address);
-deleteHasBuildingDecorationData($script_number,$page);
-deleteFloorInfoData($house_address,$page);
-deleteBuildingLocateData($house_address);
-deleteFileData($house_address);
-deleteRecordData($house_address);
-deleteBuildingData($house_address);
+deleteResidentData($beforeUpdateNo);
+deleteOwnBuildingData($beforeUpdateNo);
+deleteOwnLandData($beforeUpdateNo);
+deleteOwnerData($beforeUpdateNo);
+deleteHasBuildingDecorationData($beforeUpdateNo,$page);
+deleteFloorInfoData($beforeUpdateNo,$page);
+deleteBuildingLocateData($beforeUpdateNo);
+deleteFileData($beforeUpdateNo);
+deleteRecordData($beforeUpdateNo);
+deleteBuildingData($beforeUpdateNo);
 
 insertBuildingData($house_address,$real_address,$legal_status,$build_number,$tax_number,
     $legal_certificate,$build_certificate,$captain_count,$exit_num,

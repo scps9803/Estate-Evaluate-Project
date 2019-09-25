@@ -330,7 +330,8 @@ switch ($category) {
         'item_type' => $result_option["item_type"],
         'area_calculate_text' => $result_option["area_calculate_text"],
         'unit' => $result_option["unit"],
-        'auto_remove' => $result_option["auto_remove"]));
+        'auto_remove' => $result_option["auto_remove"],
+        'sId' => $result_option["sId"]));
         return;
 
     case 'check_subbuilding':
@@ -342,6 +343,20 @@ switch ($category) {
         $script_number = $_POST['script_number'];
         $result_option = deleteSubbuildingData($script_number);
         break;
+    
+    case 'get_fence_option':
+        $type = $_POST['type'];
+        $result_option = getFenceOption($type);
+        break;
+    
+    case 'get_fence_data':
+        $address = $_POST['address'];
+        $sId = $_POST['sId'];
+        $result_option = getFenceData($address,$sId);
+
+        echo json_encode(array('fence_application' => $result_option["fence_application"],
+        'fence_item' => $result_option["fence_item"]));
+        return;
 }
 // $item_type = $_POST['item_type'];
 //
