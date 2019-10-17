@@ -448,6 +448,7 @@ function addInfoItemOnclick(id){
             $(itemId).append(text);
             loadOwnerData("owner",owner_count);
             getOwnerCount();
+            checkRatioInput('hold-numerator-'+owner_count);
             break;
 
         case 'land-owner':
@@ -1945,6 +1946,8 @@ function loadSubbuildingUnit(num){
              window.alert(err.statusText);
          }
     });
+
+    loadAutoRemove(num);
 }
 
 function checkAreaCalText(num){
@@ -2182,9 +2185,23 @@ function getLandOwnerOption(num){
 
 function checkRatioInput(id){
     var item = "#"+id;
+    var total_ratio = 0;
+    var num = id.substr(id.length-1,1);
     if($(item).val() == "0"){
         window.alert("分子或分母不能為0!");
         $(item).val("");
+    }
+
+    if($("#hold-numerator-"+num).val() != "" && $("#hold-denominator-"+num).val() != ""){
+        for(var i=1;i<=owner_count;i++){
+            var ratio = $("#hold-numerator-"+i).val() / $("#hold-denominator-"+i).val();
+            total_ratio += ratio;
+        }
+    }
+    if(!$("#shared")[0].checked){
+        if(total_ratio>1){
+            window.alert("所有權人輸入比例大於1! 請注意!\n若為公同共有請先勾選下方選項!");
+        }
     }
 }
 
@@ -3675,6 +3692,7 @@ function getDecorationData(script_number,category,f_order,page){
                                 for(var k=0;k<daughter_wall.length;k++){
                                     if(daughter_wall[k] == data.item_name[i]){
                                         $("#"+id[k]+"-"+type2[j]+"-"+((f_order-1)%4+1))[0].checked = true;
+                                        setDaughterWall(id[k]+"-"+type2[j],(f_order-1)%4+1,type2[j]);
                                     }
                                 }
                             }
@@ -3802,6 +3820,36 @@ function getFenceData(num,address,sId){
                 }
             }
             console.log(data);
+        },
+        error:function(err){
+            window.alert(err.statusText);
+        }
+   });
+}
+
+function loadAutoRemove(num){
+    console.log("loadAutoRemove");
+    var application = $("#other-item-category-"+num).val();
+    var item_name = $("#other-item-option-"+num).val();
+    
+    $.ajax({
+        url: "get_building_decoration_option.php",
+        type: "POST",
+        data:{
+           category: 'get_auto_remove',
+           application: application,
+           item_name: item_name
+        },
+        cache:false,
+        dataType: "json",
+        async:false,
+        success: function(data){
+            if(data.item_name == "是"){
+                $("#auto-remove-yes-"+num)[0].checked = true;
+            }
+            else if(data.item_name == "否"){
+                $("#auto-remove-no-"+num)[0].checked = true;
+            }
         },
         error:function(err){
             window.alert(err.statusText);

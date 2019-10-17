@@ -323,7 +323,11 @@ function insertBuildingData($house_address,$real_address,$legal_status,$build_nu
         $conn = connect_db();
         $sql = "INSERT INTO building VALUES('{$house_address}','{$real_address}','{$legal_status}','{$build_number}',
             '{$tax_number}','{$legal_certificate}','{$build_certificate}','{$captain_count}',
-            '{$exit_num}','{$total_floor}','{$remove_condition}')";
+            '{$exit_num}','{$total_floor}','{$remove_condition}') ON DUPLICATE KEY UPDATE address='{$house_address}',
+            real_address='{$real_address}',legal_status='{$legal_status}',build_number='{$build_number}',
+            tax_number='{$tax_number}',legal_certificate='{$legal_certificate}',start_build_certificate='{$build_certificate}',
+            household_count='{$captain_count}',exit_number='{$exit_num}',layer_number='{$total_floor}',
+            remove_condition='{$remove_condition}'";
 
         if ($conn->query($sql) === TRUE){
             // echo "New record created successfully";
@@ -1777,7 +1781,7 @@ function checkLandNumisExist($section,$subsection,$land_number){
 function getSubbuildingCategory(){
     $conn = connect_db();
 
-    $sql = "SELECT DISTINCT application FROM sub_building";
+    $sql = "SELECT DISTINCT application FROM sub_building WHERE application!='圍牆' AND application!='粉刷' AND application!='加強柱' AND application!='其他'";
     $res = $conn->query($sql);
     if($res->num_rows==0){
         return "";
@@ -1859,6 +1863,26 @@ function getSubbuildingUnit($application,$item_name){
     }
 
     return $sub_building_unit;
+}
+
+function getAutoRemove($application,$item_name){
+    $conn = connect_db();
+
+    $sql = "SELECT * FROM sub_building WHERE application='{$application}' AND item_name='{$item_name}'";
+    $res = $conn->query($sql);
+    if($res->num_rows==0){
+        return "";
+    }
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $auto_remove[$i] = $row["auto_remove"];
+        $i++;
+    }
+
+    $conn->close();
+
+    return $auto_remove;
 }
 
 function insertSubbuildingData($house_address,$sub_building){
@@ -1952,7 +1976,7 @@ function getSubbuildingData($house_address,$item_type){
     $conn = connect_db();
 
     // $sql = "SELECT * FROM has_subbuilding as a LEFT JOIN sub_building as b on a.sId=b.sId WHERE address='{$house_address}' AND item_type='{$item_type}'";
-    $sql = "SELECT address,a.sId,application,item_name,unitprice,unit,item_type,area_calculate_text,area,a.auto_remove,keyin_order
+    $sql = "SELECT address,a.sId,application,item_name,unitprice,unit,item_type,area_calculate_text,area,a.auto_remove,note,keyin_order
         FROM has_subbuilding as a LEFT JOIN sub_building as b on a.sId=b.sId WHERE address='{$house_address}' AND item_type='{$item_type}' ORDER BY keyin_order";
     $res = $conn->query($sql);
     if($res->num_rows==0) return null;
@@ -2254,20 +2278,22 @@ function insertNewDoorWindowData($fId,$resultArray,$resultRatio,$resultNumerator
     for($i=0;$i<count($fId);$i++){
         $index = 0;
         for($j=0;$j<count($resultArray[$i]);$j++){
-            $sql = "SELECT bdId FROM building_decoration WHERE category='門窗裝置' AND item_name='{$resultArray[$i][$j]}' AND building_type='{$main_building[$i]["house_type"]}'";
-            $res = $conn->query($sql);
-            while($row = $res->fetch_assoc()) {
-                $bdId = $row["bdId"];
-                $result[$i][$index] = $row["bdId"];;
-                $index++;
-            }
+            if($resultArray[$i][$j] != ""){
+                $sql = "SELECT bdId FROM building_decoration WHERE category='門窗裝置' AND item_name='{$resultArray[$i][$j]}' AND building_type='{$main_building[$i]["house_type"]}'";
+                $res = $conn->query($sql);
+                while($row = $res->fetch_assoc()) {
+                    $bdId = $row["bdId"];
+                    $result[$i][$index] = $row["bdId"];;
+                    $index++;
+                }
 
-            $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId}',NULL,'{$resultRatio[$i][$j]}','{$resultNumerator[$i][$j]}','{$resultDenominator[$i][$j]}')";
+                $sql = "INSERT INTO has_building_decoration VALUES('{$fId[$i]}','{$bdId}',NULL,'{$resultRatio[$i][$j]}','{$resultNumerator[$i][$j]}','{$resultDenominator[$i][$j]}')";
 
-            if ($conn->query($sql) === TRUE){
-                // echo "New record created successfully";
-            }else{
-                echo "Error: " . $sql . "<br>" . $conn->error;
+                if ($conn->query($sql) === TRUE){
+                    // echo "New record created successfully";
+                }else{
+                    echo "Error: " . $sql . "<br>" . $conn->error;
+                }
             }
         }
     }
@@ -2733,6 +2759,7 @@ function getCorpData2($script_number){
         $corp["plant_area_text"][$i] = $row["plant_area_text"];
         $corp["equal"][$i] = $row["equal"];
         $corp["note"][$i] = $row["note"];
+        $corp["unit_price"][$i] = $row["unit_price"];
 
         if($row["corp_age"]!=NULL){
             $corp["corp_type"][$i] = $row["corp_age"];
@@ -2886,7 +2913,15 @@ function deleteRecordData($house_address){
 function deleteBuildingData($house_address){
     $conn = connect_db();
     $sql = "DELETE FROM building WHERE address='{$house_address}'";
-    $res = $conn->query($sql);
+    // $res = $conn->query($sql);
+    if ($conn->query($sql) === TRUE){
+        // echo "New record created successfully";
+    }else{
+        echo "Error: " . $sql . "<br>" . $conn->error;
+        // $sql = "SELECT * FROM building WHERE address='{$house_address}'";
+        // $res = $conn->query($sql);
+        // echo "<br>筆數 : ".$res->num_rows."<br>";
+    }
     $conn->close();
 }
 
@@ -3092,5 +3127,33 @@ function getFenceData($address,$sId){
     $conn->close();
 
     return $result;
+}
+
+function getAllCorpRecord(){
+    $conn = connect_db();
+
+    $sql = "SELECT * FROM corp_record ORDER BY rId";
+    $res = $conn->query($sql);
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $result[$i] = $row;
+        $i++;
+    }
+    $conn->close();
+
+    return $result;
+}
+
+function getCorpDistrict($script_number){
+    $conn = connect_db();
+
+    $sql = "SELECT * FROM corp_record WHERE rId='{$script_number}'";
+    $res = $conn->query($sql);
+    $row = $res->fetch_assoc();
+    $district = $row["district"];
+    $conn->close();
+
+    return $district;
 }
 ?>

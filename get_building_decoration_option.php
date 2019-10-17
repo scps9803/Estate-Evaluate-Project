@@ -357,6 +357,12 @@ switch ($category) {
         echo json_encode(array('fence_application' => $result_option["fence_application"],
         'fence_item' => $result_option["fence_item"]));
         return;
+    
+    case 'get_auto_remove':
+        $application = $_POST['application'];
+        $item_name = $_POST['item_name'];
+        $result_option = getAutoRemove($application,$item_name);
+        break;
 }
 // $item_type = $_POST['item_type'];
 //

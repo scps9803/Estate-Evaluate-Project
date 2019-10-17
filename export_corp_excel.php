@@ -20,7 +20,10 @@ $corp_land_data = getCorpLandData($script_number);
 $corp_data = getCorpData($script_number);
 $survey_date = getSurveyDate("corp_record",$script_number);
 $survey_date_split = explode("-",$survey_date);
-$creator = "測試用";
+$district = getCorpDistrict($script_number);
+echo "district : ".$district."<br>";
+// $creator = "測試用";
+$creator = "";
 
 // 計算農作物筆數設定不同頁數的模板
 // pages為農作物頁數
@@ -164,7 +167,7 @@ $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue( 'R'.(4+($i-1)*24), $corp_land_owner_data[0]["telephone"])
             ->setCellValue( 'R'.(5+($i-1)*24), $corp_land_owner_data[0]["cellphone"])
 
-            ->setCellValue( 'B'.(6+($i-1)*24), $land_section)
+            ->setCellValue( 'B'.(6+($i-1)*24), $district.$land_section)
             ->setCellValue( 'F'.(6+($i-1)*24), $land_number)
             ->setCellValue( 'I'.(6+($i-1)*24), $total_land_area)
             ->setCellValue( 'K'.(6+($i-1)*24), $actual_use_area)
@@ -172,9 +175,9 @@ $objPHPExcel->setActiveSheetIndex(0)
 
             ->setCellValue( 'C'.(23+($i-1)*24), "歸戶編號：".$hold_id)
             ->setCellValue( 'Q'.(23+($i-1)*24), "調查表編號：".str_replace("-", "", $script_number))
-            ->setCellValue( 'A'.(23+($i-1)*24), "調查日期： ".$survey_date_split[0]." 年 ".$survey_date_split[1]." 月 ".$survey_date_split[2]." 日")
-            ->setCellValue( 'A'.(24+($i-1)*24), "製表日期： ".date("Y")." 年 ".date("m")." 月 ".date("d")." 日")
-            ->setCellValue( 'J'.(24+($i-1)*24), "製表人員：".$creator."　複核人員：".$creator)
+            ->setCellValue( 'A'.(23+($i-1)*24), "調查日期： ".($survey_date_split[0]-1911)." 年 ".$survey_date_split[1]." 月 ".$survey_date_split[2]." 日")
+            ->setCellValue( 'A'.(24+($i-1)*24), "製表日期： ".(date("Y")-1911)." 年 ".date("m")." 月 ".date("d")." 日")
+            // ->setCellValue( 'J'.(24+($i-1)*24), "製表人員：".$creator."　複核人員：".$creator)
             ->setCellValue( 'B'.(22+($i-1)*24), $overPlantMsg);
 
             if($overPlantMsg != ""){
@@ -206,6 +209,9 @@ $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue( 'J'.(21+($pages-1)*24), $actual_use_area)
             ->setCellValue( 'N'.(21+($pages-1)*24), $total_price);
 
+exportCorpHoldRatioExcel($script_number,$corp_owner_data,$corp_land_owner_data,$corp_land_data,
+$corp_data,$creator,$land_section,$land_number,$total_land_area,$actual_use_area,$total_price,$survey_date_split,$district,$pages,$objPHPExcel);
+
 $objActSheet = $objPHPExcel->getActiveSheet();
 $objActSheet->setTitle(str_replace("-", "", $script_number));
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
@@ -227,6 +233,6 @@ $filename = base64_encode($fileNo);
 $file_type = ".xls";
 $objWriter->save($savePath.$filename.$file_type);
 insertFileData($script_number,$savePath,$fileNo,$filename,$file_type,"corp_file_table");
-exportCorpHoldRatioExcel($script_number,$corp_owner_data,$corp_land_owner_data,$corp_land_data,
-$corp_data,$creator,$land_section,$land_number,$total_land_area,$actual_use_area,$total_price,$survey_date_split);
+// exportCorpHoldRatioExcel($script_number,$corp_owner_data,$corp_land_owner_data,$corp_land_data,
+// $corp_data,$creator,$land_section,$land_number,$total_land_area,$actual_use_area,$total_price,$survey_date_split,$pages,$objPHPExcel);
 ?>

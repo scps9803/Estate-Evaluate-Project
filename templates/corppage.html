@@ -95,16 +95,16 @@
                 <ul class="nav nav-pills nav-stacked">
                     <!-- <li id="accountBtn"><a href="#">個人資料</a></li> -->
                     <li id="transBtn"><a href="homepage.php">建物紀錄查詢</a></li>
-                    <li id="corpBtn"><a href="#">農作物紀錄查詢</a></li>
+                    <li id="corpBtn"><a href="">農作物紀錄查詢</a></li>
                     <li id="walletBtn"><a href="index.php" target="_blank">新增建物查案</a></li>
                     <li id="investBtn"><a href="corp.php" target="_blank">新增農作物、水產、禽畜查案</a></li>
                     <!-- <li id=""><a href="#">新增機械搬遷查案</a></li> -->
                 </ul><br>
 
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search Blog..">
+                    <input type="text" class="form-control" id="searchText" placeholder="搜尋調查表編號...">
                     <span class="input-group-btn">
-                        <button class="btn btn-default" type="button">
+                        <button class="btn btn-default" type="button" onclick="searchRecord()">
                             <span class="glyphicon glyphicon-search"></span>
                         </button>
                     </span>
@@ -114,6 +114,7 @@
             <div class="col-sm-9">
                 <h2>農作物歷史紀錄</h2>
                 <p>以下為您過去所建立的查估清單</p>
+                <button class='btn btn-default'><a href="get_detail_file.php?file=corp_detail">下載歸戶清冊</a></button><p></p>
                 <table class='table table-striped'>
 
                 <thead>
@@ -136,7 +137,7 @@
                             <td>{$row.keyin_datetime}</td>
                             <td>
                                 <button class='btn btn-default'><a href='getFile.php?recordNo={$row.rId}&file=1'>下載調查表</a></button><br>
-                                <button class='btn btn-default' style='margin-top:5px';><a href='getFile.php?recordNo={$row.rId}&file=2'>下載持分表</a></button>
+                                <!-- <button class='btn btn-default' style='margin-top:5px';><a href='getFile.php?recordNo={$row.rId}&file=2'>下載持分表</a></button> -->
                             </td>
                             <td>
                                 <button class='btn btn-default' onclick="deleteCorp('{$row.rId}')">刪除</button>

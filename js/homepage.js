@@ -88,3 +88,14 @@ function setPageIndex(currentPage,totalPage){
         }
     }
 }
+
+function searchRecord(){
+    var text = $("#searchText").val();
+
+    if(text == ""){
+        window.alert("請輸入搜尋項目!");
+    }
+    else{
+        location.href = "search.php?searchText="+text;
+    }
+}

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-09-24 04:08:42
+/* Smarty version 3.1.33, created on 2019-10-17 08:30:47
   from 'C:\xampp\htdocs\Estate-Evaluate-Project\templates\corppage.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d897aaa7317e2_48523935',
+  'unifunc' => 'content_5da80a97ad4008_43352992',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '7f9f47c4361de24bb8cc980d344598a4a7fcd299' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Estate-Evaluate-Project\\templates\\corppage.html',
-      1 => 1569290920,
+      1 => 1571293845,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d897aaa7317e2_48523935 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5da80a97ad4008_43352992 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -129,16 +129,16 @@ function content_5d897aaa7317e2_48523935 (Smarty_Internal_Template $_smarty_tpl)
                 <ul class="nav nav-pills nav-stacked">
                     <!-- <li id="accountBtn"><a href="#">個人資料</a></li> -->
                     <li id="transBtn"><a href="homepage.php">建物紀錄查詢</a></li>
-                    <li id="corpBtn"><a href="#">農作物紀錄查詢</a></li>
+                    <li id="corpBtn"><a href="">農作物紀錄查詢</a></li>
                     <li id="walletBtn"><a href="index.php" target="_blank">新增建物查案</a></li>
                     <li id="investBtn"><a href="corp.php" target="_blank">新增農作物、水產、禽畜查案</a></li>
                     <!-- <li id=""><a href="#">新增機械搬遷查案</a></li> -->
                 </ul><br>
 
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search Blog..">
+                    <input type="text" class="form-control" id="searchText" placeholder="搜尋調查表編號...">
                     <span class="input-group-btn">
-                        <button class="btn btn-default" type="button">
+                        <button class="btn btn-default" type="button" onclick="searchRecord()">
                             <span class="glyphicon glyphicon-search"></span>
                         </button>
                     </span>
@@ -148,6 +148,7 @@ function content_5d897aaa7317e2_48523935 (Smarty_Internal_Template $_smarty_tpl)
             <div class="col-sm-9">
                 <h2>農作物歷史紀錄</h2>
                 <p>以下為您過去所建立的查估清單</p>
+                <button class='btn btn-default'><a href="get_detail_file.php?file=corp_detail">下載歸戶清冊</a></button><p></p>
                 <table class='table table-striped'>
 
                 <thead>
@@ -179,8 +180,8 @@ foreach ($_from as $_smarty_tpl->tpl_vars['k']->value => $_smarty_tpl->tpl_vars[
                             <td>
                                 <button class='btn btn-default'><a href='getFile.php?recordNo=<?php echo $_smarty_tpl->tpl_vars['row']->value['rId'];?>
 &file=1'>下載調查表</a></button><br>
-                                <button class='btn btn-default' style='margin-top:5px';><a href='getFile.php?recordNo=<?php echo $_smarty_tpl->tpl_vars['row']->value['rId'];?>
-&file=2'>下載持分表</a></button>
+                                <!-- <button class='btn btn-default' style='margin-top:5px';><a href='getFile.php?recordNo=<?php echo $_smarty_tpl->tpl_vars['row']->value['rId'];?>
+&file=2'>下載持分表</a></button> -->
                             </td>
                             <td>
                                 <button class='btn btn-default' onclick="deleteCorp('<?php echo $_smarty_tpl->tpl_vars['row']->value['rId'];?>

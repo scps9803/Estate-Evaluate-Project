@@ -864,6 +864,9 @@ if($captain_count>=1){
         $smarty->assign("captain",$captain);
     }
 }
+echo "<br>";
+print_r($captain);
+echo "<br>";
 
 // 租賃關係
 if($land_use=="承租"){
@@ -1116,7 +1119,9 @@ echo "floor:".$total_floor."<br>";
                 $resultDenominator[$i][$j] = 2;
             }
             print_r($resultArray[$i]);
+            echo " & ";
             print_r($resultRatio[$i]);
+            echo "<br>";
         }
     }
     echo "<br>---------------------------<br>";
@@ -1230,7 +1235,7 @@ deleteFloorInfoData($beforeUpdateNo,$page);
 deleteBuildingLocateData($beforeUpdateNo);
 deleteFileData($beforeUpdateNo);
 deleteRecordData($beforeUpdateNo);
-deleteBuildingData($beforeUpdateNo);
+// deleteBuildingData($beforeUpdateNo);
 
 insertBuildingData($house_address,$real_address,$legal_status,$build_number,$tax_number,
     $legal_certificate,$build_certificate,$captain_count,$exit_num,
