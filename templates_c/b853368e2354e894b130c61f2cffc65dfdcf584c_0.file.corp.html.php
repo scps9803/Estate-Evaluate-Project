@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-09-23 11:29:23
+/* Smarty version 3.1.33, created on 2019-10-27 15:32:29
   from 'C:\xampp\htdocs\Estate-Evaluate-Project\templates\corp.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d889073d1ec34_96957006',
+  'unifunc' => 'content_5db5aa7d85a800_60452152',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b853368e2354e894b130c61f2cffc65dfdcf584c' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Estate-Evaluate-Project\\templates\\corp.html',
-      1 => 1569145728,
+      1 => 1572186747,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d889073d1ec34_96957006 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5db5aa7d85a800_60452152 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -108,8 +108,8 @@ function content_5d889073d1ec34_96957006 (Smarty_Internal_Template $_smarty_tpl)
                             </select>
                         </td>
                         <td>
-                            <div id="land-section">
-                                <div id="land-section-1">
+                            <div id="corp-land-section">
+                                <div id="corp-land-section-1">
                                     <!-- <input type="text" id="section-1" name="land-section-1" list="land-section-list-1" autocomplete="off" oninput="getLandSectionOption(1)" required><br>
                                     <datalist id="land-section-list-1"></datalist> -->
                                     <select id="section-1" name="land-section-1" class="median-select-menu" required>
@@ -121,8 +121,8 @@ function content_5d889073d1ec34_96957006 (Smarty_Internal_Template $_smarty_tpl)
                                 </div>
                             </div>
                             <input type="hidden" id="land_section_count" name="land_section_count">
-                            <button type="button" onclick="addInfoItemOnclick('land-section')">+</button>
-                            <button type="button" onclick="removeInfoItemOnclick('land-section')">-</button>
+                            <button type="button" onclick="addInfoItemOnclick('corp-land-section')">+</button>
+                            <button type="button" onclick="removeInfoItemOnclick('corp-land-section')">-</button>
                         </td>
 
                         <td>

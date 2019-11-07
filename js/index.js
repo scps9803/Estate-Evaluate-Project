@@ -41,6 +41,7 @@ var corp_count = 1;
 var submitCheck = false;
 var script_number = "";
 var deleteNextPage = false;
+var nth_OwnerNameList = [];
 
 function addItemOnclick(id,column,num){
     var itemId = "#"+id+column+"-"+num;
@@ -389,13 +390,30 @@ function addInfoItemOnclick(id){
     var isAppend = false;
 
     switch (id) {
-        case 'land-section':
+        case 'building-land-section':
             land_section_count += 1;
 
             addInfoItemOnclick('subsection');
             addInfoItemOnclick('land-number');
             text =
-            '<div id="land-section-'+land_section_count+'">'+
+            '<div id="building-land-section-'+land_section_count+'">'+
+                '<select id="section-'+land_section_count+'" name="land-section-'+land_section_count+'" class="median-select-menu" style="margin-top:6px;" required>'+
+                    '<option value="草漯段">草漯段</option>'+
+                    '<option value="塔腳段">塔腳段</option>'+
+                    '<option value="新坡段">新坡段</option>'+
+                    '<option value="樹林子段">樹林子段</option>'+
+                '</select>'+
+            '</div>';
+            getLandSectionCount();
+            break;
+        
+        case 'corp-land-section':
+            land_section_count += 1;
+
+            addInfoItemOnclick('subsection');
+            addInfoItemOnclick('land-number');
+            text =
+            '<div id="corp-land-section-'+land_section_count+'">'+
                 '<select id="section-'+land_section_count+'" name="land-section-'+land_section_count+'" class="median-select-menu" style="margin-top:6px;" required>'+
                     '<option value="草漯段">草漯段</option>'+
                     '<option value="塔腳段">塔腳段</option>'+
@@ -422,6 +440,7 @@ function addInfoItemOnclick(id){
 
         case 'land-number':
             land_number_count += 1;
+            nth_OwnerNameList.push(new Array([]));
 
             text =
             '<div id="land-number-'+land_number_count+'">'+
@@ -867,12 +886,30 @@ function addInfoItemOnclick(id){
 
 function removeInfoItemOnclick(id){
     switch (id) {
-        case 'land-section':
+        case 'building-land-section':
             removeInfoItemOnclick('subsection');
             removeInfoItemOnclick('land-number');
             land_section_count = removeItem(id, land_section_count);
+            remove_nth_OwnerNameList(land_section_count);
+            for(var i=1;i<=owner_count;i++){
+                loadOwnerData("owner",i);
+            }
+            // loadOwnerData("owner",owner_count);
+            loadOwnerData("land-owner",land_owner_count);
             getLandSectionCount();
             break;
+        case 'corp-land-section':
+                removeInfoItemOnclick('subsection');
+                removeInfoItemOnclick('land-number');
+                land_section_count = removeItem(id, land_section_count);
+                remove_nth_OwnerNameList(land_section_count);
+                for(var i=1;i<=owner_count;i++){
+                    loadOwnerData("corp-owner",i);
+                }
+                // loadOwnerData("corp-owner",owner_count);
+                loadOwnerData("land-owner",land_owner_count);
+                getLandSectionCount();
+                break;
         case 'subsection':
             subsection_count = removeItem(id, subsection_count);
             break;
@@ -1001,6 +1038,44 @@ function removeInfoItemOnclick(id){
         case 'corp-note':
             removeItem(id, corp_count);
             break;
+    }
+}
+
+function remove_nth_OwnerNameList(index){
+    console.log(index);
+    console.log(nth_OwnerNameList);
+    nth_OwnerNameList.slice(index,1);
+
+    for(var i=0;i<nth_OwnerNameList[index].length;i++){
+        if(name_option_array.includes(nth_OwnerNameList[index][i])){
+            findIndex = name_option_array.indexOf(nth_OwnerNameList[index][i]);
+            name_option_array.splice(findIndex,1);
+            hold_id_array.splice(findIndex,1);
+            address_array.splice(findIndex,1);
+            numerator_array.splice(findIndex,1);
+            denominator_array.splice(findIndex,1);
+        }
+    }
+    console.log(name_option_array);
+    nth_OwnerNameList[index] = [];
+    name_option = "";
+
+    // for(var i=0;i<response_json.name.length;i++){
+    //     if(!name_option_array.includes(response_json.name[i]) && response_json.name[i]!=""){
+    //         name_option_array.push(response_json.name[i]);
+    //         hold_id_array.push(response_json.hold_id[i]);
+    //         address_array.push(response_json.address[i]);
+    //         numerator_array.push(response_json.numerator[i]);
+    //         denominator_array.push(response_json.denominator[i]);
+    //        //  name_option += "<option value='"+response_json.name[i]+"'>"+response_json.name[i]+"</option>";
+
+    //         nth_OwnerNameList[num-1].push(response_json.name[i]);
+    //     }
+    //     // name_option += "<option value='"+response_json.name[i]+"'>"+response_json.name[i]+"</option>";
+    // }
+    console.log(name_option_array);
+    for(var i=0;i<name_option_array.length;i++){
+       name_option += "<option value='"+name_option_array[i]+"'>"+name_option_array[i]+"</option>";
     }
 }
 
@@ -1793,6 +1868,19 @@ function getLandSectionOption(num){
     }
 }
 
+// function reloadOwnerData(page,num){
+//     name_option = "";
+//     name_option_array = [];
+//     hold_id_array = [];
+//     address_array = [];
+//     numerator_array = [];
+//     denominator_array = [];
+
+//     for(var i=1;i<=num;i++){
+//         isLandNumExist(page,i);
+//     }
+// }
+
 function isLandNumExist(page,num){
     var item = "#land-num-"+num;
     var section = "#section-"+num;
@@ -1811,7 +1899,7 @@ function isLandNumExist(page,num){
              },
              cache:false,
              dataType: "json",
-             // async:false,
+             async:false,
              // contentType: 'application/json; charset=utf-8',
              success: function(data){
                  if(data.item_name==false){
@@ -1819,7 +1907,7 @@ function isLandNumExist(page,num){
                      $(item).val("");
                  }
                  else{
-                     if(i==numArray.length){
+                     if(i==numArray.length-1){
                          autoCompleteOwnerData(page,num,numArray,$(section).val(),$(subsection).val());
                      }
                  }
@@ -2242,6 +2330,7 @@ function autoCompleteOwnerData(page,num,numArray,section,subsection){
     // var item = "#land-owner-list-"+num;
     // var response_json = "";
     // var name_option = "";
+    console.log("auto");
 
     $.ajax({
          url: "get_building_decoration_option.php",
@@ -2258,6 +2347,21 @@ function autoCompleteOwnerData(page,num,numArray,section,subsection){
          // contentType: 'application/json; charset=utf-8',
          success: function(data){
              response_json = data;
+             console.log(name_option_array);
+             for(var i=0;i<nth_OwnerNameList[num-1].length;i++){
+                 if(name_option_array.includes(nth_OwnerNameList[num-1][i])){
+                    index = name_option_array.indexOf(nth_OwnerNameList[num-1][i]);
+                    name_option_array.splice(index,1);
+                    hold_id_array.splice(index,1);
+                    address_array.splice(index,1);
+                    numerator_array.splice(index,1);
+                    denominator_array.splice(index,1);
+                 }
+             }
+             console.log(name_option_array);
+             nth_OwnerNameList[num-1] = [];
+             name_option = "";
+
              for(var i=0;i<response_json.name.length;i++){
                  if(!name_option_array.includes(response_json.name[i]) && response_json.name[i]!=""){
                      name_option_array.push(response_json.name[i]);
@@ -2265,9 +2369,15 @@ function autoCompleteOwnerData(page,num,numArray,section,subsection){
                      address_array.push(response_json.address[i]);
                      numerator_array.push(response_json.numerator[i]);
                      denominator_array.push(response_json.denominator[i]);
-                     name_option += "<option value='"+response_json.name[i]+"'>"+response_json.name[i]+"</option>";
+                    //  name_option += "<option value='"+response_json.name[i]+"'>"+response_json.name[i]+"</option>";
+
+                     nth_OwnerNameList[num-1].push(response_json.name[i]);
                  }
                  // name_option += "<option value='"+response_json.name[i]+"'>"+response_json.name[i]+"</option>";
+             }
+             console.log(name_option_array);
+             for(var i=0;i<name_option_array.length;i++){
+                name_option += "<option value='"+name_option_array[i]+"'>"+name_option_array[i]+"</option>";
              }
              // if(page=="building"){
              //     for(var i=0;i<num;i++){
@@ -2284,18 +2394,23 @@ function autoCompleteOwnerData(page,num,numArray,section,subsection){
              // }
              var corp_owner = "input[name='corp-owner-1']";
              if(!$(corp_owner).val() && $(corp_owner).val()!= ""){
-                 // window.alert("1");
-                 for(var i=0;i<num;i++){
-                     loadOwnerData("land-owner",i+1);
-                     loadOwnerData("owner",i+1);
+                //  window.alert("1");
+                //  for(var i=0;i<num;i++){
+                //      loadOwnerData("land-owner",i+1);
+                //      loadOwnerData("owner",i+1);
+                //  }
+                 for(var i=0;i<owner_count;i++){
+                    loadOwnerData("owner",i+1);
                  }
+                 loadOwnerData("land-owner",1);
              }
              else{
-                 // window.alert("2");
-                 for(var i=0;i<num;i++){
-                     loadOwnerData("land-owner",i+1);
+                //  window.alert("2");
+                 for(var i=0;i<owner_count;i++){
+                    //  loadOwnerData("land-owner",i+1);
                      loadOwnerData("corp-owner",i+1);
                  }
+                 loadOwnerData("land-owner",1);
              }
          },
          error:function(err){
@@ -2329,6 +2444,8 @@ function loadOwnerData(id,num){
         }
     }
     else if(id == "owner"){
+        console.log("load "+num);
+        console.log(name_option);
         // $("#owner-select-"+num).html(name_option);
         // document.getElementById("owner-select-"+num).selectedIndex = num-1;
         // $("input[name='owner-"+num+"']").val(response_json.name[num-1]);
@@ -2854,6 +2971,9 @@ function getCorpOwnerData(script_number){
          async:false,
          success: function(data){
              response_json = data;
+             if(response_json.hold_status[0] == "公同共有"){
+                $("#shared")[0].checked = true;
+             }
              for(var i=0;i<data.name.length;i++){
                  if(i>0){
                      addInfoItemOnclick('corp-owner');
@@ -2869,9 +2989,9 @@ function getCorpOwnerData(script_number){
             $("#corp-owner-select-"+(i+1)).val(response_json.name[i]);
             $("#hold-numerator-"+(i+1)).val(response_json.hold_numerator[i]);
             $("#hold-denominator-"+(i+1)).val(response_json.hold_denominator[i]);
-            if(response_json.hold_status[0] == "公同共有"){
-                $("#shared")[0].checked = true;
-            }
+            // if(response_json.hold_status[0] == "公同共有"){
+            //     $("#shared")[0].checked = true;
+            // }
             if(response_json.pId[i].substr(0,2) != "NA"){
                 $("input[name='pId-"+(i+1)+"']").val(response_json.pId[i]);
             }
@@ -3876,4 +3996,5 @@ $(document).ready(function(){
         getCeilingDecorationCount(i);
         getToiletEquipmentCount(i);
     }
+    nth_OwnerNameList.push(new Array([]));
 });

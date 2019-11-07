@@ -153,7 +153,8 @@ function exportCorpDetail(){
     }
     
     $fileNo = "corp_detail";
-    $filename = base64_encode($fileNo);
+    // $filename = base64_encode($fileNo);
+    $filename = "農作物清冊";
     $file_type = ".xls";
     $objWriter->save($savePath.$filename.$file_type);
     

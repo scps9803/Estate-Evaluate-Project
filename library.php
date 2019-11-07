@@ -1991,6 +1991,25 @@ function getSubbuildingData($house_address,$item_type){
     return $result;
 }
 
+function getAllSubbuildingData($house_address){
+    $conn = connect_db();
+
+    // $sql = "SELECT * FROM has_subbuilding as a LEFT JOIN sub_building as b on a.sId=b.sId WHERE address='{$house_address}' AND item_type='{$item_type}'";
+    $sql = "SELECT address,a.sId,application,item_name,unitprice,unit,item_type,area_calculate_text,area,a.auto_remove,note,keyin_order
+        FROM has_subbuilding as a LEFT JOIN sub_building as b on a.sId=b.sId WHERE address='{$house_address}' ORDER BY keyin_order";
+    $res = $conn->query($sql);
+    if($res->num_rows==0) return null;
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $result[$i] = $row;
+        $i++;
+    }
+
+    $conn->close();
+    return $result;
+}
+
 function getDecorationData($house_address,$category){
     $conn = connect_db();
 
@@ -2014,6 +2033,24 @@ function getBuildingDecorationData($house_address,$category,$f_order){
 
     // $sql = "SELECT * FROM has_building_decoration AS a LEFT JOIN floor_info AS b ON a.fId=b.fId LEFT JOIN building_decoration AS c ON a.bdId=c.bdId WHERE address='{$house_address}' AND category='{$category}' AND nth_floor='{$nth_floor}' ORDER BY nth_floor";
     $sql = "SELECT * FROM has_building_decoration AS a LEFT JOIN floor_info AS b ON a.fId=b.fId LEFT JOIN building_decoration AS c ON a.bdId=c.bdId WHERE address='{$house_address}' AND category='{$category}' AND f_order='{$f_order}' ORDER BY f_order";
+    $res = $conn->query($sql);
+    if($res->num_rows==0) return null;
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $result[$i] = $row;
+        $i++;
+    }
+
+    $conn->close();
+    return $result;
+}
+
+function getAllBuildingDecorationData($house_address,$f_order){
+    $conn = connect_db();
+
+    // $sql = "SELECT * FROM has_building_decoration AS a LEFT JOIN floor_info AS b ON a.fId=b.fId LEFT JOIN building_decoration AS c ON a.bdId=c.bdId WHERE address='{$house_address}' AND category='{$category}' AND nth_floor='{$nth_floor}' ORDER BY nth_floor";
+    $sql = "SELECT * FROM has_building_decoration AS a LEFT JOIN floor_info AS b ON a.fId=b.fId LEFT JOIN building_decoration AS c ON a.bdId=c.bdId WHERE address='{$house_address}' AND f_order='{$f_order}' ORDER BY f_order";
     $res = $conn->query($sql);
     if($res->num_rows==0) return null;
 
@@ -3155,5 +3192,21 @@ function getCorpDistrict($script_number){
     $conn->close();
 
     return $district;
+}
+
+function getAllBuildingRecord($legal){
+    $conn = connect_db();
+
+    $sql = "SELECT * FROM record WHERE rId LIKE '%{$legal}%' ORDER BY rId";
+    $res = $conn->query($sql);
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $result[$i] = $row;
+        $i++;
+    }
+    $conn->close();
+
+    return $result;
 }
 ?>

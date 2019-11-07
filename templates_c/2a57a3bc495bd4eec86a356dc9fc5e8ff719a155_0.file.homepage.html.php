@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-09-30 06:49:12
+/* Smarty version 3.1.33, created on 2019-11-07 07:27:13
   from 'C:\xampp\htdocs\Estate-Evaluate-Project\templates\homepage.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d9189481f93b7_46476783',
+  'unifunc' => 'content_5dc3b9412dfd07_42107427',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '2a57a3bc495bd4eec86a356dc9fc5e8ff719a155' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Estate-Evaluate-Project\\templates\\homepage.html',
-      1 => 1569818950,
+      1 => 1573107984,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d9189481f93b7_46476783 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5dc3b9412dfd07_42107427 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -145,6 +145,7 @@ function content_5d9189481f93b7_46476783 (Smarty_Internal_Template $_smarty_tpl)
             <div class="col-sm-9">
                 <h2>建物歷史紀錄</h2>
                 <p>以下為您過去所建立的查估清單</p>
+                <button class='btn btn-default'><a href="get_detail_file.php?file=building_detail">下載歸戶清冊</a></button><p></p>
                 <table class='table table-striped'>
 
                 <thead>

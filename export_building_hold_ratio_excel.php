@@ -137,7 +137,7 @@ function exportBuildingHoldRatioExcel($script_number,$land_owner_data,$building_
     for($i=0;$i<count($owner_data);$i++){
         if($remainder>0){
             $objPHPExcel->setActiveSheetIndex(0)
-            ->setCellValue( 'AG'.(42+($pages-1)*33+$i*2), number_format(floor($total_pay*$own_ratio)+1,0,".",","));
+                ->setCellValue( 'AG'.(42+($pages-1)*33+$i*2), number_format(floor($total_pay*$own_ratio)+1,0,".",","));
             $remainder--;
         }
     }
