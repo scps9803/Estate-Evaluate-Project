@@ -1225,10 +1225,12 @@ if(!file_exists($savePath)){
 
 $fileNo = $script_number."-1";
 $filename = base64_encode($fileNo);
+$cn_filename = base64_decode($filename);
 $file_type = ".xls";
 echo $savePath;
 $objWriter->save($savePath.$filename.$file_type);
-insertFileData($script_number,$savePath,$fileNo,$filename,$file_type,"file_table");
+rename($savePath.$filename.$file_type, $savePath.$cn_filename.$file_type);
+insertFileData($script_number,$savePath,$fileNo,$cn_filename,$file_type,"file_table");
 // $total_pay = $total_fee+$total_subbuilding_fee+$out_total_subbuilding_fee+$total_auto+$total_auto_remove_fee+$out_total_auto_remove_fee;
 // exportBuildingHoldRatioExcel($script_number,$land_owner_data,$building_data,$land_data,$total_pay,$survey_date_split,$pages);
 

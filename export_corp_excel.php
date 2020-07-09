@@ -218,11 +218,8 @@ $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
 
 $saveType = explode("-",$script_number);
 if($saveType[0] == "農"){
-    $savePath = "file/corp/legal/".$saveType[1]."/";
+    $savePath = "file/corp/".$saveType[1]."/";
 }
-// else{
-//     $savePath = "file/corp/illegal/".substr($script_number,strlen($script_number)-3,strlen($script_number))."/";
-// }
 
 if(!file_exists($savePath)){
     mkdir($savePath);
@@ -230,9 +227,11 @@ if(!file_exists($savePath)){
 
 $fileNo = $script_number."-1";
 $filename = base64_encode($fileNo);
+$cn_filename = base64_decode($filename);
 $file_type = ".xls";
 $objWriter->save($savePath.$filename.$file_type);
-insertFileData($script_number,$savePath,$fileNo,$filename,$file_type,"corp_file_table");
+rename($savePath.$filename.$file_type, $savePath.$cn_filename.$file_type);
+insertFileData($script_number,$savePath,$fileNo,$cn_filename,$file_type,"corp_file_table");
 // exportCorpHoldRatioExcel($script_number,$corp_owner_data,$corp_land_owner_data,$corp_land_data,
 // $corp_data,$creator,$land_section,$land_number,$total_land_area,$actual_use_area,$total_price,$survey_date_split,$pages,$objPHPExcel);
 ?>

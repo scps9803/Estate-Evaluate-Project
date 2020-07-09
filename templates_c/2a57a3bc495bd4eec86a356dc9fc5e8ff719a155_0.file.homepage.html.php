@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-11-07 07:27:13
+/* Smarty version 3.1.33, created on 2020-07-09 16:32:52
   from 'C:\xampp\htdocs\Estate-Evaluate-Project\templates\homepage.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5dc3b9412dfd07_42107427',
+  'unifunc' => 'content_5f072a94747ad0_22803097',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '2a57a3bc495bd4eec86a356dc9fc5e8ff719a155' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Estate-Evaluate-Project\\templates\\homepage.html',
-      1 => 1573107984,
+      1 => 1594304920,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5dc3b9412dfd07_42107427 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5f072a94747ad0_22803097 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
