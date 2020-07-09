@@ -14,14 +14,11 @@ $res = $conn->query($sql);
 while($row = $res->fetch_assoc()){
     if(strcmp($pId,$row['pId'])==0){
         if(strcmp($pwd,$row['pwd'])==0){
-        echo "successful";
-        $_SESSION["user_id"] = $row["user_id"];
-        $_SESSION["user_name"] = $row["user_name"];
-        // $_SESSION["email"] = $row["email"];
-        header("Location: homepage.php");
-        return;
+            $_SESSION["pId"] = $row["pId"];
+            $_SESSION["name"] = $row["name"];
+            header("Location: homepage.php");
+            return;
         }
     }
 }
-echo "fail";
 ?>

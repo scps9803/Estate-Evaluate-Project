@@ -16,7 +16,7 @@ foreach ($sheet->getRowIterator() as $row) {
         foreach ($row->getCellIterator() as $cell) {
         //將儲存格資料轉成UTF-8格式後顯示
                 // echo '<td>' . toUTF($cell->getValue()) . '</td>';
-                echo '<td>' . toUTF($cell->getValue() . '</td>';
+                echo '<td>' . toUTF($cell->getValue()) . '</td>';
         }
         echo '</tr>';
 }

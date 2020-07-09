@@ -202,7 +202,7 @@ function exportBuildingDetail(){
                 ->setCellValue( 'O'.$owner_index, $owner_data[$j]["pId"])
                 ->setCellValue( 'P'.$owner_index, $owner_data[$j]["hold_status"].$owner_data[$j]["hold_numerator"]."/".$owner_data[$j]["hold_denominator"])
                 ->setCellValue( 'R'.$owner_index, $owner_data[$j]["current_address"])
-                ->setCellValue( 'S'.$owner_index, $all_legal_record[$i]["rId"]);
+                ->setCellValue( 'S'.$owner_index, str_replace("-","",$all_legal_record[$i]["rId"]));
             $owner_index++;
         }
         if(count($owner_data)>$main_building_count+$sub_building_count){
@@ -446,7 +446,7 @@ function exportBuildingDetail(){
                 ->setCellValue( 'O'.$owner_index, $owner_data[$j]["pId"])
                 ->setCellValue( 'P'.$owner_index, $owner_data[$j]["hold_status"].$owner_data[$j]["hold_numerator"]."/".$owner_data[$j]["hold_denominator"])
                 ->setCellValue( 'R'.$owner_index, $owner_data[$j]["current_address"])
-                ->setCellValue( 'S'.$owner_index, $all_legal_record[$i]["rId"]);
+                ->setCellValue( 'S'.$owner_index, str_replace("-","",$all_legal_record[$i]["rId"]));
             $owner_index++;
         }
         if(count($owner_data)>$main_building_count+$sub_building_count){
@@ -695,7 +695,7 @@ function exportBuildingDetail(){
                 ->setCellValue( 'O'.$owner_index, $owner_data[$j]["pId"])
                 ->setCellValue( 'P'.$owner_index, $owner_data[$j]["hold_status"].$owner_data[$j]["hold_numerator"]."/".$owner_data[$j]["hold_denominator"])
                 ->setCellValue( 'R'.$owner_index, $owner_data[$j]["current_address"])
-                ->setCellValue( 'S'.$owner_index, $all_legal_record[$i]["rId"]);
+                ->setCellValue( 'S'.$owner_index, str_replace("-","",$all_legal_record[$i]["rId"]));
             $owner_index++;
         }
         if(count($owner_data)>$main_building_count+$sub_building_count){
@@ -940,7 +940,7 @@ function exportBuildingDetail(){
                 ->setCellValue( 'O'.$owner_index, $owner_data[$j]["pId"])
                 ->setCellValue( 'P'.$owner_index, $owner_data[$j]["hold_status"].$owner_data[$j]["hold_numerator"]."/".$owner_data[$j]["hold_denominator"])
                 ->setCellValue( 'R'.$owner_index, $owner_data[$j]["current_address"])
-                ->setCellValue( 'S'.$owner_index, $all_legal_record[$i]["rId"]);
+                ->setCellValue( 'S'.$owner_index, str_replace("-","",$all_legal_record[$i]["rId"]));
             $owner_index++;
         }
         if(count($owner_data)>$main_building_count+$sub_building_count){
