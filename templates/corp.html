@@ -291,16 +291,15 @@
                                 </div>
                             </div>
                             <input type="hidden" id="corp-count" name="corp-count">
-                            <button type="button" name="" onclick="addInfoItemOnclick('corp-category')">+</button>
+                            <!-- <button type="button" name="" onclick="addInfoItemOnclick('corp-category')">+</button> -->
+                            <button type="button" name="" onclick="addCorpItem()">+</button>
                             <button type="button" name="" onclick="removeInfoItemOnclick('corp-category')">-</button>
                         </td>
 
                         <td>
                             <div id="corp-item" style="margin-bottom:18px">
                                 <div id="corp-item-1">
-                                    <select id="corp-item-option-1" name="corp-item-1" style="width:140px;" onchange="load_corp_type_Data(1)" required>
-                                        <option value="">請選擇項目</option>
-                                    </select>
+                                    <input id="corp-item-option-1" name="corp-item-1" list="corp-item-list-1" autocomplete="off" style="width:140px;" placeholder="點擊選擇或搜尋" onchange="load_corp_type_Data(1)" required>
                                 </div>
                             </div>
                         </td>

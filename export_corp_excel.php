@@ -27,7 +27,7 @@ $creator = "";
 
 // 計算農作物筆數設定不同頁數的模板
 // pages為農作物頁數
-$pages = (int)(count($corp_data) / 13) + 1;
+$pages = (int)(count($corp_data) / 14) + 1;
 
 // 自行建立的 Excel 版型檔名
 $excelTemplate = './excel_templates/corp_template-'.$pages.'.xls';
@@ -90,6 +90,7 @@ $total_land_area = 0;
 for($i=0;$i<count($corp_land_data);$i++){
     if(!in_array($corp_land_data[$i]["land_section"],$section_array)){
         $section_array[$section_index] = $corp_land_data[$i]["land_section"];
+        $section_index++;
         // $land_section = $land_section.$corp_land_data[$i]["land_section"].$corp_land_data[$i]["subsection"];
         // if($i!=count($corp_land_data)-1) {
         //     $land_section = $land_section."、";
@@ -185,11 +186,18 @@ $objPHPExcel->setActiveSheetIndex(0)
                 // $objPHPExcel->getActiveSheet()->getStyle('B'.(22+($i-1)*24).':'.'T'.(22+($i-1)*24))->getFill()->getStartColor()->setARGB('FFFFFF00');
                 $objPHPExcel->getActiveSheet()->getStyle('B'.(22+($i-1)*24).':'.'T'.(22+($i-1)*24))->getFont()->setSize(20)->setBold(true);
             }
+
+            if(count($corp_land_owner_data) <= 1){
+                $objPHPExcel->setActiveSheetIndex(0)->setCellValue( 'H'.(24+($i-1)*24), "第 ".$i." 頁 / 共 ".$pages." 頁");
+            }
 }
 
 // 農作物資料
 $total_price = 0;
 for($i=0;$i<count($corp_data);$i++){
+    if($corp_data[$i]["unit"] == "㎡"){
+        $corp_data[$i]["num"] = $corp_data[$i]["plant_area"];
+    }
     $objPHPExcel->setActiveSheetIndex(0)
                 ->setCellValue( 'A'.(8+$i+(int)($i/14)*10), $corp_data[$i]["item"])
                 ->setCellValue( 'B'.(8+$i+(int)($i/14)*10), $corp_data[$i]["corp_age"])
@@ -200,7 +208,7 @@ for($i=0;$i<count($corp_data);$i++){
                 ->setCellValue( 'K'.(8+$i+(int)($i/14)*10), $corp_data[$i]["num"])
                 ->setCellValue( 'L'.(8+$i+(int)($i/14)*10), $corp_data[$i]["unit"])
                 // ->setCellValue( 'L'.(8+$i+(int)($i/14)*10), $corp_data[$i]["plant_area"])
-                ->setCellValue( 'M'.(8+$i+(int)($i/14)*10), $corp_data[$i]["unit_price"])
+                ->setCellValue( 'M'.(8+$i+(int)($i/14)*10), number_format($corp_data[$i]["unit_price"], 0, ".", ","))
                 ->setCellValue( 'N'.(8+$i+(int)($i/14)*10), number_format($corp_data[$i]["num"]*$corp_data[$i]["unit_price"],0))
                 ->setCellValue( 'R'.(8+$i+(int)($i/14)*10), $corp_data[$i]["note"]);
     $total_price += number_format($corp_data[$i]["num"]*$corp_data[$i]["unit_price"],0,"","");
@@ -213,6 +221,10 @@ exportCorpHoldRatioExcel($script_number,$corp_owner_data,$corp_land_owner_data,$
 $corp_data,$creator,$land_section,$land_number,$total_land_area,$actual_use_area,$total_price,$survey_date_split,$district,$pages,$objPHPExcel);
 
 $objActSheet = $objPHPExcel->getActiveSheet();
+if(count($corp_land_owner_data) <= 1){
+    $objActSheet->removeRow((25+($pages-1)*24), 36);
+    $objActSheet->getPageSetup()->setPrintArea("A1:T".(24+($pages-1)*24));
+}
 $objActSheet->setTitle(str_replace("-", "", $script_number));
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
 

@@ -89,7 +89,7 @@ $corp_data,$creator,$land_section,$land_number,$total_land_area,$actual_use_area
                     ->setCellValue( 'J'.(32+($pages-1)*24+$i*2), '連絡手機')
                     ->setCellValue( 'K'.(32+($pages-1)*24+$i*2), $corp_owner_data[$i]["cellphone"])
                     ->setCellValue( 'M'.(31+($pages-1)*24+$i*2), '持分比例')
-                    ->setCellValue( 'M'.(32+($pages-1)*24+$i*2), $corp_owner_data[$i]["hold_numerator"]."/".$corp_owner_data[$i]["hold_denominator"].$corp_owner_data[$i]["hold_status"])
+                    ->setCellValue( 'M'.(32+($pages-1)*24+$i*2), $corp_owner_data[$i]["hold_status"].$corp_owner_data[$i]["hold_numerator"]."/".$corp_owner_data[$i]["hold_denominator"])
                     ->setCellValue( 'O'.(31+($pages-1)*24+$i*2), '身分證字號')
                     ->setCellValue( 'O'.(32+($pages-1)*24+$i*2), '持分補償金額')
                     ->setCellValue( 'R'.(31+($pages-1)*24+$i*2), $corp_owner_data[$i]["pId"]);

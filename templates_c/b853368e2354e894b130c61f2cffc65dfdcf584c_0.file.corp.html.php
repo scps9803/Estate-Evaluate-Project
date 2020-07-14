@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-10-27 15:32:29
+/* Smarty version 3.1.33, created on 2020-07-14 18:48:22
   from 'C:\xampp\htdocs\Estate-Evaluate-Project\templates\corp.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5db5aa7d85a800_60452152',
+  'unifunc' => 'content_5f0de1d6078eb4_09238526',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b853368e2354e894b130c61f2cffc65dfdcf584c' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Estate-Evaluate-Project\\templates\\corp.html',
-      1 => 1572186747,
+      1 => 1594745296,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5db5aa7d85a800_60452152 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5f0de1d6078eb4_09238526 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -325,16 +325,15 @@ function content_5db5aa7d85a800_60452152 (Smarty_Internal_Template $_smarty_tpl)
                                 </div>
                             </div>
                             <input type="hidden" id="corp-count" name="corp-count">
-                            <button type="button" name="" onclick="addInfoItemOnclick('corp-category')">+</button>
+                            <!-- <button type="button" name="" onclick="addInfoItemOnclick('corp-category')">+</button> -->
+                            <button type="button" name="" onclick="addCorpItem()">+</button>
                             <button type="button" name="" onclick="removeInfoItemOnclick('corp-category')">-</button>
                         </td>
 
                         <td>
                             <div id="corp-item" style="margin-bottom:18px">
                                 <div id="corp-item-1">
-                                    <select id="corp-item-option-1" name="corp-item-1" style="width:140px;" onchange="load_corp_type_Data(1)" required>
-                                        <option value="">請選擇項目</option>
-                                    </select>
+                                    <input id="corp-item-option-1" name="corp-item-1" list="corp-item-list-1" autocomplete="off" style="width:140px;" placeholder="點擊選擇或搜尋" onchange="load_corp_type_Data(1)" required>
                                 </div>
                             </div>
                         </td>

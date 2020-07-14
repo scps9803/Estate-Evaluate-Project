@@ -805,33 +805,21 @@ function addInfoItemOnclick(id){
         case 'corp-category':
             corp_count += 1;
 
-            addInfoItemOnclick('corp-item');
-            addInfoItemOnclick('corp-type');
-            addInfoItemOnclick('corp-num');
-            addInfoItemOnclick('corp-unit');
-            addInfoItemOnclick('corp-area');
-            addInfoItemOnclick('corp-equal');
-            addInfoItemOnclick('corp-note');
             text =
             '<div id="corp-category-'+corp_count+'" style="margin-top:4px">'+
                 '<select id="corp-category-option-'+corp_count+'" name="corp-category-'+corp_count+'" style="width:140px;" onchange="load_corp_item_Data('+corp_count+')" required>'+
                     '<option value="" style="display:none;">請選擇種類</option>'+
                 '</select>'+
             '</div>';
-            isAppend = true;
-            $(itemId).append(text);
             getCorpCount();
-            load_corp_category_Data(corp_count);
-            break;
+            return text;
 
         case 'corp-item':
             text =
             '<div id="corp-item-'+corp_count+'" style="margin-top:4px">'+
-                '<select id="corp-item-option-'+corp_count+'" name="corp-item-'+corp_count+'" style="width:140px;" onchange="load_corp_type_Data('+corp_count+')" required>'+
-                    '<option value="">請選擇項目</option>'+
-                '</select>'+
+                '<input id="corp-item-option-'+corp_count+'" name="corp-item-'+corp_count+'" list="corp-item-list-'+corp_count+'" autocomplete="off" style="width:140px;" placeholder="點擊選擇或搜尋" onchange="load_corp_type_Data('+corp_count+')" required></input>' +
             '</div>';
-            break;
+            return text;
 
         case 'corp-type':
             text =
@@ -840,14 +828,14 @@ function addInfoItemOnclick(id){
                     '<option value="">請選擇規格</option>'+
                 '</select>'+
             '</div>';
-            break;
+            return text;
 
         case 'corp-num':
             text =
             '<div id="corp-num-'+corp_count+'" style="margin-top:-2px">'+
                 '<input type="text" name="corp-num-'+corp_count+'" title="只能輸入10位以下數字(含小數點)" placeholder="請輸入數量" onchange="autoCalculateArea('+corp_count+')" required>'+
             '</div>';
-            break;
+            return text;
 
         case 'corp-unit':
             text =
@@ -856,28 +844,28 @@ function addInfoItemOnclick(id){
                     '<option value="">請選擇單位</option>'+
                 '</select>'+
             '</div>';
-            break;
+            return text;
 
         case 'corp-area':
             text =
             '<div id="corp-area-'+corp_count+'" style="margin-top:-2px">'+
                 '<input type="text" name="corp-area-'+corp_count+'" class="large-input-size" placeholder="請輸入種植面積" required>'+
             '</div>';
-            break;
+            return text;
 
         case 'corp-equal':
             text =
             '<div id="corp-equal-'+corp_count+'" style="margin-top:5px">'+
                 '<input type="checkbox" value="" id="corp-equal-check-'+corp_count+'" name="corp-equal-'+corp_count+'" onchange="corpEqual('+corp_count+')">比照備註項目'+
             '</div>';
-            break;
+            return text;
 
         case 'corp-note':
             text =
             '<div id="corp-note-'+corp_count+'" style="margin-top:-2px">'+
                 '<input type="text" name="corp-note-'+corp_count+'" class="large-input-size" placeholder="輸入比照物 ex.樹葡萄">'+
             '</div>';
-            break;
+            return text;
     }
     if(!isAppend){
         $(itemId).append(text);
@@ -2118,8 +2106,9 @@ function load_corp_category_Data(num){
 }
 function load_corp_item_Data(num){
     var item = "select[name='corp-category-"+num+"']";
-    var corp_item = "select[name='corp-item-"+num+"']";
+    var corp_item = "input[name='corp-item-"+num+"']";
     var classfication = $(item).val();
+    $(corp_item).val("");
     $.ajax({
          url: "get_building_decoration_option.php",
          type: "POST",
@@ -2133,7 +2122,8 @@ function load_corp_item_Data(num){
          // contentType: 'application/json; charset=utf-8',
          success: function(data){
              console.log("load corp item "+(num-1));
-             $(corp_item).html(data.item_name);
+             let datalist = "<datalist id='corp-item-list-"+num+"'>"+data.item_name+"</datalist>";
+             $(corp_item).html(datalist);
              load_corp_type_Data(num);
          },
          error:function(err){
@@ -2144,7 +2134,7 @@ function load_corp_item_Data(num){
 
 function load_corp_type_Data(num){
     // var item = "#corp-item-"+num;
-    var item = "select[name='corp-item-"+num+"']"
+    var item = "input[name='corp-item-"+num+"']"
     var corp_item = $(item).val();
     var corp_type = "select[name='corp-type-"+num+"']";
 
@@ -2172,7 +2162,7 @@ function load_corp_type_Data(num){
 
 function load_corp_unit_Data(num){
     // var item = "#corp-item-"+num;
-    var item = "select[name='corp-item-"+num+"']"
+    var item = "input[name='corp-item-"+num+"']"
     var corp_item = $(item).val();
     var corp_type = $("select[name='corp-type-"+num+"']").val();
     var corp_unit = "select[name='corp-unit-"+num+"']";
@@ -2512,7 +2502,7 @@ function autoFillInOwnerName(id,num){
 
 function autoCalculateArea(num){
     var corp_category = "select[name='corp-category-"+num+"']";
-    var corp_item = "select[name='corp-item-"+num+"']";
+    var corp_item = "input[name='corp-item-"+num+"']";
     var corp_type = "select[name='corp-type-"+num+"']";
     var corp_num = "input[name='corp-num-"+num+"']";
 
@@ -3151,6 +3141,14 @@ function loadCorpOwnerData(page,num){
 function getCorpData(script_number){
     var json = "";
     var category_array = ["短期作物","果樹","茶竹","藥用","椰子","柏木","喬木","灌木","蔓性","整型","草本","其他"];
+    var corp_category_html = "";
+    var corp_item_html = "";
+    var corp_type_html = "";
+    var corp_num_html = "";
+    var corp_unit_html = "";
+    var corp_area_html = "";
+    var corp_equal_html = "";
+    var corp_note_html = "";
 
     $.when($.ajax({
         url: "get_building_decoration_option.php",
@@ -3164,10 +3162,27 @@ function getCorpData(script_number){
         async:false,
         success: function(data){
             json = data;
+            for(var i=1;i<data.category.length;i++){
+                corp_category_html = corp_category_html + addInfoItemOnclick('corp-category');
+                corp_item_html = corp_item_html + addInfoItemOnclick('corp-item');
+                corp_type_html = corp_type_html + addInfoItemOnclick('corp-type');
+                corp_num_html = corp_num_html + addInfoItemOnclick('corp-num');
+                corp_unit_html = corp_unit_html + addInfoItemOnclick('corp-unit');
+                corp_area_html = corp_area_html + addInfoItemOnclick('corp-area');
+                corp_equal_html = corp_equal_html + addInfoItemOnclick('corp-equal');
+                corp_note_html = corp_note_html + addInfoItemOnclick('corp-note');
+            }
+            $("#corp-category").append(corp_category_html);
+            $("#corp-item").append(corp_item_html);
+            $("#corp-type").append(corp_type_html);
+            $("#corp-num").append(corp_num_html);
+            $("#corp-unit").append(corp_unit_html);
+            $("#corp-area").append(corp_area_html);
+            $("#corp-equal").append(corp_equal_html);
+            $("#corp-note").append(corp_note_html);
+
             for(var i=0;i<data.category.length;i++){
-                if(i>0){
-                    addInfoItemOnclick('corp-category');
-                }
+                load_corp_category_Data(i+1);
                 $("#corp-category-option-"+(i+1)).val(data.category[i]);
                 console.log("select category "+i);
                 load_corp_item_Data(i+1);
@@ -3178,6 +3193,7 @@ function getCorpData(script_number){
                 $("input[name='corp-area-"+(i+1)+"']").val(data.plant_area_text[i]);
                 if(data.equal[i] == "比照"){
                     document.getElementById("corp-equal-check-"+(i+1)).checked = true;
+                    document.getElementById("corp-equal-check-"+(i+1)).value = "比照";
                 }
                 $("input[name='corp-note-"+(i+1)+"']").val(data.note[i]);
 
@@ -3975,6 +3991,26 @@ function loadAutoRemove(num){
             window.alert(err.statusText);
         }
    });
+}
+
+function addCorpItem(){
+    var corp_category_html = addInfoItemOnclick('corp-category');
+    var corp_item_html = addInfoItemOnclick('corp-item');
+    var corp_type_html = addInfoItemOnclick('corp-type');
+    var corp_num_html = addInfoItemOnclick('corp-num');
+    var corp_unit_html = addInfoItemOnclick('corp-unit');
+    var corp_area_html = addInfoItemOnclick('corp-area');
+    var corp_equal_html = addInfoItemOnclick('corp-equal');
+    var corp_note_html = addInfoItemOnclick('corp-note');
+    $("#corp-category").append(corp_category_html);
+    $("#corp-item").append(corp_item_html);
+    $("#corp-type").append(corp_type_html);
+    $("#corp-num").append(corp_num_html);
+    $("#corp-unit").append(corp_unit_html);
+    $("#corp-area").append(corp_area_html);
+    $("#corp-equal").append(corp_equal_html);
+    $("#corp-note").append(corp_note_html);
+    load_corp_category_Data(corp_count);
 }
 
 $(document).ready(function(){
