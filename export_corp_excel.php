@@ -15,6 +15,7 @@ $objPHPExcel  = new PHPExcel();
 $script_number = $_REQUEST["script_number"];
 
 $corp_owner_data = getCorpOwnerData($script_number);
+echo json_encode($corp_owner_data);
 $corp_land_owner_data = getCorpLandOwnerData($script_number);
 $corp_land_data = getCorpLandData($script_number);
 $corp_data = getCorpData($script_number);
@@ -156,7 +157,7 @@ $objPHPExcel = PHPExcel_IOFactory::load($excelTemplate);
 // 個人資料
 for($i=1;$i<=$pages;$i++){
 $objPHPExcel->setActiveSheetIndex(0)
-            ->setCellValue( 'B'.(2+($i-1)*24), $corp_owner_data[0]["name"].$corp_owner_text)
+            ->setCellValue( 'B'.(2+($i-1)*24), $corp_owner_data[0]["owner_name"].$corp_owner_text)
             ->setCellValue( 'D'.(3+($i-1)*24), $corpPIdText)
             ->setCellValue( 'G'.(2+($i-1)*24), $corp_owner_data[0]["current_address"])
             ->setCellValue( 'R'.(2+($i-1)*24), $corp_owner_data[0]["telephone"])

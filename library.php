@@ -2585,7 +2585,7 @@ function getCorpOwnerData($script_number){
     $conn = connect_db();
 
     // $sql = "SELECT * FROM corp_owner_belong_to_corp_record NATURAL JOIN corp_record NATURAL JOIN corp_owner WHERE rid='{$script_number}'";
-    $sql = "SELECT * FROM corp_owner_belong_to_corp_record NATURAL JOIN corp_record NATURAL JOIN corp_owner as a JOIN landlord as b ON a.name=b.name WHERE rid='$script_number' AND checkId='{$script_number}' ORDER BY keyin_order";
+    $sql = "SELECT *,a.name AS owner_name FROM corp_owner_belong_to_corp_record NATURAL JOIN corp_record NATURAL JOIN corp_owner AS a LEFT JOIN landlord AS b ON a.name=b.name WHERE rid='$script_number' AND checkId='{$script_number}' ORDER BY keyin_order";
     $res = $conn->query($sql);
 
     $i = 0;
@@ -2602,7 +2602,7 @@ function getCorpOwnerData2($script_number){
     $conn = connect_db();
 
     // $sql = "SELECT * FROM corp_owner_belong_to_corp_record NATURAL JOIN corp_record NATURAL JOIN corp_owner WHERE rid='{$script_number}'";
-    $sql = "SELECT * FROM corp_owner_belong_to_corp_record NATURAL JOIN corp_record NATURAL JOIN corp_owner as a JOIN landlord as b ON a.name=b.name WHERE rid='$script_number' AND checkId='{$script_number}' ORDER BY keyin_order";
+    $sql = "SELECT *,a.name AS owner_name FROM corp_owner_belong_to_corp_record NATURAL JOIN corp_record NATURAL JOIN corp_owner AS a LEFT JOIN landlord AS b ON a.name=b.name WHERE rid='$script_number' AND checkId='{$script_number}' ORDER BY keyin_order";
     $res = $conn->query($sql);
 
     $i = 0;
@@ -2610,7 +2610,7 @@ function getCorpOwnerData2($script_number){
         $corp_owner["pId"][$i] = $row["pId"];
         $corp_owner["hold_numerator"][$i] = $row["hold_numerator"];
         $corp_owner["hold_denominator"][$i] = $row["hold_denominator"];
-        $corp_owner["name"][$i] = $row["name"];
+        $corp_owner["name"][$i] = $row["owner_name"];
         $corp_owner["current_address"][$i] = $row["current_address"];
         $corp_owner["telephone"][$i] = $row["telephone"];
         $corp_owner["cellphone"][$i] = $row["cellphone"];
@@ -2665,6 +2665,7 @@ function getCorpLandOwnerData2($first_id,$land_section,$subsection,$land_number)
     $land_owner;
     $index = 0;
     $temp_array[0] = $first_id;
+    $result = [];
 
     for($i=0;$i<count($land_section);$i++){
         for($j=0;$j<count($land_number[$i]);$j++){
@@ -2678,13 +2679,14 @@ function getCorpLandOwnerData2($first_id,$land_section,$subsection,$land_number)
 
             while($row = $res->fetch_assoc()) {
                 // if(!in_array($row["hold_id"],$temp_array)){
-                if($row["hold_id"] != $first_id){
+                if($row["hold_id"] != $first_id && !in_array($row["hold_id"], $result)){
                     $temp_array[$index] = $row["hold_id"];
                     $land_owner["hold_id"][$index] = $row["hold_id"];
                     $land_owner["name"][$index] = $row["name"];
                     $land_owner["address"][$index] = $row["address"];
                     $land_owner["numerator"][$index] = $row["numerator"];
                     $land_owner["denominator"][$index] = $row["denominator"];
+                    $result[$index] = $row["hold_id"];
                     $index++;
                 }
             }

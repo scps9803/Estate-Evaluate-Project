@@ -3047,7 +3047,7 @@ function getCorpLandData(script_number){
              for(var i=0;i<data.land_section.length;i++){
                  var land_number_text = "";
                  if(i>0){
-                     addInfoItemOnclick('land-section');
+                     addInfoItemOnclick('corp-land-section');
                  }
 
                  $("#section-"+(i+1)).val(data.land_section[i]);
@@ -3370,7 +3370,7 @@ function getLandData(script_number){
              for(var i=0;i<data.land_section.length;i++){
                  var land_number_text = "";
                  if(i>0){
-                     addInfoItemOnclick('land-section');
+                     addInfoItemOnclick('building-land-section');
                  }
 
                  $("#section-"+(i+1)).val(data.land_section[i]);

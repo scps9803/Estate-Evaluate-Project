@@ -58,7 +58,7 @@ $corp_data,$creator,$land_section,$land_number,$total_land_area,$actual_use_area
     // // 載入 Excel
     // $objPHPExcel = PHPExcel_IOFactory::load($excelTemplate);
     $objPHPExcel->setActiveSheetIndex(0)
-                ->setCellValue( 'B'.(26+($pages-1)*24), $corp_owner_data[0]["name"].$corp_owner_text)
+                ->setCellValue( 'B'.(26+($pages-1)*24), $corp_owner_data[0]["owner_name"].$corp_owner_text)
                 ->setCellValue( 'D'.(27+($pages-1)*24), $corp_owner_data[0]["pId"])
                 ->setCellValue( 'G'.(26+($pages-1)*24), $corp_owner_data[0]["current_address"])
                 ->setCellValue( 'R'.(26+($pages-1)*24), $corp_owner_data[0]["telephone"])
@@ -79,7 +79,7 @@ $corp_data,$creator,$land_section,$land_number,$total_land_area,$actual_use_area
         $hold_ratio = $corp_owner_data[$i]["hold_numerator"] / $corp_owner_data[$i]["hold_denominator"];
         $objPHPExcel->setActiveSheetIndex(0)
                     ->setCellValue( 'A'.(31+($pages-1)*24+$i*2), '農林漁牧作物所有人')
-                    ->setCellValue( 'B'.(31+($pages-1)*24+$i*2), $corp_owner_data[$i]["name"])
+                    ->setCellValue( 'B'.(31+($pages-1)*24+$i*2), $corp_owner_data[$i]["owner_name"])
                     ->setCellValue( 'D'.(31+($pages-1)*24+$i*2), '歸戶號')
                     ->setCellValue( 'D'.(32+($pages-1)*24+$i*2), $corp_owner_data[$i]["hold_id"])
                     ->setCellValue( 'F'.(31+($pages-1)*24+$i*2), '住所')

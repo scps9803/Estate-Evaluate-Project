@@ -122,6 +122,7 @@ for($i=1;$i<=count($land_owner_data["hold_id"]);$i++){
         $land_owner_order[$i] = $i+1;
     // }
 }
+// for($i=0;$i<count($land_owner_data["hold_id"]);$i++) echo $hold_id[$i]."<br>";
 // echo "---------------------<br>";
 // echo "土地所有人:"."<br>";
 // // echo count($land_owner_data["hold_id"]);
