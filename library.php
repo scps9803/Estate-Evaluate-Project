@@ -66,9 +66,9 @@ function load_corp_item_Data(){
     return $corp_category;
 }
 
-function get_corp_item_option(){
+function get_corp_category_option(){
     $corp_category = load_corp_item_Data();
-    $corp_category_option = "";
+    $corp_category_option = "<option value='' style='display:none;'>請選擇種類</option>";
 
     for($i=0;$i<count($corp_category);$i++){
         $corp_category_option = $corp_category_option
@@ -2394,7 +2394,7 @@ function getAutoCompleteOwnerData($section,$subsection,$land_number){
 function getAutoCalculateArea($corp_category,$corp_item,$corp_type,$corp_num){
     $conn = connect_db();
 
-    if($corp_type=="none"){
+    if($corp_type == "無特別規格"){
         $sql = "SELECT unit_area FROM corp WHERE category='{$corp_category}' AND item='{$corp_item}'";
     }
     else{
@@ -2551,7 +2551,7 @@ function insertIntoPlantingTable($land_section,$subsection,$land_number,$corp,$s
 
     $land_id = $land_section[0].$subsection[0].$land_number[0][0];
     for($i=0;$i<count($corp);$i++){
-        if($corp[$i]["type"]=="none"){
+        if($corp[$i]["type"]=="無特別規格"){
             $sql = "SELECT cId FROM corp WHERE category='{$corp[$i]["category"]}' AND item='{$corp[$i]["item"]}'";
         }
         else{
@@ -2662,7 +2662,7 @@ function getCorpLandOwnerData3($script_number){
 function getCorpLandOwnerData2($first_id,$land_section,$subsection,$land_number){
     $conn = connect_db();
     $temp_array;
-    $land_owner;
+    $land_owner = [];
     $index = 0;
     $temp_array[0] = $first_id;
     $result = [];
@@ -3206,6 +3206,64 @@ function getAllBuildingRecord($legal){
     while($row = $res->fetch_assoc()) {
         $result[$i] = $row;
         $i++;
+    }
+    $conn->close();
+
+    return $result;
+}
+
+function preLoadCorpItemData(){
+    $conn = connect_db();
+    $result = [];
+    $sql = "SELECT DISTINCT category FROM corp";
+    $res = $conn->query($sql);
+    $category = $res -> fetch_all(MYSQLI_ASSOC);
+
+    for($i=0;$i<count($category);$i++){
+        $sql = "SELECT DISTINCT item FROM corp WHERE category='{$category[$i]['category']}'";
+        $res = $conn->query($sql);
+        $item = $res -> fetch_all(MYSQLI_ASSOC);
+        // 將Query產生的二維陣列降至一維
+        $item = array_map('current', $item);
+        $result[$i] = $category[$i];
+        $result[$i]['item'] = $item;
+    }
+    $conn->close();
+
+    return $result;
+}
+
+function preLoadCorpTypeData(){
+    $conn = connect_db();
+    $sql = "SELECT DISTINCT item FROM corp";
+    $res = $conn->query($sql);
+    $item = $res -> fetch_all(MYSQLI_ASSOC);
+    $result = [];
+
+    for($i=0;$i<count($item);$i++){
+        $sql = "SELECT corp_age, cm_length, m_length, unit FROM corp WHERE item='{$item[$i]['item']}'";
+        $res = $conn->query($sql);
+        $corp_type = $res -> fetch_all(MYSQLI_ASSOC);
+
+        $unit = [];
+        for($j=0;$j<count($corp_type);$j++){
+            $unit[$j] = $corp_type[$j]['unit'];
+            if($corp_type[$j]["corp_age"]!=NULL){
+                $corp_type[$j] = $corp_type[$j]['corp_age'];
+            }
+            else if($corp_type[$j]["cm_length"]!=NULL){
+                $corp_type[$j] = $corp_type[$j]['cm_length'];
+            }
+            else if($corp_type[$j]["m_length"]!=NULL){
+                $corp_type[$j] = $corp_type[$j]['m_length'];
+            }
+            else{
+                $corp_type[$j] = "無特別規格";
+            }
+        }
+        $result[$i] = $item[$i];
+        $result[$i]['corp_type'] = $corp_type;
+        $result[$i]['unit'] = $unit;
     }
     $conn->close();
 

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2020-07-14 18:48:22
+/* Smarty version 3.1.33, created on 2020-07-21 16:37:16
   from 'C:\xampp\htdocs\Estate-Evaluate-Project\templates\corp.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5f0de1d6078eb4_09238526',
+  'unifunc' => 'content_5f16fd9c520842_15608965',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b853368e2354e894b130c61f2cffc65dfdcf584c' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Estate-Evaluate-Project\\templates\\corp.html',
-      1 => 1594745296,
+      1 => 1595342232,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5f0de1d6078eb4_09238526 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5f16fd9c520842_15608965 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -318,7 +318,6 @@ function content_5f0de1d6078eb4_09238526 (Smarty_Internal_Template $_smarty_tpl)
                             <div id="corp-category" style="margin-top:4px;">
                                 <div id="corp-category-1">
                                     <select id="corp-category-option-1" name="corp-category-1" style="width:140px;" onchange="load_corp_item_Data(1)" required>
-                                        <option value="" style="display:none;">請選擇種類</option>
                                         <?php echo $_smarty_tpl->tpl_vars['corp_category_option']->value;?>
 
                                     </select>
@@ -341,7 +340,7 @@ function content_5f0de1d6078eb4_09238526 (Smarty_Internal_Template $_smarty_tpl)
                         <td>
                             <div id="corp-type" style="margin-bottom:18px">
                                 <div id="corp-type-1">
-                                    <select id="corp-type-option-1" name="corp-type-1" style="width:140px;" required>
+                                    <select id="corp-type-option-1" name="corp-type-1" style="width:140px;" onchange="load_corp_unit_Data(1)" required>
                                         <option value="">請選擇規格</option>
                                     </select>
                                 </div>
@@ -410,6 +409,10 @@ function content_5f0de1d6078eb4_09238526 (Smarty_Internal_Template $_smarty_tpl)
 </body>
 <?php echo '<script'; ?>
  type="text/javascript">
+    $(document).ready(function(){
+        preLoadCorpItemData();
+        preLoadCorpTypeData();
+    });
     function corpClick(){
         // var item = "input[name='legal-status']";
         // window.alert('測試用介面，資料不儲存');

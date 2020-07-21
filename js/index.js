@@ -42,6 +42,9 @@ var submitCheck = false;
 var script_number = "";
 var deleteNextPage = false;
 var nth_OwnerNameList = [];
+var corp_category_option = "";
+var corp_item_data;
+var corp_type_data;
 
 function addItemOnclick(id,column,num){
     var itemId = "#"+id+column+"-"+num;
@@ -824,7 +827,7 @@ function addInfoItemOnclick(id){
         case 'corp-type':
             text =
             '<div id="corp-type-'+corp_count+'" style="margin-top:4px">'+
-                '<select id="corp-type-option-'+corp_count+'" name="corp-type-'+corp_count+'" style="width:140px;" required>'+
+                '<select id="corp-type-option-'+corp_count+'" name="corp-type-'+corp_count+'" style="width:140px;" onchange="load_corp_unit_Data('+corp_count+')" required>'+
                     '<option value="">請選擇規格</option>'+
                 '</select>'+
             '</div>';
@@ -1747,7 +1750,7 @@ function exportCorpExcel(script_number){
         window.alert("Excel匯出成功!");
     }).done(function() {
         // alert("請點擊繼續!");
-        location.href = "homepage.php";
+        // location.href = "homepage.php";
       })
       .fail(function() {
         alert("Excel匯出失敗!");
@@ -2084,52 +2087,90 @@ function checkOwner(num){
 }
 function load_corp_category_Data(num){
     var item = "select[name='corp-category-"+num+"']";
-    $.ajax({
-         url: "get_building_decoration_option.php",
-         type: "POST",
-         data:{
-            category: 'corp_category'
-         },
-         cache:false,
-         dataType: "json",
-         async: false,
-         // contentType: 'application/json; charset=utf-8',
-         success: function(data){
-             console.log("load category "+(num-1));
-             $(item).html(data.item_name);
-             load_corp_item_Data(num);
-         },
-         error:function(err){
-             window.alert(err.statusText);
-         }
-    });
+    if(corp_category_option == ""){
+        $.ajax({
+            url: "get_building_decoration_option.php",
+            type: "POST",
+            data:{
+               category: 'corp_category'
+            },
+            cache:false,
+            dataType: "json",
+            async: false,
+            // contentType: 'application/json; charset=utf-8',
+            success: function(data){
+                // console.log("load category "+(num-1));
+                // $(item).html(data.item_name);
+                // load_corp_item_Data(num);
+                corp_category_option = data.item_name;
+            },
+            error:function(err){
+                window.alert(err.statusText);
+            }
+       });
+    }
+    console.log("load category "+(num-1));
+    $(item).html(corp_category_option);
+    $(item).selectedIndex = 1;
+
+    // $.ajax({
+    //      url: "get_building_decoration_option.php",
+    //      type: "POST",
+    //      data:{
+    //         category: 'corp_category'
+    //      },
+    //      cache:false,
+    //      dataType: "json",
+    //      async: false,
+    //      // contentType: 'application/json; charset=utf-8',
+    //      success: function(data){
+    //          console.log("load category "+(num-1));
+    //          $(item).html(data.item_name);
+    //          load_corp_item_Data(num);
+    //      },
+    //      error:function(err){
+    //          window.alert(err.statusText);
+    //      }
+    // });
 }
 function load_corp_item_Data(num){
-    var item = "select[name='corp-category-"+num+"']";
-    var corp_item = "input[name='corp-item-"+num+"']";
-    var classfication = $(item).val();
+    let category_select = "select[name='corp-category-"+num+"']";
+    let corp_item = "input[name='corp-item-"+num+"']";
+    let category = $(category_select).val();
     $(corp_item).val("");
-    $.ajax({
-         url: "get_building_decoration_option.php",
-         type: "POST",
-         data:{
-            category: 'corp_item',
-            classfication: classfication
-         },
-         cache:false,
-         dataType: "json",
-         async: false,
-         // contentType: 'application/json; charset=utf-8',
-         success: function(data){
-             console.log("load corp item "+(num-1));
-             let datalist = "<datalist id='corp-item-list-"+num+"'>"+data.item_name+"</datalist>";
-             $(corp_item).html(datalist);
-             load_corp_type_Data(num);
-         },
-         error:function(err){
-             window.alert(err.statusText);
-         }
-    });
+    // $.ajax({
+    //      url: "get_building_decoration_option.php",
+    //      type: "POST",
+    //      data:{
+    //         category: 'corp_item',
+    //         classfication: classfication
+    //      },
+    //      cache:false,
+    //      dataType: "json",
+    //      async: false,
+    //      // contentType: 'application/json; charset=utf-8',
+    //      success: function(data){
+    //          console.log("load corp item "+(num-1));
+    //          let datalist = "<datalist id='corp-item-list-"+num+"'>"+data.item_name+"</datalist>";
+    //          $(corp_item).html(datalist);
+    //         //  load_corp_type_Data(num);
+    //      },
+    //      error:function(err){
+    //          window.alert(err.statusText);
+    //      }
+    // });
+
+    // let datalist = "<datalist id='corp-item-list-"+num+"'>"+data.item_name+"</datalist>";
+    let datalist = "<datalist id='corp-item-list-"+num+"'>";
+    for(let i=0;i<corp_item_data.corp_item_data.length;i++){
+        if(corp_item_data.corp_item_data[i].category == category){
+            for(let j=0;j<corp_item_data.corp_item_data[i].item.length;j++){
+                datalist += "<option value='"+corp_item_data.corp_item_data[i].item[j]+"'>"+corp_item_data.corp_item_data[i].item[j]+"</option>";
+            }
+        }
+    }
+    datalist += "</datalist>";
+    $(corp_item).html(datalist);
 }
 
 function load_corp_type_Data(num){
@@ -2137,27 +2178,38 @@ function load_corp_type_Data(num){
     var item = "input[name='corp-item-"+num+"']"
     var corp_item = $(item).val();
     var corp_type = "select[name='corp-type-"+num+"']";
+    var corp_type_html = "";
 
-    $.ajax({
-         url: "get_building_decoration_option.php",
-         type: "POST",
-         data:{
-            category: 'corp_type',
-            corp_item: corp_item
-         },
-         cache:false,
-         dataType: "json",
-         async: false,
-         // contentType: 'application/json; charset=utf-8',
-         success: function(data){
-             console.log("load corp type "+(num-1));
-             $(corp_type).html(data.item_name);
-             load_corp_unit_Data(num);
-         },
-         error:function(err){
-             window.alert(err.statusText);
-         }
-    });
+    // $.ajax({
+    //      url: "get_building_decoration_option.php",
+    //      type: "POST",
+    //      data:{
+    //         category: 'corp_type',
+    //         corp_item: corp_item
+    //      },
+    //      cache:false,
+    //      dataType: "json",
+    //      async: false,
+    //      // contentType: 'application/json; charset=utf-8',
+    //      success: function(data){
+    //          console.log("load corp type "+(num-1));
+    //          $(corp_type).html(data.item_name);
+    //         //  load_corp_unit_Data(num);
+    //      },
+    //      error:function(err){
+    //          window.alert(err.statusText);
+    //      }
+    // });
+
+    for(let i=0;i<corp_type_data.corp_type_data.length;i++){
+        if(corp_type_data.corp_type_data[i].item == corp_item){
+            for(let j=0;j<corp_type_data.corp_type_data[i].corp_type.length;j++){
+                corp_type_html += "<option value='"+corp_type_data.corp_type_data[i].corp_type[j]+"'>"+corp_type_data.corp_type_data[i].corp_type[j]+"</option>";
+            }
+        }
+    }
+    $(corp_type).html(corp_type_html);
+    load_corp_unit_Data(num);
 }
 
 function load_corp_unit_Data(num){
@@ -2166,27 +2218,39 @@ function load_corp_unit_Data(num){
     var corp_item = $(item).val();
     var corp_type = $("select[name='corp-type-"+num+"']").val();
     var corp_unit = "select[name='corp-unit-"+num+"']";
+    var corp_unit_html = "";
 
-    $.ajax({
-         url: "get_building_decoration_option.php",
-         type: "POST",
-         data:{
-            category: 'corp_unit',
-            corp_item: corp_item,
-            corp_type: corp_type
-         },
-         cache:false,
-         dataType: "json",
-         async: false,
-         // contentType: 'application/json; charset=utf-8',
-         success: function(data){
-             console.log("load corp unit "+(num-1));
-             $(corp_unit).html(data.item_name);
-         },
-         error:function(err){
-             window.alert(err.statusText);
-         }
-    });
+    // $.ajax({
+    //      url: "get_building_decoration_option.php",
+    //      type: "POST",
+    //      data:{
+    //         category: 'corp_unit',
+    //         corp_item: corp_item,
+    //         corp_type: corp_type
+    //      },
+    //      cache:false,
+    //      dataType: "json",
+    //      async: false,
+    //      // contentType: 'application/json; charset=utf-8',
+    //      success: function(data){
+    //          console.log("load corp unit "+(num-1));
+    //          $(corp_unit).html(data.item_name);
+    //      },
+    //      error:function(err){
+    //          window.alert(err.statusText);
+    //      }
+    // });
+
+    for(let i=0;i<corp_type_data.corp_type_data.length;i++){
+        if(corp_type_data.corp_type_data[i].item == corp_item){
+            for(let j=0;j<corp_type_data.corp_type_data[i].corp_type.length;j++){
+                if(corp_type_data.corp_type_data[i].corp_type[j] == corp_type){
+                    corp_unit_html += "<option value='"+corp_type_data.corp_type_data[i].unit[j]+"'>"+corp_type_data.corp_type_data[i].unit[j]+"</option>";
+                }
+            }
+        }
+    }
+    $(corp_unit).html(corp_unit_html);
 }
 
 var isShow = false;
@@ -2940,6 +3004,8 @@ function deleteSubbuildingData(){
 function getCorpUpdateData(script_number,rId){
     $('div.loading').show();
     $("#script-number").val(rId);
+    preLoadCorpItemData();
+    preLoadCorpTypeData();
     getCorpLandData(script_number);
     getCorpOwnerData(script_number);
     getCorpLandOwnerData(script_number);
@@ -3272,38 +3338,39 @@ function getCorpItem(json,index){
 function getCorpType(json,index){
     var response_json = "";
 
-    $.when($.ajax({
-         url: "get_building_decoration_option.php",
-         type: "POST",
-         data:{
-            category: 'get_corp_type',
-            item: json.item[index]
-         },
-         cache:false,
-         dataType: "json",
-         async:false,
-         success: function(data){
-             response_json = data;
-             // 資料庫中原本資料的crop_type
-             // console.log(json.corp_type);
-             // console.log(response_json.corp_type);
-         },
-         error:function(err){
-             window.alert(err.statusText);
-         }
-    })).then(function(){
-        console.log(json.corp_type);
-        console.log(response_json.corp_type);
-        for(var i=0;i<json.corp_type.length;i++){
-            for(var j=0;j<response_json.corp_type.length;j++){
-                if(json.corp_type[i] == response_json.corp_type[j] && i==index){
-                    console.log(json.corp_type[i]+"已選");
-                    document.getElementById("corp-type-option-"+(i+1)).selectedIndex = j;
-                    break;
-                }
-            }
-        }
-    });
+    // $.when($.ajax({
+    //      url: "get_building_decoration_option.php",
+    //      type: "POST",
+    //      data:{
+    //         category: 'get_corp_type',
+    //         item: json.item[index]
+    //      },
+    //      cache:false,
+    //      dataType: "json",
+    //      async:false,
+    //      success: function(data){
+    //          response_json = data;
+    //          // 資料庫中原本資料的crop_type
+    //          // console.log(json.corp_type);
+    //          // console.log(response_json.corp_type);
+    //      },
+    //      error:function(err){
+    //          window.alert(err.statusText);
+    //      }
+    // })).then(function(){
+    //     console.log(json.corp_type);
+    //     console.log(response_json.corp_type);
+    //     for(var i=0;i<json.corp_type.length;i++){
+    //         for(var j=0;j<response_json.corp_type.length;j++){
+    //             if(json.corp_type[i] == response_json.corp_type[j] && i==index){
+    //                 console.log(json.corp_type[i]+"已選");
+    //                 document.getElementById("corp-type-option-"+(i+1)).selectedIndex = j;
+    //                 break;
+    //             }
+    //         }
+    //     }
+    // });
+    $("#corp-type-option-"+(index+1)).val(json.corp_type[index]);
 }
 
 function getBuildingUpdateData(script_number,legal_status,rId,page){
@@ -4011,6 +4078,46 @@ function addCorpItem(){
     $("#corp-equal").append(corp_equal_html);
     $("#corp-note").append(corp_note_html);
     load_corp_category_Data(corp_count);
+}
+
+function preLoadCorpItemData(){
+    $.ajax({
+        url: "get_building_decoration_option.php",
+        type: "POST",
+        data:{
+           category: 'pre_load_corp_item'
+        },
+        cache:false,
+        dataType: "json",
+        async:false,
+        success: function(data){
+            corp_item_data = data;
+            console.log(corp_item_data);
+        },
+        error:function(err){
+            window.alert(err.statusText);
+        }
+   });
+}
+
+function preLoadCorpTypeData(){
+    $.ajax({
+        url: "get_building_decoration_option.php",
+        type: "POST",
+        data:{
+           category: 'pre_load_corp_type'
+        },
+        cache:false,
+        dataType: "json",
+        async:false,
+        success: function(data){
+            corp_type_data = data;
+            console.log(data);
+        },
+        error:function(err){
+            window.alert(err.statusText);
+        }
+   });
 }
 
 $(document).ready(function(){

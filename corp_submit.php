@@ -97,30 +97,31 @@ $first_id = $_POST['hold-id-1'];
 $land_owner_data = getCorpLandOwnerData2($first_id,$land_section,$subsection,$land_number);
 // echo "HHHHHH<br>";
 // print_r($land_owner_data)."<br>";
-
-for($i=1;$i<=count($land_owner_data["hold_id"]);$i++){
-    // if($i==0){
-    //     $land_owner[$i] = $_POST['land-owner-'.($i+1)];
-    //     $hold_id[$i] = $_POST['hold-id-'.($i+1)];
-    //     if($_POST['land-pId-'.($i+1)] == ""){
-    //         $land_pId[$i] = "NA".$script_number."-".($i+1);
-    //     }
-    //     else{
-    //         $land_pId[$i] = $_POST['land-pId-'.($i+1)];
-    //     }
-    //     $landAddressText[$i] = $_POST['landAddressText-'.($i+1)];
-    //     $land_cellphone[$i] = $_POST['land-cellphone-'.($i+1)];
-    //     $land_telephone[$i] = $_POST['land-telephone-'.($i+1)];
-    // }
-    // else{
-        $land_owner[$i] = $land_owner_data["name"][$i-1];
-        $hold_id[$i] = $land_owner_data["hold_id"][$i-1];
-        $land_pId[$i] = "NA".$script_number."-".($i+1);
-        $landAddressText[$i] = $land_owner_data["address"][$i-1];
-        $land_cellphone[$i] = '';
-        $land_telephone[$i] = '';
-        $land_owner_order[$i] = $i+1;
-    // }
+if($land_owner_data != null){
+    for($i=1;$i<=count($land_owner_data["hold_id"]);$i++){
+        // if($i==0){
+        //     $land_owner[$i] = $_POST['land-owner-'.($i+1)];
+        //     $hold_id[$i] = $_POST['hold-id-'.($i+1)];
+        //     if($_POST['land-pId-'.($i+1)] == ""){
+        //         $land_pId[$i] = "NA".$script_number."-".($i+1);
+        //     }
+        //     else{
+        //         $land_pId[$i] = $_POST['land-pId-'.($i+1)];
+        //     }
+        //     $landAddressText[$i] = $_POST['landAddressText-'.($i+1)];
+        //     $land_cellphone[$i] = $_POST['land-cellphone-'.($i+1)];
+        //     $land_telephone[$i] = $_POST['land-telephone-'.($i+1)];
+        // }
+        // else{
+            $land_owner[$i] = $land_owner_data["name"][$i-1];
+            $hold_id[$i] = $land_owner_data["hold_id"][$i-1];
+            $land_pId[$i] = "NA".$script_number."-".($i+1);
+            $landAddressText[$i] = $land_owner_data["address"][$i-1];
+            $land_cellphone[$i] = '';
+            $land_telephone[$i] = '';
+            $land_owner_order[$i] = $i+1;
+        // }
+    }
 }
 // for($i=0;$i<count($land_owner_data["hold_id"]);$i++) echo $hold_id[$i]."<br>";
 // echo "---------------------<br>";

@@ -89,7 +89,7 @@ switch ($category) {
         $result_option = checkLandLordisExist($name,$hold_id);
         break;
     case 'corp_category':
-        $result_option = get_corp_item_option();
+        $result_option = get_corp_category_option();
         break;
 
     case 'corp_item':
@@ -363,6 +363,16 @@ switch ($category) {
         $item_name = $_POST['item_name'];
         $result_option = getAutoRemove($application,$item_name);
         break;
+    
+    case 'pre_load_corp_item':
+        $corp_item_data = preLoadCorpItemData();
+        echo json_encode(array('corp_item_data' => $corp_item_data));
+        return;
+    
+    case 'pre_load_corp_type':
+        $corp_type_data = preLoadCorpTypeData();
+        echo json_encode(array('corp_type_data' => $corp_type_data));
+        return;
 }
 // $item_type = $_POST['item_type'];
 //
