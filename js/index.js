@@ -1750,7 +1750,7 @@ function exportCorpExcel(script_number){
         window.alert("Excel匯出成功!");
     }).done(function() {
         // alert("請點擊繼續!");
-        // location.href = "homepage.php";
+        location.href = "homepage.php";
       })
       .fail(function() {
         alert("Excel匯出失敗!");

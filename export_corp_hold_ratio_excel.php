@@ -2,7 +2,10 @@
 function exportCorpHoldRatioExcel($script_number,$corp_owner_data,$corp_land_owner_data,$corp_land_data,
 $corp_data,$creator,$land_section,$land_number,$total_land_area,$actual_use_area,$total_pay,$survey_date_split,$district,$pages,$objPHPExcel){
     $saveType = explode("-",$script_number);
-    $holdRatioMod = $total_pay % count($corp_owner_data);
+    // $holdRatioMod = $total_pay % count($corp_owner_data);
+    $bonus_list = [];
+    $pay_to_owner = [];
+    $surplus = $total_pay;
 
     // 農作物所有人
     if(count($corp_owner_data)>1){
@@ -94,15 +97,34 @@ $corp_data,$creator,$land_section,$land_number,$total_land_area,$actual_use_area
                     ->setCellValue( 'O'.(32+($pages-1)*24+$i*2), '持分補償金額')
                     ->setCellValue( 'R'.(31+($pages-1)*24+$i*2), $corp_owner_data[$i]["pId"]);
 
-        if($holdRatioMod > 0){
-            $objPHPExcel->setActiveSheetIndex(0)
-                    ->setCellValue( 'R'.(32+($pages-1)*24+$i*2), number_format(floor($total_pay*$hold_ratio)+1,0,".",","));
-            $holdRatioMod--;
+        // if($holdRatioMod > 0){
+        //     $objPHPExcel->setActiveSheetIndex(0)
+        //             ->setCellValue( 'R'.(32+($pages-1)*24+$i*2), number_format(floor($total_pay*$hold_ratio)+1,0,".",","));
+        //     $holdRatioMod--;
+        // }
+        // else{
+        //     $objPHPExcel->setActiveSheetIndex(0)
+        //             ->setCellValue( 'R'.(32+($pages-1)*24+$i*2), number_format(floor($total_pay*$hold_ratio),0,".",","));
+        // }
+        
+        $original_pay = $total_pay*$hold_ratio;
+        $round_pay = round($total_pay*$hold_ratio);
+        $pay_to_owner[$i] = $round_pay;
+        $surplus -= $round_pay;
+        if($round_pay <= $original_pay){
+            $bonus_list[$i] = true;
         }
         else{
-            $objPHPExcel->setActiveSheetIndex(0)
-                    ->setCellValue( 'R'.(32+($pages-1)*24+$i*2), number_format(floor($total_pay*$hold_ratio),0,".",","));
+            $bonus_list[$i] = false;
         }
+    }
+    for($i=0;$i<count($corp_owner_data);$i++){
+        if($surplus > 0 && $bonus_list[$i] == true){
+            $pay_to_owner[$i] += 1;
+            $surplus -= 1;
+        }
+        $objPHPExcel->setActiveSheetIndex(0)
+                    ->setCellValue( 'R'.(32+($pages-1)*24+$i*2), number_format($pay_to_owner[$i],0,".",","));
     }
     $objPHPExcel->setActiveSheetIndex(0)
                 ->setCellValue( 'A'.(59+($pages-1)*24), "調查日期： ".($survey_date_split[0]-1911)." 年 ".$survey_date_split[1]." 月 ".$survey_date_split[2]." 日")
