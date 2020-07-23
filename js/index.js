@@ -507,8 +507,8 @@ function addInfoItemOnclick(id){
             text =
             '<div id="corp-owner-'+owner_count+'">'+
                 // '<input type="text" name="corp-owner-'+owner_count+'" placeholder="所有權人-'+owner_count+'" required><br>'+
-                '<input type="text" style="width:90px;" name="corp-owner-'+owner_count+'" autocomplete="off" placeholder="手動新增" required>&nbsp;'+
-                '<select id="corp-owner-select-'+owner_count+'" name="corp-owner-select-'+owner_count+'" style="width:90px;" onchange="autoFillInOwnerName(\'corp-owner\','+owner_count+')">'+
+                '<input type="text" style="width:80px;" name="corp-owner-'+owner_count+'" autocomplete="off" placeholder="手動新增" required>&nbsp;'+
+                '<select id="corp-owner-select-'+owner_count+'" name="corp-owner-select-'+owner_count+'" style="width:80px;" onchange="autoFillInOwnerName(\'corp-owner\','+owner_count+')">'+
                     '<option value="" style="display:none">請選擇項目</option>'+
                 '</select>'+
             '</div>';
@@ -809,8 +809,8 @@ function addInfoItemOnclick(id){
             corp_count += 1;
 
             text =
-            '<div id="corp-category-'+corp_count+'" style="margin-top:4px">'+
-                '<select id="corp-category-option-'+corp_count+'" name="corp-category-'+corp_count+'" style="width:140px;" onchange="load_corp_item_Data('+corp_count+')" required>'+
+            '<div id="corp-category-'+corp_count+'" style="margin-top:5px">'+
+                '<select id="corp-category-option-'+corp_count+'" name="corp-category-'+corp_count+'" style="width:140px;" onchange="load_corp_item_Data('+corp_count+')" onfocus="itemFocus('+corp_count+')" onfocusout="itemOutFocus('+corp_count+')" required>'+
                     '<option value="" style="display:none;">請選擇種類</option>'+
                 '</select>'+
             '</div>';
@@ -819,15 +819,15 @@ function addInfoItemOnclick(id){
 
         case 'corp-item':
             text =
-            '<div id="corp-item-'+corp_count+'" style="margin-top:4px">'+
-                '<input id="corp-item-option-'+corp_count+'" name="corp-item-'+corp_count+'" list="corp-item-list-'+corp_count+'" autocomplete="off" style="width:140px;" placeholder="點擊選擇或搜尋" onchange="load_corp_type_Data('+corp_count+')" required></input>' +
+            '<div id="corp-item-'+corp_count+'" style="margin-top:4px;margin-bottom:5px;height:22px">'+
+                '<input id="corp-item-option-'+corp_count+'" name="corp-item-'+corp_count+'" list="corp-item-list-'+corp_count+'" autocomplete="off" style="width:140px;margin:0" placeholder="點擊選擇或搜尋" onchange="load_corp_type_Data('+corp_count+')" onfocus="itemFocus('+corp_count+')" onfocusout="itemOutFocus('+corp_count+')" required></input>' +
             '</div>';
             return text;
 
         case 'corp-type':
             text =
-            '<div id="corp-type-'+corp_count+'" style="margin-top:4px">'+
-                '<select id="corp-type-option-'+corp_count+'" name="corp-type-'+corp_count+'" style="width:140px;" onchange="load_corp_unit_Data('+corp_count+')" required>'+
+            '<div id="corp-type-'+corp_count+'" style="margin-top:5px">'+
+                '<select id="corp-type-option-'+corp_count+'" name="corp-type-'+corp_count+'" style="width:140px;" onchange="load_corp_unit_Data('+corp_count+')" onfocus="itemFocus('+corp_count+')" onfocusout="itemOutFocus('+corp_count+')" required>'+
                     '<option value="">請選擇規格</option>'+
                 '</select>'+
             '</div>';
@@ -835,15 +835,15 @@ function addInfoItemOnclick(id){
 
         case 'corp-num':
             text =
-            '<div id="corp-num-'+corp_count+'" style="margin-top:-2px">'+
-                '<input type="text" name="corp-num-'+corp_count+'" title="只能輸入10位以下數字(含小數點)" placeholder="請輸入數量" onchange="autoCalculateArea('+corp_count+')" required>'+
+            '<div id="corp-num-'+corp_count+'" style="margin-top:4px;margin-bottom:5px;height:22px">'+
+                '<input type="text" name="corp-num-'+corp_count+'" title="只能輸入10位以下數字(含小數點)" style="margin:0" placeholder="請輸入數量" onchange="autoCalculateArea('+corp_count+')" onfocus="itemFocus('+corp_count+')" onfocusout="itemOutFocus('+corp_count+')" required>'+
             '</div>';
             return text;
 
         case 'corp-unit':
             text =
-            '<div id="corp-unit-'+corp_count+'" style="margin-top:4px">'+
-                '<select class="" name="corp-unit-'+corp_count+'" required>'+
+            '<div id="corp-unit-'+corp_count+'" style="margin-top:5px;">'+
+                '<select class="" name="corp-unit-'+corp_count+'" onfocus="itemFocus('+corp_count+')" onfocusout="itemOutFocus('+corp_count+')" required>'+
                     '<option value="">請選擇單位</option>'+
                 '</select>'+
             '</div>';
@@ -851,22 +851,22 @@ function addInfoItemOnclick(id){
 
         case 'corp-area':
             text =
-            '<div id="corp-area-'+corp_count+'" style="margin-top:-2px">'+
-                '<input type="text" name="corp-area-'+corp_count+'" class="large-input-size" placeholder="請輸入種植面積" required>'+
+            '<div id="corp-area-'+corp_count+'" style="margin-top:4px;margin-bottom:5px;height:22px">'+
+                '<input type="text" name="corp-area-'+corp_count+'" class="large-input-size" placeholder="請輸入種植面積" style="margin:0" onfocus="itemFocus('+corp_count+')" onfocusout="itemOutFocus('+corp_count+')" required>'+
             '</div>';
             return text;
 
         case 'corp-equal':
             text =
-            '<div id="corp-equal-'+corp_count+'" style="margin-top:5px">'+
-                '<input type="checkbox" value="" id="corp-equal-check-'+corp_count+'" name="corp-equal-'+corp_count+'" onchange="corpEqual('+corp_count+')">比照備註項目'+
+            '<div id="corp-equal-'+corp_count+'" style="margin-top:5px;margin-bottom:0px;height:22px">'+
+                '<input type="checkbox" value="" id="corp-equal-check-'+corp_count+'" name="corp-equal-'+corp_count+'" onchange="corpEqual('+corp_count+')" onfocus="itemFocus('+corp_count+')" onfocusout="itemOutFocus('+corp_count+')">比照項目'+
             '</div>';
             return text;
 
         case 'corp-note':
             text =
-            '<div id="corp-note-'+corp_count+'" style="margin-top:-2px">'+
-                '<input type="text" name="corp-note-'+corp_count+'" class="large-input-size" placeholder="輸入比照物 ex.樹葡萄">'+
+            '<div id="corp-note-'+corp_count+'" style="margin-top:4px;margin-bottom:5px;height:22px">'+
+                '<input type="text" name="corp-note-'+corp_count+'" class="large-input-size" placeholder="輸入比照物 ex.樹葡萄" style="margin:0" onfocus="itemFocus('+corp_count+')" onfocusout="itemOutFocus('+corp_count+')">'+
             '</div>';
             return text;
     }
@@ -4118,6 +4118,30 @@ function preLoadCorpTypeData(){
             window.alert(err.statusText);
         }
    });
+}
+
+function itemFocus(num){
+    // document.querySelectorAll("input[id*='corp-item-']").blur();
+    $("#corp-category-"+num).css("background-color", "#ADADAD");
+    $("#corp-item-"+num).css("background-color", "#ADADAD");
+    $("#corp-type-"+num).css("background-color", "#ADADAD");
+    $("#corp-num-"+num).css("background-color", "#ADADAD");
+    $("#corp-unit-"+num).css("background-color", "#ADADAD");
+    $("#corp-area-"+num).css("background-color", "#ADADAD");
+    $("#corp-equal-"+num).css("background-color", "#ADADAD");
+    $("#corp-note-"+num).css("background-color", "#ADADAD");
+}
+
+function itemOutFocus(num){
+    // document.querySelectorAll("input[id*='corp-item-']").blur();
+    $("#corp-category-"+num).css("background-color", "");
+    $("#corp-item-"+num).css("background-color", "");
+    $("#corp-type-"+num).css("background-color", "");
+    $("#corp-num-"+num).css("background-color", "");
+    $("#corp-unit-"+num).css("background-color", "");
+    $("#corp-area-"+num).css("background-color", "");
+    $("#corp-equal-"+num).css("background-color", "");
+    $("#corp-note-"+num).css("background-color", "");
 }
 
 $(document).ready(function(){

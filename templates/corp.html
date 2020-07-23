@@ -18,7 +18,7 @@
         <h1>農作物調查表</h1>
         <h3 style="color:red;">(*)表示必填項目</h3>
         <form class="" action="corp_submit.php" method="post" id="" onkeydown="if(event.keyCode==13)return false;">
-            <table border="1">
+            <table border="1" style="border-collapse:collapse">
                 <tbody>
                     <tr>
                         <td rowspan="3">基地標示</td>
@@ -27,7 +27,7 @@
                         <td rowspan="2">小段</td>
                         <td colspan="3" rowspan="2"><span class="required">(*)</span>地號</td>
                         <!-- <td colspan="2"><span class="required">(*)</span>面積(m<sup>2</sup>)</td> -->
-                        <td rowspan=""><span class="required">(*)</span><br>查估手稿編號</td>
+                        <td rowspan=""><span class="required">(*)</span><br>查估手稿<br>編號</td>
                         <td rowspan="">
                             <input type="radio" id="legal" name="legal-status" value="農" checked required>農
                             <!-- <input type="radio" id="illegal" name="legal-status" value="農非">農非 -->
@@ -112,7 +112,7 @@
                             </div>
                         </td>
 
-                        <td><span class="required">(*)</span><br>土地使用權屬</td>
+                        <td><span class="required">(*)</span><br>土地使用<br>權屬</td>
                         <td>
                             <select class="select-menu" id="land-use" name="land-use" required>
                                 <option value="" style="display:none;">請選擇項目</option>
@@ -142,8 +142,8 @@
                             <div id="corp-owner">
                                 <div id="corp-owner-1">
                                     <!-- <input type="text" name="corp-owner-1" placeholder="所有權人-1" required><br> -->
-                                    <input type="text" style="width:90px;" name="corp-owner-1" autocomplete="off" placeholder="手動新增" required>
-                                    <select id="corp-owner-select-1" name="corp-owner-select-1" style="width:90px;" onchange="autoFillInOwnerName('corp-owner',1)">
+                                    <input type="text" style="width:80px;" name="corp-owner-1" autocomplete="off" placeholder="手動新增" required>
+                                    <select id="corp-owner-select-1" name="corp-owner-select-1" style="width:80px;" onchange="autoFillInOwnerName('corp-owner',1)">
                                         <option value="" style="display:none">請選擇項目</option>
                                     </select>
                                 </div>
@@ -155,19 +155,19 @@
 
                         <td rowspan="2">
                             <div id="hold-ratio" class="input-align">
-                                <div id="hold-ratio-1">
+                                <div id="hold-ratio-1" style="margin-top:22px">
                                     <input type="text" id="hold-numerator-1" name="hold-numerator-1" class="tiny-input-size" placeholder="輸入" pattern="[0-9]{literal}{1,10}{/literal}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('hold-numerator-1')" required>
                                     /&nbsp;<input type="text" id="hold-denominator-1" name="hold-denominator-1" class="tiny-input-size" placeholder="比例" pattern="[0-9]{literal}{1,10}{/literal}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('hold-denominator-1')" required>
                                 </div>
                             </div>
                             <div>
-                                <input type="checkbox" id="shared" name="shared" value="">將全部所有人列為公同共有
+                                <input type="checkbox" id="shared" name="shared" value="">列為公同共有
                             </div>
                         </td>
 
                         <td rowspan="2">
                             <div id="pId" class="input-align">
-                                <div id="pId-1">
+                                <div id="pId-1" style="margin-top:2px">
                                     <input type="text" name="pId-1" value="" placeholder="所有權人-1">
                                     <!-- <input type="text" id="hold-id-1" name="hold-id-1" value="" placeholder="歸戶號" class="small-input-size" onchange="checkOwner(1)" required> -->
                                 </div>
@@ -177,7 +177,7 @@
                         <td rowspan="2">聯絡電話</td>
                         <td colspan="2" rowspan="2">
                             <div id="telephone">
-                                <div id="telephone-1">
+                                <div id="telephone-1" style="margin-top:-20px">
                                     <input type="tel" name="telephone-1" value="" placeholder="所有權人-1">
                                 </div>
                             </div>
@@ -185,7 +185,7 @@
                         <td rowspan="2">聯絡手機</td>
                         <td colspan="2" rowspan="2">
                             <div id="cellphone">
-                                <div id="cellphone-1">
+                                <div id="cellphone-1" style="margin-top:-20px">
                                     <input type="tel" name="cellphone-1" value="" placeholder="所有權人-1" oninput="cellphoneListen('1')" maxlength="11">
                                 </div>
                             </div>
@@ -217,7 +217,7 @@
                                     <!-- <input type="text" name="land-owner-1" list="land-owner-list-1" autocomplete="off" placeholder="所有權人-1" oninput="getLandOwnerOption(1)" required><br>
                                     <datalist id="land-owner-list-1"></datalist> -->
                                     <input type="text" style="width:90px;" name="land-owner-1" autocomplete="off" placeholder="手動新增" required>
-                                    <select id="land-owner-select-1" name="land-owner-select-1" style="width:90px;" onchange="autoFillInOwnerName('land-owner',1)">
+                                    <select id="land-owner-select-1" name="land-owner-select-1" style="width:100px;" onchange="autoFillInOwnerName('land-owner',1)">
                                         <option value="" style="display:none">請選擇項目</option>
                                     </select>
                                 </div>
@@ -276,37 +276,38 @@
                         <td><span class="required">(*)</span>數量</td>
                         <td><span class="required">(*)</span>單位</td>
                         <td colspan="2"><span class="required">(*)</span>種植面積</td>
-                        <td>是否比照</td>
+                        <td width='90px'>是否比照</td>
                         <td>備註</td>
                     </tr>
 
                     <tr>
                         <td>
-                            <div id="corp-category" style="margin-top:4px;">
-                                <div id="corp-category-1">
-                                    <select id="corp-category-option-1" name="corp-category-1" style="width:140px;" onchange="load_corp_item_Data(1)" required>
+                            <div id="corp-category">
+                                <div id="corp-category-1" style="margin-top:5px">
+                                    <select id="corp-category-option-1" name="corp-category-1" style="width:140px;" onchange="load_corp_item_Data(1)" onfocus="itemFocus(1)" onfocusout="itemOutFocus(1)" required>
                                         {$corp_category_option}
                                     </select>
                                 </div>
                             </div>
                             <input type="hidden" id="corp-count" name="corp-count">
                             <!-- <button type="button" name="" onclick="addInfoItemOnclick('corp-category')">+</button> -->
-                            <button type="button" name="" onclick="addCorpItem()">+</button>
-                            <button type="button" name="" onclick="removeInfoItemOnclick('corp-category')">-</button>
+                            <!-- <button type="button" name="" onclick="addCorpItem()">+</button>
+                            <button type="button" name="" onclick="removeInfoItemOnclick('corp-category')">-</button> -->
                         </td>
 
                         <td>
-                            <div id="corp-item" style="margin-bottom:18px">
-                                <div id="corp-item-1">
-                                    <input id="corp-item-option-1" name="corp-item-1" list="corp-item-list-1" autocomplete="off" style="width:140px;" placeholder="點擊選擇或搜尋" onchange="load_corp_type_Data(1)" required>
+                            <div id="corp-item">
+                                <!-- <div id="corp-item-1" style="margin-top:4px;margin-bottom:5px;height:22px"> -->
+                                <div id="corp-item-1" style="margin-top:10px;margin-bottom:5px;height:22px">
+                                    <input id="corp-item-option-1" name="corp-item-1" list="corp-item-list-1" autocomplete="off" style="width:140px;margin:0" placeholder="點擊選擇或搜尋" onchange="load_corp_type_Data(1)" onfocus="itemFocus(1)" onfocusout="itemOutFocus(1)" required>
                                 </div>
                             </div>
                         </td>
 
                         <td>
-                            <div id="corp-type" style="margin-bottom:18px">
-                                <div id="corp-type-1">
-                                    <select id="corp-type-option-1" name="corp-type-1" style="width:140px;" onchange="load_corp_unit_Data(1)" required>
+                            <div id="corp-type">
+                                <div id="corp-type-1" style="margin-top:5px;">
+                                    <select id="corp-type-option-1" name="corp-type-1" style="width:140px;" onchange="load_corp_unit_Data(1)" onfocus="itemFocus(1)" onfocusout="itemOutFocus(1)" required>
                                         <option value="">請選擇規格</option>
                                     </select>
                                 </div>
@@ -314,17 +315,18 @@
                         </td>
 
                         <td>
-                            <div id="corp-num" style="margin-bottom:18px">
-                                <div id="corp-num-1">
-                                    <input type="text" name="corp-num-1" title="只能輸入10位以下數字(含小數點)" placeholder="請輸入數量" onchange="autoCalculateArea(1)" required>
+                            <div id="corp-num">
+                                <!-- <div id="corp-num-1" style="margin-top:4px;margin-bottom:5px;height:22px"> -->
+                                <div id="corp-num-1" style="margin-top:10px;margin-bottom:5px;height:22px">
+                                    <input type="text" name="corp-num-1" title="只能輸入10位以下數字(含小數點)" style="margin:0" placeholder="請輸入數量" onchange="autoCalculateArea(1)" onfocus="itemFocus(1)" onfocusout="itemOutFocus(1)" required>
                                 </div>
                             </div>
                         </td>
 
                         <td>
-                            <div id="corp-unit" style="margin-bottom:18px">
-                                <div id="corp-unit-1">
-                                    <select class="" name="corp-unit-1" required>
+                            <div id="corp-unit">
+                                <div id="corp-unit-1" style="margin-top:5px;">
+                                    <select class="" name="corp-unit-1" onfocus="itemFocus(1)" onfocusout="itemOutFocus(1)" required>
                                         <option value="">請選擇單位</option>
                                     </select>
                                 </div>
@@ -332,28 +334,37 @@
                         </td>
 
                         <td colspan="2">
-                            <div id="corp-area" style="margin-bottom:18px">
-                                <div id="corp-area-1">
-                                    <input type="text" name="corp-area-1" class="large-input-size" placeholder="點擊後自動計算面積" required>
+                            <div id="corp-area">
+                                <!-- <div id="corp-area-1" style="margin-top:4px;margin-bottom:5px;height:22px"> -->
+                                <div id="corp-area-1" style="margin-top:10px;margin-bottom:5px;height:22px">
+                                    <input type="text" name="corp-area-1" class="large-input-size" placeholder="點擊後自動計算面積" style="margin:0" onfocus="itemFocus(1)" onfocusout="itemOutFocus(1)" required>
                                 </div>
                             </div>
                         </td>
 
                         <td>
-                            <div id="corp-equal" style="margin-bottom:18px">
-                                <div id="corp-equal-1">
-                                    <input type="checkbox" value="" id="corp-equal-check-1" name="corp-equal-1" onchange="corpEqual(1)">比照所選項目
+                            <div id="corp-equal">
+                                <div id="corp-equal-1" style="margin-top:5px;margin-bottom:0px;height:22px">
+                                    <input type="checkbox" value="" id="corp-equal-check-1" name="corp-equal-1" onchange="corpEqual(1)" onfocus="itemFocus(1)" onfocusout="itemOutFocus(1)">比照項目
                                 </div>
                             </div>
                         </td>
 
                         <td colspan="">
-                            <div id="corp-note" style="margin-bottom:18px">
-                                <div id="corp-note-1">
-                                    <input type="text" name="corp-note-1" class="large-input-size" placeholder="輸入比照物 ex.樹葡萄">
+                            <div id="corp-note">
+                                <!-- <div id="corp-note-1" style="margin-top:4px;margin-bottom:5px;height:22px"> -->
+                                <div id="corp-note-1" style="margin-top:10px;margin-bottom:5px;height:22px">
+                                    <input type="text" name="corp-note-1" class="large-input-size" placeholder="輸入比照物 ex.樹葡萄" style="margin:0" onfocus="itemFocus(1)" onfocusout="itemOutFocus(1)">
                                 </div>
                             </div>
                         </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button type="button" name="" onclick="addCorpItem()">+</button>
+                            <button type="button" name="" onclick="removeInfoItemOnclick('corp-category')">-</button>
+                        </td>
+                        <td colspan="8"></td>
                     </tr>
                 </tbody>
             </table>
