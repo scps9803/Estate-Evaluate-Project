@@ -461,8 +461,8 @@ function addInfoItemOnclick(id){
             addInfoItemOnclick('cellphone');
             text =
             '<div id="owner-'+owner_count+'">'+
-                '<input type="text" class="median-input-size" name="owner-'+owner_count+'" autocomplete="off" placeholder="手動新增" required>&nbsp;'+
-                '<select id="owner-select-'+owner_count+'" name="owner-select-'+owner_count+'" onchange="autoFillInOwnerName(\'owner\','+owner_count+')">'+
+                '<input type="text" class="median-input-size" style="width:75px" name="owner-'+owner_count+'" autocomplete="off" placeholder="手動新增" required>&nbsp;'+
+                '<select id="owner-select-'+owner_count+'" style="width:80px" name="owner-select-'+owner_count+'" onchange="autoFillInOwnerName(\'owner\','+owner_count+')">'+
                     '<option value="" style="display:none">請選擇項目</option>'+
                 '</select>'+
             '</div>';
@@ -748,7 +748,7 @@ function addInfoItemOnclick(id){
 
             text =
             '<div id="exit-No-'+exit_No_count+'">'+
-                '<input type="text" name="exit-No-'+exit_No_count+'" pattern="[0-9]{literal}{1}{/literal}" title="共同出口戶請填相同數字，例如A、B共用出口都填1，C有單獨出口請填2" placeholder="共同出口戶請填相同數字，例如A、B共用出口都填1，C有單獨出口請填2" onclick="cohabitRemind()" onchange="checkExitNoCorrect()" required>'+
+                '<input type="text" value="1" name="exit-No-'+exit_No_count+'" pattern="[0-9]{literal}{1}{/literal}" onclick="cohabitRemind()" onchange="checkExitNoCorrect()" required>'+
             '</div>';
             break;
 
@@ -2259,10 +2259,10 @@ function cohabitRemind(){
         window.alert("請先選擇出口數!");
         return;
     }
-    if(!isShow){
-        window.alert("共同出口戶請填相同數字，例如A、B共用出口都填1，C有單獨出口請填2");
-    }
-    isShow = true;
+    // if(!isShow){
+    //     window.alert("共同出口戶請填相同數字，例如A、B共用出口都填1，C有單獨出口請填2");
+    // }
+    // isShow = true;
 }
 
 function checkExitNo(){
@@ -4142,6 +4142,21 @@ function itemOutFocus(num){
     $("#corp-area-"+num).css("background-color", "");
     $("#corp-equal-"+num).css("background-color", "");
     $("#corp-note-"+num).css("background-color", "");
+}
+
+function shareRatio(){
+    let isChecked = document.getElementById("shared").checked;
+    let numerator = [];
+    let denominator = [];
+
+    if(isChecked){
+        numerator = $("input[id*='hold-numerator-']");
+        denominator = $("input[id*='hold-denominator-']");
+        for(let i=0;i<numerator.length;i++){
+            numerator[i].value = "1";
+            denominator[i].value = "1";
+        }
+    }
 }
 
 $(document).ready(function(){

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-10-27 15:30:35
+/* Smarty version 3.1.33, created on 2020-07-24 11:15:06
   from 'C:\xampp\htdocs\Estate-Evaluate-Project\templates\index.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5db5aa0b025d43_40220737',
+  'unifunc' => 'content_5f1aa69ada23f2_68559879',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'a1a3457b1c6f624f5990b93242deeb7a87c64fb0' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Estate-Evaluate-Project\\templates\\index.html',
-      1 => 1572186629,
+      1 => 1595581450,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5db5aa0b025d43_40220737 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5f1aa69ada23f2_68559879 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,7 +51,7 @@ function content_5db5aa0b025d43_40220737 (Smarty_Internal_Template $_smarty_tpl)
         <h1>建物調查表</h1>
         <h3 style="color:red;">(*)表示必填項目</h3>
         <form class="" action="house_submit_preview.php" method="post" id="house_form" onkeydown="if(event.keyCode==13)return false;" onsubmit="onSubmit()">
-            <table border="1">
+            <table border="1" style="border-collapse:collapse">
                 <tbody>
                     <tr>
                         <td rowspan="2">基地標示</td>
@@ -148,8 +148,8 @@ function content_5db5aa0b025d43_40220737 (Smarty_Internal_Template $_smarty_tpl)
                         <td rowspan="2">
                             <div id="owner">
                                 <div id="owner-1">
-                                    <input type="text" class="median-input-size" name="owner-1" autocomplete="off" placeholder="手動新增" required>
-                                    <select id="owner-select-1" name="owner-select-1" onchange="autoFillInOwnerName('owner',1)">
+                                    <input type="text" class="median-input-size" style="width:75px" name="owner-1" autocomplete="off" placeholder="手動新增" required>
+                                    <select id="owner-select-1" style="width:80px" name="owner-select-1" onchange="autoFillInOwnerName('owner',1)">
                                         <option value="" style="display:none">請選擇項目</option>
                                     </select>
                                 </div>
@@ -161,13 +161,13 @@ function content_5db5aa0b025d43_40220737 (Smarty_Internal_Template $_smarty_tpl)
 
                         <td rowspan="2">
                             <div id="hold-ratio" class="input-align">
-                                <div id="hold-ratio-1">
+                                <div id="hold-ratio-1" style="margin-top:22px">
                                     <input type="text" id="hold-numerator-1" name="hold-numerator-1" class="tiny-input-size" placeholder="輸入" pattern="[0-9]{1,10}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('hold-numerator-1')" required>
                                     /&nbsp;<input type="text" id="hold-denominator-1" name="hold-denominator-1" class="tiny-input-size" placeholder="比例" pattern="[0-9]{1,10}" title="請輸入比例數字(不可為0)" onchange="checkRatioInput('hold-denominator-1')" required>
                                 </div>
                             </div>
                             <div>
-                                <input type="checkbox" id="shared" name="shared" value="">將全部所有人<br>&nbsp;&nbsp;列為公同共有
+                                <input type="checkbox" id="shared" name="shared" value="" onclick="shareRatio()">列為公同共有
                             </div>
                         </td>
 
@@ -226,8 +226,8 @@ function content_5db5aa0b025d43_40220737 (Smarty_Internal_Template $_smarty_tpl)
                         <td>
                             <div id="land-owner">
                                 <div id="land-owner-1" class="dropdown">
-                                    <input type="text" class="median-input-size" name="land-owner-1" autocomplete="off" placeholder="手動新增" required>
-                                    <select id="land-owner-select-1" name="land-owner-select-1" onchange="autoFillInOwnerName('land-owner',1)">
+                                    <input type="text" class="median-input-size" style="width:90px" name="land-owner-1" autocomplete="off" placeholder="手動新增" required>
+                                    <select id="land-owner-select-1" style="width:100px" name="land-owner-select-1" onchange="autoFillInOwnerName('land-owner',1)">
                                         <option value="" style="display:none">請選擇項目</option>
                                     </select>
                                 </div>
@@ -270,21 +270,31 @@ function content_5db5aa0b025d43_40220737 (Smarty_Internal_Template $_smarty_tpl)
                     </tr>
 
                     <tr>
-                        <td><span class="required">(*)</span>合法證明文件</td>
+                        <td rowspan="2"><span class="required">(*)</span>合法證明文件</td>
 
-                        <td colspan="6">
+                        <td colspan="5" rowspan="2">
                             <input type="radio" name="legal_certificate" value="建物所有權狀" required onclick="changeRequired(['build-number'],true)">建物所有權狀(建號:<input type="text" id="build-number" name="build-number" style="width:80px">)
                             <input type="radio" name="legal_certificate" value="建物登記謄本" onclick="changeRequired(['build-number'],false)">建物登記謄本
                             <input type="radio" name="legal_certificate" value="使用執照" onclick="changeRequired(['build-number'],false)">使用執照
                             <input type="radio" name="legal_certificate" value="無" onclick="changeRequired(['build-number'],false)">無
                         </td>
-                        <td><span class="required">(*)</span><br>座落土地<br>使用權屬</td>
+                        <td colspan="2"><span class="required">(*)</span><br>座落土地<br>使用權屬</td>
                         <td colspan="3">
                             <select class="select-menu" id="land-use" name="land-use" required>
                                 <option value="" style="display:none;">請選擇項目</option>
                                 <option value="自用">自用</option>
                                 <option value="承租">承租</option>
                                 <option value="不明">不明</option>
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2"><span class="required">(*)</span>租賃關係</td>
+                        <td>
+                            <select class="select-menu" id="rent_relation" name="rent_relation" required>
+                                <option value="無">無</option>
+                                <option value="有">有</option>
                             </select>
                         </td>
                     </tr>
@@ -303,7 +313,7 @@ function content_5db5aa0b025d43_40220737 (Smarty_Internal_Template $_smarty_tpl)
                     <tr>
                         <td><span class="required">(*)</span>出口數</td>
                         <td>戶長姓名</td>
-                        <td>出口編號</td>
+                        <td>出口編號<br><span style="font-size: 12px;color: red;font-weight: bold">共同出口戶請填相同數字<br>(例:A、B共用出口請填1)<br>(C有單獨出口請填2)</span></td>
                         <td>戶長身份證字號</td>
                         <td>戶口名簿號碼</td>
                         <td colspan="3">設籍日期</td>
@@ -333,7 +343,7 @@ function content_5db5aa0b025d43_40220737 (Smarty_Internal_Template $_smarty_tpl)
                         <td>
                             <div id="exit-No" class="input-align">
                                 <div id="exit-No-1">
-                                    <input type="text" name="exit-No-1" pattern="[0-9]{1}" title="共同出口戶請填相同數字，例如A、B共用出口都填1，C有單獨出口請填2" placeholder="共同出口戶請填相同數字，例如A、B共用出口都填1，C有單獨出口請填2" onclick="cohabitRemind()" onchange="checkExitNoCorrect()">
+                                    <input type="text" value="1" name="exit-No-1" pattern="[0-9]{1}" onclick="cohabitRemind()" onchange="checkExitNoCorrect()">
                                 </div>
                             </div>
                         </td>
@@ -388,7 +398,7 @@ function content_5db5aa0b025d43_40220737 (Smarty_Internal_Template $_smarty_tpl)
         <!-- </div> -->
         <br><br>
         <!-- <div class="container" align="center"> -->
-            <table border="1">
+            <table border="1" style="border-collapse:collapse">
                 <tr>
                     <td colspan="2"><span class="required">(*)</span>編號</td>
                     <td colspan="2">編號:<input type="text" id="floor-id-1" name="floor-id-1" oninput="changeColumnStatus(1,'focus')"><br><input type="radio" id="house-type-1" name="house-type-1" value="獨立戶">獨立戶<input type="radio" id="house-type-edge-1" name="house-type-1" value="連棟式邊戶">連棟式邊戶<input type="radio" id="house-type-mid-1" name="house-type-1" value="連棟式中間戶">連棟式中間戶</td>

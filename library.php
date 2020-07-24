@@ -318,16 +318,16 @@ function insertOwnerData($owner,$hold_ratio,$pId,$house_address,$address,$teleph
 
 function insertBuildingData($house_address,$real_address,$legal_status,$build_number,$tax_number,
     $legal_certificate,$build_certificate,$captain_count,$exit_num,
-    $total_floor,$remove_condition){
+    $total_floor,$remove_condition,$rent_relation){
 
         $conn = connect_db();
         $sql = "INSERT INTO building VALUES('{$house_address}','{$real_address}','{$legal_status}','{$build_number}',
             '{$tax_number}','{$legal_certificate}','{$build_certificate}','{$captain_count}',
-            '{$exit_num}','{$total_floor}','{$remove_condition}') ON DUPLICATE KEY UPDATE address='{$house_address}',
+            '{$exit_num}','{$total_floor}','{$remove_condition}','{$rent_relation}') ON DUPLICATE KEY UPDATE address='{$house_address}',
             real_address='{$real_address}',legal_status='{$legal_status}',build_number='{$build_number}',
             tax_number='{$tax_number}',legal_certificate='{$legal_certificate}',start_build_certificate='{$build_certificate}',
             household_count='{$captain_count}',exit_number='{$exit_num}',layer_number='{$total_floor}',
-            remove_condition='{$remove_condition}'";
+            remove_condition='{$remove_condition}',rent_relation='{$rent_relation}'";
 
         if ($conn->query($sql) === TRUE){
             // echo "New record created successfully";

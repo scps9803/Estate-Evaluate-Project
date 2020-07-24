@@ -837,6 +837,8 @@ $legal_certificate = $_POST['legal_certificate'];
 $build_number = $_POST['build-number'];
 // 座落土地使用權屬
 $land_use = $_POST['land-use'];
+// 建物租賃關係
+$rent_relation = $_POST['rent_relation'];
 // 起造證明文件
 $build_certificate = $_POST['build-certificate'];
 // 稅籍編號
@@ -1239,7 +1241,7 @@ deleteRecordData($beforeUpdateNo);
 
 insertBuildingData($house_address,$real_address,$legal_status,$build_number,$tax_number,
     $legal_certificate,$build_certificate,$captain_count,$exit_num,
-    $total_floor,$remove_condition);
+    $total_floor,$remove_condition,$rent_relation);
 insertLandData($district,$land_section,$subsection,$land_number,$house_address,$land_use);
 insertRecordData($script_number,$house_address,$KEYIN_ID,$KEYIN_DATETIME,$survey_date);
 insertOwnerData($owner,$hold_ratio,$pId,$house_address,$address,$telephone,$cellphone);
