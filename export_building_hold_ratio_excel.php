@@ -116,7 +116,7 @@ function exportBuildingHoldRatioExcel($script_number,$land_owner_data,$building_
                     ->setCellValue( 'K'.(41+($pages-1)*33+$i*2), $owner_data[$i]["current_address"])
                     ->setCellValue( 'K'.(42+($pages-1)*33+$i*2), $owner_data[$i]["telephone"])
                     ->setCellValue( 'U'.(42+($pages-1)*33+$i*2), $owner_data[$i]["cellphone"])
-                    ->setCellValue( 'AA'.(42+($pages-1)*33+$i*2), $owner_data[$i]["hold_numerator"]."/".$owner_data[$i]["hold_denominator"].$owner_data[$i]["hold_status"])
+                    ->setCellValue( 'AA'.(42+($pages-1)*33+$i*2), $owner_data[$i]["hold_status"].$owner_data[$i]["hold_numerator"]."/".$owner_data[$i]["hold_denominator"])
                     ->setCellValue( 'AG'.(41+($pages-1)*33+$i*2), $owner_data[$i]["pId"]);
         // if($holdRatioMod > 0){
         //     $objPHPExcel->setActiveSheetIndex(0)

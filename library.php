@@ -555,19 +555,23 @@ function getGroupIndex($captain,$remove_condition,$house_address){
             $total_family_num = 6;
         }
         for($i=0;$i<count($shareFeeIndex);$i++){
-            $sql = "SELECT mId FROM migration_fee WHERE family_num='{$total_family_num}' AND item_type='{$remove_condition}'";
+            if($remove_condition == "無"){
+                $sql = "SELECT mId FROM migration_fee WHERE item_type='{$remove_condition}'";
+            }
+            else{
+                $sql = "SELECT mId FROM migration_fee WHERE family_num='{$total_family_num}' AND item_type='{$remove_condition}'";
+            }
+            
             $res = $conn->query($sql);
             while($row = $res->fetch_assoc()) {
                 $mId = $row["mId"];
             }
 
             $sql = "INSERT INTO resident VALUES('{$captain[$shareFeeIndex[$i]]["id"]}',
-                '{$captain[$shareFeeIndex[$i]]["name"]}','{$captain[$shareFeeIndex[$i]]["household_number"]}',
-                '{$captain[$shareFeeIndex[$i]]["set_household_date"]}','{$captain[$shareFeeIndex[$i]]["family_num"]}',
-                '{$house_address}','{$mId}','{$captain[$shareFeeIndex[$i]]["move_status"]}')";
-            if ($conn->query($sql) === TRUE){
-                // echo "New record created successfully";
-            }else{
+            '{$captain[$shareFeeIndex[$i]]["name"]}','{$captain[$shareFeeIndex[$i]]["household_number"]}',
+            '{$captain[$shareFeeIndex[$i]]["set_household_date"]}','{$captain[$shareFeeIndex[$i]]["family_num"]}',
+            '{$house_address}','{$mId}','{$captain[$shareFeeIndex[$i]]["move_status"]}')";
+            if($conn->query($sql) == False){
                 echo "Error: " . $sql . "<br>" . $conn->error;
             }
         }

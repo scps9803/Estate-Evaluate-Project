@@ -49,6 +49,7 @@ $total_land_area = 0;
 for($i=0;$i<count($land_data);$i++){
     if(!in_array($land_data[$i]["land_section"],$section_array)){
         $section_array[$section_index] = $land_data[$i]["land_section"].$land_data[$i]["subsection"];
+        $section_index++;
         // $land_section = $land_section.$land_data[$i]["land_section"].$land_data[$i]["subsection"];
         // if($i!=count($land_data)-1) {
         //     $land_section = $land_section."、";
@@ -99,8 +100,12 @@ $pages = max($main_count,max($other_count,$outdoor_other_count));
 //     $pages = $main_count;
 // }
 // 自行建立的 Excel 版型檔名
-$excelTemplate = './excel_templates/template'.$floor_count.'-'.$pages.'.xls';
-
+if(count($main_building_data) > 0){
+    $excelTemplate = './excel_templates/template'.$floor_count.'-'.$pages.'.xls';
+}
+else{
+    $excelTemplate = './excel_templates/template'.$floor_count.'-'.$pages.'-0.xls';
+}
 // 判斷 Excel 檔案是否存在
 if (!file_exists($excelTemplate)) {
 exit('Please run template.php first.' . EOL);
@@ -494,11 +499,13 @@ for($i=0;$i<count($sub_building_data);$i++){
                 $total_subbuilding_fee += $sub_building_fee;
                 $total_auto_remove_fee += $auto_remove_fee;
 }
-$objPHPExcel->setActiveSheetIndex(0)
+if(count($sub_building_data) > 0){
+    $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue( 'A'.$page_fee_index, '小計')
             ->setCellValue( 'K'.$page_fee_index, $total_init_fee)
             ->setCellValue( 'M'.$page_fee_index, $total_subbuilding_fee)
             ->setCellValue( 'P'.$page_fee_index, $total_auto_remove_fee);
+}
 
 // 室外雜項物
 $out_total_init_fee = 0;
@@ -577,11 +584,13 @@ for($i=0;$i<count($outdoor_sub_building_data);$i++){
                 $out_total_subbuilding_fee += $sub_building_fee;
                 $out_total_auto_remove_fee += $auto_remove_fee;
 }
-$objPHPExcel->setActiveSheetIndex(0)
+if(count($outdoor_sub_building_data) > 0){
+    $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue( 'T'.$out_page_fee_index, '小計')
             ->setCellValue( 'AF'.$out_page_fee_index, $out_total_init_fee)
             ->setCellValue( 'AG'.$out_page_fee_index, $out_total_subbuilding_fee)
             ->setCellValue( 'AJ'.$out_page_fee_index, $out_total_auto_remove_fee);
+}
 // // 合計欄位
 // $objPHPExcel->setActiveSheetIndex(0)
 //             ->setCellValue( 'T'.(31+($pages-1)*33), '合計')
@@ -1104,15 +1113,17 @@ for($i=0;$i<count($main_decoration_data);$i++){
     $total_fee += number_format($fee*$discard_ratio*$compensate_ratio,0,"","");
     $total_auto += number_format(round($fee*$discard_ratio*$compensate_ratio)*0.5,0,"","");
 }
-if(count($main_building_data)<=7){
+if(count($main_building_data) > 0 && count($main_building_data) <= 7){
     $objPHPExcel->setActiveSheetIndex(0)
+                ->setCellValue( 'A20', "小計")
                 ->setCellValue( 'T20', $total_area)
                 ->setCellValue( 'V20', $total_price)
                 ->setCellValue( 'AC20', $total_fee)
                 ->setCellValue( 'AG20', $total_auto);
 }
-else{
+else if(count($main_building_data) > 0 && count($main_building_data) > 7){
     $objPHPExcel->setActiveSheetIndex(0)
+                ->setCellValue( 'A54', "小計")
                 ->setCellValue( 'T54', $total_area)
                 ->setCellValue( 'V54', $total_price)
                 ->setCellValue( 'AC54', $total_fee)
@@ -1201,9 +1212,17 @@ for($i=0;$i<count($outdoor_sub_building_data);$i++){
     }
     $lineCount += 2;
 }
-for($i=0;$i<count($subText);$i++){
-    $objPHPExcel->setActiveSheetIndex(0)
-                ->setCellValue( 'AD'.(102+($floor_count-1)*27+($pages-1)*33+($i*42)), $subText[$i]);
+if(count($main_building_data) > 0){
+    for($i=0;$i<count($subText);$i++){
+        $objPHPExcel->setActiveSheetIndex(0)
+                    ->setCellValue( 'AD'.(102+($floor_count-1)*27+($pages-1)*33+($i*42)), $subText[$i]);
+    }
+}
+else{
+    for($i=0;$i<count($subText);$i++){
+        $objPHPExcel->setActiveSheetIndex(0)
+                    ->setCellValue( 'AD'.(74+($floor_count-1)*27+($pages-1)*33+($i*42)), $subText[$i]);
+    }
 }
 $total_pay = $total_fee+$total_subbuilding_fee+$out_total_subbuilding_fee+$total_auto+$total_auto_remove_fee+$out_total_auto_remove_fee;
 exportBuildingHoldRatioExcel($script_number,$land_owner_data,$building_data,$land_data,$total_pay,$survey_date_split,$pages,$objPHPExcel);

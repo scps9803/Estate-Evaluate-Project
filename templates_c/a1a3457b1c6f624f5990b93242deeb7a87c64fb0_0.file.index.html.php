@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2020-07-24 11:15:06
+/* Smarty version 3.1.33, created on 2020-07-24 19:59:36
   from 'C:\xampp\htdocs\Estate-Evaluate-Project\templates\index.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5f1aa69ada23f2_68559879',
+  'unifunc' => 'content_5f1b21885d5c27_86900529',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'a1a3457b1c6f624f5990b93242deeb7a87c64fb0' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Estate-Evaluate-Project\\templates\\index.html',
-      1 => 1595581450,
+      1 => 1595613574,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5f1aa69ada23f2_68559879 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5f1b21885d5c27_86900529 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -138,7 +138,7 @@ function content_5f1aa69ada23f2_68559879 (Smarty_Internal_Template $_smarty_tpl)
                         </td>
                         <td><span class="required">(*)</span><br>拆除情形</td>
                         <td>
-                            <input type="radio" name="remove_condition" value="" checked required>無
+                            <input type="radio" name="remove_condition" value="無" checked required>無
                             <input type="radio" name="remove_condition" value="全拆">全拆
                             <input type="radio" name="remove_condition" value="半拆">半拆
                         </td>
@@ -323,7 +323,7 @@ function content_5f1aa69ada23f2_68559879 (Smarty_Internal_Template $_smarty_tpl)
                     <tr>
                         <td>
                             <select class="select-menu" id="exit-num" name="exit-num" required>
-                                <option value="0">0</option>
+                                <!-- <option value="0">0</option> -->
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
