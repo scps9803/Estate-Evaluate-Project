@@ -676,15 +676,22 @@ function addInfoItemOnclick(id){
                     '<option value="圍牆">圍牆</option>'+
                 '</select>&nbsp;'+
 
-                '<select style="width:150px;" id="other-item-option-'+other_item_count+'" name="other-item-'+other_item_count+'" onchange="loadSubbuildingUnit('+other_item_count+')" required>'+
+                '<select style="width:110.5px;" id="other-item-option-'+other_item_count+'" name="other-item-'+other_item_count+'" onchange="loadSubbuildingUnit('+other_item_count+')" required>'+
                     '<option value="" style="display:none;">請選擇項目</option>'+
                 '</select>&nbsp;'+
 
-                '<select style="width:150px;" id="fence-paint-'+other_item_count+'" name="fence-paint-'+other_item_count+'" onclick="getFenceOption('+other_item_count+',\'粉刷\');this.onclick=null;" onchange="loadSubbuildingUnit('+other_item_count+')">'+
-                    '<option value="" style="display:none;">請選擇粉刷</option>'+
+                // '<select style="width:110.5px;" id="fence-paint-'+other_item_count+'" name="fence-paint-'+other_item_count+'" onclick="getFenceOption('+other_item_count+',\'單面粉刷\');this.onclick=null;" onchange="loadSubbuildingUnit('+other_item_count+')">'+
+                '<select style="width:110.5px;" id="fence-paint-'+other_item_count+'" name="fence-paint-'+other_item_count+'" onchange="loadSubbuildingUnit('+other_item_count+')">'+
+                    '<option value="" style="display:none;">請選擇單面粉刷</option>'+
                 '</select>&nbsp;'+
 
-                '<select style="width:150px;" id="fence-pillar-'+other_item_count+'" name="fence-pillar-'+other_item_count+'" onclick="getFenceOption('+other_item_count+',\'加強柱\');this.onclick=null;" onchange="loadSubbuildingUnit('+other_item_count+')">'+
+                // '<select style="width:110.5px;" id="fence-double-paint-'+other_item_count+'" name="fence-double-paint-'+other_item_count+'" onclick="getFenceOption('+other_item_count+',\'雙面粉刷\');this.onclick=null;" onchange="loadSubbuildingUnit('+other_item_count+')">'+
+                '<select style="width:110.5px;" id="fence-double-paint-'+other_item_count+'" name="fence-double-paint-'+other_item_count+'" onchange="loadSubbuildingUnit('+other_item_count+')">'+
+                    '<option value="" style="display:none;">請選擇雙面粉刷</option>'+
+                '</select>&nbsp;'+
+
+                // '<select style="width:110.5px;" id="fence-pillar-'+other_item_count+'" name="fence-pillar-'+other_item_count+'" onclick="getFenceOption('+other_item_count+',\'加強柱\');this.onclick=null;" onchange="loadSubbuildingUnit('+other_item_count+')">'+
+                '<select style="width:110.5px;" id="fence-pillar-'+other_item_count+'" name="fence-pillar-'+other_item_count+' onchange="loadSubbuildingUnit('+other_item_count+')">'+
                     '<option value="" style="display:none;">請選擇加強柱</option>'+
                 '</select>&nbsp;'+
 
@@ -1716,7 +1723,7 @@ function exportExcel(script_number,house_address){
         window.alert("Excel匯出成功!");
     }).done(function() {
         // alert("請點擊繼續!");
-        location.href = "homepage.php";
+        // location.href = "homepage.php";
       })
       .fail(function() {
         alert("Excel匯出失敗!");
@@ -1945,6 +1952,11 @@ function getSubbuildingOption(num){
         document.getElementById("other-item-type-"+num).selectedIndex = "0";
         return;
     }
+    else if(application == "圍牆"){
+        getFenceOption(num, "單面粉刷");
+        getFenceOption(num, "雙面粉刷");
+        getFenceOption(num, "加強柱");
+    }
 
     $.ajax({
          url: "get_building_decoration_option.php",
@@ -1975,8 +1987,11 @@ function getSubbuildingOption(num){
 
 function getFenceOption(num,type){
     console.log("載入 "+type+" "+num);
-    if(type == "粉刷"){
+    if(type == "單面粉刷"){
         var item = "#fence-paint-"+num;
+    }
+    else if(type == "雙面粉刷"){
+        var item = "#fence-double-paint-"+num;
     }
     else{
         var item = "#fence-pillar-"+num;
@@ -4007,10 +4022,10 @@ function getFenceData(num,address,sId){
         dataType: "json",
         async:false,
         success: function(data){
-            getFenceOption(num,'粉刷');
-            this.onclick=null;
-            getFenceOption(num,'加強柱');
-            this.onclick=null;
+            // getFenceOption(num,'粉刷');
+            // this.onclick=null;
+            // getFenceOption(num,'加強柱');
+            // this.onclick=null;
 
             for(var i=0;i<data.fence_application.length;i++){
                 if(data.fence_application[i] == "粉刷"){

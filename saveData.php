@@ -17,6 +17,14 @@ for($i=0;$i<$other_item_count;$i++){
     if(isset($_POST['fence-paint-'.($i+1)])){
         $sub_building[$i]["fence_paint"] = $_POST['fence-paint-'.($i+1)];
         $sub_building[$i]["fence_pillar"] = $_POST['fence-pillar-'.($i+1)];
+        $sub_building[$i]["keyin_order"] = $i+1;
+        $isFence = true;
+    }
+    if(isset($_POST['fence-double-paint-'.($i+1)])){
+        $sub_building[$i]["fence_paint"] = $_POST['fence-paint-'.($i+1)];
+        $sub_building[$i]["fence_double_paint"] = $_POST['fence-double-paint-'.($i+1)];
+        $sub_building[$i]["fence_pillar"] = $_POST['fence-pillar-'.($i+1)];
+        $sub_building[$i]["keyin_order"] = $i+1;
         $isFence = true;
     }
     $sub_building[$i]["item_type"] = $_POST['other-item-type-'.($i+1)];

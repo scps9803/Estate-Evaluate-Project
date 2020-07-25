@@ -1937,9 +1937,18 @@ function insertFenceData($house_address,$sub_building){
             $index++;
             $row = $res->fetch_assoc();
             $fenceId[$index] = $row["sId"];
+            $keyin_order[$index] = $sub_building[$i]["keyin_order"];
         }
 
         $sql = "SELECT sId FROM sub_building WHERE application='粉刷' AND item_name='{$sub_building[$i]["fence_paint"]}'";
+        $res = $conn->query($sql);
+        if($res->num_rows!=0){
+            $j++;
+            $row = $res->fetch_assoc();
+            $sId[$index][$j] = $row["sId"];
+        } 
+
+        $sql = "SELECT sId FROM sub_building WHERE application='粉刷' AND item_name='{$sub_building[$i]["fence_double_paint"]}'";
         $res = $conn->query($sql);
         if($res->num_rows!=0){
             $j++;
@@ -1958,7 +1967,7 @@ function insertFenceData($house_address,$sub_building){
 
     for($i=0;$i<count($sId);$i++){
         for($j=0;$j<count($sId[$i]);$j++){
-            $sql = "INSERT INTO fence VALUES('{$house_address}','{$fenceId[$i]}','{$sId[$i][$j]}')";
+            $sql = "INSERT INTO fence VALUES('{$house_address}','{$fenceId[$i]}','{$sId[$i][$j]}','{$keyin_order[$i]}')";
             if ($conn->query($sql) === TRUE){
                 // echo "New record created successfully";
             }else{
@@ -3075,6 +3084,10 @@ function deleteSubbuildingData($script_number){
 function getFenceOption($type){
     $conn = connect_db();
 
+    $option_type = $type;
+    if($type == "單面粉刷" || $type == "雙面粉刷"){
+        $type = "粉刷";
+    }
     $sql = "SELECT * from sub_building WHERE application='{$type}'";
     $res = $conn->query($sql);
 
@@ -3084,7 +3097,7 @@ function getFenceOption($type){
         $i++;
     }
 
-    $fence_option_text = "<option value=''>請選擇".$type."</option>";
+    $fence_option_text = "<option value=''>請選擇".$option_type."</option>";
     for($i=0;$i<count($fence_option);$i++){
         $fence_option_text = $fence_option_text."<option value='".$fence_option[$i]."'>".$fence_option[$i]."</option>";
     }
@@ -3148,7 +3161,7 @@ function getFencePrice($data){
 function getFenceData($address,$sId){
     $conn = connect_db();
 
-    $sql = "SELECT * FROM fence WHERE address='{$address}' AND sId='{$sId}'";
+    $sql = "SELECT * FROM fence WHERE address='{$address}' AND sId='{$sId}' ORDER BY keyin_order";
     $res = $conn->query($sql);
     if($res->num_rows==0){
         $result["fence_application"][0] = "";
