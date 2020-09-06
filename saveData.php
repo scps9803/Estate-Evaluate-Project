@@ -49,7 +49,7 @@ for($i=0;$i<$other_item_count;$i++){
 
     $sub_building[$i]["auto_remove"] = $_POST['auto-remove-'.($i+1)];
 }
-
+deleteOldFenceData($house_address);
 insertSubbuildingData($house_address,$sub_building);
 if($isFence){
     insertFenceData($house_address,$sub_building);

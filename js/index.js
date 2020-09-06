@@ -691,7 +691,7 @@ function addInfoItemOnclick(id){
                 '</select>&nbsp;'+
 
                 // '<select style="width:110.5px;" id="fence-pillar-'+other_item_count+'" name="fence-pillar-'+other_item_count+'" onclick="getFenceOption('+other_item_count+',\'加強柱\');this.onclick=null;" onchange="loadSubbuildingUnit('+other_item_count+')">'+
-                '<select style="width:110.5px;" id="fence-pillar-'+other_item_count+'" name="fence-pillar-'+other_item_count+' onchange="loadSubbuildingUnit('+other_item_count+')">'+
+                '<select style="width:110.5px;" id="fence-pillar-'+other_item_count+'" name="fence-pillar-'+other_item_count+'" onchange="loadSubbuildingUnit('+other_item_count+')">'+
                     '<option value="" style="display:none;">請選擇加強柱</option>'+
                 '</select>&nbsp;'+
 
@@ -1723,7 +1723,7 @@ function exportExcel(script_number,house_address){
         window.alert("Excel匯出成功!");
     }).done(function() {
         // alert("請點擊繼續!");
-        // location.href = "homepage.php";
+        location.href = "homepage.php";
       })
       .fail(function() {
         alert("Excel匯出失敗!");
@@ -4029,8 +4029,14 @@ function getFenceData(num,address,sId){
 
             for(var i=0;i<data.fence_application.length;i++){
                 if(data.fence_application[i] == "粉刷"){
-                    console.log("設定粉刷 "+num);
-                    $("#fence-paint-"+num).val(data.fence_item[i]);
+                    if($("#fence-paint-"+num).val() == ""){
+                        console.log("設定單面粉刷 "+num);
+                        $("#fence-paint-"+num).val(data.fence_item[i]);
+                    }
+                    else{
+                        console.log("設定雙面粉刷 "+num);
+                        $("#fence-double-paint-"+num).val(data.fence_item[i]);
+                    }
                 }
                 else if(data.fence_application[i] == "加強柱"){
                     console.log("設定加強柱 "+num);
