@@ -19,6 +19,7 @@ echo json_encode($corp_owner_data);
 $corp_land_owner_data = getCorpLandOwnerData($script_number);
 $corp_land_data = getCorpLandData($script_number);
 $corp_data = getCorpData($script_number);
+$livestock_data = getLivestockData($script_number);
 $survey_date = getSurveyDate("corp_record",$script_number);
 $survey_date_split = explode("-",$survey_date);
 $district = getCorpDistrict($script_number);
@@ -28,7 +29,18 @@ $creator = "";
 
 // 計算農作物筆數設定不同頁數的模板
 // pages為農作物頁數
-$pages = (int)(count($corp_data) / 14) + 1;
+if($livestock_data == null){
+    $pages = (int)(count($corp_data) / 14) + 1;
+}
+else{
+    // $pages = (int)((count($corp_data)+count($livestock_data)) / 11) + 1;
+    // 3列為農物合計列、畜產合計列、畜產分隔列
+    $pages = (int)((count($corp_data)+count($livestock_data)+3) / 14) + 1;
+}
+$page_end_row = [];
+for($i=0;$i<$pages-1;$i++){
+    $page_end_row[$i] = 21 + $i*24;
+}
 
 // 自行建立的 Excel 版型檔名
 $excelTemplate = './excel_templates/corp_template-'.$pages.'.xls';
@@ -195,10 +207,13 @@ $objPHPExcel->setActiveSheetIndex(0)
 
 // 農作物資料
 $total_price = 0;
+$total_livestock_price = 0;
+$nth_row = 0;
 for($i=0;$i<count($corp_data);$i++){
     if($corp_data[$i]["unit"] == "㎡"){
         $corp_data[$i]["num"] = $corp_data[$i]["plant_area"];
     }
+    $nth_row = (8+$i+(int)($i/14)*10);
     $objPHPExcel->setActiveSheetIndex(0)
                 ->setCellValue( 'A'.(8+$i+(int)($i/14)*10), $corp_data[$i]["item"])
                 ->setCellValue( 'B'.(8+$i+(int)($i/14)*10), $corp_data[$i]["corp_age"])
@@ -209,14 +224,83 @@ for($i=0;$i<count($corp_data);$i++){
                 ->setCellValue( 'K'.(8+$i+(int)($i/14)*10), $corp_data[$i]["num"])
                 ->setCellValue( 'L'.(8+$i+(int)($i/14)*10), $corp_data[$i]["unit"])
                 // ->setCellValue( 'L'.(8+$i+(int)($i/14)*10), $corp_data[$i]["plant_area"])
-                ->setCellValue( 'M'.(8+$i+(int)($i/14)*10), number_format($corp_data[$i]["unit_price"], 0, ".", ","))
+                ->setCellValue( 'M'.(8+$i+(int)($i/14)*10), number_format($corp_data[$i]["unit_price"], 2, ".", ","))
                 ->setCellValue( 'N'.(8+$i+(int)($i/14)*10), number_format($corp_data[$i]["num"]*$corp_data[$i]["unit_price"],0))
                 ->setCellValue( 'R'.(8+$i+(int)($i/14)*10), $corp_data[$i]["note"]);
     $total_price += number_format($corp_data[$i]["num"]*$corp_data[$i]["unit_price"],0,"","");
 }
+if($livestock_data != null){
+    if(!in_array($nth_row, $page_end_row)){
+        $nth_row += 1;
+    }
+    else{
+        $nth_row += 11;
+    }
+    // $nth_row += 1;
+    $objPHPExcel->getActiveSheet()->mergeCells('A'.$nth_row.':'.'M'.$nth_row);
+    $objPHPExcel->setActiveSheetIndex(0)
+                ->setCellValue( 'A'.$nth_row, '合    計')
+                ->setCellValue( 'N'.$nth_row, number_format($total_price, 0, ".", ","));
+    // $nth_row += 1;
+    if(!in_array($nth_row, $page_end_row)){
+        $nth_row += 1;
+    }
+    else{
+        $nth_row += 11;
+    }
+    $objPHPExcel->getActiveSheet()->mergeCells('A'.$nth_row.':'.'T'.$nth_row);
+    $objPHPExcel->setActiveSheetIndex(0)
+                ->setCellValue( 'A'.$nth_row, '水產養殖物及畜產遷移補償部分。');
+    
+    // 畜產資料
+    // $livestock_start_index = $nth_row + 1;
+    for($i=0;$i<count($livestock_data);$i++){
+        if($livestock_data[$i]["unit"] == "㎡"){
+            $livestock_data[$i]["num"] = $livestock_data[$i]["plant_area"];
+        }
+        // $nth_row = $livestock_start_index+$i+(int)($i/(12-count($corp_data)))*10;
+        if(!in_array($nth_row, $page_end_row)){
+            $nth_row += 1;
+        }
+        else{
+            $nth_row += 11;
+        }
+        $objPHPExcel->setActiveSheetIndex(0)
+                    ->setCellValue( 'A'.$nth_row, $livestock_data[$i]["item"])
+                    ->setCellValue( 'B'.$nth_row, $livestock_data[$i]["corp_age"])
+                    ->setCellValue( 'E'.$nth_row, $livestock_data[$i]["cm_length"])
+                    ->setCellValue( 'G'.$nth_row, $livestock_data[$i]["m_length"])
+                    // ->setCellValue( 'J'.(8+$i+(int)($i/14)*10), $corp_data[$i]["num"].$corp_data[$i]["unit"])
+                    ->setCellValue( 'J'.$nth_row, $livestock_data[$i]["plant_area"])
+                    ->setCellValue( 'K'.$nth_row, $livestock_data[$i]["num"])
+                    ->setCellValue( 'L'.$nth_row, $livestock_data[$i]["unit"])
+                    // ->setCellValue( 'L'.(8+$i+(int)($i/14)*10), $corp_data[$i]["plant_area"])
+                    ->setCellValue( 'M'.$nth_row, number_format($livestock_data[$i]["unit_price"], 2, ".", ","))
+                    ->setCellValue( 'N'.$nth_row, number_format($livestock_data[$i]["num"]*$livestock_data[$i]["unit_price"],0))
+                    ->setCellValue( 'R'.$nth_row, $livestock_data[$i]["note"]);
+        $total_livestock_price += number_format($livestock_data[$i]["num"]*$livestock_data[$i]["unit_price"],0,"","");
+    }
+    // $nth_row += 1 + (int)((count($corp_data)+count($livestock_data))/12)*11;
+    $total_data_count = count($corp_data)+count($livestock_data);
+    // $nth_row += 1 + (int)$total_data_count/(12*ceil($total_data_count/12))*11;
+    
+    // $nth_row += 1 + (int)((count($corp_data)+count($livestock_data))/(12*$pages))*11;
+
+    // $nth_row += 1 + (int)($total_data_count/(12*ceil($total_data_count/12)))*11;
+    if(!in_array($nth_row, $page_end_row)){
+        $nth_row += 1;
+    }
+    else{
+        $nth_row += 11;
+    }
+    $objPHPExcel->getActiveSheet()->mergeCells('A'.$nth_row.':'.'M'.$nth_row);
+    $objPHPExcel->setActiveSheetIndex(0)
+                ->setCellValue( 'A'.$nth_row, '合    計')
+                ->setCellValue( 'N'.$nth_row, number_format($total_livestock_price, 0, ".", ","));
+}
 $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue( 'J'.(21+($pages-1)*24), $actual_use_area)
-            ->setCellValue( 'N'.(21+($pages-1)*24), $total_price);
+            ->setCellValue( 'N'.(21+($pages-1)*24), $total_price+$total_livestock_price);
 
 exportCorpHoldRatioExcel($script_number,$corp_owner_data,$corp_land_owner_data,$corp_land_data,
 $corp_data,$creator,$land_section,$land_number,$total_land_area,$actual_use_area,$total_price,$survey_date_split,$district,$pages,$objPHPExcel);

@@ -123,8 +123,16 @@ $corp_data,$creator,$land_section,$land_number,$total_land_area,$actual_use_area
             $pay_to_owner[$i] += 1;
             $surplus -= 1;
         }
+        else if($surplus < 0){
+            $pay_to_owner[count($corp_owner_data)-1-$i] -= 1;
+            $surplus += 1;
+        }
+
+        if($corp_owner_data[$i]["hold_status"] == "公同共有"){
+            $corp_owner_data[$i]["hold_status"] = $corp_owner_data[$i]["hold_status"]." ";
+        }
         $objPHPExcel->setActiveSheetIndex(0)
-                    ->setCellValue( 'R'.(32+($pages-1)*24+$i*2), number_format($pay_to_owner[$i],0,".",","));
+                    ->setCellValue( 'R'.(32+($pages-1)*24+$i*2), $corp_owner_data[$i]["hold_status"].number_format($pay_to_owner[$i],0,".",","));
     }
     $objPHPExcel->setActiveSheetIndex(0)
                 ->setCellValue( 'A'.(59+($pages-1)*24), "調查日期： ".($survey_date_split[0]-1911)." 年 ".$survey_date_split[1]." 月 ".$survey_date_split[2]." 日")

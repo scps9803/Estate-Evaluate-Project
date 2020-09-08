@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2020-07-23 16:19:54
+/* Smarty version 3.1.33, created on 2020-09-07 14:46:09
   from 'C:\xampp\htdocs\Estate-Evaluate-Project\templates\corp.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5f199c8ac50e37_79670247',
+  'unifunc' => 'content_5f562b918c2598_22226903',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b853368e2354e894b130c61f2cffc65dfdcf584c' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Estate-Evaluate-Project\\templates\\corp.html',
-      1 => 1595513991,
+      1 => 1599482762,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5f199c8ac50e37_79670247 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5f562b918c2598_22226903 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -194,7 +194,7 @@ function content_5f199c8ac50e37_79670247 (Smarty_Internal_Template $_smarty_tpl)
                                 </div>
                             </div>
                             <div>
-                                <input type="checkbox" id="shared" name="shared" value="">列為公同共有
+                                <input type="checkbox" id="shared" name="shared" value="" onclick="shareRatio()">列為公同共有
                             </div>
                         </td>
 

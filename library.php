@@ -2784,7 +2784,23 @@ function getCorpLandData2($script_number){
 function getCorpData($script_number){
     $conn = connect_db();
 
-    $sql = "SELECT * from corp_record NATURAL JOIN land_belong_to_corp_record NATURAL JOIN planting NATURAL JOIN corp WHERE rId='{$script_number}' AND checkId='{$script_number}' ORDER BY keyin_order";
+    $sql = "SELECT * from corp_record NATURAL JOIN land_belong_to_corp_record NATURAL JOIN planting NATURAL JOIN corp WHERE rId='{$script_number}' AND checkId='{$script_number}' AND category!='畜產' ORDER BY keyin_order";
+    $res = $conn->query($sql);
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $corp[$i] = $row;
+        $i++;
+    }
+    $conn->close();
+
+    return $corp;
+}
+
+function getLivestockData($script_number){
+    $conn = connect_db();
+
+    $sql = "SELECT * from corp_record NATURAL JOIN land_belong_to_corp_record NATURAL JOIN planting NATURAL JOIN corp WHERE rId='{$script_number}' AND checkId='{$script_number}' AND category='畜產' ORDER BY keyin_order";
     $res = $conn->query($sql);
 
     $i = 0;
