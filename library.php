@@ -1946,6 +1946,7 @@ function insertFenceData($house_address,$sub_building){
             $j++;
             $row = $res->fetch_assoc();
             $sId[$index][$j] = $row["sId"];
+            $side[$index][$j] = "single";
         } 
 
         $sql = "SELECT sId FROM sub_building WHERE application='粉刷' AND item_name='{$sub_building[$i]["fence_double_paint"]}'";
@@ -1954,6 +1955,7 @@ function insertFenceData($house_address,$sub_building){
             $j++;
             $row = $res->fetch_assoc();
             $sId[$index][$j] = $row["sId"];
+            $side[$index][$j] = "double";
         } 
 
         $sql = "SELECT sId FROM sub_building WHERE application='加強柱' AND item_name='{$sub_building[$i]["fence_pillar"]}'";
@@ -1967,7 +1969,7 @@ function insertFenceData($house_address,$sub_building){
 
     for($i=0;$i<count($sId);$i++){
         for($j=0;$j<count($sId[$i]);$j++){
-            $sql = "INSERT INTO fence VALUES('{$house_address}','{$fenceId[$i]}','{$sId[$i][$j]}','{$keyin_order[$i]}')";
+            $sql = "INSERT INTO fence VALUES('{$house_address}','{$fenceId[$i]}','{$sId[$i][$j]}','{$side[$i][$j]}','{$keyin_order[$i]}')";
             if ($conn->query($sql) === TRUE){
                 // echo "New record created successfully";
             }else{
@@ -3123,6 +3125,10 @@ function getFenceOption($type){
 }
 
 function getFenceItemName($data){
+    $fence = $data["item_name"];
+    $paint = "";
+    $pillar = "";
+    $paints = [];
     $conn = connect_db();
     $item_name = "圍牆：(".$data["item_name"].")";
 
@@ -3142,8 +3148,28 @@ function getFenceItemName($data){
         $sql = "SELECT * FROM sub_building WHERE sId='{$ssId[$i]}'";
         $res = $conn->query($sql);
         $row = $res->fetch_assoc();
-        $item_name = $item_name."+(".$row["item_name"].")";
+
+        if($row["application"] == "粉刷"){
+            $length = count($paints);
+            $paints[$length] = $row["item_name"];
+            $length++;
+        }
+        else if($row["application"] == "加強柱"){
+            $pillar = $row["item_name"];
+        }
     }
+    if(count($paints) > 1){
+        if($paints[0] == $paints[1]){
+            $paint = $paints[0]."雙面";
+        }
+        else{
+            $paint = $paints[0]."+".$paints[1];
+        }
+    }
+    else{
+        $paint = $paints[0];
+    }
+    $item_name = "圍牆：(".$fence.")+(".$paint.")+(".$pillar.")";
     $conn->close();
     return $item_name;
 }
@@ -3174,6 +3200,56 @@ function getFencePrice($data){
     return $unitprice;
 }
 
+function getFencePriceCalculateText($data){
+    $conn = connect_db();
+    $paints = [];
+    $paints_price = [];
+    $fence_price = "(".$data["unitprice"].")";
+    $total = $data["unitprice"];
+
+    $sql = "SELECT * from fence WHERE address='{$data["address"]}' AND sId='{$data["sId"]}'";
+    $res = $conn->query($sql);
+    if($res->num_rows==0){
+        return $item_name;
+    }
+
+    $i = 0;
+    while($row = $res->fetch_assoc()) {
+        $ssId[$i] = $row["ssId"];
+        $i++;
+    }
+
+    for($i=0;$i<count($ssId);$i++){
+        $sql = "SELECT * FROM sub_building WHERE sId='{$ssId[$i]}'";
+        $res = $conn->query($sql);
+        $row = $res->fetch_assoc();
+
+        if($row["application"] == "粉刷"){
+            $length = count($paints);
+            $paints[$length] = $row["item_name"];
+            $paints_price[$length] = $row["unitprice"];
+            $length++;
+        }
+        else if($row["application"] == "加強柱"){
+            $pillar_price = "(".$row["unitprice"].")";
+        }
+        $total += $row["unitprice"];
+    }
+    if(count($paints) > 1){
+        if($paints[0] == $paints[1]){
+            $paint_price = "(".$paints_price[0]."*2)";
+        }
+        else{
+            $paint_price = "(".$paints_price[0]."+".$paints_price[1].")";
+        }
+    }
+    else{
+        $paint_price = "(".$paints_price[0].")";
+    }
+    $conn->close();
+    return $fence_price."+".$paint_price."+".$pillar_price."=".number_format($total, 0, ".", ",")."元\n   ";
+}
+
 function getFenceData($address,$sId){
     $conn = connect_db();
 
@@ -3192,6 +3268,7 @@ function getFenceData($address,$sId){
         while($row2 = $res2->fetch_assoc()){
             $result["fence_application"][$i][$j] = $row2["application"];
             $result["fence_item"][$i][$j] = $row2["item_name"];
+            $result["side"][$i][$j] = $row["side"];
             $j++;
         }
         $i++;

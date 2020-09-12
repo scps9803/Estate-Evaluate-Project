@@ -470,7 +470,7 @@ function addInfoItemOnclick(id){
             $(itemId).append(text);
             loadOwnerData("owner",owner_count);
             getOwnerCount();
-            checkRatioInput('hold-numerator-'+owner_count);
+            // checkRatioInput('hold-numerator-'+owner_count);
             break;
 
         case 'land-owner':
@@ -2343,21 +2343,54 @@ function getLandOwnerOption(num){
 function checkRatioInput(id){
     var item = "#"+id;
     var total_ratio = 0;
+    var column = id.substr(id.length-3,1);
     var num = id.substr(id.length-1,1);
+    var input_field = "";
     if($(item).val() == "0"){
         window.alert("分子或分母不能為0!");
         $(item).val("");
     }
 
-    if($("#hold-numerator-"+num).val() != "" && $("#hold-denominator-"+num).val() != ""){
-        for(var i=1;i<=owner_count;i++){
-            var ratio = $("#hold-numerator-"+i).val() / $("#hold-denominator-"+i).val();
-            total_ratio += ratio;
-        }
+    if(id.includes("numerator")){
+        input_field = id.split("numerator");
     }
-    if(!$("#shared")[0].checked){
-        if(total_ratio>1){
-            window.alert("所有權人輸入比例大於1! 請注意!\n若為公同共有請先勾選下方選項!");
+    else if(id.includes("denominator")){
+        input_field = id.split("denominator");
+    }
+
+    for(let i=1;;i++){
+        let numerator = "";
+        let denominator = "";
+        let alert_text = "";
+        let is_alert = true;
+
+        if(input_field[0] == "hold-"){
+            numerator = $("#" + input_field[0] + "numerator-" + i).val();
+            denominator = $("#" + input_field[0] + "denominator-" + i).val();
+            alert_text = "所有權人輸入比例大於1! 請注意!\n若為公同共有請先勾選下方選項!";
+            if($("#shared")[0].checked){
+                is_alert = false;
+            }
+        }
+        else{
+            numerator = $("#" + input_field[0] + "numerator-" + column + "-" + i).val();
+            denominator = $("#" + input_field[0] + "denominator-" + column + "-" + i).val();
+            alert_text = "輸入比例大於1! 請注意是否正確!";
+        }
+
+        if(numerator != null){
+            if(numerator != "" && denominator != ""){
+                let ratio = numerator / denominator;
+                total_ratio += ratio;
+                console.log(total_ratio);
+                if(total_ratio > 1 && is_alert == true){
+                    window.alert(alert_text);
+                    break;
+                }
+            }
+        }
+        else{
+            break;
         }
     }
 }
@@ -4029,11 +4062,11 @@ function getFenceData(num,address,sId){
 
             for(var i=0;i<data.fence_application.length;i++){
                 if(data.fence_application[i] == "粉刷"){
-                    if($("#fence-paint-"+num).val() == ""){
+                    if(data.side[i] == "single"){
                         console.log("設定單面粉刷 "+num);
                         $("#fence-paint-"+num).val(data.fence_item[i]);
                     }
-                    else{
+                    else if(data.side[i] == "double"){
                         console.log("設定雙面粉刷 "+num);
                         $("#fence-double-paint-"+num).val(data.fence_item[i]);
                     }

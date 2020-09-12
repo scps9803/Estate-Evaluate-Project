@@ -254,7 +254,7 @@ for($i=0;$i<$pages;$i++){
                 ->setCellValue( 'L'.(7+$i*33), $land_number)
                 // ->setCellValue( 'X7', $land_data[0]['area']);
                 ->setCellValue( 'Y'.(7+$i*33), $total_land_area)
-                ->setCellValue( 'C'.(33+$i*33), ($survey_date_split[0]-1911)."年".$survey_date_split[1]."月".$survey_date_split[2]."日");
+                ->setCellValue( 'C'.(33+$i*33), "民國".($survey_date_split[0]-1911)."年".$survey_date_split[1]."月".$survey_date_split[2]."日");
 }
 
 $total_people = 0;
@@ -429,8 +429,12 @@ $total_index = 31;
 for($i=0;$i<count($sub_building_data);$i++){
     if($sub_building_data[$i]["application"] == "圍牆"){
         $sub_building_data[$i]["application"] = "";
+        $sub_building_data[$i]["price_calculate_text"] = getFencePriceCalculateText($sub_building_data[$i]);
         $sub_building_data[$i]["item_name"] = getFenceItemName($sub_building_data[$i]);
         $sub_building_data[$i]["unitprice"] = getFencePrice($sub_building_data[$i]);
+    }
+    else{
+        $sub_building_data[$i]["price_calculate_text"] = "";
     }
 
     if($sub_building_data[$i]["note"] != "合法" && $sub_building_data[$i]["note"] != "非法"){
@@ -516,8 +520,12 @@ $out_page_fee_index = 30;
 for($i=0;$i<count($outdoor_sub_building_data);$i++){
     if($outdoor_sub_building_data[$i]["application"] == "圍牆"){
         $outdoor_sub_building_data[$i]["application"] = "";
+        $outdoor_sub_building_data[$i]["price_calculate_text"] = getFencePriceCalculateText($outdoor_sub_building_data[$i]);
         $outdoor_sub_building_data[$i]["item_name"] = getFenceItemName($outdoor_sub_building_data[$i]);
         $outdoor_sub_building_data[$i]["unitprice"] = getFencePrice($outdoor_sub_building_data[$i]);
+    }
+    else{
+        $outdoor_sub_building_data[$i]["price_calculate_text"] = "";
     }
 
     if($outdoor_sub_building_data[$i]["note"] != "合法" && $outdoor_sub_building_data[$i]["note"] != "非法"){
@@ -839,7 +847,7 @@ for($i=0;$i<count($main_decoration_data);$i++){
                     ->setCellValue( 'D'.(76+($pages-1)*33+(int)($i/6)*28), $main_decoration_data[$i]["use_type"])
                     ->setCellValue( 'D'.(77+($pages-1)*33+(int)($i/6)*28), $main_decoration_data[$i]["nth_floor"]."/".$main_decoration_data[$i]["total_floor"])
                     ->setCellValue( 'D'.(78+($pages-1)*33+(int)($i/6)*28), number_format($main_decoration_data[$i]["floor_area"],2,".",","))
-                    ->setCellValue( 'D'.(79+($pages-1)*33+(int)($i/6)*28), $main_decoration_data[$i]["structure"])
+                    ->setCellValue( 'D'.(79+($pages-1)*33+(int)($i/6)*28), $main_decoration_data[$i]["structure"].$add_minus_wall_text[$i])
                     ->setCellValue( 'D'.(80+($pages-1)*33+(int)($i/6)*28), $main_decoration_data[$i]["floor_type"])
                     ->setCellValue( 'D'.(81+($pages-1)*33+(int)($i/6)*28), $main_decoration_data[$i]["building_type"])
                     ->setCellValue( 'D'.(83+($pages-1)*33+(int)($i/6)*28), $indoor_divide_text)
@@ -1151,7 +1159,7 @@ $objPHPExcel->setActiveSheetIndex(0)
 for($i=0;$i<$floor_count;$i++){
     $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue( 'AJ'.(73+($pages-1)*33+$i*28), str_replace("-", "", $script_number))
-    ->setCellValue( 'C'.(98+($pages-1)*33+$i*28), str_replace("-", "", ($survey_date_split[0]-1911)."年".$survey_date_split[1]."月".$survey_date_split[2]."日"));
+    ->setCellValue( 'C'.(98+($pages-1)*33+$i*28), str_replace("-", "", "民國".($survey_date_split[0]-1911)."年".$survey_date_split[1]."月".$survey_date_split[2]."日"));
 }
 
 // 雜項物計算式
@@ -1161,7 +1169,7 @@ $lineCount = 1;
 $subText[(int)($lineCount/37)]  = $subText[(int)($lineCount/37)]."◆主要結構部份\n";
 $lineCount++;
 for($i=0;$i<count($main_building_data);$i++){
-    $subText[(int)($lineCount/37)] = $subText[(int)($lineCount/37)].($i+1).". ".$main_building_data[$i]["structure"]." ".$main_building_data[$i]["nth_floor"]."/".$main_building_data[$i]["total_floor"]."樓\n   面積 : ".$main_building_data[$i]["floor_area_calculate_text"]."=".number_format($main_building_data[$i]["floor_area"],2,".",",")."㎡\n";
+    $subText[(int)($lineCount/37)] = $subText[(int)($lineCount/37)].($i+1).". ".$main_building_data[$i]["structure"].$add_minus_wall_text[$i]." ".$main_building_data[$i]["nth_floor"]."/".$main_building_data[$i]["total_floor"]."樓\n   面積 : ".$main_building_data[$i]["floor_area_calculate_text"]."=".number_format($main_building_data[$i]["floor_area"],2,".",",")."㎡\n";
     $lineCount += 2;
 }
 $subText[(int)($lineCount/37)] = $subText[(int)($lineCount/37)]."◆雜項工作物部份(室內)\n";
@@ -1171,7 +1179,7 @@ for($i=0;$i<count($sub_building_data);$i++){
     if($sub_building_data[$i]["application"] == "畜舍"){
         $supplement = "畜舍";
     }
-    $subText[(int)($lineCount/37)] = $subText[(int)($lineCount/37)].($i+1).". ".$sub_building_data[$i]["item_name"].$supplement." : ".number_format($sub_building_data[$i]["unitprice"],0,".",",")."元/".$sub_building_data[$i]["unit"]."\n   ";
+    $subText[(int)($lineCount/37)] = $subText[(int)($lineCount/37)].($i+1).". ".$sub_building_data[$i]["item_name"].$supplement." : ".number_format($sub_building_data[$i]["unitprice"],0,".",",")."元/".$sub_building_data[$i]["unit"]."\n   ".$sub_building_data[$i]["price_calculate_text"];
     $lineCount++;
     if($sub_building_data[$i]["unit"]!="㎡" && $sub_building_data[$i]["unit"]!="m³"){
         $text = "數量 : ";
@@ -1181,10 +1189,10 @@ for($i=0;$i<count($sub_building_data);$i++){
     }
 
     if($sub_building_data[$i]["note"] == "合法"){
-        $subText[(int)($lineCount/37)] = $subText[(int)($lineCount/37)].$text.$sub_building_data[$i]["area_calculate_text"]."=".number_format($sub_building_data[$i]["area"],2,".",",").$sub_building_data[$i]["unit"]."\n   ".number_format($sub_building_data[$i]["area"],2,".",",")."*".number_format($sub_building_data[$i]["unitprice"],0,".",",")."=".number_format($sub_building_data[$i]["area"]*$sub_building_data[$i]["unitprice"],0,".",",")."元\n";
+        $subText[(int)($lineCount/37)] = $subText[(int)($lineCount/37)].$text.$sub_building_data[$i]["area_calculate_text"]."=".number_format($sub_building_data[$i]["area"],2,".",",").$sub_building_data[$i]["unit"]."\n   ".number_format($sub_building_data[$i]["area"],2,".",",")."*".number_format($sub_building_data[$i]["unitprice"],0,".",",")."=".number_format(round($sub_building_data[$i]["area"], 2)*$sub_building_data[$i]["unitprice"],0,".",",")."元\n";
     }
     else{
-        $subText[(int)($lineCount/37)] = $subText[(int)($lineCount/37)].$text.$sub_building_data[$i]["area_calculate_text"]."=".number_format($sub_building_data[$i]["area"],2,".",",").$sub_building_data[$i]["unit"]."\n   ".number_format($sub_building_data[$i]["area"],2,".",",")."*".number_format($sub_building_data[$i]["unitprice"],0,".",",")."*60%=".number_format($sub_building_data[$i]["area"]*$sub_building_data[$i]["unitprice"]*0.6,0,".",",")."元\n";
+        $subText[(int)($lineCount/37)] = $subText[(int)($lineCount/37)].$text.$sub_building_data[$i]["area_calculate_text"]."=".number_format($sub_building_data[$i]["area"],2,".",",").$sub_building_data[$i]["unit"]."\n   ".number_format($sub_building_data[$i]["area"],2,".",",")."*".number_format($sub_building_data[$i]["unitprice"],0,".",",")."*60%=".number_format(round($sub_building_data[$i]["area"], 2)*$sub_building_data[$i]["unitprice"]*0.6,0,".",",")."元\n";
     }
     $lineCount += 2;
 }
@@ -1195,7 +1203,7 @@ for($i=0;$i<count($outdoor_sub_building_data);$i++){
     if($outdoor_sub_building_data[$i]["application"] == "畜舍"){
         $supplement = "畜舍";
     }
-    $subText[(int)($lineCount/37)] = $subText[(int)($lineCount/37)].($i+1).". ".$outdoor_sub_building_data[$i]["item_name"].$supplement." : ".number_format($outdoor_sub_building_data[$i]["unitprice"],0,".",",")."元/".$outdoor_sub_building_data[$i]["unit"]."\n   ";
+    $subText[(int)($lineCount/37)] = $subText[(int)($lineCount/37)].($i+1).". ".$outdoor_sub_building_data[$i]["item_name"].$supplement." : ".number_format($outdoor_sub_building_data[$i]["unitprice"],0,".",",")."元/".$outdoor_sub_building_data[$i]["unit"]."\n   ".$outdoor_sub_building_data[$i]["price_calculate_text"];
     $lineCount++;
     if($outdoor_sub_building_data[$i]["unit"]!="㎡" && $outdoor_sub_building_data[$i]["unit"]!="m³"){
         $text = "數量 : ";
@@ -1205,10 +1213,10 @@ for($i=0;$i<count($outdoor_sub_building_data);$i++){
     }
 
     if($outdoor_sub_building_data[$i]["note"] == "合法"){
-        $subText[(int)($lineCount/37)] = $subText[(int)($lineCount/37)].$text.$outdoor_sub_building_data[$i]["area_calculate_text"]."=".number_format($outdoor_sub_building_data[$i]["area"],2,".",",").$outdoor_sub_building_data[$i]["unit"]."\n   ".number_format($outdoor_sub_building_data[$i]["area"],2,".",",")."*".number_format($outdoor_sub_building_data[$i]["unitprice"],0,".",",")."=".number_format($outdoor_sub_building_data[$i]["area"]*$outdoor_sub_building_data[$i]["unitprice"],0,".",",")."元\n";
+        $subText[(int)($lineCount/37)] = $subText[(int)($lineCount/37)].$text.$outdoor_sub_building_data[$i]["area_calculate_text"]."=".number_format($outdoor_sub_building_data[$i]["area"],2,".",",").$outdoor_sub_building_data[$i]["unit"]."\n   ".number_format($outdoor_sub_building_data[$i]["area"],2,".",",")."*".number_format($outdoor_sub_building_data[$i]["unitprice"],0,".",",")."=".number_format(round($outdoor_sub_building_data[$i]["area"], 2)*$outdoor_sub_building_data[$i]["unitprice"],0,".",",")."元\n";
     }
     else{
-        $subText[(int)($lineCount/37)] = $subText[(int)($lineCount/37)].$text.$outdoor_sub_building_data[$i]["area_calculate_text"]."=".number_format($outdoor_sub_building_data[$i]["area"],2,".",",").$outdoor_sub_building_data[$i]["unit"]."\n   ".number_format($outdoor_sub_building_data[$i]["area"],2,".",",")."*".number_format($outdoor_sub_building_data[$i]["unitprice"],0,".",",")."*60%=".number_format($outdoor_sub_building_data[$i]["area"]*$outdoor_sub_building_data[$i]["unitprice"]*0.6,0,".",",")."元\n";
+        $subText[(int)($lineCount/37)] = $subText[(int)($lineCount/37)].$text.$outdoor_sub_building_data[$i]["area_calculate_text"]."=".number_format($outdoor_sub_building_data[$i]["area"],2,".",",").$outdoor_sub_building_data[$i]["unit"]."\n   ".number_format($outdoor_sub_building_data[$i]["area"],2,".",",")."*".number_format($outdoor_sub_building_data[$i]["unitprice"],0,".",",")."*60%=".number_format(round($outdoor_sub_building_data[$i]["area"], 2)*$outdoor_sub_building_data[$i]["unitprice"]*0.6, 0, ".", ",")."元\n";
     }
     $lineCount += 2;
 }

@@ -3,7 +3,10 @@ function exportBuildingHoldRatioExcel($script_number,$land_owner_data,$building_
     $saveType = explode("-",$script_number);
     $owner_data = getOwnerData($building_data[0]["address"]);
     // $holdRatioMod = $total_pay % count($owner_data);
-    $remainder = $total_pay;
+    // $remainder = $total_pay;
+    $bonus_list = [];
+    $pay_to_owner = [];
+    $surplus = $total_pay;
     echo "<br> KEEE: ".gettype($remainder);
 
     // 地段、地號
@@ -43,7 +46,8 @@ function exportBuildingHoldRatioExcel($script_number,$land_owner_data,$building_
     }
     if($saveType[0] == "建合"){
         $legal_text = "有合法證明文件";
-        $document_text = "詳合法房屋證明等相關文件影本";
+        // $document_text = "詳合法房屋證明等相關文件影本";
+        $document_text = $building_data[0]["legal_certificate"];
         $title = "桃園市觀音區廣福(第五單元)自辦市地重劃地上物查估作業建築改良物持分表(合法建物)";
     }
     else{
@@ -127,22 +131,49 @@ function exportBuildingHoldRatioExcel($script_number,$land_owner_data,$building_
         //     $objPHPExcel->setActiveSheetIndex(0)
         //             ->setCellValue( 'AG'.(69+$i*2), number_format(floor($total_pay*$owner_data[$i]["own_ratio"]),0,".",","));
         // }
-        $own_ratio = $owner_data[$i]["hold_numerator"] / $owner_data[$i]["hold_denominator"];
-        $objPHPExcel->setActiveSheetIndex(0)
-                    ->setCellValue( 'AG'.(42+($pages-1)*33+$i*2), number_format(floor($total_pay*$own_ratio),0,".",","));
-        // $remainder = $remainder - number_format(floor($total_pay*$owner_data[$i]["own_ratio"]),0,".",",");
-        $remainder = $remainder - floor($total_pay*$own_ratio);
+        $hold_ratio = $owner_data[$i]["hold_numerator"] / $owner_data[$i]["hold_denominator"];
+        $original_pay = $total_pay*$hold_ratio;
+        $round_pay = round($total_pay*$hold_ratio);
+        $pay_to_owner[$i] = $round_pay;
+        $surplus -= $round_pay;
+        if($round_pay <= $original_pay){
+            $bonus_list[$i] = true;
+        }
+        else{
+            $bonus_list[$i] = false;
+        }
+        // $own_ratio = $owner_data[$i]["hold_numerator"] / $owner_data[$i]["hold_denominator"];
+        // $objPHPExcel->setActiveSheetIndex(0)
+        //             ->setCellValue( 'AG'.(42+($pages-1)*33+$i*2), number_format(floor($total_pay*$own_ratio),0,".",","));
+        // // $remainder = $remainder - number_format(floor($total_pay*$owner_data[$i]["own_ratio"]),0,".",",");
+        // $remainder = $remainder - floor($total_pay*$own_ratio);
     }
     echo "餘額: ".$remainder."<br>";
+    // for($i=0;$i<count($owner_data);$i++){
+    //     if($remainder>0){
+    //         $objPHPExcel->setActiveSheetIndex(0)
+    //             ->setCellValue( 'AG'.(42+($pages-1)*33+$i*2), number_format(floor($total_pay*$own_ratio)+1,0,".",","));
+    //         $remainder--;
+    //     }
+    // }
     for($i=0;$i<count($owner_data);$i++){
-        if($remainder>0){
-            $objPHPExcel->setActiveSheetIndex(0)
-                ->setCellValue( 'AG'.(42+($pages-1)*33+$i*2), number_format(floor($total_pay*$own_ratio)+1,0,".",","));
-            $remainder--;
+        if($surplus > 0 && $bonus_list[$i] == true){
+            $pay_to_owner[$i] += 1;
+            $surplus -= 1;
         }
+        else if($surplus < 0){
+            $pay_to_owner[count($owner_data)-1-$i] -= 1;
+            $surplus += 1;
+        }
+
+        if($owner_data[$i]["hold_status"] == "公同共有"){
+            $owner_data[$i]["hold_status"] = $owner_data[$i]["hold_status"]." ";
+        }
+        $objPHPExcel->setActiveSheetIndex(0)
+                    ->setCellValue( 'AG'.(42+($pages-1)*33+$i*2), $owner_data[$i]["hold_status"].number_format($pay_to_owner[$i],0,".",","));
     }
     $objPHPExcel->setActiveSheetIndex(0)
-                ->setCellValue( 'C'.(71+($pages-1)*33), ($survey_date_split[0]-1911)." 年 ".$survey_date_split[1]." 月 ".$survey_date_split[2]." 日");
+                ->setCellValue( 'C'.(71+($pages-1)*33), "民國".($survey_date_split[0]-1911)." 年 ".$survey_date_split[1]." 月 ".$survey_date_split[2]." 日");
 
     // $objActSheet = $objPHPExcel->getActiveSheet();
     // $objActSheet->setTitle(str_replace("-", "", $script_number));

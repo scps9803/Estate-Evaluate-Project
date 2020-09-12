@@ -355,7 +355,7 @@ switch ($category) {
         $result_option = getFenceData($address,$sId);
 
         echo json_encode(array('fence_application' => $result_option["fence_application"],
-        'fence_item' => $result_option["fence_item"]));
+        'fence_item' => $result_option["fence_item"], 'side' => $result_option["side"]));
         return;
     
     case 'get_auto_remove':
