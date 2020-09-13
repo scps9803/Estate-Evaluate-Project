@@ -26,16 +26,16 @@
                     <tr>
                         <td>
                             <div id="other-item" class="input-align-top">
-                                <div id="other-item-1">
-                                    <select style="width:150px;" id="other-item-category-1" name="other-item-category-1" onclick="getSubbuildingCategory(1);this.onclick=null;" onchange="getSubbuildingOption(1)" required>
+                                <div id="other-item-1" style="margin-top: 5px;">
+                                    <select style="width:150px;" id="other-item-category-1" name="other-item-category-1" onclick="getSubbuildingCategory(1);this.onclick=null;" onchange="getSubbuildingOption(1)" onfocus="subbuildingItemFocus(1)" onfocusout="subbuildingItemOutFocus(1)" required>
                                         <option value="" style="display:none;">請選擇種類</option>
                                     </select>
 
-                                    <select style="width:466px;" id="other-item-option-1" name="other-item-1" onchange="loadSubbuildingUnit(1)" required>
+                                    <select style="width:466px;" id="other-item-option-1" name="other-item-1" onchange="loadSubbuildingUnit(1)" onfocus="subbuildingItemFocus(1)" onfocusout="subbuildingItemOutFocus(1)" required>
                                         <option value="" style="display:none;">請選擇項目</option>
                                     </select>
 
-                                    <select style="width:150px;" id="other-item-type-1" name="other-item-type-1" required>
+                                    <select style="width:150px;" id="other-item-type-1" name="other-item-type-1" onfocus="subbuildingItemFocus(1)" onfocusout="subbuildingItemOutFocus(1)" required>
                                         <option value="" style="display:none;">請選擇室內外</option>
                                         <option value="室內">室內</option>
                                         <option value="室外">室外</option>
@@ -49,15 +49,15 @@
                         </td>
                         <td>
                             <div id="calArea">
-                                <div id="calArea-1">
-                                    <input type="text" name="calArea-1" class="larger-input-size" placeholder="請輸入面積計算式或數量" title="請輸入面積計算式或數量" required>
+                                <div id="calArea-1" style="margin-top: 5px; margin-bottom: 5px; height: 22px;">
+                                    <input type="text" name="calArea-1" class="larger-input-size" placeholder="請輸入面積計算式或數量" title="請輸入面積計算式或數量" style="margin: 0;" onfocus="subbuildingItemFocus(1)" onfocusout="subbuildingItemOutFocus(1)" required>
                                 </div>
                             </div>
                         </td>
                         <td>
                             <div id="unit">
                                 <div id="unit-1">
-                                    <select id="unit-option-1" name="unit-1">
+                                    <select id="unit-option-1" name="unit-1" onfocus="subbuildingItemFocus(1)" onfocusout="subbuildingItemOutFocus(1)">
                                         <option value="">請選擇單位</option>
                                     </select>
                                 </div>
@@ -65,7 +65,7 @@
                         </td>
                         <td>
                             <div id="auto-remove">
-                                <div id="auto-remove-1" style="height:22px;">
+                                <div id="auto-remove-1" style="margin-top: 5px; margin-bottom: 5px; height: 22px;">
                                     <input type="radio" id="auto-remove-yes-1" name="auto-remove-1" value="是">是<input type="radio" id="auto-remove-no-1" name="auto-remove-1" value="否" required>否
                                 </div>
                             </div>

@@ -108,3 +108,7 @@ select{
 .input-select-align-top{
     margin-top: 6px;
 }
+
+.add_minus_wall_count{
+    width: 50px;
+}

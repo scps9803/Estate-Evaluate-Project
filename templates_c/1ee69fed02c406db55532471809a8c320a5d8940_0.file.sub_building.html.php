@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-10-04 12:45:38
+/* Smarty version 3.1.33, created on 2020-09-14 00:18:53
   from 'C:\xampp\htdocs\Estate-Evaluate-Project\templates\sub_building.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d96ce7236a382_90765084',
+  'unifunc' => 'content_5f5e466d094a70_40271038',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '1ee69fed02c406db55532471809a8c320a5d8940' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Estate-Evaluate-Project\\templates\\sub_building.html',
-      1 => 1570164335,
+      1 => 1600013930,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d96ce7236a382_90765084 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5f5e466d094a70_40271038 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head>
@@ -53,16 +53,16 @@ function content_5d96ce7236a382_90765084 (Smarty_Internal_Template $_smarty_tpl)
                     <tr>
                         <td>
                             <div id="other-item" class="input-align-top">
-                                <div id="other-item-1">
-                                    <select style="width:150px;" id="other-item-category-1" name="other-item-category-1" onclick="getSubbuildingCategory(1);this.onclick=null;" onchange="getSubbuildingOption(1)" required>
+                                <div id="other-item-1" style="margin-top: 5px;">
+                                    <select style="width:150px;" id="other-item-category-1" name="other-item-category-1" onclick="getSubbuildingCategory(1);this.onclick=null;" onchange="getSubbuildingOption(1)" onfocus="subbuildingItemFocus(1)" onfocusout="subbuildingItemOutFocus(1)" required>
                                         <option value="" style="display:none;">請選擇種類</option>
                                     </select>
 
-                                    <select style="width:466px;" id="other-item-option-1" name="other-item-1" onchange="loadSubbuildingUnit(1)" required>
+                                    <select style="width:466px;" id="other-item-option-1" name="other-item-1" onchange="loadSubbuildingUnit(1)" onfocus="subbuildingItemFocus(1)" onfocusout="subbuildingItemOutFocus(1)" required>
                                         <option value="" style="display:none;">請選擇項目</option>
                                     </select>
 
-                                    <select style="width:150px;" id="other-item-type-1" name="other-item-type-1" required>
+                                    <select style="width:150px;" id="other-item-type-1" name="other-item-type-1" onfocus="subbuildingItemFocus(1)" onfocusout="subbuildingItemOutFocus(1)" required>
                                         <option value="" style="display:none;">請選擇室內外</option>
                                         <option value="室內">室內</option>
                                         <option value="室外">室外</option>
@@ -76,15 +76,15 @@ function content_5d96ce7236a382_90765084 (Smarty_Internal_Template $_smarty_tpl)
                         </td>
                         <td>
                             <div id="calArea">
-                                <div id="calArea-1">
-                                    <input type="text" name="calArea-1" class="larger-input-size" placeholder="請輸入面積計算式或數量" title="請輸入面積計算式或數量" required>
+                                <div id="calArea-1" style="margin-top: 5px; margin-bottom: 5px; height: 22px;">
+                                    <input type="text" name="calArea-1" class="larger-input-size" placeholder="請輸入面積計算式或數量" title="請輸入面積計算式或數量" style="margin: 0;" onfocus="subbuildingItemFocus(1)" onfocusout="subbuildingItemOutFocus(1)" required>
                                 </div>
                             </div>
                         </td>
                         <td>
                             <div id="unit">
                                 <div id="unit-1">
-                                    <select id="unit-option-1" name="unit-1">
+                                    <select id="unit-option-1" name="unit-1" onfocus="subbuildingItemFocus(1)" onfocusout="subbuildingItemOutFocus(1)">
                                         <option value="">請選擇單位</option>
                                     </select>
                                 </div>
@@ -92,7 +92,7 @@ function content_5d96ce7236a382_90765084 (Smarty_Internal_Template $_smarty_tpl)
                         </td>
                         <td>
                             <div id="auto-remove">
-                                <div id="auto-remove-1" style="height:22px;">
+                                <div id="auto-remove-1" style="margin-top: 5px; margin-bottom: 5px; height: 22px;">
                                     <input type="radio" id="auto-remove-yes-1" name="auto-remove-1" value="是">是<input type="radio" id="auto-remove-no-1" name="auto-remove-1" value="否" required>否
                                 </div>
                             </div>
