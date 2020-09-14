@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2020-09-13 14:33:50
+/* Smarty version 3.1.33, created on 2020-09-14 07:28:47
   from 'C:\xampp\htdocs\Estate-Evaluate-Project\templates\index.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5f5e11ae3289a5_36585278',
+  'unifunc' => 'content_5f5eff8f950941_76168759',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'a1a3457b1c6f624f5990b93242deeb7a87c64fb0' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Estate-Evaluate-Project\\templates\\index.html',
-      1 => 1600000429,
+      1 => 1600061325,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5f5e11ae3289a5_36585278 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5f5eff8f950941_76168759 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -447,7 +447,7 @@ function content_5f5e11ae3289a5_36585278 (Smarty_Internal_Template $_smarty_tpl)
                             <option value="" style="display:none;">請選擇層別</option>
                         </select>
                     </td>
-                    <td>(<input type="number" min="0" class="small-input-size" id="nth-floor-1" name="nth-floor-1">F/共<input type="number" min="0" class="small-input-size" id="total-floor-1" name="total-floor-1">F)</td>
+                    <td><input type="number" min="0" class="small-input-size" id="nth-floor-1" name="nth-floor-1">F/共<input type="number" min="0" class="small-input-size" id="total-floor-1" name="total-floor-1">F</td>
                     <td>
                         <select class="median-select-menu" id="building-material-2" name="building-material-2" onchange="load_floor_type_data(2)">
                             <option value="">請選擇構造</option>
@@ -458,7 +458,7 @@ function content_5f5e11ae3289a5_36585278 (Smarty_Internal_Template $_smarty_tpl)
                             <option value="" style="display:none;">請選擇層別</option>
                         </select>
                     </td>
-                    <td>(<input type="number" min="0" class="small-input-size" id="nth-floor-2" name="nth-floor-2">F/共<input type="number" min="0" class="small-input-size" id="total-floor-2" name="total-floor-2">F)</td>
+                    <td><input type="number" min="0" class="small-input-size" id="nth-floor-2" name="nth-floor-2">F/共<input type="number" min="0" class="small-input-size" id="total-floor-2" name="total-floor-2">F</td>
                     <td>
                         <select class="median-select-menu" id="building-material-3" name="building-material-3" onchange="load_floor_type_data(3)">
                             <option value="">請選擇構造</option>
@@ -469,7 +469,7 @@ function content_5f5e11ae3289a5_36585278 (Smarty_Internal_Template $_smarty_tpl)
                             <option value="" style="display:none;">請選擇層別</option>
                         </select>
                     </td>
-                    <td>(<input type="number" min="0" class="small-input-size" id="nth-floor-3" name="nth-floor-3">F/共<input type="number" min="0" class="small-input-size" id="total-floor-3" name="total-floor-3">F)</td>
+                    <td><input type="number" min="0" class="small-input-size" id="nth-floor-3" name="nth-floor-3">F/共<input type="number" min="0" class="small-input-size" id="total-floor-3" name="total-floor-3">F</td>
                     <td>
                         <select class="median-select-menu" id="building-material-4" name="building-material-4" onchange="load_floor_type_data(4)">
                             <option value="">請選擇構造</option>
@@ -480,7 +480,7 @@ function content_5f5e11ae3289a5_36585278 (Smarty_Internal_Template $_smarty_tpl)
                             <option value="" style="display:none;">請選擇層別</option>
                         </select>
                     </td>
-                    <td>(<input type="number" min="0" class="small-input-size" id="nth-floor-4" name="nth-floor-4">F/共<input type="number" min="0" class="small-input-size" id="total-floor-4" name="total-floor-4">F)</td>
+                    <td><input type="number" min="0" class="small-input-size" id="nth-floor-4" name="nth-floor-4">F/共<input type="number" min="0" class="small-input-size" id="total-floor-4" name="total-floor-4">F</td>
 
                 </tr>
 

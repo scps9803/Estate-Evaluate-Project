@@ -1273,6 +1273,12 @@ function load_floor_type_data(num,column){
         return;
     }
 
+    if($("#floor-id-"+num).val() == ""){
+        window.alert("請先填入編號!");
+        document.getElementById("building-material-"+num).selectedIndex = "0";
+        return;
+    }
+
     $.ajax({
          url: "get_building_decoration_option.php",
          type: "POST",
